@@ -1,11 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { View, StyleSheet, Dimensions, Button, Text, ScrollView, SafeAreaView } from 'react-native'
+import { View, StyleSheet, Dimensions, Button, Text, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
 
 
 import { WebView } from 'react-native-webview';
 
 const AlgorithmPage = () => {
     const [currentStep, setCurrentStep] = useState(0)
+    const [triggerUseEffect, setTriggerUseEffect] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const cubeAnimationWebView = useRef(null);
 
@@ -13,27 +14,26 @@ const AlgorithmPage = () => {
         cubeAnimationWebView.current && cubeAnimationWebView.current.injectJavaScript(jsCode);
     };
     //TODO add loading spinner when loading cube
-    const algStr = 'R2 U2 R2 F R L2 U2'
+    const algStr = 'R U R F R L R R U R F R L R'
+    // const algStr = 'R2 U2 R2 F R L2 U'
     const algArray = algStr.split(' ')
     const len = algArray.length
 
-
     useEffect(() => {
         if (isPlaying) {
+            if (currentStep === len - 1) setIsPlaying(false)
+            setCurrentStep((prevStep) => (prevStep + 1));
             setTimeout(() => {
-                if (currentStep === len - 1) setIsPlaying(false)
-                setCurrentStep((prevStep) => (prevStep + 1));
+                setTriggerUseEffect(!triggerUseEffect)
             }, algArray[currentStep].includes('2') ? 600 : 400)
         }
-    }, [isPlaying, currentStep])
+    }, [isPlaying, triggerUseEffect])
 
 
     const handleButtonClick = (elementSelector) => {
         executeJavaScript(`$("${elementSelector}").click();true`);
-
         switch (elementSelector) {
             case '#play-1':
-                
                 setIsPlaying(true);
                 break;
             case '#pause-1':
@@ -67,13 +67,13 @@ const AlgorithmPage = () => {
 
             <View>
                 <Text style={{ textAlign: 'center' }}>
-                    {/* {currentStep > 0 && algArray.slice(0, currentStep - 1).join(' ')} */}
-                    <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray.slice(0, currentStep).join(' ')}{currentStep > 0 ? ' ' : ''}</Text>
-                    {/* <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray[currentStep - 1]}{currentStep > 0 ? ' ' : ''}</Text> */}
+                    {currentStep > 0 && algArray.slice(0, currentStep - 1).join(' ')}
+                    {/* <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray.slice(0, currentStep).join(' ')}{currentStep > 0 ? ' ' : ''}</Text> */}
+                    <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray[currentStep - 1]}{currentStep > 0 ? ' ' : ''}</Text>
                     {algArray.slice(currentStep).join(' ')}
                 </Text>
-                <Text>{currentStep} / {len}</Text>
             </View>
+            <Text style={{ textAlign: 'center' }}>{currentStep} / {len}</Text>
 
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                 <Button disabled={currentStep === 0 || isPlaying} style={styles.controlBtn} title="Previous" onPress={() => handleButtonClick("#prev-1")} />
@@ -101,7 +101,7 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#eee',
+        // backgroundColor: '#eee',
         minHeight: width * 1.05,
         maxHeight: width * 1.05
     },
