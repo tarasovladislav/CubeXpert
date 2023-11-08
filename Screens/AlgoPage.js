@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import CubeAnimation from '../Components/CubeAnimation'
+import { SafeAreaView, StyleSheet, View } from 'react-native'
 import apiService from '../apiService'
+
+import CubeAnimation from '../Components/CubeAnimation'
 import TouchableButton from '../Components/TouchableButton'
 
 const AlgoPage = () => {
     const [currentAlg, setCurrentAlg] = useState()
     const [whichAlg, setWhichAlg] = useState(0)
     useEffect(() => {
-        apiService.getAlgo("F2L1").then(data => setCurrentAlg(data))
+        apiService.getAlgo("OLL1").then(data => setCurrentAlg(data))
     }, [])
 
     return (
@@ -18,7 +19,7 @@ const AlgoPage = () => {
 
                 <CubeAnimation category={currentAlg.category} alg={currentAlg.algo[whichAlg]} />
 
-                <View style={{ flexDirection: 'row' }}>
+                {currentAlg.algo.length > 1 && <View style={{ flexDirection: 'row' }}>
                     <TouchableButton
                         disabled={whichAlg === 0}
                         onPress={() => setWhichAlg(whichAlg - 1)}
@@ -28,7 +29,8 @@ const AlgoPage = () => {
                         onPress={() => setWhichAlg(whichAlg + 1)}
                         text='Next'
                     />
-                </View>
+                </View>}
+
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableButton
                         text='Add to Favorites'
@@ -36,10 +38,6 @@ const AlgoPage = () => {
                     // onPress={() => setWhichAlg(whichAlg + 1)}
                     />
                 </View>
-
-
-
-
             </SafeAreaView>}
         </>
     )

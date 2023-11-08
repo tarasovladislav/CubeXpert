@@ -1,11 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import AlgoPage from './Screens/AlgoPage';
+import Subset from './Components/Subset';
 export default function App() {
     return (
 
         <View style={styles.container}>
-            <AlgoPage />
+            <SafeAreaView>
+
+                <Subset category='F2L' subset='Free Pairs' />
+                {/* <AlgoPage /> */}
+            </SafeAreaView>
         </View>
 
     );

@@ -1,15 +1,35 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { View, StyleSheet, Dimensions, Text } from 'react-native'
-import TouchableButton from './TouchableButton'
+import { WebView } from 'react-native-webview';
+
 import IconAwesome from 'react-native-vector-icons/FontAwesome5';
 
-import { WebView } from 'react-native-webview';
+import TouchableButton from './TouchableButton'
 
 const CubeAnimation = ({ category, alg }) => {
     const [currentStep, setCurrentStep] = useState(0)
     const [triggerUseEffect, setTriggerUseEffect] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const cubeAnimationWebView = useRef(null);
+    let solved = "";
+    let setupmoves = "";
+
+    switch (category) {
+        case "F2L":
+            solved = "U-*"
+            break;
+        case "OLL":
+            solved = "U-"
+            break;
+        case "Patterns":
+            setupmoves = alg
+            break;
+        default:
+            break;
+    }
+
+
+
 
     const executeJavaScript = (jsCode) => {
         cubeAnimationWebView.current && cubeAnimationWebView.current.injectJavaScript(jsCode);
@@ -22,6 +42,7 @@ const CubeAnimation = ({ category, alg }) => {
     //When changing whichAlg, reset currentStep
     useEffect(() => {
         setCurrentStep(0)
+        setIsPlaying(false)
     }, [alg])
     useEffect(() => {
         if (isPlaying) {
@@ -29,7 +50,7 @@ const CubeAnimation = ({ category, alg }) => {
             setCurrentStep((prevStep) => (prevStep + 1));
             setTimeout(() => {
                 setTriggerUseEffect(!triggerUseEffect)
-            }, algArray[currentStep].includes('2') ? 600 : 400)
+            }, algArray[currentStep].includes('2') ? 600 : 400) //TODO change later to user setting about cube speed
         }
     }, [isPlaying, triggerUseEffect])
 
@@ -61,7 +82,7 @@ const CubeAnimation = ({ category, alg }) => {
         <>
             <View style={styles.container}>
                 <WebView
-                    source={{ uri: `https://cubium.vercel.app/?alg=${algStr}&hover=1` }}
+                    source={{ uri: `https://cubium.vercel.app/?alg=${algStr}&hover=1&solved=${solved}&setupmoves=${setupmoves}` }}
                     ref={cubeAnimationWebView}
                     scrollEnabled={false}
                     style={styles.webview}

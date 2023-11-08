@@ -6,7 +6,7 @@ async function getAlgo(picturePath) {
         console.log(error)
     }
 }
-async function getSubSetAlgorithms(cat, subset) {
+async function getSubsetAlgorithms(cat, subset) {
     try {
         const response = await fetch(`http://localhost:3100/algorithms/?category=${cat}&subset=${subset}`);
         return await response.json()
@@ -15,4 +15,4 @@ async function getSubSetAlgorithms(cat, subset) {
     }
 }
 
-module.exports = { getAlgo, getSubSetAlgorithms }
+module.exports = { getAlgo, getSubsetAlgorithms }
