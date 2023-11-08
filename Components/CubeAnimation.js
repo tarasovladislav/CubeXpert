@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { View, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Dimensions, Text } from 'react-native'
 import TouchableButton from './TouchableButton'
+import IconAwesome from 'react-native-vector-icons/FontAwesome5';
 
 import { WebView } from 'react-native-webview';
 
@@ -78,25 +79,25 @@ const CubeAnimation = ({ category, alg }) => {
                 <TouchableButton
                     disabled={currentStep === 0 || isPlaying}
                     onPress={() => handleButtonClick("#prev-1")}
-                    text='Previous' />
+                    text={<IconAwesome size={24} color="black" name="arrow-left" />} />
                 <TouchableButton
                     disabled={currentStep === len || isPlaying}
                     onPress={() => handleButtonClick("#next-1")}
-                    text='Next' />
+                    text={<IconAwesome size={24} color="blacl" name="arrow-right" />} />
                 {!isPlaying && <TouchableButton
                     disabled={currentStep === len}
                     onPress={() => handleButtonClick("#play-1")}
-                    text='Play' />}
+                    text={<IconAwesome size={24} color="black" name="play" />} />}
                 {isPlaying && <TouchableButton
                     onPress={() => handleButtonClick("#pause-1")}
-                    text='Pause' />}
+                    text={<IconAwesome size={24} color="black" name="pause" />} />}
                 <TouchableButton
                     disabled={currentStep == 0 || isPlaying}
                     onPress={() => handleButtonClick("#reset-1")}
-                    text='Reset' />
+                    text={<IconAwesome size={24} color="black" name="redo" />} />
                 <TouchableButton
                     onPress={() => executeJavaScript(`$("body").trigger("resetCamera"); true`)}
-                    text='Reset Cam' />
+                    text={<IconAwesome size={24} color="black" name="arrows-alt" />} />
             </View>
         </>
     );
@@ -113,8 +114,6 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
     }
 });
 

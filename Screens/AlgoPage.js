@@ -14,7 +14,10 @@ const AlgoPage = () => {
     return (
         <>
             {currentAlg && <SafeAreaView>
+
+
                 <CubeAnimation category={currentAlg.category} alg={currentAlg.algo[whichAlg]} />
+
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableButton
                         disabled={whichAlg === 0}
@@ -26,15 +29,17 @@ const AlgoPage = () => {
                         text='Next'
                     />
                 </View>
-
-                {/* <View>
+                <View style={{ flexDirection: 'row' }}>
                     <TouchableButton
-                        // disabled={whichAlg === currentAlg.algo.length - 1}
-                        // onPress={() => setWhichAlg(whichAlg + 1)}
-                        text='Add To Favorites'
+                        text='Add to Favorites'
+                    // disabled={whichAlg === currentAlg.algo.length - 1}
+                    // onPress={() => setWhichAlg(whichAlg + 1)}
                     />
                 </View>
-                <Text>dasdasdas</Text> */}
+
+
+
+
             </SafeAreaView>}
         </>
     )
