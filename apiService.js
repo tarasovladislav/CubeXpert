@@ -15,4 +15,13 @@ async function getSubsetAlgorithms(cat, subset) {
     }
 }
 
-module.exports = { getAlgo, getSubsetAlgorithms }
+async function getSubsetList(cat) {
+    try {
+        const response = await fetch(`http://localhost:3100/subsets/?category=${cat}`)
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = { getAlgo, getSubsetAlgorithms, getSubsetList }
