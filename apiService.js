@@ -1,6 +1,6 @@
 async function getAlgo(picturePath) {
     try {
-        const response = await fetch(`http://localhost:3100/algo/${picturePath}`);
+        const response = await fetch(`https://cubium-fe4h.vercel.app/algo/${picturePath}`);
         return await response.json()
     } catch (error) {
         console.log(error)
@@ -8,7 +8,7 @@ async function getAlgo(picturePath) {
 }
 async function getSubsetAlgorithms(cat, subset) {
     try {
-        const response = await fetch(`http://localhost:3100/algorithms/?category=${cat}&subset=${subset}`);
+        const response = await fetch(`https://cubium-fe4h.vercel.app/algorithms/?category=${cat}&subset=${subset}`);
         return await response.json()
     } catch (error) {
         console.log(error)
@@ -17,7 +17,7 @@ async function getSubsetAlgorithms(cat, subset) {
 
 async function getSubsetList(cat) {
     try {
-        const response = await fetch(`http://localhost:3100/subsets/?category=${cat}`)
+        const response = await fetch(`https://cubium-fe4h.vercel.app/subsets/?category=${cat}`)
         return await response.json()
     } catch (error) {
         console.log(error)

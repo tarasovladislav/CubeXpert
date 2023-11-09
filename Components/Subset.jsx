@@ -4,7 +4,7 @@ import apiService from '../apiService'
 import SubsetElement from './SubsetElement';
 
 
-const Subset = ({ category, subset }) => {
+const Subset = ({navigation, category, subset }) => {
     const [subsetAlgs, setSubsetAlgs] = useState([]);
 
     useEffect(() => {
@@ -14,12 +14,12 @@ const Subset = ({ category, subset }) => {
     return (
         <>
             {subsetAlgs && <View>
-                <Text style={{ textAlign: 'center', }}>{subset}</Text>
+                <Text style={styles.subsetTitle}>{subset}</Text>
                 <FlatList
                     data={subsetAlgs}
                     numColumns={2}
                     scrollEnabled={false}
-                    renderItem={({ item }) => <SubsetElement algo={item} />}
+                    renderItem={({ item }) => <SubsetElement navigation={navigation} algo={item} />}
                     keyExtractor={alg => alg._id}
                 />
             </View>}
@@ -28,7 +28,11 @@ const Subset = ({ category, subset }) => {
 }
 
 const styles = StyleSheet.create({
-
+    subsetTitle: {
+        textAlign: 'center',
+        fontSize:24,
+        margin:10,
+    }
 })
 
 export default Subset

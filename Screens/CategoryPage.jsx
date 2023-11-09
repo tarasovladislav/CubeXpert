@@ -5,17 +5,18 @@ import { ScrollView } from 'react-native';
 import Subset from '../Components/Subset';
 
 
-const CategoryPage = ({ category }) => {
+const CategoryPage = ({ route, navigation }) => {
+    const { category } = route.params
     const [subsetList, setSubsetList] = useState([]);
 
     useEffect(() => {
         apiService.getSubsetList(category).then(data => setSubsetList(data))
     }, [])
-    
+
     return (
         <>
             <ScrollView>
-                {subsetList.map(subset => <Subset key={subset} category={category} subset={subset} />)}
+                {subsetList && subsetList.map(subset => <Subset navigation={navigation} key={subset} category={category} subset={subset} />)}
             </ScrollView>
         </>
     )

@@ -4,25 +4,38 @@ import AlgoPage from './Screens/AlgoPage';
 import Subset from './Components/Subset';
 import { TouchableOpacity } from 'react-native-web';
 import CategoryPage from './Screens/CategoryPage';
+import CategoryChoisePage from './Screens/CategoryChoisePage';
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+const Stack = createNativeStackNavigator();
+
+
 export default function App() {
     return (
+        <NavigationContainer>
+            {/* <Stack.Navigator initialRouteName="Details"> */}
+            <Stack.Navigator
+                screenOptions={{
+                    headerStyle: {
+                        backgroundColor: '#f4511e',
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                    headerBackTitle: 'Back'
 
-        <View style={styles.container}>
-            <SafeAreaView>
-                <CategoryPage category='F2L'/>
-                {/* <Subset category='F2L' subset='Free Pairs' /> */}
-                {/* <AlgoPage /> */}
-            </SafeAreaView>
-        </View>
+                }}
+            >
+                <Stack.Screen name="Choose Category" component={CategoryChoisePage} options={{
+                    title: 'Advanced Algorithms'
+                }} />
+                <Stack.Screen name="Category" component={CategoryPage} options={({ route }) => ({ title: route.params.name })} />
+                {/* <CategoryPage category='F2L' /> */}
+                <Stack.Screen name="Algo" component={AlgoPage} />
 
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        // flex: 1,
-        // backgroundColor: '#fff',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-    },
-});

@@ -10,6 +10,8 @@ const CubeAnimation = ({ category, alg }) => {
     const [currentStep, setCurrentStep] = useState(0)
     const [triggerUseEffect, setTriggerUseEffect] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
+    const [allowControl, setAllowControl] = useState(true)
+
     const cubeAnimationWebView = useRef(null);
     const algStr = alg;
     const algArray = algStr.split(' ');
@@ -17,7 +19,7 @@ const CubeAnimation = ({ category, alg }) => {
     let solved = "";
     let setupmoves = "";
     let colored = "";
-    let speed = 1000;
+    let speed = 500;
 
 
     const executeJavaScript = (jsCode) => {
@@ -53,10 +55,12 @@ const CubeAnimation = ({ category, alg }) => {
     //For Play/Stop animation
     useEffect(() => {
         if (isPlaying) {
+            setAllowControl(false)
             if (currentStep === len - 1) setIsPlaying(false)
             setCurrentStep((prevStep) => (prevStep + 1));
             setTimeout(() => {
                 setTriggerUseEffect(!triggerUseEffect)
+                setAllowControl(true)
             }, algArray[currentStep].includes('2') ? speed * 1.5 : speed) //TODO change later to user setting about cube speed
         }
     }, [isPlaying, triggerUseEffect])
@@ -89,7 +93,7 @@ const CubeAnimation = ({ category, alg }) => {
         <>
             <View style={styles.container}>
                 <WebView
-                    source={{ uri: `https://cubium.vercel.app/?alg=${algStr}&hover=1&solved=${solved}&setupmoves=${setupmoves}&colored=${colored}&speed=${speed}` }}
+                    source={{ uri: `https://cubium-fe4h.vercel.app/animation?alg=${algStr}&hover=1&solved=${solved}&setupmoves=${setupmoves}&colored=${colored}&speed=${speed}` }}
                     ref={cubeAnimationWebView}
                     scrollEnabled={false}
                     style={styles.webview}
@@ -105,11 +109,11 @@ const CubeAnimation = ({ category, alg }) => {
 
             <View style={styles.buttonContainer}>
                 <TouchableButton
-                    disabled={currentStep === 0 || isPlaying}
+                    disabled={currentStep === 0 || isPlaying || !allowControl}
                     onPress={() => handleButtonClick("#prev-1")}
                     text={<IconAwesome size={24} color="black" name="arrow-left" />} />
                 <TouchableButton
-                    disabled={currentStep === len || isPlaying}
+                    disabled={currentStep === len || isPlaying || !allowControl}
                     onPress={() => handleButtonClick("#next-1")}
                     text={<IconAwesome size={24} color="black" name="arrow-right" />} />
                 {!isPlaying && <TouchableButton
@@ -120,7 +124,7 @@ const CubeAnimation = ({ category, alg }) => {
                     onPress={() => handleButtonClick("#pause-1")}
                     text={<IconAwesome size={24} color="black" name="pause" />} />}
                 <TouchableButton
-                    disabled={currentStep == 0 || isPlaying}
+                    disabled={currentStep == 0 || isPlaying || !allowControl}
                     onPress={() => handleButtonClick("#reset-1")}
                     text={<IconAwesome size={24} color="black" name="redo" />} />
                 <TouchableButton

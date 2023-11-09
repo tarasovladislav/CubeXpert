@@ -1,12 +1,17 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
 
-const SubsetElement = ({ algo }) => {
+const SubsetElement = ({ navigation, algo }) => {
     return (
-        <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <TouchableOpacity
+            style={styles.listElement}
+            onPress={() => navigation.navigate('Algo', {
+                algorithm: algo.picturePath //change to _id later
+            })}
+        >
             <Image
                 style={styles.cubeImage}
-                source={{ uri: `http://localhost:3100/img/${algo.picturePath}.png` }}
+                source={{ uri: `https://cubium-fe4h.vercel.app/img/${algo.picturePath.toLowerCase()}.png` }}
                 resizeMode="contain"
             />
             <Text>{algo.title}</Text>
@@ -20,6 +25,14 @@ const styles = StyleSheet.create({
     cubeImage: {
         width: width / 2.5,
         height: width / 2.5,
+    },
+    listElement: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomWidth: 2,
+        borderBottomColor: 'rgba(132, 122, 122, 0.3)',
+
     }
 })
 

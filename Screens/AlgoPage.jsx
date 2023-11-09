@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+import { SafeAreaView, StyleSheet, View, Text } from 'react-native'
 import apiService from '../apiService'
 
 import CubeAnimation from '../Components/CubeAnimation'
 import TouchableButton from '../Components/TouchableButton'
 
-const AlgoPage = () => {
+const AlgoPage = ({ route, navigation }) => {
+    const { algorithm } = route.params
+
+
     const [currentAlg, setCurrentAlg] = useState()
     const [whichAlg, setWhichAlg] = useState(0)
     useEffect(() => {
-        apiService.getAlgo("OLL1").then(data => setCurrentAlg(data))
+        apiService.getAlgo(algorithm).then(data => setCurrentAlg(data))
     }, [])
 
     return (
         <>
             {currentAlg && <SafeAreaView>
 
-
+                <Text>{whichAlg+1} / {currentAlg.algo.length}</Text>
                 <CubeAnimation category={currentAlg.category} alg={currentAlg.algo[whichAlg]} />
 
                 {currentAlg.algo.length > 1 && <View style={{ flexDirection: 'row' }}>
