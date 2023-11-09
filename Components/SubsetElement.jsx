@@ -1,5 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native'
+// import { Image } from 'react-native'
+import { Image } from 'react-native-elements';
 
 const SubsetElement = ({ navigation, algo }) => {
     return (
@@ -10,6 +12,7 @@ const SubsetElement = ({ navigation, algo }) => {
             })}
         >
             <Image
+                PlaceholderContent={<ActivityIndicator size="large" />}
                 style={styles.cubeImage}
                 source={{ uri: `https://cubium-fe4h.vercel.app/img/${algo.picturePath.toLowerCase()}.png` }}
                 resizeMode="contain"

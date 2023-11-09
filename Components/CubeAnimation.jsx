@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions, Text } from 'react-native'
 import { WebView } from 'react-native-webview';
 
 import IconAwesome from 'react-native-vector-icons/FontAwesome5';
-
+import Loading from './Loading';
 import TouchableButton from './TouchableButton'
 
 const CubeAnimation = ({ category, alg }) => {
@@ -138,8 +138,8 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        minHeight: width * 1.05,
-        maxHeight: width * 1.05
+        minHeight: width * 1.00,
+        maxHeight: width * 1.00
     },
     webview: {
         backgroundColor: 'transparent'

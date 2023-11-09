@@ -1,25 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView, StyleSheet, View, Text } from 'react-native'
-import apiService from '../apiService'
+// import { Image } from 'react-native-elements';
+import { Button, Overlay } from 'react-native-elements';
 
+import apiService from '../apiService'
+import ProfileSettings from '../Components/ProfileSettings'
 import CubeAnimation from '../Components/CubeAnimation'
 import TouchableButton from '../Components/TouchableButton'
+import Loading from '../Components/Loading';
 
 const AlgoPage = ({ route, navigation }) => {
+    const [visible, setVisible] = useState(false);
+    const toggleOverlay = () => {
+        setVisible(!visible);
+    };
+    /////////////
+
+
     const { algorithm } = route.params
-
-
     const [currentAlg, setCurrentAlg] = useState()
     const [whichAlg, setWhichAlg] = useState(0)
     useEffect(() => {
-        apiService.getAlgo(algorithm).then(data => setCurrentAlg(data))
+        setIsLoading(true)
+        apiService.getAlgo(algorithm).then(data => setCurrentAlg(data)).finally(() => setIsLoading(false))
     }, [])
+
+    const [isLoading, setIsLoading] = useState(true)
+
+    if (isLoading) {
+        return <Loading />
+    }
 
     return (
         <>
             {currentAlg && <SafeAreaView>
+                {/* <Button title="Open Overlay" onPress={toggleOverlay} /> */}
 
-                <Text>{whichAlg+1} / {currentAlg.algo.length}</Text>
+                <Text>{whichAlg + 1} / {currentAlg.algo.length}</Text>
+                {/* 
+                <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+                    <ProfileSettings />
+                </Overlay> */}
+
                 <CubeAnimation category={currentAlg.category} alg={currentAlg.algo[whichAlg]} />
 
                 {currentAlg.algo.length > 1 && <View style={{ flexDirection: 'row' }}>

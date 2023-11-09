@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Text, FlatList, Dimensions } from 'react-native'
+import { View, StyleSheet, FlatList, Dimensions } from 'react-native'
 import apiService from '../apiService'
 import SubsetElement from './SubsetElement';
+// import { Text } from 'react-native-elements';
+import { Text } from 'react-native';
+import Loading from './Loading';
 
 
-const Subset = ({navigation, category, subset }) => {
+const Subset = ({ navigation, category, subset }) => {
     const [subsetAlgs, setSubsetAlgs] = useState([]);
 
     useEffect(() => {
-        apiService.getSubsetAlgorithms(category, subset).then(data => setSubsetAlgs(data))
+        apiService.getSubsetAlgorithms(category, subset)
+            .then(data => setSubsetAlgs(data))
     }, [])
 
     return (
         <>
             {subsetAlgs && <View>
-                <Text style={styles.subsetTitle}>{subset}</Text>
+                <Text h2 style={styles.subsetTitle}>{subset}</Text>
                 <FlatList
                     data={subsetAlgs}
                     numColumns={2}
@@ -30,8 +34,8 @@ const Subset = ({navigation, category, subset }) => {
 const styles = StyleSheet.create({
     subsetTitle: {
         textAlign: 'center',
-        fontSize:24,
-        margin:10,
+        fontSize: 24,
+        margin: 10,
     }
 })
 
