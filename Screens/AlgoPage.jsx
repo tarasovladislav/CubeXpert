@@ -17,12 +17,12 @@ const AlgoPage = ({ route, navigation }) => {
     /////////////
 
 
-    const { algorithm } = route.params
+    const { _id } = route.params
     const [currentAlg, setCurrentAlg] = useState()
     const [whichAlg, setWhichAlg] = useState(0)
     useEffect(() => {
         setIsLoading(true)
-        apiService.getAlgo(algorithm).then(data => setCurrentAlg(data)).finally(() => setIsLoading(false))
+        apiService.getAlgo(_id).then(data => setCurrentAlg(data)).finally(() => setIsLoading(false))
     }, [])
 
     const [isLoading, setIsLoading] = useState(true)

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, FlatList, Dimensions } from 'react-native'
+import { View, StyleSheet, FlatList } from 'react-native'
 import apiService from '../apiService'
 import SubsetElement from './SubsetElement';
 // import { Text } from 'react-native-elements';
 import { Text } from 'react-native';
-import Loading from './Loading';
 
 
 const Subset = ({ navigation, category, subset }) => {

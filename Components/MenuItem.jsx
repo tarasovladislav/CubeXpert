@@ -1,12 +1,25 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, TouchableOpacity, Text, Image } from 'react-native'
 
-const TouchableButton = ({ onPress = () => { }, text, disabled = false, activeColor = '#ddd', disabledColor = '#eee' }) => {
+const MenuItem = ({ onPress = () => { }, text, disabled = false, activeColor = '#ddd', disabledColor = '#eee' }) => {
     const styles = getDynamicStyles(activeColor, disabledColor);
 
     return (
+
+
+
+
         <TouchableOpacity disabled={disabled} style={!disabled ? styles.controlBtn : { ...styles.controlBtn, ...styles.controlBtnDisabled }} onPress={onPress} >
+            <Image
+                style={{ width: 40, height: 40 }}
+                source={{ uri: `https://cubium-fe4h.vercel.app/img/f2l1.png` }}
+                resizeMode="cover"
+
+            />
+
+
             <Text style={styles.buttonText}>{text}</Text>
+
         </TouchableOpacity>
     )
 }
@@ -28,4 +41,4 @@ const getDynamicStyles = (activeColor, disabledColor) =>
         }
     })
 
-export default TouchableButton
+export default MenuItem

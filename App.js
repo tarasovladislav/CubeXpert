@@ -8,6 +8,7 @@ import CategoryChoisePage from './Screens/CategoryChoisePage';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import Home from './Screens/Home';
 const Stack = createNativeStackNavigator();
 
 
@@ -16,6 +17,7 @@ export default function App() {
         <NavigationContainer>
             {/* <Stack.Navigator initialRouteName="Details"> */}
             <Stack.Navigator
+                initialRouteName="Home"
                 screenOptions={{
                     headerStyle: {
                         backgroundColor: '#f4511e',
@@ -28,6 +30,7 @@ export default function App() {
 
                 }}
             >
+                <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Choose Category" component={CategoryChoisePage} options={{
                     title: 'Advanced Algorithms'
                 }} />

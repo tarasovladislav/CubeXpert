@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { TouchableOpacity, View, Text, Image } from 'react-native'
+import { TouchableOpacity, View, Text, } from 'react-native'
+import { Divider } from 'react-native-elements';
+import { Image } from 'react-native-elements';
+
 
 const CategoryChoisePage = ({ navigation }) => {
     const [categoryList, setCategoryList] = useState([])
@@ -21,21 +24,28 @@ const CategoryChoisePage = ({ navigation }) => {
 
     return (
         <>
-            {categoryList && categoryList.map(cat => (<TouchableOpacity
-            key={cat.title}
-                style={{ flexDirection: 'row', alignItems: 'center', gap: 20, margin: 10 }}
-                onPress={() => navigation.navigate('Category', {
-                    name: cat.title,
-                    category: cat.title
-                })}
-            >
-                <Image
-                    style={{ width: 80, height: 80, }}
-                    source={{ uri: `https://cubium-fe4h.vercel.app/img/${cat.picturePath.toLowerCase()}.png` }}
-                    resizeMode="contain"
-                />
-                <Text>{cat.title}</Text>
-            </TouchableOpacity>))}
+            {categoryList && categoryList.map(cat => (<View>
+
+                <TouchableOpacity
+                    key={cat.title}
+                    style={{ flexDirection: 'row', alignItems: 'center', gap: 20, margin: 10 }}
+                    onPress={() => navigation.navigate('Category', {
+                        name: cat.title,
+                        category: cat.title
+                    })}
+                >
+                    <Image
+                        style={{ width: 80, height: 80, }}
+                        source={{ uri: `https://cubium-fe4h.vercel.app/img/${cat.picturePath.toLowerCase()}.png` }}
+                        resizeMode="contain"
+                        transition={true}
+
+                    />
+                    <Text>{cat.title}</Text>
+
+                </TouchableOpacity>
+                <Divider orientation="horizontal" width={1} />
+            </View>))}
         </>
     )
 }

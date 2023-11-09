@@ -8,7 +8,7 @@ const SubsetElement = ({ navigation, algo }) => {
         <TouchableOpacity
             style={styles.listElement}
             onPress={() => navigation.navigate('Algo', {
-                algorithm: algo.picturePath //change to _id later
+                algorithm: algo._id //change to _id later
             })}
         >
             <Image
@@ -16,6 +16,8 @@ const SubsetElement = ({ navigation, algo }) => {
                 style={styles.cubeImage}
                 source={{ uri: `https://cubium-fe4h.vercel.app/img/${algo.picturePath.toLowerCase()}.png` }}
                 resizeMode="contain"
+                transition={true}
+
             />
             <Text>{algo.title}</Text>
         </TouchableOpacity>
