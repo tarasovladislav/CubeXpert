@@ -12,7 +12,7 @@ const Home = ({ navigation, route }) => {
     const [randomAlgo, setRandomAlgo] = useState()
     useEffect(() => loadAlgs(), [])
     useEffect(() => randomAlg(allAlgs), [allAlgs])
-    useEffect(() => navigation.addListener('focus', () => loadAlgs()), [navigation]);
+    // useEffect(() => navigation.addListener('focus', () => loadAlgs()), [navigation]);
 
     const loadAlgs = () => {
         setIsLoading(true)
@@ -38,9 +38,14 @@ const Home = ({ navigation, route }) => {
         <>
             {randomAlgo && <TouchableOpacity
                 style={styles.listElement}
-                onPress={() => navigation.navigate('Algo', {
-                    _id: randomAlgo._id
-                })}
+                onPress={() => {
+                    navigation.navigate('Algo', {
+                        _id: randomAlgo._id,
+                        name: randomAlgo.title
+                    })
+                    setTimeout(()=>randomAlg(allAlgs) , 500)
+                }
+                }
             >
                 <Image
                     PlaceholderContent={<ActivityIndicator size="large" />}

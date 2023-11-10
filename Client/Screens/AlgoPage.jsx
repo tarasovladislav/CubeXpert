@@ -8,15 +8,17 @@ import ProfileSettings from '../Components/ProfileSettings'
 import CubeAnimation from '../Components/CubeAnimation'
 import TouchableButton from '../Components/TouchableButton'
 import Loading from '../Components/Loading';
+import IconAwesome from 'react-native-vector-icons/FontAwesome5';
 
 const AlgoPage = ({ route, navigation }) => {
+    
     const [visible, setVisible] = useState(false);
     const toggleOverlay = () => {
         setVisible(!visible);
     };
     /////////////
 
-
+    //after changing colors cube goes to initial but currentalg state no
     const { _id } = route.params
     const [currentAlg, setCurrentAlg] = useState()
     const [whichAlg, setWhichAlg] = useState(0)
@@ -27,34 +29,28 @@ const AlgoPage = ({ route, navigation }) => {
 
     const [isLoading, setIsLoading] = useState(true)
 
-    const [settings, setSettings] = useState({
-        U: '#fcff02',
-        F: '#ff0001',
-        R: '#01dd01',
-        L: '#1777fe',
-        B: '#ffa501',
-        D: '#eeefef',
-        cube: '#000000',
-        ignored: '#454445',
-        speed: '100'
-    })
-
-
     if (isLoading) {
         return <Loading />
     }
     return (
         <>
             {currentAlg && <SafeAreaView>
-                <Button title="Open Overlay" onPress={toggleOverlay} />
+      
 
                 <Text>{whichAlg + 1} / {currentAlg.algo.length}</Text>
-
+                <View style={{ flexDirection: 'row', justifyContent:'center', position: 'absolute', right: 0, width: 70, zIndex: 2 }}>
+                    <TouchableButton  
+                    activeColor="transparent"
+                    text={<IconAwesome size={24} color="black" name="cog" />} 
+                    onPress={toggleOverlay} />
+                </View> 
+{/* TODO make the button disabled when play is active */}
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay} animationType="fade">
-                    <ProfileSettings settings={settings} setSettings={setSettings} />
+                    <ProfileSettings />
                 </Overlay>
 
-                <CubeAnimation settings={settings} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} />
+                <CubeAnimation category={currentAlg.category} alg={currentAlg.algo[whichAlg]} />
+
 
                 {currentAlg.algo.length > 1 && <View style={{ flexDirection: 'row' }}>
                     <TouchableButton
@@ -74,7 +70,9 @@ const AlgoPage = ({ route, navigation }) => {
                     // disabled={whichAlg === currentAlg.algo.length - 1}
                     // onPress={() => setWhichAlg(whichAlg + 1)}
                     />
+
                 </View>
+
             </SafeAreaView>}
         </>
     )

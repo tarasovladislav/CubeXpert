@@ -1,49 +1,37 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { View, StyleSheet, Dimensions, Text } from 'react-native'
 import { WebView } from 'react-native-webview';
+import { useSettingsContext } from '../Contexts/SettingsContext';
 
 import IconAwesome from 'react-native-vector-icons/FontAwesome5';
 import TouchableButton from './TouchableButton'
 
-const CubeAnimation = ({ category, alg, settings }) => {
+const CubeAnimation = ({ category, alg, }) => {
+    const { settings, webViewKey } = useSettingsContext()
+
+
     const [currentStep, setCurrentStep] = useState(0)
     const [triggerUseEffect, setTriggerUseEffect] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const [allowControl, setAllowControl] = useState(true)
     const { U, F, R, L, B, D, speed, cube, ignored } = settings
     const cubeAnimationWebView = useRef(null);
-    const algStr = alg;
-    const algArray = algStr.split(' ');
+    const algArray = alg.split(' ');
     const len = algArray.length;
     let solved = "";
     let setupmoves = "";
     let colored = "";
 
 
+    //https://stackoverflow.com/questions/58858518/react-native-component-not-re-rendering-on-state-change
 
-    const executeJavaScript = (jsCode) => {
-        cubeAnimationWebView.current && cubeAnimationWebView.current.injectJavaScript(jsCode);
-    };
 
-    switch (category) {
-        case "F2L":
-            solved = "U-*"
-            break;
-        case "OLL":
-            colored = "u"
-            break;
-        case "Patterns":
-            setupmoves = alg
-            break;
-        default:
-            break;
-    }
-
+    useEffect(() => {
+        setCurrentStep(0)
+    }, [settings])
 
     //TODO add loading spinner when loading cube
 
-
-    //for coloring ?colored=u&colors=ignored:red cube:yellow solve:#ddd
 
     //When changing whichAlg, reset currentStep
     useEffect(() => {
@@ -51,7 +39,7 @@ const CubeAnimation = ({ category, alg, settings }) => {
         setIsPlaying(false)
     }, [alg])
 
-    //For Play/Stop animation
+
     useEffect(() => {
         if (isPlaying) {
             setAllowControl(false)
@@ -60,7 +48,7 @@ const CubeAnimation = ({ category, alg, settings }) => {
             setTimeout(() => {
                 setTriggerUseEffect(!triggerUseEffect)
                 setAllowControl(true)
-            }, algArray[currentStep].includes('2') ? speed * 1.5 : speed) //TODO change later to user setting about cube speed
+            }, algArray[currentStep].includes('2') ? parseFloat(speed) * 1.5 : parseFloat(speed)) //TODO change later to user setting about cube speed
         }
     }, [isPlaying, triggerUseEffect])
 
@@ -88,12 +76,30 @@ const CubeAnimation = ({ category, alg, settings }) => {
         }
     };
 
+    const executeJavaScript = (jsCode) => {
+        cubeAnimationWebView.current && cubeAnimationWebView.current.injectJavaScript(jsCode);
+    };
+
+    switch (category) {
+        case "F2L":
+            solved = "U-*"
+            break;
+        case "OLL":
+            colored = "u"
+            break;
+        case "Patterns":
+            setupmoves = alg
+            break;
+        default:
+            break;
+    }
+
     return (
         <>
             <View style={styles.container}>
                 <WebView
                     source={{
-                        uri: `https://cubium-fe4h.vercel.app/animation?alg=${algStr}
+                        uri: `https://cubium-fe4h.vercel.app/animation?alg=${alg}
                     &hover=1
                     &solved=${solved}
                     &setupmoves=${setupmoves}
@@ -102,17 +108,20 @@ const CubeAnimation = ({ category, alg, settings }) => {
                     &colors=U:${U} F:${F} R:${R} L:${L} B:${B} D:${D} ignored:${ignored} cube:${cube}
                     ` }}
                     ref={cubeAnimationWebView}
+                    key={webViewKey}
                     scrollEnabled={false}
                     style={styles.webview}
                 />
             </View >
+
+
             <Text style={{ textAlign: 'center' }}>
                 {currentStep > 0 && algArray.slice(0, currentStep - 1).join(' ')}
-                {/* <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray.slice(0, currentStep).join(' ')}{currentStep > 0 ? ' ' : ''}</Text> */}
                 <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray[currentStep - 1]}{currentStep > 0 ? ' ' : ''}</Text>
                 {algArray.slice(currentStep).join(' ')}
             </Text>
             <Text style={{ textAlign: 'center' }}>{currentStep} / {len}</Text>
+
 
             <View style={styles.buttonContainer}>
                 <TouchableButton
@@ -138,6 +147,7 @@ const CubeAnimation = ({ category, alg, settings }) => {
                     onPress={() => executeJavaScript(`$("body").trigger("resetCamera"); true`)}
                     text={<IconAwesome size={24} color="black" name="arrows-alt" />} />
             </View>
+
         </>
     );
 };
@@ -145,8 +155,8 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        minHeight: width * 1.00,
-        maxHeight: width * 1.00
+        minHeight: width * 1.02,
+        maxHeight: width * 1.02
     },
     webview: {
         backgroundColor: 'transparent'
