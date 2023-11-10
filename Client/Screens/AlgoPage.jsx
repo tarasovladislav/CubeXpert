@@ -11,7 +11,7 @@ import Loading from '../Components/Loading';
 import IconAwesome from 'react-native-vector-icons/FontAwesome5';
 
 const AlgoPage = ({ route, navigation }) => {
-    
+
     const [visible, setVisible] = useState(false);
     const toggleOverlay = () => {
         setVisible(!visible);
@@ -35,16 +35,16 @@ const AlgoPage = ({ route, navigation }) => {
     return (
         <>
             {currentAlg && <SafeAreaView>
-      
+
 
                 <Text>{whichAlg + 1} / {currentAlg.algo.length}</Text>
-                <View style={{ flexDirection: 'row', justifyContent:'center', position: 'absolute', right: 0, width: 70, zIndex: 2 }}>
-                    <TouchableButton  
-                    activeColor="transparent"
-                    text={<IconAwesome size={24} color="black" name="cog" />} 
-                    onPress={toggleOverlay} />
-                </View> 
-{/* TODO make the button disabled when play is active */}
+                <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', right: 0, width: 70, zIndex: 2 }}>
+                    <TouchableButton
+                        activeColor="transparent"
+                        text={<IconAwesome size={24} color="black" name="cog" />}
+                        onPress={toggleOverlay} />
+                </View>
+                {/* TODO make the button disabled when play is active */}
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay} animationType="fade">
                     <ProfileSettings />
                 </Overlay>

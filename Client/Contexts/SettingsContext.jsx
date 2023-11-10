@@ -16,12 +16,12 @@ const SettingsContextProvider = ({ children }) => {
         ignored: '#454445',
         speed: '500'
     }
-    const [settings, setSettings] = useState({...defaultSettings})
+    const [settings, setSettings] = useState({ ...defaultSettings })
 
     useEffect(() => {
         AsyncStorage.getItem('settings')
             .then(savedSettings => {
-                console.log(savedSettings, 'INITIAL')
+                // console.log(savedSettings, 'INITIAL')
                 savedSettings && setSettings(JSON.parse(savedSettings));
             })
             .catch(error => {
@@ -33,7 +33,7 @@ const SettingsContextProvider = ({ children }) => {
         const settingsJson = JSON.stringify(settings)
         AsyncStorage.setItem('settings', settingsJson)
             .then(() => {
-                console.log('Settings updated in LocalStorage')
+                // console.log('Settings updated in LocalStorage')
             })
             .catch((error) => {
                 console.log(error)

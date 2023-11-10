@@ -94,18 +94,19 @@ const CubeAnimation = ({ category, alg, }) => {
             break;
     }
 
+    // &colored=${colored}
     return (
         <>
             <View style={styles.container}>
                 <WebView
                     source={{
-                        uri: `https://cubium-fe4h.vercel.app/animation?alg=${alg}
-                    &hover=1
-                    &solved=${solved}
+                        uri: `https://cubium-fe4h.vercel.app/animation?alg=${alg}&colored=${colored}
+                        &speed=${speed}
+                        &colors=U:${U} F:${F} R:${R} L:${L} B:${B} D:${D} ignored:${ignored} cube:${cube}
+                        &hover=1
+                        &solved=${solved}
+
                     &setupmoves=${setupmoves}
-                    &colored=${colored}
-                    &speed=${speed}
-                    &colors=U:${U} F:${F} R:${R} L:${L} B:${B} D:${D} ignored:${ignored} cube:${cube}
                     ` }}
                     ref={cubeAnimationWebView}
                     key={webViewKey}
