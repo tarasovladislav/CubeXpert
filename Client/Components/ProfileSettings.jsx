@@ -12,7 +12,7 @@ import { useSettingsContext } from '../Contexts/SettingsContext';
 
 
 const ProfileSettings = ({ }) => {
-    const { settings, setSettings, setWebViewKey } = useSettingsContext()
+    const { settings, setSettings, setWebViewKey, defaultSettings } = useSettingsContext()
 
 
     const [showModal, setShowModal] = useState(false);
@@ -31,23 +31,27 @@ const ProfileSettings = ({ }) => {
     return (
         <>
 
-            <Text style={{ fontSize: 18, textAlign: 'center' }}>Change preferences</Text>
+            <Text style={{ fontSize: 18, textAlign: 'center', marginBottom:15 }}>Change preferences</Text>
             <View style={{ flexDirection: 'row' }}>
                 <TouchableButton text='Up side' onPress={() => openColorPicker('U')} activeColor={settings['U']} />
                 <TouchableButton text='Down side' onPress={() => openColorPicker('D')} activeColor={settings['D']} />
 
             </View>
             <View style={{ flexDirection: 'row' }}>
-                <TouchableButton text='Left ' onPress={() => openColorPicker('L')} activeColor={settings['L']} />
+                <TouchableButton text='Left side' onPress={() => openColorPicker('L')} activeColor={settings['L']} />
                 <TouchableButton text='Right side' onPress={() => openColorPicker('R')} activeColor={settings['R']} />
             </View>
             <View style={{ flexDirection: 'row' }}>
                 <TouchableButton text='Front side' onPress={() => openColorPicker('F')} activeColor={settings['F']} />
                 <TouchableButton text='Back side' onPress={() => openColorPicker('B')} activeColor={settings['B']} />
             </View>
-
-            <Button title='Ignored' onPress={() => openColorPicker('ignored')} />
-            <Button title='Cube' onPress={() => openColorPicker('cube')} />
+            <View style={{ flexDirection: 'row' }}>
+                <TouchableButton text='Ignored' onPress={() => openColorPicker('ignored')} activeColor={settings['ignored']} />
+                <TouchableButton text='Cube' onPress={() => openColorPicker('cube')} activeColor={settings['cube']} />
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+                <TouchableButton text='RESET COLORS' onPress={() => setSettings({...defaultSettings})}  />
+            </View>
 
 
             <View style={styles.container}>

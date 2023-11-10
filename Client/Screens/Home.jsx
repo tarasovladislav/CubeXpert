@@ -43,7 +43,7 @@ const Home = ({ navigation, route }) => {
                         _id: randomAlgo._id,
                         name: randomAlgo.title
                     })
-                    setTimeout(()=>randomAlg(allAlgs) , 500)
+                    setTimeout(() => randomAlg(allAlgs), 500)
                 }
                 }
             >
@@ -59,7 +59,9 @@ const Home = ({ navigation, route }) => {
             <View style={{ flexDirection: "row", height: 100 }}>
 
 
-                <MenuItem text="Advanced Algorithms" />
+                <MenuItem text="Advanced Algorithms" onPress={()=> {
+                    navigation.navigate('Choose Category')
+                }} />
 
 
                 <MenuItem text="Advanced Algorithms" />

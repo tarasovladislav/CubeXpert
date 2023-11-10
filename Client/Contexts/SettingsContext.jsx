@@ -5,8 +5,7 @@ const SettingsContext = createContext();
 
 const SettingsContextProvider = ({ children }) => {
     const [webViewKey, setWebViewKey] = useState(1);
-
-    const [settings, setSettings] = useState({
+    const defaultSettings = {
         U: '#fcff02',
         F: '#ff0001',
         R: '#01dd01',
@@ -16,7 +15,8 @@ const SettingsContextProvider = ({ children }) => {
         cube: '#000000',
         ignored: '#454445',
         speed: '500'
-    })
+    }
+    const [settings, setSettings] = useState({...defaultSettings})
 
     useEffect(() => {
         AsyncStorage.getItem('settings')
@@ -41,7 +41,7 @@ const SettingsContextProvider = ({ children }) => {
     }, [settings])
 
     return (
-        <SettingsContext.Provider value={{ settings, setSettings, webViewKey, setWebViewKey }}>
+        <SettingsContext.Provider value={{ settings, setSettings, webViewKey, setWebViewKey, defaultSettings }}>
             {children}
         </SettingsContext.Provider>
     );

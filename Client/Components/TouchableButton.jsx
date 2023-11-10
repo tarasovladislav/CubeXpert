@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Text } from 'react-native'
 
-const TouchableButton = ({ onPress = () => { }, text, disabled = false, activeColor = '#ddd', disabledColor = '#eee' }) => {
-    const styles = getDynamicStyles(activeColor, disabledColor);
+const TouchableButton = ({ onPress = () => { }, text, disabled = false, color = '#000000', activeColor = '#ddd', disabledColor = '#eee' }) => {
+    const styles = getDynamicStyles(activeColor, disabledColor, color);
 
     return (
         <TouchableOpacity disabled={disabled} style={!disabled ? styles.controlBtn : { ...styles.controlBtn, ...styles.controlBtnDisabled }} onPress={onPress} >
@@ -10,7 +10,7 @@ const TouchableButton = ({ onPress = () => { }, text, disabled = false, activeCo
         </TouchableOpacity>
     )
 }
-const getDynamicStyles = (activeColor, disabledColor) =>
+const getDynamicStyles = (activeColor, disabledColor, color) =>
     StyleSheet.create({
         controlBtn: {
             flex: 1,
@@ -24,6 +24,7 @@ const getDynamicStyles = (activeColor, disabledColor) =>
         },
         buttonText: {
             padding: 10,
+            color: color,
             alignSelf: 'center',
         }
     })
