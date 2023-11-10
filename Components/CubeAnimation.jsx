@@ -3,15 +3,14 @@ import { View, StyleSheet, Dimensions, Text } from 'react-native'
 import { WebView } from 'react-native-webview';
 
 import IconAwesome from 'react-native-vector-icons/FontAwesome5';
-import Loading from './Loading';
 import TouchableButton from './TouchableButton'
 
-const CubeAnimation = ({ category, alg }) => {
+const CubeAnimation = ({ category, alg, settings }) => {
     const [currentStep, setCurrentStep] = useState(0)
     const [triggerUseEffect, setTriggerUseEffect] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const [allowControl, setAllowControl] = useState(true)
-
+    const { U, F, R, L, B, D, speed, cube, ignored } = settings
     const cubeAnimationWebView = useRef(null);
     const algStr = alg;
     const algArray = algStr.split(' ');
@@ -19,7 +18,7 @@ const CubeAnimation = ({ category, alg }) => {
     let solved = "";
     let setupmoves = "";
     let colored = "";
-    let speed = 500;
+
 
 
     const executeJavaScript = (jsCode) => {
@@ -93,7 +92,15 @@ const CubeAnimation = ({ category, alg }) => {
         <>
             <View style={styles.container}>
                 <WebView
-                    source={{ uri: `https://cubium-fe4h.vercel.app/animation?alg=${algStr}&hover=1&solved=${solved}&setupmoves=${setupmoves}&colored=${colored}&speed=${speed}` }}
+                    source={{
+                        uri: `https://cubium-fe4h.vercel.app/animation?alg=${algStr}
+                    &hover=1
+                    &solved=${solved}
+                    &setupmoves=${setupmoves}
+                    &colored=${colored}
+                    &speed=${speed}
+                    &colors=U:${U} F:${F} R:${R} L:${L} B:${B} D:${D} ignored:${ignored} cube:${cube}
+                    ` }}
                     ref={cubeAnimationWebView}
                     scrollEnabled={false}
                     style={styles.webview}

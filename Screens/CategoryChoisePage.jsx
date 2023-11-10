@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { TouchableOpacity, View, Text, } from 'react-native'
 import { Divider } from 'react-native-elements';
 import { Image } from 'react-native-elements';
-
+import {imageMapping} from '../assets/img/'
 
 const CategoryChoisePage = ({ navigation }) => {
     const [categoryList, setCategoryList] = useState([])
@@ -14,20 +14,13 @@ const CategoryChoisePage = ({ navigation }) => {
             { title: 'PLL', picturePath: 'ua' }
         ])
     }, [])
-    /*
-        {
-            title: 
-            imgSrc: 
-            desc? :
-        }
-    */
 
     return (
         <>
-            {categoryList && categoryList.map(cat => (<View>
+            {categoryList && categoryList.map(cat => (<View key={cat.title}>
 
                 <TouchableOpacity
-                    key={cat.title}
+                    
                     style={{ flexDirection: 'row', alignItems: 'center', gap: 20, margin: 10 }}
                     onPress={() => navigation.navigate('Category', {
                         name: cat.title,
@@ -36,7 +29,7 @@ const CategoryChoisePage = ({ navigation }) => {
                 >
                     <Image
                         style={{ width: 80, height: 80, }}
-                        source={{ uri: `https://cubium-fe4h.vercel.app/img/${cat.picturePath.toLowerCase()}.png` }}
+                        source={imageMapping[`${cat.picturePath.toLowerCase()}`]}
                         resizeMode="contain"
                         transition={true}
 

@@ -27,22 +27,34 @@ const AlgoPage = ({ route, navigation }) => {
 
     const [isLoading, setIsLoading] = useState(true)
 
+    const [settings, setSettings] = useState({
+        U: '#fcff02',
+        F: '#ff0001',
+        R: '#01dd01',
+        L: '#1777fe',
+        B: '#ffa501',
+        D: '#eeefef',
+        cube: '#000000',
+        ignored: '#454445',
+        speed: '100'
+    })
+
+
     if (isLoading) {
         return <Loading />
     }
-
     return (
         <>
             {currentAlg && <SafeAreaView>
-                {/* <Button title="Open Overlay" onPress={toggleOverlay} /> */}
+                <Button title="Open Overlay" onPress={toggleOverlay} />
 
                 <Text>{whichAlg + 1} / {currentAlg.algo.length}</Text>
-                {/* 
-                <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-                    <ProfileSettings />
-                </Overlay> */}
 
-                <CubeAnimation category={currentAlg.category} alg={currentAlg.algo[whichAlg]} />
+                <Overlay isVisible={visible} onBackdropPress={toggleOverlay} animationType="fade">
+                    <ProfileSettings settings={settings} setSettings={setSettings} />
+                </Overlay>
+
+                <CubeAnimation settings={settings} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} />
 
                 {currentAlg.algo.length > 1 && <View style={{ flexDirection: 'row' }}>
                     <TouchableButton

@@ -4,6 +4,7 @@ import { Image } from 'react-native-elements'
 import Loading from '../Components/Loading'
 import apiService from '../apiService'
 import MenuItem from '../Components/MenuItem'
+import { imageMapping } from '../assets/img';
 
 const Home = ({ navigation, route }) => {
     const [isLoading, setIsLoading] = useState(true)
@@ -31,19 +32,20 @@ const Home = ({ navigation, route }) => {
         return <Loading />
     }
 
+
     //TODO add slider to top to render once again random alg
     return (
         <>
             {randomAlgo && <TouchableOpacity
                 style={styles.listElement}
                 onPress={() => navigation.navigate('Algo', {
-                    _id: randomAlgo._id 
+                    _id: randomAlgo._id
                 })}
             >
                 <Image
                     PlaceholderContent={<ActivityIndicator size="large" />}
                     style={styles.cubeImage}
-                    source={{ uri: `https://cubium-fe4h.vercel.app/img/${randomAlgo.picturePath.toLowerCase()}.png` }}
+                    source={imageMapping[`${randomAlgo.picturePath.toLowerCase()}`]}
                     resizeMode="contain"
                     transition={true}
                 />
@@ -52,7 +54,7 @@ const Home = ({ navigation, route }) => {
             <View style={{ flexDirection: "row", height: 100 }}>
 
 
-                    <MenuItem text="Advanced Algorithms" />
+                <MenuItem text="Advanced Algorithms" />
 
 
                 <MenuItem text="Advanced Algorithms" />

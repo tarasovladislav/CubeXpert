@@ -11,14 +11,15 @@ const MenuItem = ({ onPress = () => { }, text, disabled = false, activeColor = '
 
         <TouchableOpacity disabled={disabled} style={!disabled ? styles.controlBtn : { ...styles.controlBtn, ...styles.controlBtnDisabled }} onPress={onPress} >
             <Image
-                style={{ width: 40, height: 40 }}
+                style={{
+                    width: 40, height: 40, position: 'absolute', left: 0, margin: 5
+                }}
                 source={{ uri: `https://cubium-fe4h.vercel.app/img/f2l1.png` }}
-                resizeMode="cover"
-
+                resizeMode="contain"
             />
-
-
             <Text style={styles.buttonText}>{text}</Text>
+
+
 
         </TouchableOpacity>
     )
@@ -28,9 +29,11 @@ const getDynamicStyles = (activeColor, disabledColor) =>
         controlBtn: {
             flex: 1,
             backgroundColor: activeColor,
-            borderRadius: 50,
+            borderRadius: 5,
             margin: 5,
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexDirection: 'row',
+            height: 50
         },
         controlBtnDisabled: {
             backgroundColor: disabledColor

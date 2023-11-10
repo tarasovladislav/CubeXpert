@@ -36,7 +36,7 @@ export default function App() {
                 }} />
                 <Stack.Screen name="Category" component={CategoryPage} options={({ route }) => ({ title: route.params.name })} />
                 {/* <CategoryPage category='F2L' /> */}
-                <Stack.Screen name="Algo" component={AlgoPage} />
+                <Stack.Screen name="Algo" component={AlgoPage} options={({ route }) => ({ title: route.params.name })}/>
 
             </Stack.Navigator>
         </NavigationContainer>

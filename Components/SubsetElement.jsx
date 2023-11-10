@@ -1,23 +1,27 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native'
-// import { Image } from 'react-native'
 import { Image } from 'react-native-elements';
+import { imageMapping } from '../assets/img';
+
 
 const SubsetElement = ({ navigation, algo }) => {
+
+    const imageSource = imageMapping[`${algo.picturePath.toLowerCase()}`];
+
     return (
         <TouchableOpacity
             style={styles.listElement}
             onPress={() => navigation.navigate('Algo', {
-                algorithm: algo._id //change to _id later
+                _id: algo._id,
+                name: algo.title,
             })}
         >
             <Image
                 PlaceholderContent={<ActivityIndicator size="large" />}
                 style={styles.cubeImage}
-                source={{ uri: `https://cubium-fe4h.vercel.app/img/${algo.picturePath.toLowerCase()}.png` }}
+                source={imageSource}
                 resizeMode="contain"
                 transition={true}
-
             />
             <Text>{algo.title}</Text>
         </TouchableOpacity>
