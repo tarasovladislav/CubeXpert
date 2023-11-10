@@ -96,8 +96,19 @@ const CubeAnimation = ({ category, alg, }) => {
 
     // &colored=${colored}
     return (
-        <>
+        <View style={{ justifyContent: 'space-between', flex: 2 }}>
+
             <View style={styles.container}>
+                {/* <View style={{
+                    flex: 1,
+                    alignSelf: 'stretch',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    width:width,
+                    height:width
+                    // alignItems: 'center'
+                }}> */}
+
                 <WebView
                     source={{
                         uri: `https://cubium-fe4h.vercel.app/animation?alg=${alg}&colored=${colored}
@@ -105,61 +116,71 @@ const CubeAnimation = ({ category, alg, }) => {
                         &colors=U:${U} F:${F} R:${R} L:${L} B:${B} D:${D} ignored:${ignored} cube:${cube}
                         &hover=1
                         &solved=${solved}
-
-                    &setupmoves=${setupmoves}
-                    ` }}
+                        
+                        &setupmoves=${setupmoves}
+                        ` }}
                     ref={cubeAnimationWebView}
                     key={webViewKey}
                     scrollEnabled={false}
                     style={styles.webview}
                 />
+
+                {/* </View> */}
+
             </View >
 
-
-            <Text style={{ textAlign: 'center' }}>
-                {currentStep > 0 && algArray.slice(0, currentStep - 1).join(' ')}
-                <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray[currentStep - 1]}{currentStep > 0 ? ' ' : ''}</Text>
-                {algArray.slice(currentStep).join(' ')}
-            </Text>
-            <Text style={{ textAlign: 'center' }}>{currentStep} / {len}</Text>
+            <View>
 
 
-            <View style={styles.buttonContainer}>
-                <TouchableButton
-                    disabled={currentStep === 0 || isPlaying || !allowControl}
-                    onPress={() => handleButtonClick("#prev-1")}
-                    text={<IconAwesome size={24} color="black" name="arrow-left" />} />
-                <TouchableButton
-                    disabled={currentStep === len || isPlaying || !allowControl}
-                    onPress={() => handleButtonClick("#next-1")}
-                    text={<IconAwesome size={24} color="black" name="arrow-right" />} />
-                {!isPlaying && <TouchableButton
-                    disabled={currentStep === len}
-                    onPress={() => handleButtonClick("#play-1")}
-                    text={<IconAwesome size={24} color="black" name="play" />} />}
-                {isPlaying && <TouchableButton
-                    onPress={() => handleButtonClick("#pause-1")}
-                    text={<IconAwesome size={24} color="black" name="pause" />} />}
-                <TouchableButton
-                    disabled={currentStep == 0 || isPlaying || !allowControl}
-                    onPress={() => handleButtonClick("#reset-1")}
-                    text={<IconAwesome size={24} color="black" name="redo" />} />
-                <TouchableButton
-                    onPress={() => executeJavaScript(`$("body").trigger("resetCamera"); true`)}
-                    text={<IconAwesome size={24} color="black" name="arrows-alt" />} />
+                <Text style={{ textAlign: 'center' }}>
+                    {currentStep > 0 && algArray.slice(0, currentStep - 1).join(' ')}
+                    <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray[currentStep - 1]}{currentStep > 0 ? ' ' : ''}</Text>
+                    {algArray.slice(currentStep).join(' ')}
+                </Text>
+                <Text style={{ textAlign: 'center' }}>{currentStep} / {len}</Text>
+
+
+                <View style={styles.buttonContainer}>
+                    <TouchableButton
+                        disabled={currentStep === 0 || isPlaying || !allowControl}
+                        onPress={() => handleButtonClick("#prev-1")}
+                        text={<IconAwesome size={24} color="black" name="arrow-left" />} />
+                    <TouchableButton
+                        disabled={currentStep === len || isPlaying || !allowControl}
+                        onPress={() => handleButtonClick("#next-1")}
+                        text={<IconAwesome size={24} color="black" name="arrow-right" />} />
+                    {!isPlaying && <TouchableButton
+                        disabled={currentStep === len}
+                        onPress={() => handleButtonClick("#play-1")}
+                        text={<IconAwesome size={24} color="black" name="play" />} />}
+                    {isPlaying && <TouchableButton
+                        onPress={() => handleButtonClick("#pause-1")}
+                        text={<IconAwesome size={24} color="black" name="pause" />} />}
+                    <TouchableButton
+                        disabled={currentStep == 0 || isPlaying || !allowControl}
+                        onPress={() => handleButtonClick("#reset-1")}
+                        text={<IconAwesome size={24} color="black" name="redo" />} />
+                    <TouchableButton
+                        onPress={() => executeJavaScript(`$("body").trigger("resetCamera"); true`)}
+                        text={<IconAwesome size={24} color="black" name="arrows-alt" />} />
+                </View>
             </View>
-
-        </>
+        </View>
     );
 };
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        minHeight: width * 1.02,
-        maxHeight: width * 1.02
+        flex: 2,
+        // minHeight: width * 1.02,
+        justifyContent: 'center',
     },
     webview: {
+        marginTop: 25,
+        marginBottom: 25,
+        // minHeight: width * 1.02,
+
+        flex: 1,
         backgroundColor: 'transparent'
     },
     buttonContainer: {

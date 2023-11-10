@@ -34,16 +34,21 @@ const AlgoPage = ({ route, navigation }) => {
     }
     return (
         <>
-            {currentAlg && <SafeAreaView>
+            {currentAlg && <SafeAreaView style={{flex:1}}>
 
+            
+                <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', left: 0, top: 12, width: 70, zIndex:2 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 800 }}>{whichAlg + 1} / {currentAlg.algo.length}</Text>
+                </View>
 
-                <Text>{whichAlg + 1} / {currentAlg.algo.length}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', right: 0, width: 70, zIndex: 2 }}>
                     <TouchableButton
                         activeColor="transparent"
                         text={<IconAwesome size={24} color="black" name="cog" />}
                         onPress={toggleOverlay} />
                 </View>
+
+
                 {/* TODO make the button disabled when play is active */}
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay} animationType="fade">
                     <ProfileSettings />
