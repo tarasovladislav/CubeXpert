@@ -89,7 +89,7 @@ const AlgoPage = ({ route }) => {
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay} animationType="fade">
                     <ProfileSettings />
                 </Overlay>
-                <CubeAnimation isPlaying={isPlaying} setIsPlaying={setIsPlaying} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} />
+                <CubeAnimation isPlaying={isPlaying} setIsPlaying={setIsPlaying} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} currentAlg={currentAlg} />
 
 
                 <TouchableOpacity
@@ -107,27 +107,12 @@ const AlgoPage = ({ route }) => {
                 </TouchableOpacity>
 
 
-                <TouchableOpacity
-                    style={{
-                        flex: 0,
-                        position: 'absolute',
-                        top: 50,
-                        right: 10,
-                        zIndex: 2
-                    }}
-
-                    onPress={() => {
-                        toggleFavorites(currentAlg)
-                        setIsFavorite(!isFavorite)
-                    }}
-                >
-                    <IconAntDesign size={30} color="orange" name={isFavorite ? "star" : "staro"} style={{ padding: 5 }} />
-                </TouchableOpacity>
+                
 
 
 
 
-                {currentAlg.algo.length > 1 && <View style={{ flexDirection: 'row' }}>
+                {currentAlg.algo.length > 1 && <View style={{ flexDirection: 'row', position: 'relative' }}>
                     <TouchableButton
                         disabled={whichAlg === 0}
                         onPress={() => setWhichAlg(whichAlg - 1)}
@@ -139,7 +124,7 @@ const AlgoPage = ({ route }) => {
                     />
                 </View>}
 
-
+                
 
 
 

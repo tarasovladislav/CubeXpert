@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import apiService from '../apiService'
-import { ScrollView, FlatList } from 'react-native';
+import { ScrollView, FlatList, View, Text } from 'react-native';
 import Subset from '../Components/Subset';
 import Loading from '../Components/Loading';
 import { useFavoritesContext } from '../Contexts/FavoritesContext';
@@ -24,15 +24,32 @@ const Favorites = ({ route, navigation }) => {
     // if (isLoading) {
     //     return <Loading />
     // }
+    // Create a placeholder item with a unique key
+    // const placeholderItem = { _id: 'placeholder', title: '', picturePath: '' };
 
+    // // Add the placeholder item to the end of favoritesList
+    // const updatedFavoritesList = [...favoritesList, placeholderItem];
     return (
         <>
             <ScrollView>
                 <FlatList
+
                     data={favoritesList}
                     numColumns={2}
                     scrollEnabled={false}
-                    renderItem={({ item }) => <SubsetElement navigation={navigation} algo={item} />}
+                    renderItem={({ item }) => {
+                        // if (item._id !== 'placeholder') {
+                        return <SubsetElement navigation={navigation} algo={item} />;
+                        // }
+                        // // Return an empty View for the placeholder item
+                        // return <View style={{ flex: 1 }} />;
+                    }
+                    }
+                    ListEmptyComponent={
+                        <Text style={{ textAlign: 'center', fontSize: 20 }}>No Favorite Algorithms Yet</Text>
+
+
+                    }
                     keyExtractor={alg => alg._id}
                 />
             </ScrollView>

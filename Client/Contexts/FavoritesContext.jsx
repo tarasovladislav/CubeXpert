@@ -27,6 +27,7 @@ const FavoritesContextProvider = ({ children }) => {
 
 
     useEffect(() => {
+        // setFavoritesList([])
         AsyncStorage.getItem('favoritesList')
             .then(savedFavorites => {
                 // console.log(savedFavorites, 'INITIAL')

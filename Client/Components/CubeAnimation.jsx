@@ -1,24 +1,24 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { View, StyleSheet, Dimensions, Text } from 'react-native'
+import { View, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native'
 import { WebView } from 'react-native-webview';
 import { useSettingsContext } from '../Contexts/SettingsContext';
 
 import IconAwesome from 'react-native-vector-icons/FontAwesome5';
 import TouchableButton from './TouchableButton'
-
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { useFavoritesContext } from '../Contexts/FavoritesContext';
 
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying }) => {
+
+const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) => {
+    const { toggleFavorites, isInFavorites } = useFavoritesContext()
     const { settings, webViewKey } = useSettingsContext()
-    const { toggleFavorites, isInFavorites, favoritesList } = useFavoritesContext()
 
+    const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg._id))
 
     const [currentStep, setCurrentStep] = useState(0)
     const [triggerUseEffect, setTriggerUseEffect] = useState(false)
-    // const [isPlaying, setIsPlaying] = useState(false)
     const [allowControl, setAllowControl] = useState(true)
     const { U, F, R, L, B, D, speed, cube, ignored } = settings
     const cubeAnimationWebView = useRef(null);
@@ -27,7 +27,6 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying }) => {
     let solved = "";
     let setupmoves = "";
     let colored = "";
-
 
     //https://stackoverflow.com/questions/58858518/react-native-component-not-re-rendering-on-state-change
 
@@ -42,7 +41,6 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying }) => {
         setCurrentStep(0)
         setIsPlaying(false)
     }, [alg])
-
 
     useEffect(() => {
         if (isPlaying) {
@@ -98,7 +96,6 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying }) => {
             break;
     }
 
-    // &colored=${colored}
     return (
         <View style={{ flex: 1 }}>
 
@@ -132,7 +129,6 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying }) => {
                     <Text style={{ textAlign: 'center', fontSize: 16 }}>{currentStep} / {len}</Text>
                 </View>
 
-
                 <View style={styles.buttonContainer}>
 
                     <TouchableButton
@@ -158,6 +154,22 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying }) => {
                         onPress={() => executeJavaScript(`$("body").trigger("resetCamera"); true`)}
                         text={<IconMaterialIcons size={24} color="black" type="material" name="3d-rotation" />} />
                 </View>
+                <TouchableOpacity
+                    style={{
+                        flex: 0,
+                        position: 'absolute',
+                        bottom: 55,
+                        right: 10,
+                        zIndex: 2
+                    }}
+
+                    onPress={() => {
+                        toggleFavorites(currentAlg)
+                        setIsFavorite(!isFavorite)
+                    }}
+                >
+                    <IconAntDesign size={30} color="orange" name={isFavorite ? "star" : "staro"} style={{ padding: 5 }} />
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -181,12 +193,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
     },
     buttonContainer: {
+        position:'relative',
         flexDirection: 'row',
     }
 });
-
-
-
 
 
 export default CubeAnimation
