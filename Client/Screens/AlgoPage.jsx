@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, View, Text } from 'react-native'
+import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 // import { Image } from 'react-native-elements';
 import { Button, Overlay, } from 'react-native-elements';
 
@@ -69,7 +69,9 @@ const AlgoPage = ({ route }) => {
                     <Text style={{ fontSize: 20, fontWeight: 800 }}>{whichAlg + 1} / {currentAlg.algo.length}</Text>
                 </View>
 
-                <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', right: 0, width: 70, zIndex: 2 }}>
+
+
+                {/* <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', right: 0, width: 70, zIndex: 2 }}>
                     <TouchableButton
                         activeColor="transparent"
                         disabledColor="transparent"
@@ -91,12 +93,51 @@ const AlgoPage = ({ route }) => {
                             setIsFavorite(!isFavorite)
                         }}
                     />
-                </View>
+                </View> */}
+
+
+
 
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay} animationType="fade">
                     <ProfileSettings />
                 </Overlay>
                 <CubeAnimation isPlaying={isPlaying} setIsPlaying={setIsPlaying} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} />
+
+
+                <TouchableOpacity
+                    onPress={toggleOverlay}
+                    disabled={isPlaying}
+                    style={{
+                        flex: 0,
+                        position: 'absolute',
+                        top: 10,
+                        right: 10,
+                        zIndex: 2
+                    }}
+                >
+                    <IconAwesome size={30} color="black" name="cog" style={{ padding: 5 }} />
+                </TouchableOpacity>
+
+
+                <TouchableOpacity
+                    style={{
+                        flex: 0,
+                        position: 'absolute',
+                        top: 50,
+                        right: 10,
+                        zIndex: 2
+                    }}
+
+                    onPress={() => {
+                        toggleFavorites(currentAlg)
+                        setIsFavorite(!isFavorite)
+                    }}
+                >
+                    <IconAntDesign size={30} color="orange" name={isFavorite ? "star" : "staro"} style={{ padding: 5 }} />
+                </TouchableOpacity>
+
+
+
 
                 {currentAlg.algo.length > 1 && <View style={{ flexDirection: 'row' }}>
                     <TouchableButton

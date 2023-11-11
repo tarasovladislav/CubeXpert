@@ -26,9 +26,6 @@ const SubsetElement = ({ navigation, algo }) => {
                     name: algo.title,
                 })}
             >
-                {/* <View style={{ flex: 0, width: 30, height: 30, position: 'absolute', bottom: 5, right: 5, zIndex: 2 }}> */}
-
-
                 <TouchableOpacity
                     style={{
                         flex: 0,
@@ -43,11 +40,7 @@ const SubsetElement = ({ navigation, algo }) => {
                     }}
                 >
                     <IconAntDesign size={30} color="orange" name={isFavorite ? "star" : "staro"} style={{ padding: 5 }} />
-
                 </TouchableOpacity>
-                {/* </View> */}
-
-
                 <Image
 
                     PlaceholderContent={<ActivityIndicator size="large" />}
