@@ -2,6 +2,8 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native'
 import { Image } from 'react-native-elements';
 import { imageMapping } from '../assets/img';
+import { Skeleton } from '@rneui/themed';
+
 
 
 const SubsetElement = ({ navigation, algo }) => {
@@ -16,7 +18,9 @@ const SubsetElement = ({ navigation, algo }) => {
                 name: algo.title,
             })}
         >
+
             <Image
+
                 PlaceholderContent={<ActivityIndicator size="large" />}
                 style={styles.cubeImage}
                 source={imageSource}

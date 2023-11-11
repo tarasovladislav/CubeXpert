@@ -58,13 +58,21 @@ const Home = ({ navigation, route }) => {
             </TouchableOpacity>}
             <View style={{ flexDirection: "row", height: 100 }}>
 
-
-                <MenuItem text="Advanced Algorithms" onPress={()=> {
+                <MenuItem text="Advanced Algorithms" onPress={() => {
                     navigation.navigate('Choose Category')
                 }} />
-
-
-                <MenuItem text="Advanced Algorithms" />
+                <MenuItem text="Patterns" onPress={() => {
+                    navigation.navigate('Category', {
+                        name: 'Patterns',
+                        category: 'Patterns'
+                    })
+                }} />
+                <MenuItem text="Favorites" onPress={() => {
+                    navigation.navigate('Favorites', {
+                        name: 'Patterns',
+                        category: 'Patterns'
+                    })
+                }} />
 
             </View>
             <MenuItem text="Advanced Algorithms" />

@@ -41,7 +41,7 @@ const SettingsContextProvider = ({ children }) => {
     }, [settings])
 
     return (
-        <SettingsContext.Provider value={{ settings, setSettings, webViewKey, setWebViewKey, defaultSettings }}>
+        <SettingsContext.Provider value={{ settings, setSettings, webViewKey, setWebViewKey, defaultSettings,  }}>
             {children}
         </SettingsContext.Provider>
     );

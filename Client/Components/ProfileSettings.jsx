@@ -15,6 +15,9 @@ import { useSettingsContext } from '../Contexts/SettingsContext';
 const ProfileSettings = ({ }) => {
     const { settings, setSettings, setWebViewKey, defaultSettings } = useSettingsContext()
 
+
+
+
     const [showLayout, setShowLayout] = useState(false);
     const [selectedSide, setSelectedSide] = useState('');
     const [chosenColor, setChosenColor] = useState('')
@@ -61,24 +64,24 @@ const ProfileSettings = ({ }) => {
 
     return (
         <>
-            <Text style={{ fontSize: 18, textAlign: 'center', margin: 10 }}>Change Colors</Text>
-            <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.title}>Change Colors</Text>
+            <View style={styles.buttonContainer}>
                 <TouchableButton text='Up side' onPress={() => openColorPicker('U')} activeColor={settings['U']} textColor={textColors['U']} />
                 <TouchableButton text='Down side' onPress={() => openColorPicker('D')} activeColor={settings['D']} textColor={textColors['D']} />
             </View>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.buttonContainer}>
                 <TouchableButton text='Left side' onPress={() => openColorPicker('L')} activeColor={settings['L']} textColor={textColors['L']} />
                 <TouchableButton text='Right side' onPress={() => openColorPicker('R')} activeColor={settings['R']} textColor={textColors['R']} />
             </View>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.buttonContainer}>
                 <TouchableButton text='Front side' onPress={() => openColorPicker('F')} activeColor={settings['F']} textColor={textColors['F']} />
                 <TouchableButton text='Back side' onPress={() => openColorPicker('B')} activeColor={settings['B']} textColor={textColors['B']} />
             </View>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.buttonContainer}>
                 <TouchableButton text='Ignored' onPress={() => openColorPicker('ignored')} activeColor={settings['ignored']} textColor={textColors['ignored']} />
                 <TouchableButton text='Cube' onPress={() => openColorPicker('cube')} activeColor={settings['cube']} textColor={textColors['cube']} />
             </View>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.buttonContainer}>
                 <TouchableButton text='RESET COLORS'
                     onPress={() => { setSettings({ ...defaultSettings }); setShowLayout(false) }} />
             </View>
@@ -116,8 +119,8 @@ const ProfileSettings = ({ }) => {
                         />
                     </View>
                 </Overlay>
-                <Text style={{ fontSize: 18, textAlign: 'center', margin: 10 }}>Change Rotation Speed</Text>
 
+                <Text style={styles.title}>Change Rotation Speed</Text>
 
                 <Slider
                     value={chosenSpeed}
@@ -138,16 +141,19 @@ const ProfileSettings = ({ }) => {
                             />
                         ),
                     }}
-
                 />
                 <Text style={{ textAlign: 'center' }}>Speed: {settings['speed']} ms / rotation</Text>
             </View>
         </>
     );
 };
+
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+    buttonContainer: {
+        flexDirection: 'row'
+    },
     container: {
         width: width * 0.8,
 
@@ -156,5 +162,10 @@ const styles = StyleSheet.create({
         // alignSelf: 'center' ,
         // justifyContent: 'space-evenly',
     },
+    title: {
+        fontSize: 18,
+        textAlign: 'center',
+        margin: 10
+    }
 });
 export default ProfileSettings

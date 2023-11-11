@@ -14,7 +14,8 @@ import { createContext, useState } from 'react';
 
 // export const SettingsContext = createContext();
 import { SettingsContextProvider } from './Contexts/SettingsContext';
-
+import { FavoritesContextProvider } from './Contexts/FavoritesContext';
+import Favorites from './Screens/Favorites';
 export default function App() {
 
 
@@ -24,32 +25,35 @@ export default function App() {
     return (
         <NavigationContainer>
             {/* <Stack.Navigator initialRouteName="Details"> */}
-            <SettingsContextProvider>
-                <Stack.Navigator
-                    initialRouteName="Home"
-                    screenOptions={{
-                        headerStyle: {
-                            backgroundColor: '#f4511e',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                        },
-                        headerBackTitle: 'Back'
+            <FavoritesContextProvider>
+                <SettingsContextProvider>
+                    <Stack.Navigator
+                        initialRouteName="Home"
+                        screenOptions={{
+                            headerStyle: {
+                                backgroundColor: '#f4511e',
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                            headerBackTitle: 'Back'
 
-                    }}
-                >
+                        }}
+                    >
 
 
-                    <Stack.Screen name="Home" component={Home} />
-                    <Stack.Screen name="Choose Category" component={CategoryChoisePage} options={{
-                        title: 'Advanced Algorithms'
-                    }} />
-                    <Stack.Screen name="Category" component={CategoryPage} options={({ route }) => ({ title: route.params.name })} />
-                    <Stack.Screen name="Algo" component={AlgoPage} options={({ route }) => ({ title: route.params.name })} />
+                        <Stack.Screen name="Home" component={Home} />
+                        <Stack.Screen name="Choose Category" component={CategoryChoisePage} options={{
+                            title: 'Advanced Algorithms'
+                        }} />
+                        <Stack.Screen name="Favorites" component={Favorites} options={({ route }) => ({ title: route.params.name })} />
+                        <Stack.Screen name="Category" component={CategoryPage} options={({ route }) => ({ title: route.params.name })} />
+                        <Stack.Screen name="Algo" component={AlgoPage} options={({ route }) => ({ title: route.params.name })} />
 
-                </Stack.Navigator>
-            </SettingsContextProvider>
+                    </Stack.Navigator>
+                </SettingsContextProvider>
+            </FavoritesContextProvider>
         </NavigationContainer>
     );
 }
