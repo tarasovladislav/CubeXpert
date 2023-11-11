@@ -10,8 +10,6 @@ const FavoritesContextProvider = ({ children }) => {
     const toggleFavorites = (item) => {
         // setFavoritesList([])
         const index = favoritesList.findIndex((alg) => alg._id === item._id)
-
-        console.log(item)
         if (index === -1) {
             setFavoritesList([...favoritesList, item])
             return
@@ -24,7 +22,7 @@ const FavoritesContextProvider = ({ children }) => {
 
     }
     const isInFavorites = (id) => {
-        return favoritesList.findIndex((alg) => alg._id === id) === -1 ? false:true
+        return favoritesList.findIndex((alg) => alg._id === id) === -1 ? false : true
     }
 
 

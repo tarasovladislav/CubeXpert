@@ -1,34 +1,66 @@
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, TouchableOpacity, Dimensions, ActivityIndicator, View } from 'react-native'
 import { Image } from 'react-native-elements';
 import { imageMapping } from '../assets/img';
-import { Skeleton } from '@rneui/themed';
-
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import { useFavoritesContext } from '../Contexts/FavoritesContext';
 
 
 const SubsetElement = ({ navigation, algo }) => {
+    const { toggleFavorites, isInFavorites } = useFavoritesContext()
 
     const imageSource = imageMapping[`${algo.picturePath.toLowerCase()}`];
+    const [isFavorite, setIsFavorite] = useState(isInFavorites(algo._id))
+
+
+
+
 
     return (
-        <TouchableOpacity
-            style={styles.listElement}
-            onPress={() => navigation.navigate('Algo', {
-                _id: algo._id,
-                name: algo.title,
-            })}
-        >
+        <View style={{ padding: 5, flex: 1 }}>
 
-            <Image
+            <TouchableOpacity
+                style={styles.listElement}
+                onPress={() => navigation.navigate('Algo', {
+                    _id: algo._id,
+                    name: algo.title,
+                })}
+            >
+                {/* <View style={{ flex: 0, width: 30, height: 30, position: 'absolute', bottom: 5, right: 5, zIndex: 2 }}> */}
 
-                PlaceholderContent={<ActivityIndicator size="large" />}
-                style={styles.cubeImage}
-                source={imageSource}
-                resizeMode="contain"
-                transition={true}
-            />
-            <Text>{algo.title}</Text>
-        </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={{
+                        flex: 0,
+                        position: 'absolute',
+                        bottom: 0,
+                        right: 0,
+                        zIndex: 2
+                    }}
+                    onPress={() => {
+                        toggleFavorites(algo)
+                        setIsFavorite(!isFavorite)
+                    }}
+                >
+                    <IconAntDesign size={30} color="orange" name={isFavorite ? "star" : "staro"} style={{ padding: 5 }} />
+
+                </TouchableOpacity>
+                {/* </View> */}
+
+
+                <Image
+
+                    PlaceholderContent={<ActivityIndicator size="large" />}
+                    style={styles.cubeImage}
+                    source={imageSource}
+                    resizeMode="contain"
+                    transition={true}
+                />
+
+
+                <Text>{algo.title}</Text>
+            </TouchableOpacity>
+        </View>
     )
 }
 
@@ -36,15 +68,19 @@ const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     cubeImage: {
-        width: width / 2.5,
-        height: width / 2.5,
+        width: width / 3,
+        height: width / 3,
     },
     listElement: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 10,
         borderBottomWidth: 2,
         borderBottomColor: 'rgba(132, 122, 122, 0.3)',
+        borderColor: 'rgba(132, 122, 122, 0.3)',
+        borderWidth: 2
+        // position: 'relative',
 
     }
 })

@@ -16,23 +16,23 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
 const AlgoPage = ({ route }) => {
     const { toggleFavorites, favoritesList, isInFavorites } = useFavoritesContext()
-    
-    
+
+
     const [isPlaying, setIsPlaying] = useState(false)
     const [visible, setVisible] = useState(false);
     const toggleOverlay = () => setVisible(!visible);
-    
-    
+
+
     //after changing colors cube goes to initial but currentalg state no
     const { _id } = route.params
     const [currentAlg, setCurrentAlg] = useState()
     const [whichAlg, setWhichAlg] = useState(0)
-    const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg))
+    const [isFavorite, setIsFavorite] = useState(isInFavorites(_id))
     useEffect(() => {
         setIsLoading(true)
-        
+
         apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
-            
+
             setIsFavorite(isInFavorites(_id))
         }).finally(() => {
             setIsLoading(false)
@@ -89,7 +89,6 @@ const AlgoPage = ({ route }) => {
                         onPress={() => {
                             toggleFavorites(currentAlg)
                             setIsFavorite(!isFavorite)
-
                         }}
                     />
                 </View>

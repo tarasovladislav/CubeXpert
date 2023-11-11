@@ -69,7 +69,7 @@ const Home = ({ navigation, route }) => {
                 }} />
                 <MenuItem text="Favorites" onPress={() => {
                     navigation.navigate('Favorites', {
-                        name: 'Patterns',
+                        name: 'Favorites',
                         category: 'Patterns'
                     })
                 }} />
