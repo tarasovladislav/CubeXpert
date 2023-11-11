@@ -15,7 +15,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
 
 const AlgoPage = ({ route }) => {
-    const { toggleFavorites, favoritesList, isInFavorites } = useFavoritesContext()
+    const { toggleFavorites, isInFavorites } = useFavoritesContext()
 
 
     const [isPlaying, setIsPlaying] = useState(false)
@@ -32,8 +32,8 @@ const AlgoPage = ({ route }) => {
         setIsLoading(true)
 
         apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
-
-            setIsFavorite(isInFavorites(_id))
+//TODO попробовать убрать эту строку, вроде не надо
+            setIsFavorite(isInFavorites(_id)) 
         }).finally(() => {
             setIsLoading(false)
         }
@@ -41,18 +41,6 @@ const AlgoPage = ({ route }) => {
 
         )
     }, [])
-
-
-
-
-
-
-
-    // useEffect(() => {
-    //     console.log(currentAlg)
-    //     // setIsFavorite(favoritesList.findIndex((alg) => alg._id === currentAlg._id) === -1 ? false : true)
-
-    // }, [favoritesList])
 
 
     const [isLoading, setIsLoading] = useState(true)
@@ -150,27 +138,6 @@ const AlgoPage = ({ route }) => {
                         text='Next'
                     />
                 </View>}
-
-                {/* переикнуть кнопку избранных куда нибудть выше */}
-
-                {/* 
-                <View style={{ flexDirection: 'row' }}>
-                    <TouchableButton
-                    // text={<IconAntDesign size={24} color="orange" name="staro" />}
-                    // disabled={whichAlg === currentAlg.algo.length - 1}
-                    // onPress={() => setWhichAlg(whichAlg + 1)}
-                    />
-                    <TouchableButton
-                        text={<IconAntDesign size={24} color="orange" name="staro" />}
-                        // disabled={whichAlg === currentAlg.algo.length - 1}
-                        onPress={() => {
-                            // toggleFavorites(currentAlg)
-                            // setIsFavorite(isInFavorites(currentAlg))
-
-                        }}
-                    />
-
-                </View> */}
 
 
 

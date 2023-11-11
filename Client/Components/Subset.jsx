@@ -15,6 +15,10 @@ const Subset = ({ navigation, category, subset }) => {
 
     return (
         <>
+
+        {/* попробовать ListEmptyComponent чтобы избежать растяжение последнего элемента */}
+
+        {/* getItemLayout чтобы заранее знать размер загружемых сообщений чтобы не было стрмного перехода  */}
             {subsetAlgs && <View>
                 <Text h2 style={styles.subsetTitle}>{subset}</Text>
                 <FlatList

@@ -16,8 +16,6 @@ const ProfileSettings = ({ }) => {
     const { settings, setSettings, setWebViewKey, defaultSettings } = useSettingsContext()
 
 
-
-
     const [showLayout, setShowLayout] = useState(false);
     const [selectedSide, setSelectedSide] = useState('');
     const [chosenColor, setChosenColor] = useState('')

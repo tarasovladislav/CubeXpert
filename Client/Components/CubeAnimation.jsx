@@ -38,8 +38,6 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying }) => {
 
     //TODO add loading spinner when loading cube
 
-
-    //When changing whichAlg, reset currentStep
     useEffect(() => {
         setCurrentStep(0)
         setIsPlaying(false)
@@ -106,7 +104,6 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying }) => {
 
             <View style={styles.container}>
 
-
                 <WebView
                     source={{
                         uri: `https://cubium-fe4h.vercel.app/animation?alg=${alg}&colored=${colored}
@@ -119,24 +116,23 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying }) => {
                     ref={cubeAnimationWebView}
                     key={webViewKey}
                     scrollEnabled={false}
+                    bounces={false}
+                    overScrollMode={'never'}
                     style={styles.webview}
                 />
-
-                {/* </View> */}
-
             </View >
 
             <View style={styles.otherContainer}>
                 <View>
-                    <Text style={{ textAlign: 'center' }}>
+                    <Text style={{ textAlign: 'center', fontSize: 16 }}>
                         {currentStep > 0 && algArray.slice(0, currentStep - 1).join(' ')}
                         <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray[currentStep - 1]}{currentStep > 0 ? ' ' : ''}</Text>
                         {algArray.slice(currentStep).join(' ')}
                     </Text>
-                    <Text style={{ textAlign: 'center' }}>{currentStep} / {len}</Text>
+                    <Text style={{ textAlign: 'center', fontSize: 16 }}>{currentStep} / {len}</Text>
                 </View>
 
-                
+
                 <View style={styles.buttonContainer}>
 
                     <TouchableButton
@@ -169,42 +165,20 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying }) => {
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
-        // marginTop: 20,
-        // marginBottom: 20,
-        flex: 2,
-        // height: '100%',
-        // minHeight: width * 1.02,
-        // justifyContent: 'center',
-        // backgroundColor: 'red',
-        // flexDirection: 'row',
-        // gap:30,
-        // alignContent: 'center',
-        // alignSelf: 'center',
-        marginTop: 10,
-        justifyContent: 'center',
-        // alignItems: 'center'
+        flex: 1,
     },
     webview: {
-        // minHeight: width * 1.02,
-        // maxHeight: width * 1.02,
-        // minWidth: width,
-        // maxWidth: width,
         flex: 1,
-        // width: width,
-        // height: width,
-        // aspectRatio: 2,
-
-        // marginVertical: 50,
-        padding: 20,
-        // flex: 1,
-        // alignSelf: 'center',
-        // margin: 30,
-        // padding: 30,
-        // backgroundColor: '#eee'
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        width: "100%",
+        height: '100%',
+        transform: [
+            { translateX: -width / 2 },
+            { translateY: -width / 2 },
+        ],
         backgroundColor: 'transparent'
-    },
-    otherContainer: {
-
     },
     buttonContainer: {
         flexDirection: 'row',

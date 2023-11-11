@@ -14,8 +14,6 @@ const SubsetElement = ({ navigation, algo }) => {
 
 
 
-
-
     return (
         <View style={{ padding: 5, flex: 1 }}>
 
@@ -28,19 +26,15 @@ const SubsetElement = ({ navigation, algo }) => {
             >
                 <TouchableOpacity
                     style={{
-                        flex: 0,
-                        position: 'absolute',
-                        bottom: 0,
-                        right: 0,
-                        zIndex: 2
+                        flex: 0, position: 'absolute', bottom: 0, right: 0, zIndex: 2
                     }}
                     onPress={() => {
                         toggleFavorites(algo)
                         setIsFavorite(!isFavorite)
-                    }}
-                >
+                    }} >
                     <IconAntDesign size={30} color="orange" name={isFavorite ? "star" : "staro"} style={{ padding: 5 }} />
                 </TouchableOpacity>
+
                 <Image
 
                     PlaceholderContent={<ActivityIndicator size="large" />}
@@ -69,8 +63,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 10,
-        borderBottomWidth: 2,
-        borderBottomColor: 'rgba(132, 122, 122, 0.3)',
         borderColor: 'rgba(132, 122, 122, 0.3)',
         borderWidth: 2
         // position: 'relative',
