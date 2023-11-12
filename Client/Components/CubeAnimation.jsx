@@ -117,15 +117,15 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                     overScrollMode={'never'}
                     style={styles.webview}
                     startInLoadingState={true} // Tells the WebView to show the loading view on the first load
-                    renderLoading={() => <Loading />} 
+                    renderLoading={() => <Loading />}
                     onLoadProgress={() => <Loading />} // TEST
-                    // onLoadStart={() => <Loading />}
+                // onLoadStart={() => <Loading />}
                 />
             </View >
 
             <View style={styles.otherContainer}>
-                <View>
-                    <Text style={{ textAlign: 'center', fontSize: 16 }}>
+                <View style={{ alignItems: 'center' }}>
+                    <Text style={{ textAlign: 'center', fontSize: 16, width: '80%' }}>
                         {currentStep > 0 && algArray.slice(0, currentStep - 1).join(' ')}
                         <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray[currentStep - 1]}{currentStep > 0 ? ' ' : ''}</Text>
                         {algArray.slice(currentStep).join(' ')}
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
     },
     buttonContainer: {
-        position:'relative',
+        position: 'relative',
         flexDirection: 'row',
     }
 });
