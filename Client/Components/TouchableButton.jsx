@@ -17,7 +17,13 @@ const getDynamicStyles = (activeColor, disabledColor, textColor) =>
             backgroundColor: activeColor,
             borderRadius: 50,
             margin: 5,
-            justifyContent: 'center'
+            justifyContent: 'center',
+            borderRadius: 50,
+            backgroundColor: activeColor,
+            shadowOffset: { width: 0, height: 2},
+            shadowOpacity: 0.23,
+            shadowRadius: 2.22,
+            elevation: 3,
         },
         controlBtnDisabled: {
             backgroundColor: disabledColor

@@ -9,7 +9,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { useFavoritesContext } from '../Contexts/FavoritesContext';
 
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
+import Loading from './Loading';
 
 const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) => {
     const { toggleFavorites, isInFavorites } = useFavoritesContext()
@@ -116,6 +116,10 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                     bounces={false}
                     overScrollMode={'never'}
                     style={styles.webview}
+                    startInLoadingState={true} // Tells the WebView to show the loading view on the first load
+                    renderLoading={() => <Loading />} 
+                    onLoadProgress={() => <Loading />} // TEST
+                    // onLoadStart={() => <Loading />}
                 />
             </View >
 
