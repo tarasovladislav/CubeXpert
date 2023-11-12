@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
+import { View, StyleSheet, FlatList, Text} from 'react-native'
 import apiService from '../apiService'
 import SubsetElement from './SubsetElement';
-import { Text } from 'react-native';
+
 
 
 const Subset = ({ navigation, category, subset }) => {
@@ -15,12 +15,9 @@ const Subset = ({ navigation, category, subset }) => {
 
     return (
         <>
-
-        {/* попробовать ListEmptyComponent чтобы избежать растяжение последнего элемента */}
-
         {/* getItemLayout чтобы заранее знать размер загружемых сообщений чтобы не было стрмного перехода  */}
             {subsetAlgs && <View>
-                <Text h2 style={styles.subsetTitle}>{subset}</Text>
+                <Text style={styles.subsetTitle}>{subset}</Text>
                 <FlatList
                     data={subsetAlgs}
                     numColumns={2}
@@ -37,7 +34,15 @@ const styles = StyleSheet.create({
     subsetTitle: {
         textAlign: 'center',
         fontSize: 24,
+        fontWeight: 'bold',
         margin: 10,
+        padding: 10,
+        backgroundColor: 'white',
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 2.22,
+        elevation: 3, 
+        borderRadius: 8,
+        shadowOpacity: 0.23,
     }
 })
 

@@ -15,15 +15,22 @@ const SubsetElement = ({ navigation, algo }) => {
 
 
     return (
-        <View style={{ padding: 5, flex: 1 }}>
-
-            <TouchableOpacity
-                style={styles.listElement}
-                onPress={() => navigation.navigate('Algo', {
-                    _id: algo._id,
-                    name: algo.title,
-                })}
-            >
+        <TouchableOpacity style={styles.algoElement}
+            onPress={() => navigation.navigate('Algo', {
+                _id: algo._id,
+                name: algo.title,
+            })}
+        >
+            <View style={{ alignItems: 'center' }}>
+                <Image
+                    PlaceholderContent={<ActivityIndicator size="large" />}
+                    resizeMode="contain"
+                    transition={true}
+                    source={imageSource} style={styles.algoImage} />
+            </View>
+            <Text style={styles.title}>{algo.title}</Text>
+            <Text style={styles.firstAlgo}>{algo.algo[0]}</Text>
+            <View style={styles.bottomSection}>
                 <TouchableOpacity
                     style={{
                         flex: 0, position: 'absolute', bottom: 0, right: 0, zIndex: 2
@@ -31,43 +38,54 @@ const SubsetElement = ({ navigation, algo }) => {
                     onPress={() => {
                         toggleFavorites(algo)
                         setIsFavorite(!isFavorite)
-                    }} >
-                    <IconAntDesign size={30} color="orange" name={isFavorite ? "star" : "staro"} style={{ padding: 5 }} />
+                    }}>
+                    <IconAntDesign size={24} color="orange" name={isFavorite ? "star" : "staro"} style={styles.bottomIcon} />
                 </TouchableOpacity>
-
-                <Image
-
-                    PlaceholderContent={<ActivityIndicator size="large" />}
-                    style={styles.cubeImage}
-                    source={imageSource}
-                    resizeMode="contain"
-                    transition={true}
-                />
-
-
-                <Text>{algo.title}</Text>
-            </TouchableOpacity>
-        </View>
+            </View>
+        </TouchableOpacity>
     )
 }
 
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-    cubeImage: {
-        width: width / 3,
-        height: width / 3,
-    },
-    listElement: {
+    algoElement: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        maxWidth: width / 2 - 20,
+        margin: 10,
         padding: 10,
-        borderColor: 'rgba(132, 122, 122, 0.3)',
-        borderWidth: 2
-        // position: 'relative',
-
-    }
+        borderRadius: 8,
+        backgroundColor: 'white',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.22, 
+        elevation: 3, 
+    },
+    algoImage: {
+        width: width / 4,
+        height: width / 4,
+    },
+    title: {
+        marginTop: 5,
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    firstAlgo: {
+        fontSize: 14,
+        maxWidth:'90%',
+        marginBottom: 5
+    },
+    bottomSection: {
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 5,
+        right: 5,
+        justifyContent: 'flex-end',
+        // other styles for the bottom section
+    },
+    bottomIcon: {
+        // styles for the icons in the bottom section
+    },
 })
 
 export default SubsetElement

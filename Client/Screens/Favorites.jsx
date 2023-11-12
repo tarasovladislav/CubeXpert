@@ -29,27 +29,16 @@ const Favorites = ({ route, navigation }) => {
 
     // // Add the placeholder item to the end of favoritesList
     // const updatedFavoritesList = [...favoritesList, placeholderItem];
+
     return (
         <>
             <ScrollView>
                 <FlatList
-
                     data={favoritesList}
                     numColumns={2}
                     scrollEnabled={false}
-                    renderItem={({ item }) => {
-                        // if (item._id !== 'placeholder') {
-                        return <SubsetElement navigation={navigation} algo={item} />;
-                        // }
-                        // // Return an empty View for the placeholder item
-                        // return <View style={{ flex: 1 }} />;
-                    }
-                    }
-                    ListEmptyComponent={
-                        <Text style={{ textAlign: 'center', fontSize: 20 }}>No Favorite Algorithms Yet</Text>
-
-
-                    }
+                    renderItem={({ item }) => <SubsetElement navigation={navigation} algo={item} />}
+                    ListEmptyComponent={<Text style={{ textAlign: 'center', fontSize: 20 }}>No Favorite Algorithms Yet</Text>}
                     keyExtractor={alg => alg._id}
                 />
             </ScrollView>
