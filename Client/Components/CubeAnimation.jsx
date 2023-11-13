@@ -109,7 +109,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
 
                     break;
                 case "First Layer":
-                    colored = currentAlg.colored = "D*/e DFR U F L R B D"
+                    colored = currentAlg.colored || ""
                     setupmoves = currentAlg.setupmoves || ''
                     break;
                 default:

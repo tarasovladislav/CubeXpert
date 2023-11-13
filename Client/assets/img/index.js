@@ -125,5 +125,13 @@ export const imageMapping = {
     cross1: require('./beginners/cross1.png'),
     cross2: require('./beginners/cross2.png'),
     cross3: require('./beginners/cross3.png'),
-    
+    firstlayer1: require('./beginners/firstlayer1.png'),
+    firstlayer2: require('./beginners/firstlayer1.png'),
+    firstlayer3: require('./beginners/firstlayer3.png'),
+    firstlayerimage1: require('./beginners/firstlayerimage1.png'),
+    firstlayerimage2: require('./beginners/firstlayerimage2.png'),
+    firstlayerimage3: require('./beginners/firstlayerimage3.png'),
+    firstlayerfrom: require('./beginners/firstlayerfrom.png'),
+    firstlayerto: require('./beginners/firstlayerto.png'),
+
 };
