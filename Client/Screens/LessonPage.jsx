@@ -7,7 +7,6 @@ import { imageMapping } from '../assets/img';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 
 const LessonPage = ({ navigation, route }) => {
-    // const data = navigation.para
     const { data } = route.params
 
     const [algoData, setAlgoData] = useState([]);
@@ -37,59 +36,6 @@ const LessonPage = ({ navigation, route }) => {
 
         fetchData();
     }, []);
-
-
-    // const data = {
-    //     stepTitle: 'White Cross',
-    //     from: 'crossfrom',
-    //     to: 'crossto',
-    //     data: [
-    //         {
-    //             type: 'paragraph',
-    //             content: "Hold the white center piece on top, and find an edge in the bottom layer that has white on it."
-    //         },
-    //         {
-    //             type: 'note',
-    //             content: "An edge piece has 2 colors on it."
-    //         },
-    //         {
-    //             type: 'paragraph',
-    //             content: "Look at the edge piece's other color, and turn the bottom layer so the edge is under the center of the same color."
-    //         },
-    //         {
-    //             type: 'paragraph',
-    //             content: "Turn that face to bring the edge piece to the top."
-    //         },
-    //         {
-    //             type: 'algo',
-    //             content: ["65521c94145ed356047e91af"]
-    //         },
-    //         {
-    //             type: 'paragraph',
-    //             content: "Anytime an edge piece is flipped (example above), fix it by doing the following moves:"
-    //         },
-    //         {
-    //             type: 'algo',
-    //             content: ["65521c94145ed356047e91b0"]
-    //         },
-    //         {
-    //             type: 'paragraph',
-    //             content: "Anytime you find a white edge piece that is not in the bottom layer, you can move it into the bottom by doing the following moves:"
-    //         },
-    //         {
-    //             type: 'algo',
-    //             content: ["65522102b7a4d7b46c35ac8e"]
-    //         },
-    //         {
-    //             type: 'paragraph',
-    //             content: "And then solve it like you would for any white edge in the bottom layer."
-    //         },
-    //         {
-    //             type: 'paragraph',
-    //             content: "Solve all 4 of the white edge pieces to make a cross. Make sure you always look at both colors on each piece so that you end up with the side colors matching as well."
-    //         },
-    //     ]
-    // }
 
     const imageFrom = imageMapping[`${data.from.toLowerCase()}`];
     const imageTo = imageMapping[`${data.to.toLowerCase()}`];
@@ -132,7 +78,6 @@ const LessonPage = ({ navigation, route }) => {
                                     renderItem={({ item }) => (<SubsetElement navigation={navigation} algo={item} />)}
                                     keyExtractor={alg => alg._id}
                                 />
-                                {/* } */}
                             </View>
 
                         case 'image':
@@ -142,10 +87,10 @@ const LessonPage = ({ navigation, route }) => {
                                         PlaceholderContent={<ActivityIndicator size="large" />}
                                         resizeMode="contain"
                                         transition={true}
-                                        source={imageMapping[image]} style={styles.algoImage2} />
+                                        source={imageMapping[image]}
+                                        style={element.content.length === 2 ? styles.algoImage : styles.algoImage2}
+                                    />
                                 })}
-
-                                {/* <Text key={element._id} style={styles.note}><Text style={{ fontWeight: 'bold' }}>Note:</Text> {element.content}</Text> */}
                             </View>
 
 
@@ -184,7 +129,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
         margin: 10,
         padding: 10,
