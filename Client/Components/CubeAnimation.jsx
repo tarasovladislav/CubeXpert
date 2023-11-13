@@ -96,7 +96,8 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
             setupmoves = alg
             break;
         case "Beginners":
-
+            colored = currentAlg.colored || ""
+            setupmoves = currentAlg.setupmoves || ''
             switch (currentAlg.subset) {
 
                 case "Cross":
@@ -108,14 +109,18 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                     setupmoves = currentAlg.setupmoves || ''
 
                     break;
-                case "First Layer":
-                    colored = currentAlg.colored || ""
-                    setupmoves = currentAlg.setupmoves || ''
-                    break;
-                case "Second Layer":
-                    colored = currentAlg.colored || ""
-                    setupmoves = currentAlg.setupmoves || ''
-                    break;
+                // case "First Layer":
+                //     colored = currentAlg.colored || ""
+                //     setupmoves = currentAlg.setupmoves || ''
+                //     break;
+                // case "Second Layer":
+                //     colored = currentAlg.colored || ""
+                //     setupmoves = currentAlg.setupmoves || ''
+                //     break;
+                // case "Second Layer":
+                //     colored = currentAlg.colored || ""
+                //     setupmoves = currentAlg.setupmoves || ''
+                //     break;
                 default:
                     break;
             }
