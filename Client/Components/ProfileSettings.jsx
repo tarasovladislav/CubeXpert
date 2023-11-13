@@ -18,9 +18,9 @@ const ProfileSettings = ({ }) => {
 
     const [showLayout, setShowLayout] = useState(false);
     const [selectedSide, setSelectedSide] = useState('');
-    const [chosenColor, setChosenColor] = useState('')
+    const [selectedColor, setSelectedColor] = useState('')
     const [textColors, setTextColors] = useState({});
-    const [chosenSpeed, setChosenSpeed] = useState(settings['speed'])
+    const [selectedSpeed, setSelectedSpeed] = useState(settings['speed'])
 
     const isColorDark = (color) => {
         const hex = color.replace(/^#/, '');
@@ -41,7 +41,7 @@ const ProfileSettings = ({ }) => {
     };
 
     useEffect(() => {
-        if (selectedSide && chosenColor) {
+        if (selectedSide && selectedColor) {
             setShowLayout(false);
         }
         setTextColors({
@@ -57,8 +57,8 @@ const ProfileSettings = ({ }) => {
     }, [settings]);
 
     useEffect(() => {
-        setSettings({ ...settings, ['speed']: chosenSpeed })
-    }, [chosenSpeed])
+        setSettings({ ...settings, ['speed']: selectedSpeed })
+    }, [selectedSpeed])
 
     return (
         <>
@@ -88,7 +88,7 @@ const ProfileSettings = ({ }) => {
             <View style={styles.container}>
                 <Overlay visible={showLayout} animationType='fade'>
                     <View style={styles.container}>
-                        <ColorPicker style={{ gap: 15 }} value={settings[selectedSide]} onComplete={({ hex }) => setChosenColor(hex)}>
+                        <ColorPicker style={{ gap: 15 }} value={settings[selectedSide]} onComplete={({ hex }) => setSelectedColor(hex)}>
                             <Preview />
                             <Panel1 boundedThumb={true} thumbSize={25} />
                             <HueSlider boundedThumb={true} thumbSize={25} />
@@ -105,8 +105,8 @@ const ProfileSettings = ({ }) => {
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableButton text='Reset' onPress={() => setShowLayout(false)} activeColor={settings[selectedSide]} textColor={textColors[selectedSide]} />
                         <TouchableButton text='Ok' onPress={() => {
-                            selectedSide && chosenColor && setSettings({ ...settings, [selectedSide]: chosenColor });
-                            if (isColorDark(chosenColor)) {
+                            selectedSide && selectedColor && setSettings({ ...settings, [selectedSide]: selectedColor });
+                            if (isColorDark(selectedColor)) {
                                 setTextColors({ ...textColors, [selectedSide]: 'white' });
                             } else {
                                 setTextColors({ ...textColors, [selectedSide]: 'black' });
@@ -121,8 +121,8 @@ const ProfileSettings = ({ }) => {
                 <Text style={styles.title}>Change Rotation Speed</Text>
 
                 <Slider
-                    value={chosenSpeed}
-                    onSlidingComplete={setChosenSpeed}
+                    value={selectedSpeed}
+                    onSlidingComplete={setSelectedSpeed}
                     maximumValue={1500}
                     minimumValue={100}
                     step={100}
