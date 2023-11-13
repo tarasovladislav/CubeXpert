@@ -5,6 +5,7 @@ import Loading from '../Components/Loading'
 import apiService from '../apiService'
 import MenuItem from '../Components/MenuItem'
 import { imageMapping } from '../assets/img';
+import SubsetElement from '../Components/SubsetElement'
 
 const Home = ({ navigation, route }) => {
     const [isLoading, setIsLoading] = useState(true)
@@ -36,47 +37,53 @@ const Home = ({ navigation, route }) => {
     //TODO add slider to top to render once again random alg
     return (
         <>
-            {randomAlgo && <TouchableOpacity
-                style={styles.listElement}
-                onPress={() => {
-                    navigation.navigate('Algo', {
-                        _id: randomAlgo._id,
-                        name: randomAlgo.title
-                    })
-                    setTimeout(() => randomAlg(allAlgs), 500)
-                }
-                }
-            >
-                <Image
-                    PlaceholderContent={<ActivityIndicator size="large" />}
-                    style={styles.cubeImage}
-                    source={imageMapping[`${randomAlgo.picturePath.toLowerCase()}`]}
-                    resizeMode="contain"
-                    transition={true}
-                />
-                <Text>{randomAlgo.title}</Text>
-            </TouchableOpacity>}
-            <View style={{ flexDirection: "row", height: 100 }}>
+            {/* <SubsetElement algo={randomAlgo} /> */}
+            <View style={{ flex: 1, }}>
+                {randomAlgo && <TouchableOpacity
+                    style={styles.listElement}
+                    onPress={() => {
+                        navigation.navigate('Algo', {
+                            _id: randomAlgo._id,
+                            name: randomAlgo.title
+                        })
+                        setTimeout(() => randomAlg(allAlgs), 500)
+                    }
+                    }
+                >
+                    <Image
+                        PlaceholderContent={<ActivityIndicator size="large" />}
+                        style={styles.cubeImage}
+                        source={imageMapping[`${randomAlgo.picturePath.toLowerCase()}`]}
+                        resizeMode="contain"
+                        transition={true}
+                    />
+                    <Text>{randomAlgo.title}</Text>
+                </TouchableOpacity>}
 
-                <MenuItem text="Advanced Algorithms" onPress={() => {
-                    navigation.navigate('Choose Category')
-                }} />
-                <MenuItem text="Patterns" onPress={() => {
-                    navigation.navigate('Category', {
-                        name: 'Patterns',
-                        category: 'Patterns'
-                    })
-                }} />
-                <MenuItem text="Favorites" onPress={() => {
-                    navigation.navigate('Favorites', {
-                        name: 'Favorites',
-                        category: 'Patterns'
-                    })
-                }} />
+                <View style={{ flex: 1 }}>
 
+                    <View style={{ flexDirection: "row", height: '50%' }}>
+                        <MenuItem text="How to solve the cube" />
+                        <MenuItem text="Advanced Algorithms" onPress={() => {
+                            navigation.navigate('Choose Category')
+                        }} />
+                    </View>
+                    <View style={{ flexDirection: "row", height: '50%', }}>
+                        <MenuItem text="Patterns" onPress={() => {
+                            navigation.navigate('Category', {
+                                name: 'Patterns',
+                                category: 'Patterns'
+                            })
+                        }} />
+                        <MenuItem text="Favorites" onPress={() => {
+                            navigation.navigate('Favorites', {
+                                name: 'Favorites',
+                                category: 'Patterns'
+                            })
+                        }} />
+                    </View>
+                </View>
             </View>
-            <MenuItem text="Advanced Algorithms" />
-
         </>
     )
 }
@@ -91,6 +98,7 @@ const styles = StyleSheet.create({
     },
     listElement: {
         alignItems: 'center',
+        // backgroundColor: 'red'
     },
 
 

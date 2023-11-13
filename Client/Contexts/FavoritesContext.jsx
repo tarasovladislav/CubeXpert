@@ -39,8 +39,6 @@ const FavoritesContextProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        console.log('AFTER RUN IT IS ', favoritesList);
-
         const favoritesJson = JSON.stringify(favoritesList)
         AsyncStorage.setItem('favoritesList', favoritesJson)
             .then(() => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Text } from 'react-native'
 
-const TouchableButton = ({ onPress = () => { }, text, disabled = false, textColor = '#000000', activeColor = '#ddd', disabledColor = '#eee' }) => {
+const TouchableButton = ({ onPress = () => { }, text, disabled = false, textColor = '#000000', activeColor = '#a09bee', disabledColor = '#bbbbbc' }) => {
     const styles = getDynamicStyles(activeColor, disabledColor, textColor);
 
     return (
@@ -20,7 +20,7 @@ const getDynamicStyles = (activeColor, disabledColor, textColor) =>
             justifyContent: 'center',
             borderRadius: 50,
             backgroundColor: activeColor,
-            shadowOffset: { width: 0, height: 2},
+            shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.23,
             shadowRadius: 2.22,
             elevation: 3,

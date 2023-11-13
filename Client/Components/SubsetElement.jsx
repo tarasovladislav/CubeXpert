@@ -9,7 +9,6 @@ import { useFavoritesContext } from '../Contexts/FavoritesContext';
 const SubsetElement = ({ navigation, algo }) => {
     const styles = getDynamicStyles(algo.category);
 
-
     const { toggleFavorites, isInFavorites } = useFavoritesContext()
 
     const imageSource = imageMapping[`${algo.picturePath.toLowerCase()}`];

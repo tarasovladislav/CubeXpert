@@ -106,7 +106,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
 
                 <WebView
                     source={{
-                        uri: `https://cubium-fe4h.vercel.app/animation?alg=${alg}&colored=${colored}
+                        uri: `https://cube-xpert.vercel.app/animation?alg=${alg}&colored=${colored}
                         &speed=${speed}
                         &colors=U:${U} F:${F} R:${R} L:${L} B:${B} D:${D} ignored:${ignored} cube:${cube}
                         &hover=1

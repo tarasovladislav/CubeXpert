@@ -10,7 +10,7 @@ const MenuItem = ({ onPress = () => { }, text, disabled = false, activeColor = '
 
 
         <TouchableOpacity disabled={disabled} style={!disabled ? styles.controlBtn : { ...styles.controlBtn, ...styles.controlBtnDisabled }} onPress={onPress} >
-           
+
             <Text style={styles.buttonText}>{text}</Text>
 
 
@@ -27,14 +27,15 @@ const getDynamicStyles = (activeColor, disabledColor) =>
             margin: 5,
             justifyContent: 'center',
             flexDirection: 'row',
-            height: 50
         },
-        controlBtnDisabled: {
-            backgroundColor: disabledColor
-        },
+        // controlBtnDisabled: {
+        //     backgroundColor: disabledColor
+        // },
         buttonText: {
             padding: 10,
             alignSelf: 'center',
+            fontSize: 24,
+            textAlign: 'center'
         }
     })
 
