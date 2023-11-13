@@ -133,5 +133,10 @@ export const imageMapping = {
     firstlayerimage3: require('./beginners/firstlayerimage3.png'),
     firstlayerfrom: require('./beginners/firstlayerfrom.png'),
     firstlayerto: require('./beginners/firstlayerto.png'),
-
+    secondlayer1: require('./beginners/secondlayer1.png'),
+    secondlayer2: require('./beginners/secondlayer2.png'),
+    secondlayerimage1: require('./beginners/secondlayer1.png'),
+    secondlayerimage2: require('./beginners/secondlayer2.png'),
+    secondlayerfrom: require('./beginners/secondlayerfrom.png'),
+    secondlayerto: require('./beginners/secondlayerto.png'),
 };

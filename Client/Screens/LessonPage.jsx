@@ -98,19 +98,7 @@ const LessonPage = ({ navigation, route }) => {
         <>
             <ScrollView>
 
-                <View style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: 10,
-                    padding: 10,
-                    backgroundColor: 'white',
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowRadius: 2.22,
-                    elevation: 3,
-                    borderRadius: 8,
-                    shadowOpacity: 0.23,
-                }}>
+                <View style={styles.container}>
                     <Image
                         PlaceholderContent={<ActivityIndicator size="large" />}
                         resizeMode="contain"
@@ -141,10 +129,23 @@ const LessonPage = ({ navigation, route }) => {
                                     data={algoData[index]}
                                     numColumns={2}
                                     scrollEnabled={false}
-                                    renderItem={({ item }) => (<SubsetElement  navigation={navigation} algo={item} />)}
+                                    renderItem={({ item }) => (<SubsetElement navigation={navigation} algo={item} />)}
                                     keyExtractor={alg => alg._id}
                                 />
                                 {/* } */}
+                            </View>
+
+                        case 'image':
+                            return <View style={styles.container}>
+                                {element.content.map((image) => {
+                                    return <Image
+                                        PlaceholderContent={<ActivityIndicator size="large" />}
+                                        resizeMode="contain"
+                                        transition={true}
+                                        source={imageMapping[image]} style={styles.algoImage2} />
+                                })}
+
+                                {/* <Text key={element._id} style={styles.note}><Text style={{ fontWeight: 'bold' }}>Note:</Text> {element.content}</Text> */}
                             </View>
 
 
@@ -176,9 +177,24 @@ const styles = StyleSheet.create({
     algoImage: {
         width: width / 3,
         height: width / 3,
-        // transform: [{ rotate: '180deg'}]
-
     },
+    algoImage2: {
+        width: width / 3.5,
+        height: width / 3.5,
+    },
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 10,
+        padding: 10,
+        backgroundColor: 'white',
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 2.22,
+        elevation: 3,
+        borderRadius: 8,
+        shadowOpacity: 0.23,
+    }
 
 })
 
