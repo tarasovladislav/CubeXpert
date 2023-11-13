@@ -20,7 +20,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
     const [currentStep, setCurrentStep] = useState(0)
     const [triggerUseEffect, setTriggerUseEffect] = useState(false)
     const [allowControl, setAllowControl] = useState(true)
-    const { U, F, R, L, B, D, speed, cube, ignored } = settings
+    let { U, F, R, L, B, D, speed, cube, ignored } = settings
     const cubeAnimationWebView = useRef(null);
     const algArray = alg.split(' ');
     const len = algArray.length;
@@ -95,10 +95,27 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
         case "Patterns":
             setupmoves = alg
             break;
+        case "Beginners":
+            switch (currentAlg.subset) {
+                
+                case "Cross":
+                    [U, D] = [D, U];
+                    [F, R] = [R, F];
+                    [B, L] = [L, B];
+                    // D:#fcff02 R:#ff0001 F:#01dd01 B:#1777fe L:#ffa501 U:#eeefef
+                    colored = currentAlg.colored || 'U*/Ie U F R'
+                    setupmoves = currentAlg.setupmoves || ''
+
+                    break;
+
+                default:
+                    break;
+            }
+            // setupmoves = alg
+            break;
         default:
             break;
     }
-
     return (
         <View style={{ flex: 1 }}>
 

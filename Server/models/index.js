@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Algorithm = require('./algorithm')
-
+const Lessong = require('./lesson')
 // mongoose.connect('mongodb://127.0.0.1:27017/cubium').then(() => {
 //     console.log('Connected to DB')
 // }).catch((err) => console.log(err))

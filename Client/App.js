@@ -16,6 +16,8 @@ import { createContext, useState } from 'react';
 import { SettingsContextProvider } from './Contexts/SettingsContext';
 import { FavoritesContextProvider } from './Contexts/FavoritesContext';
 import Favorites from './Screens/Favorites';
+import BeginnersLessonChoice from './Screens/BeginnersLessonChoice';
+import LessonPage from './Screens/LessonPage';
 export default function App() {
 
 
@@ -47,6 +49,10 @@ export default function App() {
                         <Stack.Screen name="Choose Category" component={CategoryChoisePage} options={{
                             title: 'Advanced Algorithms'
                         }} />
+                        <Stack.Screen name="Beginners Lessons" component={BeginnersLessonChoice} options={{
+                            title: 'Beginners Lessons'
+                        }} />
+                        <Stack.Screen name="Lesson" component={LessonPage} options={({ route }) => ({ title: route.params.name })} />
                         <Stack.Screen name="Favorites" component={Favorites} options={({ route }) => ({ title: route.params.name })} />
                         <Stack.Screen name="Category" component={CategoryPage} options={({ route }) => ({ title: route.params.name })} />
                         <Stack.Screen name="Algo" component={AlgoPage} options={({ route }) => ({ title: route.params.name })} />

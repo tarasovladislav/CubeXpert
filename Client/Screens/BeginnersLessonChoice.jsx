@@ -4,12 +4,12 @@ import { Divider } from 'react-native-elements';
 import { Image } from 'react-native-elements';
 import {imageMapping} from '../assets/img/'
 
-const CategoryChoisePage = ({ navigation,  }) => {
+const BeginnersLessonChoice = ({ navigation,  }) => {
     const [categoryList, setCategoryList] = useState([])
 
     useEffect(() => {
         setCategoryList([
-            { title: 'F2L', picturePath: 'F2L1' },
+            { title: 'Move Notation', picturePath: 'F2L1' },
             { title: 'OLL', picturePath: 'OLL1' },
             { title: 'PLL', picturePath: 'ua' }
         ])
@@ -22,7 +22,7 @@ const CategoryChoisePage = ({ navigation,  }) => {
                 <TouchableOpacity
                     
                     style={{ flexDirection: 'row', alignItems: 'center', gap: 20, margin: 10 }}
-                    onPress={() => navigation.navigate('Category', {
+                    onPress={() => navigation.navigate('Lesson', {
                         name: cat.title,
                         category: cat.title
                     })}
@@ -43,4 +43,4 @@ const CategoryChoisePage = ({ navigation,  }) => {
     )
 }
 
-export default CategoryChoisePage
+export default BeginnersLessonChoice

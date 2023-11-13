@@ -6,7 +6,10 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { useFavoritesContext } from '../Contexts/FavoritesContext';
 
 
-const SubsetElement = ({ navigation, algo }) => {
+
+const SubsetElement = ({ navigation, algo, }) => {
+
+
     const styles = getDynamicStyles(algo.category);
 
     const { toggleFavorites, isInFavorites } = useFavoritesContext()
@@ -16,43 +19,46 @@ const SubsetElement = ({ navigation, algo }) => {
 
 
     return (
-        <TouchableOpacity style={styles.algoElement}
-            onPress={() => navigation.navigate('Algo', {
-                _id: algo._id,
-                name: algo.title,
-            })}
-        >
-            <View style={{ alignItems: 'center' }}>
-                <Image
-                    PlaceholderContent={<ActivityIndicator size="large" />}
-                    resizeMode="contain"
-                    transition={true}
-                    source={imageSource} style={styles.algoImage} />
-            </View>
-            <Text style={styles.title}>{algo.title}</Text>
-            <Text style={styles.firstAlgo}>{algo.algo[0]}</Text>
-            <View style={styles.bottomSection}>
-                <TouchableOpacity
-                    style={{
-                        flex: 0, position: 'absolute', bottom: 0, right: 0, zIndex: 2
-                    }}
-                    onPress={() => {
-                        toggleFavorites(algo)
-                        setIsFavorite(!isFavorite)
-                    }}>
-                    <IconAntDesign size={24} color="orange" name={isFavorite ? "star" : "staro"} style={styles.bottomIcon} />
-                </TouchableOpacity>
-            </View>
-        </TouchableOpacity>
+        <>
+
+            <TouchableOpacity style={styles.algoElement}
+                onPress={() => navigation.navigate('Algo', {
+                    _id: algo._id,
+                    name: algo.title,
+                })}
+            >
+                <View style={{ alignItems: 'center' }}>
+                    <Image
+                        PlaceholderContent={<ActivityIndicator size="large" />}
+                        resizeMode="contain"
+                        transition={true}
+                        source={imageSource} style={styles.algoImage} />
+                </View>
+                <Text style={styles.title}>{algo.title}</Text>
+                <Text style={styles.firstAlgo}>{algo.algo[0]}</Text>
+                <View style={styles.bottomSection}>
+                    <TouchableOpacity
+                        style={{
+                            flex: 0, position: 'absolute', bottom: 0, right: 0, zIndex: 2
+                        }}
+                        onPress={() => {
+                            toggleFavorites(algo)
+                            setIsFavorite(!isFavorite)
+                        }}>
+                        <IconAntDesign size={24} color="orange" name={isFavorite ? "star" : "staro"} style={styles.bottomIcon} />
+                    </TouchableOpacity>
+                </View>
+            </TouchableOpacity>
+        </>
     )
 }
 
 const width = Dimensions.get('window').width;
-const getDynamicStyles = (category) =>{
-    const imageWidth = category.toLowerCase() === 'f2l' || category.toLowerCase() === 'patterns' ? width / 3 : width /4
+const getDynamicStyles = (category) => {
+    const imageWidth = category.toLowerCase() === 'f2l' || category.toLowerCase() === 'patterns' || category.toLowerCase() === 'beginners' ? width / 3 : width / 4
 
 
-   return StyleSheet.create({
+    return StyleSheet.create({
         algoElement: {
             flex: 1,
             maxWidth: width / 2 - 20,

@@ -1,20 +1,12 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Text, Image } from 'react-native'
 
-const MenuItem = ({ onPress = () => { }, text, disabled = false, activeColor = '#ddd', disabledColor = '#eee' }) => {
-    const styles = getDynamicStyles(activeColor, disabledColor);
-
+const MenuItem = ({ onPress = () => { }, text,children }) => {
+    const styles = getDynamicStyles();
     return (
-
-
-
-
-        <TouchableOpacity disabled={disabled} style={!disabled ? styles.controlBtn : { ...styles.controlBtn, ...styles.controlBtnDisabled }} onPress={onPress} >
-
-            <Text style={styles.buttonText}>{text}</Text>
-
-
-
+        <TouchableOpacity style={styles.controlBtn} onPress={onPress} >
+            {text && <Text style={styles.buttonText}>{text}</Text>}
+            {children}
         </TouchableOpacity>
     )
 }
@@ -22,20 +14,23 @@ const getDynamicStyles = (activeColor, disabledColor) =>
     StyleSheet.create({
         controlBtn: {
             flex: 1,
-            backgroundColor: activeColor,
-            borderRadius: 5,
-            margin: 5,
             justifyContent: 'center',
-            flexDirection: 'row',
+            margin: 10,
+            // padding: 10,
+            backgroundColor: 'white',
+            shadowOffset: { width: 0, height: 2 },
+            shadowRadius: 2.22,
+            elevation: 3,
+            borderRadius: 8,
+            shadowOpacity: 0.23,
         },
-        // controlBtnDisabled: {
-        //     backgroundColor: disabledColor
-        // },
+
         buttonText: {
             padding: 10,
             alignSelf: 'center',
             fontSize: 24,
-            textAlign: 'center'
+            textAlign: 'center',
+            fontWeight: 'bold',
         }
     })
 

@@ -120,5 +120,10 @@ export const imageMapping = {
     f2l41: require('./f2l/f2l41.png'),
     checkerboard: require('./patterns/checkerboard.png'),
     cubeinacube: require('./patterns/cubeinacube.png'),
+    crossfrom: require('./beginners/crossfrom.png'),
+    crossto: require('./beginners/crossto.png'),
+    cross1: require('./beginners/cross1.png'),
+    cross2: require('./beginners/cross2.png'),
+    cross3: require('./beginners/cross3.png'),
     
 };
