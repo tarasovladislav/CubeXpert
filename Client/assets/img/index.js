@@ -142,4 +142,7 @@ export const imageMapping = {
     topcross1: require('./beginners/topcross1.png'),
     topcrossfrom: require('./beginners/topcrossfrom.png'),
     topcrossto: require('./beginners/topcross1.png'),
+    topcrossimage1: require('./beginners/topcrossimage1.png'),
+    topcrossimage2: require('./beginners/topcrossimage2.png'),
+    topcrossimage3: require('./beginners/topcrossimage3.png'),
 };
