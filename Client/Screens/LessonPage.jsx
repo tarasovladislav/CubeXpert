@@ -90,9 +90,9 @@ const LessonPage = ({ navigation, route }) => {
                             </View>
 
                         case 'image':
-                            return <View key={element._id} style={styles.container}>
-                                {element.content.map((image, index) => {
-                                    return <Image
+                            return <View key={element._id} style={{ flexDirection: "row", justifyContent: 'center' }}>{element.content.map((image, index) => {
+                                return <View key={index} style={styles.imageContainer}>
+                                    <Image
                                         PlaceholderContent={<ActivityIndicator size="large" />}
                                         resizeMode="contain"
                                         transition={true}
@@ -100,8 +100,8 @@ const LessonPage = ({ navigation, route }) => {
                                         style={element.content.length === 2 ? styles.algoImage : styles.algoImage2}
                                         key={`${element._id}.${index}`}
                                     />
-                                })}
-                            </View>
+                                </View>
+                            })}</View>
 
 
                         case 'note':
@@ -135,8 +135,21 @@ const styles = StyleSheet.create({
         height: width / 3,
     },
     algoImage2: {
-        width: width / 3.5,
-        height: width / 3.5,
+        width: width / 3.8,
+        height: width / 3.8,
+    },
+    imageContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        margin: 5,
+        padding: 5,
+        backgroundColor: 'white',
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 2.22,
+        elevation: 3,
+        borderRadius: 8,
+        shadowOpacity: 0.23,
     },
     container: {
         flexDirection: 'row',
