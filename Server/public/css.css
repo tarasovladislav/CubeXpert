@@ -1,0 +1,217 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.roofpig button {
+    box-sizing: content-box;
+}
+
+.roofpig:before,
+.roofpig:after {
+    content: " ";
+    display: table
+}
+
+.roofpig:after {
+    clear: both
+}
+
+.roofpig-algtext {
+    background-color: transparent;
+    height: auto !important;
+    font-size: 15px !important;
+    line-height: 19px;
+    font-weight: bold;
+    text-align: center;
+    /* margin-bottom: 7px */
+}
+
+.roofpig-past-algtext {
+    background-color: #a9cef5;
+    border-radius: 3px
+}
+
+.roofpig-button {
+    border-radius: 5px;
+    border: none;
+    color: #FFF;
+    font-weight: bold;
+    line-height: 22px;
+    margin-right: 6px;
+    background: url(img/sprite.png) no-repeat -20px 0px #d5d7d8;
+    text-indent: -117px;
+    font-size: 10px !important;
+    overflow: hidden;
+}
+
+#reset-1 {
+    background-position: 6px -234px
+}
+
+#play-1 {
+    background-position: 6px -324px
+}
+
+#prev-1 {
+    background-position: 6px -264px
+}
+
+#next-1 {
+    background-position: 6px -294px
+}
+
+#pause-1 {
+    background-position: 7px -353px
+}
+
+.width150 .roofpig-button {
+    width: 18px !important
+}
+
+.roofpig-count {
+    font-weight: bold;
+    color: #2e649e;
+    width: auto;
+    margin-left: 2px;
+    display: inline-block
+}
+
+.roofpig-button-enabled {
+    background: url(img/sprite.png) no-repeat -20px 0px #4287d2
+}
+
+.roofpig-button-enabled:hover {
+    background-color: #2e649e
+}
+
+.width100 {
+    width: 100px
+}
+
+.width150 {
+    width: 150px
+}
+
+.width200 {
+    width: 200px
+}
+
+.width250 {
+    max-width: 250px
+}
+
+.width300 {
+    max-width: 300px
+}
+
+.width350 {
+    max-width: 350px
+}
+
+.width400 {
+    max-width: 400px
+}
+
+.width450 {
+    max-width: 450px
+}
+
+.width500 {
+    max-width: 500px
+}
+
+.widget-container {
+    margin: 0 0 30px
+}
+
+#rightSidebarContent {
+    padding: 30px
+}
+
+#play-1 {
+    animation: firstPlayButtonBlinking 5s infinite
+}
+
+@keyframes firstPlayButtonBlinking {
+    0% {
+        background-color: #4287d2;
+    }
+
+    70% {
+        background-color: #4287d2;
+    }
+
+    80% {
+        background-color: #EEEEEE;
+    }
+
+    90% {
+        background-color: #f5111b;
+    }
+
+    100% {
+        background-color: #4287d2;
+    }
+}
+
+.roofpig-help-button {
+    display: none
+}
+
+
+
+.roofpig-button {
+    float: none !important;
+    width: 34px !important;
+    height: 27px !important;
+    margin: 0 5px !important;
+    padding: 0px !important;
+    display: none !important
+}
+
+div[style*="border-top"] {
+    text-align: center;
+}
+
+#count-1 {
+    position: absolute !important;
+    font-size: 20px !important;
+    bottom: 25px !important;
+    right: 0px;
+    display: none !important
+}
+
+.roofpig-algtext {
+    display: none !important
+}
+
+.roofpig>div {
+    padding: 0px;
+    margin: 0px;
+}
+
+
+.roofpig {
+    border: none !important;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.1em;
+    width: 100vw
+}
+
+
+
+.roofpig>div {
+    height: 0 !important;
+    border: none !important;
+}
+
+
+.bodyContainer {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+

@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <link rel="stylesheet" href="/css.css">
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script src="/jquery-3.1.1.min.js"></script> -->
+    <script src="/roofpig_and_three.min.js"></script>
+    <script>
+        function getQueryStringParams() {
+            var params = {};
+            var queryString = window.location.href.split('?')[1];
+            if (queryString) {
+                var pairs = queryString.split('&');
+                for (let i = 0; i < pairs.length; i++) {
+                    let pair = pairs[i].split('=');
+                    params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+                }
+            }
+            return params;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let configurableDiv = document.createElement('div');
+            configurableDiv.id = 'configurableDiv';
+            configurableDiv.className = 'roofpig';
+            document.body.appendChild(configurableDiv);
+            let queryParams = getQueryStringParams();
+            let dataConfigValue = `alg=${queryParams.alg || 'U'}|solved=${queryParams.solved || ''}|colors=${queryParams.colors}|setupmoves=${queryParams.setupmoves || ''}|hover=${queryParams.hover || 1}|colored=${queryParams.colored || ''}|speed=${queryParams.speed || ''}|pov=${queryParams.pov || ''}`;
+            configurableDiv.setAttribute('data-config', dataConfigValue);
+        });
+    </script>
+</body>
+
+</html>
