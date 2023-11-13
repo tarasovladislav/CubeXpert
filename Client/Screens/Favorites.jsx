@@ -34,18 +34,17 @@ const Favorites = ({ route, navigation }) => {
         <>
             <ScrollView>
                 {groupedFavorites.length ? groupedFavorites.map((category) => {
-                    return <>
-                        <View key={category.categorytitle}>
-                            <Text style={styles.categorytitle}>{category.categorytitle}</Text>
-                            <FlatList
-                                data={category.algoArray}
-                                numColumns={2}
-                                scrollEnabled={false}
-                                renderItem={({ item }) => <SubsetElement navigation={navigation} algo={item} />}
-                                keyExtractor={alg => alg._id}
-                            />
-                        </View >
-                    </>
+                    return <View key={category.categorytitle}>
+                        <Text style={styles.categorytitle}>{category.categorytitle}</Text>
+                        <FlatList
+                            data={category.algoArray}
+                            numColumns={2}
+                            scrollEnabled={false}
+                            renderItem={({ item }) => <SubsetElement navigation={navigation} algo={item} />}
+                            keyExtractor={alg => alg._id}
+                        />
+                    </View >
+
                 }) : <Text>No favorite algorithms yet</Text>}
             </ScrollView>
         </>

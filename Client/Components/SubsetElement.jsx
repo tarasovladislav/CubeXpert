@@ -7,11 +7,13 @@ import { useFavoritesContext } from '../Contexts/FavoritesContext';
 
 
 const SubsetElement = ({ navigation, algo }) => {
+    const styles = getDynamicStyles(algo.category);
+
+
     const { toggleFavorites, isInFavorites } = useFavoritesContext()
 
     const imageSource = imageMapping[`${algo.picturePath.toLowerCase()}`];
     const [isFavorite, setIsFavorite] = useState(isInFavorites(algo._id))
-
 
 
     return (
@@ -47,7 +49,50 @@ const SubsetElement = ({ navigation, algo }) => {
 }
 
 const width = Dimensions.get('window').width;
+const getDynamicStyles = (category) =>{
+    const imageWidth = category.toLowerCase() === 'f2l' || category.toLowerCase() === 'patterns' ? width / 3 : width /4
 
+
+   return StyleSheet.create({
+        algoElement: {
+            flex: 1,
+            maxWidth: width / 2 - 20,
+            margin: 10,
+            padding: 10,
+            borderRadius: 8,
+            backgroundColor: 'white',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.23,
+            shadowRadius: 2.22,
+            elevation: 3,
+        },
+        algoImage: {
+            width: imageWidth,
+            height: imageWidth,
+        },
+        title: {
+            marginTop: 5,
+            fontSize: 16,
+            fontWeight: 'bold',
+        },
+        firstAlgo: {
+            fontSize: 14,
+            maxWidth: '90%',
+            marginBottom: 5
+        },
+        bottomSection: {
+            flexDirection: 'row',
+            position: 'absolute',
+            bottom: 5,
+            right: 5,
+            justifyContent: 'flex-end',
+            // other styles for the bottom section
+        },
+        bottomIcon: {
+            // styles for the icons in the bottom section
+        },
+    })
+}
 const styles = StyleSheet.create({
     algoElement: {
         flex: 1,
@@ -58,8 +103,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.23,
-        shadowRadius: 2.22, 
-        elevation: 3, 
+        shadowRadius: 2.22,
+        elevation: 3,
     },
     algoImage: {
         width: width / 4,
@@ -72,7 +117,7 @@ const styles = StyleSheet.create({
     },
     firstAlgo: {
         fontSize: 14,
-        maxWidth:'90%',
+        maxWidth: '90%',
         marginBottom: 5
     },
     bottomSection: {

@@ -37,6 +37,9 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
 
     //TODO add loading spinner when loading cube
 
+
+    //TODO заблокировать копку плей пока не загружен кубик, а то ломаетеся если успеть нажаьб плей пока куб ещё не отобразился
+
     useEffect(() => {
         setCurrentStep(0)
         setIsPlaying(false)
