@@ -3,8 +3,6 @@ import { View, StyleSheet, FlatList, Text } from 'react-native'
 import apiService from '../apiService'
 import SubsetElement from './SubsetElement';
 
-
-
 const Subset = ({ navigation, category, subset }) => {
     const [subsetAlgs, setSubsetAlgs] = useState([]);
 
@@ -15,7 +13,7 @@ const Subset = ({ navigation, category, subset }) => {
 
     return (
         <>
-            {subsetAlgs && <View>
+            {subsetAlgs.length>0 && <View>
                 <Text style={styles.subsetTitle}>{subset}</Text>
                 <FlatList
                     data={subsetAlgs}

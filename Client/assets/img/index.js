@@ -146,11 +146,17 @@ export const imageMapping = {
     topcrossimage2: require('./beginners/topcrossimage2.png'),
     topcrossimage3: require('./beginners/topcrossimage3.png'),
     matchcrosscolors1: require('./beginners/matchcrosscolors1.png'),
-    matchcrosscolorsto: require('./beginners/matchcrosscolors1.png'),
+    matchcrosscolorsto: require('./beginners/matchcrosscolorsto.png'),
     matchcrosscolorsfrom: require('./beginners/matchcrosscolorsfrom.png'),
     matchcrosscolorsimage1: require('./beginners/matchcrosscolorsimage1.png'),
     matchcrosscolorsimage2: require('./beginners/matchcrosscolorsimage2.png'),
     matchcrosscolorsimage3: require('./beginners/matchcrosscolorsimage3.png'),
     matchcrosscolorsimage4: require('./beginners/matchcrosscolorsimage4.png'),
+    // matchcornersto: require('./beginners/matchcornersto.png'),
+    matchcornersfrom: require('./beginners/matchcornersfrom.png'),
+    matchcorners1: require('./beginners/matchcorners1.png'),
+    matchcornersimage1: require('./beginners/matchcornersimage1.png'),
+    matchcornersimage2: require('./beginners/matchcornersimage2.png'),
+    matchcornersimage3: require('./beginners/matchcornersimage3.png'),
 
 };

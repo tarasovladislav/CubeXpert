@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { TouchableOpacity, View, Text, } from 'react-native'
+import { TouchableOpacity, View, Text, ScrollView} from 'react-native'
 import { Divider } from 'react-native-elements';
 import { Image } from 'react-native-elements';
 import {imageMapping} from '../assets/img/'
@@ -19,7 +19,7 @@ const BeginnersLessonChoice = ({ navigation,  }) => {
     }, [])
 
     return (
-        <>
+        <ScrollView>
             {lessonsList && lessonsList.map(lesson => (<View key={lesson.stepTitle}>
 
                 <TouchableOpacity
@@ -42,7 +42,7 @@ const BeginnersLessonChoice = ({ navigation,  }) => {
                 </TouchableOpacity>
                 <Divider orientation="horizontal" width={1} />
             </View>))}
-        </>
+        </ScrollView>
     )
 }
 

@@ -20,35 +20,38 @@ const SubsetElement = ({ navigation, algo, }) => {
 
     return (
         <>
+            <View style={{ flex: 1 }}>
 
-            <TouchableOpacity style={styles.algoElement}
-                onPress={() => navigation.navigate('Algo', {
-                    _id: algo._id,
-                    name: algo.title,
-                })}
-            >
-                <View style={{ alignItems: 'center' }}>
-                    <Image
-                        PlaceholderContent={<ActivityIndicator size="large" />}
-                        resizeMode="contain"
-                        transition={true}
-                        source={imageSource} style={styles.algoImage} />
-                </View>
-                <Text style={styles.title}>{algo.title}</Text>
-                <Text style={styles.firstAlgo}>{algo.algo[0]}</Text>
-                <View style={styles.bottomSection}>
-                    <TouchableOpacity
-                        style={{
-                            flex: 0, position: 'absolute', bottom: 0, right: 0, zIndex: 2
-                        }}
-                        onPress={() => {
-                            toggleFavorites(algo)
-                            setIsFavorite(!isFavorite)
-                        }}>
-                        <IconAntDesign size={24} color="orange" name={isFavorite ? "star" : "staro"} style={styles.bottomIcon} />
-                    </TouchableOpacity>
-                </View>
-            </TouchableOpacity>
+
+                <TouchableOpacity style={styles.algoElement}
+                    onPress={() => navigation.navigate('Algo', {
+                        _id: algo._id,
+                        name: algo.title,
+                    })}
+                >
+                    <View style={{ alignItems: 'center' }}>
+                        <Image
+                            PlaceholderContent={<ActivityIndicator size="large" />}
+                            resizeMode="contain"
+                            transition={true}
+                            source={imageSource} style={styles.algoImage} />
+                    </View>
+                    <Text style={styles.title}>{algo.title}</Text>
+                    <Text style={styles.firstAlgo}>{algo.algo[0]}</Text>
+                    <View style={styles.bottomSection}>
+                        <TouchableOpacity
+                            style={{
+                                flex: 0, position: 'absolute', bottom: 0, right: 0, zIndex: 2
+                            }}
+                            onPress={() => {
+                                toggleFavorites(algo)
+                                setIsFavorite(!isFavorite)
+                            }}>
+                            <IconAntDesign size={24} color="orange" name={isFavorite ? "star" : "staro"} style={styles.bottomIcon} />
+                        </TouchableOpacity>
+                    </View>
+                </TouchableOpacity>
+            </View>
         </>
     )
 }

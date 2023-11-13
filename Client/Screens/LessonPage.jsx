@@ -5,6 +5,7 @@ import SubsetElement from '../Components/SubsetElement'
 import apiService from '../apiService'
 import { imageMapping } from '../assets/img';
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import Loading from '../Components/Loading';
 
 const LessonPage = ({ navigation, route }) => {
     const { data } = route.params
@@ -14,6 +15,7 @@ const LessonPage = ({ navigation, route }) => {
 
 
     useEffect(() => {
+        setIsLoading(true)
         const fetchData = async () => {
             const fetchedData = await Promise.all(
                 data.data.map(async (element) => {
@@ -29,9 +31,11 @@ const LessonPage = ({ navigation, route }) => {
                         return [];
                     }
                 })
+
             );
 
             setAlgoData(fetchedData);
+            setIsLoading(false)
         };
 
         fetchData();
@@ -39,6 +43,10 @@ const LessonPage = ({ navigation, route }) => {
 
     const imageFrom = imageMapping[`${data.from.toLowerCase()}`];
     const imageTo = imageMapping[`${data.to.toLowerCase()}`];
+
+
+    const [isLoading, setIsLoading] = useState(true);
+
 
     return (
         <>
@@ -68,9 +76,10 @@ const LessonPage = ({ navigation, route }) => {
                             return <Text key={element._id} style={styles.paragraph}>{element.content}</Text>
 
                         case 'algo':
-                            return <View key={element._id} style={{ flex: 1, }}>
-                                {/* {data.data[index].content.length === 1 ? <SubsetElement navigation={navigation} algo={algoData[index]} /> : */}
-
+                            if (isLoading) {
+                                return <Loading key={element._id} />
+                            }
+                            return <View key={element._id} style={data.data[index].content.length === 1 && styles.aloneAlgo}>
                                 <FlatList
                                     data={algoData[index]}
                                     numColumns={2}
@@ -81,14 +90,15 @@ const LessonPage = ({ navigation, route }) => {
                             </View>
 
                         case 'image':
-                            return <View style={styles.container}>
-                                {element.content.map((image) => {
+                            return <View key={element._id} style={styles.container}>
+                                {element.content.map((image, index) => {
                                     return <Image
                                         PlaceholderContent={<ActivityIndicator size="large" />}
                                         resizeMode="contain"
                                         transition={true}
                                         source={imageMapping[image]}
                                         style={element.content.length === 2 ? styles.algoImage : styles.algoImage2}
+                                        key={`${element._id}.${index}`}
                                     />
                                 })}
                             </View>
@@ -111,10 +121,11 @@ const width = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     note: {
         marginHorizontal: 10,
+        marginBottom: 10,
         textAlign: 'center',
     },
     paragraph: {
-        marginHorizontal: 10,
+
         fontSize: 16,
         margin: 10,
 
@@ -139,6 +150,12 @@ const styles = StyleSheet.create({
         elevation: 3,
         borderRadius: 8,
         shadowOpacity: 0.23,
+    },
+    aloneAlgo: {
+        flex: 1,
+        width: "100%",
+        position: 'relative',
+        left: '25%'
     }
 
 })
