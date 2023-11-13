@@ -96,8 +96,9 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
             setupmoves = alg
             break;
         case "Beginners":
+
             switch (currentAlg.subset) {
-                
+
                 case "Cross":
                     [U, D] = [D, U];
                     [F, R] = [R, F];
@@ -107,10 +108,14 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                     setupmoves = currentAlg.setupmoves || ''
 
                     break;
-
+                case "First Layer":
+                    colored = currentAlg.colored = "D*/e DFR U F L R B D"
+                    setupmoves = currentAlg.setupmoves || ''
+                    break;
                 default:
                     break;
             }
+
             // setupmoves = alg
             break;
         default:

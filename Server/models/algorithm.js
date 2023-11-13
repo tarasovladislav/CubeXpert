@@ -20,6 +20,14 @@ const algorithmSchema = {
     algo: {
         type: [String],
         required: true
+    },
+    colored: {
+        type: String,
+        required: false
+    },
+    setupmoves: {
+        type: String,
+        required: false
     }
 
 }

@@ -6,6 +6,16 @@ async function getAllAlgs() {
         console.log(error)
     }
 }
+
+async function getAllLessons() {
+    try {
+        const response = await fetch(`https://cube-xpert.vercel.app/lessons`);
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 async function getAlgo(_id) {
     try {
         const response = await fetch(`https://cube-xpert.vercel.app/algo/${_id}`);
@@ -32,4 +42,10 @@ async function getSubsetList(cat) {
     }
 }
 
-module.exports = { getAlgo, getSubsetAlgorithms, getSubsetList, getAllAlgs }
+
+
+
+
+
+
+module.exports = { getAlgo, getSubsetAlgorithms, getSubsetList, getAllAlgs, getAllLessons }

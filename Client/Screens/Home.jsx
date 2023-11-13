@@ -31,6 +31,9 @@ const Home = ({ navigation, route }) => {
     }
 
     //TODO add slider to top to render once again random alg
+
+
+    //TODO random alg without BEGIINER LESSONS
     return (
         <>
             {/* <View style={{ flex: 1, }}> */}
