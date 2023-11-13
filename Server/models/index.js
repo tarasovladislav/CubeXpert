@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Algorithm = require('./algorithm')
-const Lessong = require('./lesson')
+const Lesson = require('./lesson')
 // mongoose.connect('mongodb://127.0.0.1:27017/cubium').then(() => {
 //     console.log('Connected to DB')
 // }).catch((err) => console.log(err))
@@ -51,6 +51,23 @@ async function createAlgorithm(body) {
 
 
 
+
+
+
+async function allLessons() {
+    return await Lesson.find().sort({ _id: 'asc' })
+}
+
+async function createLesson(body) {
+    return await Lesson.insertMany(body);
+}
+
+
+
+
+
+
+
 async function deleteAlgo(query) {
     return await Algorithm.deleteOne({ _id: query.id })
 }
@@ -66,4 +83,4 @@ async function modifyAlgo(params, body) {
 
 
 
-module.exports = { deleteAlgo, modifyAlgo, allSubsets, allAlgorithms, oneAlgo, createAlgorithm, getCategoryList, }
+module.exports = { deleteAlgo, modifyAlgo, allSubsets, allAlgorithms, oneAlgo, createAlgorithm, getCategoryList, allLessons, createLesson }

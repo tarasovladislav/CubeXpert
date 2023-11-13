@@ -13,6 +13,18 @@ async function getAlgorithms(req, res) {
     }
 }
 
+async function getLessons(req, res) {
+    try {
+        const result = await model.allLessons()
+        res.status(200)
+        res.send(result)
+
+    } catch (error) {
+        res.status(500)
+        res.send(error)
+    }
+}
+
 async function getSubsets(req, res) {
     try {
         const result = await model.allSubsets(req.query)
@@ -74,9 +86,20 @@ async function addAlgorithm(req, res) {
         res.send(error)
     }
 }
+async function addLesson(req, res) {
+    try {
+        const result = await model.createLesson(req.body)
+        res.status(200)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(error)
+    }
+}
 
 
 
 
 
-module.exports = { removeAlgo, getSubsets, getAlgorithms, getAlgo, getCategories, addAlgorithm }
+
+module.exports = { removeAlgo, getSubsets, getAlgorithms, getAlgo, getCategories, addAlgorithm, getLessons, addLesson }
