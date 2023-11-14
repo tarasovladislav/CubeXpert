@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, Dimensions, ActivityIndicator, View } from 'react-native'
 import { Image } from 'react-native-elements';
 import { imageMapping } from '../assets/img';
@@ -90,10 +90,6 @@ const getDynamicStyles = (category) => {
             bottom: 5,
             right: 5,
             justifyContent: 'flex-end',
-            // other styles for the bottom section
-        },
-        bottomIcon: {
-            // styles for the icons in the bottom section
         },
     })
 }

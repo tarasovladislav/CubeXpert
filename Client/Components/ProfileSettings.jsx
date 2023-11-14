@@ -11,7 +11,6 @@ import { useSettingsContext } from '../Contexts/SettingsContext';
 const ProfileSettings = () => {
     const { settings, setSettings, setWebViewKey, defaultSettings } = useSettingsContext()
 
-
     const [showLayout, setShowLayout] = useState(false);
     const [selectedSide, setSelectedSide] = useState('');
     const [selectedColor, setSelectedColor] = useState('')

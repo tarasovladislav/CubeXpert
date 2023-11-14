@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Text } from 'react-native'
-
-const TouchableButton = ({ onPress = () => { }, text, disabled = false, textColor = '#000000', activeColor = '#839dd1', disabledColor = '#d3e2f2' }) => {
+import commonStyles from '../commonStyles';
+const TouchableButton = ({ onPress = () => { }, text, disabled = false, textColor = '#000000', activeColor = commonStyles.buttonActiveColor, disabledColor = commonStyles.buttonDisabledColor }) => {
     const styles = getDynamicStyles(activeColor, disabledColor, textColor);
 
     return (

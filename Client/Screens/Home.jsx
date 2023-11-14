@@ -5,7 +5,7 @@ import Loading from '../Components/Loading'
 import apiService from '../apiService'
 import MenuItem from '../Components/MenuItem'
 import { imageMapping } from '../assets/img';
-
+import commonStyles from '../commonStyles'
 const Home = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [allAlgs, setAllAlgs] = useState([])
@@ -30,8 +30,8 @@ const Home = ({ navigation }) => {
 
     return (
         <>
-            <SafeAreaView style={{ flex: 1, }}>
-                <View style={{ flex: 1, }}>
+            <SafeAreaView style={[commonStyles.flex1]}>
+                <View style={[commonStyles.flex1]}>
                     {randomAlgo && <MenuItem
                         onPress={() => {
                             navigation.navigate('Algo', {
@@ -55,7 +55,7 @@ const Home = ({ navigation }) => {
                     </MenuItem>
                     }
                 </View>
-                <View style={{ flex: 0 }}>
+                <View style={[commonStyles.flex0]}>
                     <View style={styles.buttonContainer}>
                         <View style={styles.buttonRow}>
                             <MenuItem text="Beginners Method" onPress={() => {
@@ -98,21 +98,6 @@ const styles = StyleSheet.create({
         maxWidth: width,
         maxHeight: width,
         margin: 5
-    },
-    listElement: {
-        alignItems: 'center',
-        flex: 1,
-        justifyContent: 'center',
-        margin: 10,
-        padding: 10,
-        backgroundColor: 'white',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 2.22,
-        elevation: 3,
-        borderRadius: 8,
-        shadowOpacity: 0.23,
-        justifyContent: 'space-between'
-
     },
     buttonRow: {
         flexDirection: "row",

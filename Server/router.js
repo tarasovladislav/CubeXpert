@@ -18,7 +18,7 @@ router.post('/lessons/', controller.addLesson)
 
 // router.get('/algorithms/:category', controller.getAlgorithms)
 // router.get('/algorithms/', controller.getAlgorithmsSubset)
-// router.get('/algorithms/categories', controller.getCategories)
+router.get('/algorithms/categories', controller.getCategories)
 // router.get('/algorithms/categories', controller.getCategories)
 
 // router.delete('/algo/', controller.removeAlgo)

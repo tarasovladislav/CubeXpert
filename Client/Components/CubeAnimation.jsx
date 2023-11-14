@@ -10,11 +10,13 @@ import { useFavoritesContext } from '../Contexts/FavoritesContext';
 
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import commonStyles from '../commonStyles';
+
 const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) => {
     const { toggleFavorites, isInFavorites } = useFavoritesContext()
     const { settings, webViewKey } = useSettingsContext()
 
-    const [isCubeLoading, setIsCubeLoading] = useState(false)
+    const [isCubeLoading, setIsCubeLoading] = useState(true)
     const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg._id))
     const [currentStep, setCurrentStep] = useState(0)
     const [triggerUseEffect, setTriggerUseEffect] = useState(false)
@@ -36,7 +38,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
     useEffect(() => {
         setCurrentStep(0)
     }, [settings])
-    
+
 
     // When user changes algorithm, we reset the cube state
     useEffect(() => {
@@ -124,15 +126,14 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
 
     return (
 
-        <View style={{ flex: 1 }}>
-            <View style={styles.container}>
-                {/* {isCubeLoading && <Loading />} */}
+        <View style={[commonStyles.flex1]}>
+            <View style={[commonStyles.flex1]}>
                 {isCubeLoading && <View style={styles.loadingOverlay}>
                     <ActivityIndicator size="large" />
                 </View>}
                 <WebView
                     source={{
-                        uri: `https://cube-xpert.vercel.app/animation?alg=${alg}&colored=${colored}
+                        uri: `https://cube-xpert.vercel.app/?alg=${alg}&colored=${colored}
                         &speed=${speed}
                         &colors=U:${U} F:${F} R:${R} L:${L} B:${B} D:${D} ignored:${ignored} cube:${cube}
                         &hover=1 
@@ -209,9 +210,6 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     webview: {
         flex: 1,
         position: 'absolute',
@@ -236,8 +234,7 @@ const styles = StyleSheet.create({
     },
     loadingOverlay: {
         ...StyleSheet.absoluteFillObject,
-        alignItems: 'center',
-        justifyContent: 'center',
+        ...commonStyles.cencen
     },
 
 });

@@ -1,13 +1,9 @@
 import React from 'react'
-import { ActivityIndicator, View, Text } from 'react-native'
-
+import { ActivityIndicator, View } from 'react-native'
+import commonStyles from '../commonStyles'
 const Loading = () => {
     return (
-        <View style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
+        <View style={[commonStyles.flex1, commonStyles.cencen]}>
             <ActivityIndicator size="large" />
         </View>
     )

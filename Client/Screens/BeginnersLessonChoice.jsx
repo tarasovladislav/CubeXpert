@@ -4,7 +4,7 @@ import { Image } from 'react-native-elements';
 import { imageMapping } from '../assets/img/'
 import apiService from '../apiService'
 import Loading from '../Components/Loading';
-
+import commonStyles from '../commonStyles';
 const BeginnersLessonChoice = ({ navigation, }) => {
 
     //TODO try to reuse for catchoicepage
@@ -23,12 +23,8 @@ const BeginnersLessonChoice = ({ navigation, }) => {
     }
     return (
         <ScrollView>
-            {/* <View style={styles.container}>
-                    
-                </View> */}
-
-
-            {lessonsList && lessonsList.map(lesson => (<View style={styles.container} key={lesson.stepTitle}>
+    
+            {lessonsList && lessonsList.map(lesson => (<View style={commonStyles.container} key={lesson.stepTitle}>
 
                 <TouchableOpacity
 
@@ -58,20 +54,6 @@ const BeginnersLessonChoice = ({ navigation, }) => {
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginHorizontal: 10,
-        marginVertical: 5,
-        backgroundColor: 'white',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 2.22,
-        elevation: 3,
-        borderRadius: 8,
-        shadowOpacity: 0.23,
-    },
     image: {
         width: width / 5,
         height: width / 5,

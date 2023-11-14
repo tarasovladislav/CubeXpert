@@ -30,6 +30,8 @@ const Favorites = ({ navigation }) => {
         setGroupedFavorites(groupAlgorithmsByCategory(favoritesList));
     }, [favoritesList])
 
+
+    //TODO style no favorite algs
     return (
         <>
             <ScrollView>
@@ -45,7 +47,7 @@ const Favorites = ({ navigation }) => {
                         />
                     </View >
 
-                }) : <Text>No favorite algorithms yet</Text>}
+                }) : <Text >No favorite algorithms yet</Text>}
             </ScrollView>
         </>
     )
@@ -58,11 +60,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         margin: 10,
         padding: 10,
+        borderRadius: 8,
         backgroundColor: 'white',
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 2.22,
         elevation: 3,
-        borderRadius: 8,
         shadowOpacity: 0.23,
     }
 })

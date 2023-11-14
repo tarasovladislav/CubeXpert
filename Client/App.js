@@ -7,19 +7,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from './Screens/Home';
 const Stack = createNativeStackNavigator();
 
-// export const SettingsContext = createContext();
 import { SettingsContextProvider } from './Contexts/SettingsContext';
 import { FavoritesContextProvider } from './Contexts/FavoritesContext';
 import Favorites from './Screens/Favorites';
 import BeginnersLessonChoice from './Screens/BeginnersLessonChoice';
 import LessonPage from './Screens/LessonPage';
-
+import commonStyles from './commonStyles';
 
 
 export default function App() {
     return (
         <NavigationContainer>
-            {/* <Stack.Navigator initialRouteName="Details"> */}
             <FavoritesContextProvider>
                 <SettingsContextProvider>
                     <Stack.Navigator
@@ -33,7 +31,7 @@ export default function App() {
                                 fontWeight: 'bold',
                             },
                             headerBackTitle: 'Back',
-                            contentStyle: {backgroundColor: '#e7f0f8'}
+                            contentStyle: {backgroundColor: commonStyles.backgroundColor}
                         }}
                     >
 

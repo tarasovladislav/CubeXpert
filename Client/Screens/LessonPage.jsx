@@ -6,6 +6,7 @@ import apiService from '../apiService'
 import { imageMapping } from '../assets/img';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import Loading from '../Components/Loading';
+import commonStyles from '../commonStyles';
 
 const LessonPage = ({ navigation, route }) => {
     const { data } = route.params
@@ -45,7 +46,7 @@ const LessonPage = ({ navigation, route }) => {
         <>
             <ScrollView>
 
-                <View style={styles.container}>
+                <View style={commonStyles.container}>
                     <Image
                         PlaceholderContent={<ActivityIndicator size="large" />}
                         resizeMode="contain"
@@ -80,7 +81,7 @@ const LessonPage = ({ navigation, route }) => {
 
                         case 'image':
                             return <View key={element._id} style={{ flexDirection: "row", justifyContent: 'center' }}>{element.content.map((image, index) => {
-                                return <View key={index} style={styles.imageContainer}>
+                                return <View key={index} style={[commonStyles.container, {padding:5, margin:5}]}>
                                     <Image
                                         PlaceholderContent={<ActivityIndicator size="large" />}
                                         resizeMode="contain"
@@ -113,10 +114,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     paragraph: {
-
         fontSize: 16,
         margin: 10,
-
     },
     algoImage: {
         width: width / 3,
@@ -125,32 +124,6 @@ const styles = StyleSheet.create({
     algoImage2: {
         width: width / 3.8,
         height: width / 3.8,
-    },
-    imageContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: 5,
-        padding: 5,
-        backgroundColor: 'white',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 2.22,
-        elevation: 3,
-        borderRadius: 8,
-        shadowOpacity: 0.23,
-    },
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: 10,
-        padding: 10,
-        backgroundColor: 'white',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 2.22,
-        elevation: 3,
-        borderRadius: 8,
-        shadowOpacity: 0.23,
     },
     aloneAlgo: {
         flex: 1,
