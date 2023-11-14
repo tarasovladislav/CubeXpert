@@ -12,17 +12,14 @@ const LessonPage = ({ navigation, route }) => {
 
     const [algoData, setAlgoData] = useState([]);
 
-
-
     useEffect(() => {
         setIsLoading(true)
         const fetchData = async () => {
             const fetchedData = await Promise.all(
                 data.data.map(async (element) => {
                     if (element.type === 'algo') {
-                        const algoIds = Array.isArray(element.content) ? element.content : [element.content];
                         const algoDataArray = await Promise.all(
-                            algoIds.map(async (algoId) => {
+                            element.content.map(async (algoId) => {
                                 return await apiService.getAlgo(algoId);
                             })
                         );
@@ -31,9 +28,7 @@ const LessonPage = ({ navigation, route }) => {
                         return [];
                     }
                 })
-
             );
-
             setAlgoData(fetchedData);
             setIsLoading(false)
         };
@@ -44,9 +39,7 @@ const LessonPage = ({ navigation, route }) => {
     const imageFrom = imageMapping[`${data.from.toLowerCase()}`];
     const imageTo = imageMapping[`${data.to.toLowerCase()}`];
 
-
     const [isLoading, setIsLoading] = useState(true);
-
 
     return (
         <>
@@ -102,7 +95,6 @@ const LessonPage = ({ navigation, route }) => {
                                     />
                                 </View>
                             })}</View>
-
 
                         case 'note':
                             return <Text key={element._id} style={styles.note}><Text style={{ fontWeight: 'bold' }}>Note:</Text> {element.content}</Text>

@@ -1,42 +1,75 @@
 import React, { useState, useEffect } from 'react'
-import { TouchableOpacity, View, Text, ScrollView} from 'react-native'
-import { Divider } from 'react-native-elements';
+import { TouchableOpacity, View, Text, ScrollView, StyleSheet, ActivityIndicator, Dimensions } from 'react-native'
 import { Image } from 'react-native-elements';
-import {imageMapping} from '../assets/img/'
+import { imageMapping } from '../assets/img/'
 import apiService from '../apiService'
-const BeginnersLessonChoice = ({ navigation,  }) => {
+const BeginnersLessonChoice = ({ navigation, }) => {
+
+    //TODO try to reuse for catchoicepage
     const [categoryList, setCategoryList] = useState([])
     const [lessonsList, setLessonsList] = useState([])
     useEffect(() => {
-        apiService.getAllLessons().then(data=> setLessonsList(data))
+        apiService.getAllLessons().then(data => setLessonsList(data))
     }, [])
 
     return (
         <ScrollView>
-            {lessonsList && lessonsList.map(lesson => (<View key={lesson.stepTitle}>
+            {/* <View style={styles.container}>
+                    
+                </View> */}
+
+
+            {lessonsList && lessonsList.map(lesson => (<View style={styles.container} key={lesson.stepTitle}>
 
                 <TouchableOpacity
-                    
+
                     style={{ flexDirection: 'row', alignItems: 'center', gap: 20, margin: 10 }}
                     onPress={() => navigation.navigate('Lesson', {
                         name: lesson.stepTitle,
                         data: lesson
                     })}
                 >
+
                     <Image
-                        style={{ width: 80, height: 80, }}
+                        style={styles.image}
                         source={imageMapping[`${lesson.to.toLowerCase()}`]}
                         resizeMode="contain"
                         transition={true}
 
                     />
-                    <Text>{lesson.stepTitle}</Text>
+
+                    <Text style={styles.header}>{lesson.stepTitle}</Text>
 
                 </TouchableOpacity>
-                <Divider orientation="horizontal" width={1} />
             </View>))}
         </ScrollView>
     )
 }
 
+const width = Dimensions.get('window').width;
+
+const styles = StyleSheet.create({
+
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginHorizontal:10,
+        marginVertical:5,
+        backgroundColor: 'white',
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 2.22,
+        elevation: 3,
+        borderRadius: 8,
+        shadowOpacity: 0.23,
+    },
+    image: {
+        width: width / 5,
+        height: width / 5,
+    },
+    header: {
+        fontSize: 22,
+        fontWeight: 600
+    }
+})
 export default BeginnersLessonChoice

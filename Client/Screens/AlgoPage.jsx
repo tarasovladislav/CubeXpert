@@ -30,10 +30,7 @@ const AlgoPage = ({ route }) => {
     const [isFavorite, setIsFavorite] = useState(isInFavorites(_id))
     useEffect(() => {
         setIsLoading(true)
-
         apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
-            //TODO попробовать убрать эту строку, вроде не надо
-            setIsFavorite(isInFavorites(_id))
         }).finally(() => {
             setIsLoading(false)
         }
@@ -60,7 +57,7 @@ const AlgoPage = ({ route }) => {
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay} animationType="fade">
                     <ProfileSettings />
                 </Overlay>
-                
+
                 <CubeAnimation isPlaying={isPlaying} setIsPlaying={setIsPlaying} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} currentAlg={currentAlg} />
 
 
