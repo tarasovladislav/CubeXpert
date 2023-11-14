@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Text } from 'react-native'
 
-const TouchableButton = ({ onPress = () => { }, text, disabled = false, textColor = '#000000', activeColor = '#a09bee', disabledColor = '#bbbbbc' }) => {
+const TouchableButton = ({ onPress = () => { }, text, disabled = false, textColor = '#000000', activeColor = '#839dd1', disabledColor = '#d3e2f2' }) => {
     const styles = getDynamicStyles(activeColor, disabledColor, textColor);
 
     return (
@@ -26,7 +26,7 @@ const getDynamicStyles = (activeColor, disabledColor, textColor) =>
             elevation: 3,
         },
         controlBtnDisabled: {
-            backgroundColor: disabledColor
+            backgroundColor: disabledColor,
         },
         buttonText: {
             padding: 10,

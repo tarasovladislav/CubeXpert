@@ -64,7 +64,7 @@ const getDynamicStyles = (category) => {
             margin: 10,
             padding: 10,
             borderRadius: 8,
-            backgroundColor: 'white',
+            backgroundColor: '#ffffff',
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.23,
             shadowRadius: 2.22,

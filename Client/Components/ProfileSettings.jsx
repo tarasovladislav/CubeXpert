@@ -8,7 +8,7 @@ import TouchableButton from './TouchableButton'
 
 import { useSettingsContext } from '../Contexts/SettingsContext';
 
-const ProfileSettings = ({ }) => {
+const ProfileSettings = () => {
     const { settings, setSettings, setWebViewKey, defaultSettings } = useSettingsContext()
 
 
@@ -77,7 +77,7 @@ const ProfileSettings = ({ }) => {
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableButton text='RESET COLORS'
-                    onPress={() => { setSettings({ ...defaultSettings }); setShowLayout(false) }} />
+                    onPress={() => { setSettings({ ...defaultSettings, speed: selectedSpeed }); setShowLayout(false) }} />
             </View>
 
 
