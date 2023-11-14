@@ -120,6 +120,16 @@ export const imageMapping = {
     f2l41: require('./f2l/f2l41.png'),
     checkerboard: require('./patterns/checkerboard.png'),
     cubeinacube: require('./patterns/cubeinacube.png'),
+    anaconda: require('./patterns/anaconda.png'),
+    cubeinacube2: require('./patterns/cubeinacube2.png'),
+    dots: require('./patterns/dots.png'),
+    lines: require('./patterns/lines.png'),
+    lineson4sides: require('./patterns/lineson4sides.png'),
+    twist: require('./patterns/Twist.png'),
+
+
+
+
     crossfrom: require('./beginners/crossfrom.png'),
     crossto: require('./beginners/crossto.png'),
     cross1: require('./beginners/cross1.png'),

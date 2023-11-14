@@ -42,7 +42,7 @@ const Home = ({ navigation }) => {
                         }}
                     >
                         <Text style={styles.title}>Random Algorithm</Text>
-                        <View style={{ alignItems: 'center', flex: 1 }}>
+                        <View style={{ alignItems: 'center', flex: 1, justifyContent:'center' }}>
                             <Image
                                 PlaceholderContent={<ActivityIndicator size="large" />}
                                 style={styles.cubeImage}
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     cubeImage: {
         flex: 1,
         aspectRatio: 1,
-        maxWidth: width,
-        maxHeight: width,
+        maxWidth: width-100,
+        maxHeight: width-100,
         margin: 5
     },
     buttonRow: {
