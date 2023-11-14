@@ -8,9 +8,8 @@ router.get('/subsets/', controller.getSubsets)
 
 router.post('/algorithms', controller.addAlgorithm)
 
-router.get('/animation/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
-})
+router.get('/animation/', controller.cubeAnimation)
+
 
 
 

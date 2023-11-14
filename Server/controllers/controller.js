@@ -68,7 +68,7 @@ async function getCategories(req, res) {
         const result = await model.getCategoryList()
         res.status(200)
         res.send(result)
-        
+
     } catch (error) {
         res.status(500)
         res.send(error)
@@ -97,9 +97,12 @@ async function addLesson(req, res) {
     }
 }
 
+function cubeAnimation(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+}
 
 
 
 
 
-module.exports = { removeAlgo, getSubsets, getAlgorithms, getAlgo, getCategories, addAlgorithm, getLessons, addLesson }
+module.exports = { removeAlgo, getSubsets, getAlgorithms, getAlgo, getCategories, addAlgorithm, getLessons, addLesson, cubeAnimation }
