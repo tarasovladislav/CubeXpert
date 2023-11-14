@@ -9,13 +9,6 @@ const BeginnersLessonChoice = ({ navigation,  }) => {
     const [lessonsList, setLessonsList] = useState([])
     useEffect(() => {
         apiService.getAllLessons().then(data=> setLessonsList(data))
-
-
-        // setCategoryList([
-        //     { title: 'Move Notation', picturePath: 'F2L1' },
-        //     { title: 'OLL', picturePath: 'OLL1' },
-        //     { title: 'PLL', picturePath: 'ua' }
-        // ])
     }, [])
 
     return (

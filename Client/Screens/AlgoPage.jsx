@@ -32,8 +32,8 @@ const AlgoPage = ({ route }) => {
         setIsLoading(true)
 
         apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
-//TODO попробовать убрать эту строку, вроде не надо
-            setIsFavorite(isInFavorites(_id)) 
+            //TODO попробовать убрать эту строку, вроде не надо
+            setIsFavorite(isInFavorites(_id))
         }).finally(() => {
             setIsLoading(false)
         }
@@ -57,38 +57,10 @@ const AlgoPage = ({ route }) => {
                     <Text style={{ fontSize: 20, fontWeight: 800 }}>{whichAlg + 1} / {currentAlg.algo.length}</Text>
                 </View>
 
-
-
-                {/* <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', right: 0, width: 70, zIndex: 2 }}>
-                    <TouchableButton
-                        activeColor="transparent"
-                        disabledColor="transparent"
-                        text={<IconAwesome size={30} color="black" name="cog" />}
-                        onPress={toggleOverlay}
-                        disabled={isPlaying}
-
-                    />
-                </View>
-
-                <View style={{ flex: 0, width: 70, height: 70, position: 'absolute', top: 50, right: 0, zIndex: 2 }}>
-                    <TouchableButton
-                        activeColor="transparent"
-                        disabledColor="transparent"
-                        text={<IconAntDesign size={30} color="orange" name={isFavorite ? "star" : "staro"} />}
-                        // disabled={whichAlg === currentAlg.algo.length - 1}
-                        onPress={() => {
-                            toggleFavorites(currentAlg)
-                            setIsFavorite(!isFavorite)
-                        }}
-                    />
-                </View> */}
-
-
-
-
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay} animationType="fade">
                     <ProfileSettings />
                 </Overlay>
+                
                 <CubeAnimation isPlaying={isPlaying} setIsPlaying={setIsPlaying} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} currentAlg={currentAlg} />
 
 
@@ -107,7 +79,7 @@ const AlgoPage = ({ route }) => {
                 </TouchableOpacity>
 
 
-                
+
 
 
 
@@ -124,7 +96,7 @@ const AlgoPage = ({ route }) => {
                     />
                 </View>}
 
-                
+
 
 
 

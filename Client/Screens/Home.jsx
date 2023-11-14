@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList, ImageBackground, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, FlatList, ImageBackground, Dimensions, TouchableOpacity, ActivityIndicator, SafeAreaView } from 'react-native'
 import { Image } from 'react-native-elements'
 import Loading from '../Components/Loading'
 import apiService from '../apiService'
@@ -11,16 +11,16 @@ const Home = ({ navigation, route }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [allAlgs, setAllAlgs] = useState([])
     const [randomAlgo, setRandomAlgo] = useState()
-    useEffect(() => loadAlgs(), [])
-    useEffect(() => randomAlg(allAlgs), [allAlgs])
-    // useEffect(() => navigation.addListener('focus', () => loadAlgs()), [navigation]);
-
-    const loadAlgs = () => {
+    useEffect(() => {
         setIsLoading(true)
         apiService.getAllAlgs()
-            .then(data => setAllAlgs(data))
+            .then(data => setAllAlgs(data.filter(alg => alg.category !== 'Beginners')))
             .finally(() => setIsLoading(false))
-    }
+    }, [])
+
+    useEffect(() => randomAlg(allAlgs), [allAlgs])
+
+
 
     const randomAlg = (arr) => {
         setRandomAlgo(arr[Math.floor(Math.random() * arr.length)])
@@ -32,9 +32,7 @@ const Home = ({ navigation, route }) => {
 
     //TODO add slider to top to render once again random alg
 
-
-    //TODO random alg without BEGIINER LESSONS
-    return (
+ return (
         <>
             {/* <View style={{ flex: 1, }}> */}
             <View style={{ flex: 1 }}>
@@ -132,8 +130,6 @@ const styles = StyleSheet.create({
 
 
     }
-
-
 })
 
 export default Home

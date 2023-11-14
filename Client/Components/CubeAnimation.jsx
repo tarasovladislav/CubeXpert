@@ -109,18 +109,6 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                     setupmoves = currentAlg.setupmoves || ''
 
                     break;
-                // case "First Layer":
-                //     colored = currentAlg.colored || ""
-                //     setupmoves = currentAlg.setupmoves || ''
-                //     break;
-                // case "Second Layer":
-                //     colored = currentAlg.colored || ""
-                //     setupmoves = currentAlg.setupmoves || ''
-                //     break;
-                // case "Second Layer":
-                //     colored = currentAlg.colored || ""
-                //     setupmoves = currentAlg.setupmoves || ''
-                //     break;
                 default:
                     break;
             }
