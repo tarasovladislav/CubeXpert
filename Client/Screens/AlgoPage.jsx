@@ -9,47 +9,33 @@ import CubeAnimation from '../Components/CubeAnimation'
 import TouchableButton from '../Components/TouchableButton'
 import Loading from '../Components/Loading';
 import IconAwesome from 'react-native-vector-icons/FontAwesome5';
-import { useFavoritesContext } from '../Contexts/FavoritesContext';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-
-
 
 const AlgoPage = ({ route }) => {
-    const { toggleFavorites, isInFavorites } = useFavoritesContext()
-
+    const { _id } = route.params
 
     const [isPlaying, setIsPlaying] = useState(false)
+
     const [visible, setVisible] = useState(false);
     const toggleOverlay = () => setVisible(!visible);
 
-
-    //after changing colors cube goes to initial but currentalg state no
-    const { _id } = route.params
     const [currentAlg, setCurrentAlg] = useState()
     const [whichAlg, setWhichAlg] = useState(0)
-    const [isFavorite, setIsFavorite] = useState(isInFavorites(_id))
+
+    // Get algo details 
     useEffect(() => {
         setIsLoading(true)
         apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
-        }).finally(() => {
-            setIsLoading(false)
-        }
-
-
-        )
+        }).finally(() => setIsLoading(false))
     }, [])
-
 
     const [isLoading, setIsLoading] = useState(true)
     if (isLoading) {
         return <Loading />
     }
 
-
     return (
         <>
             {currentAlg && <SafeAreaView style={{ flex: 1 }}>
-
                 <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', left: 0, top: 12, width: 70, zIndex: 2 }}>
                     <Text style={{ fontSize: 20, fontWeight: 800 }}>{whichAlg + 1} / {currentAlg.algo.length}</Text>
                 </View>
@@ -75,12 +61,6 @@ const AlgoPage = ({ route }) => {
                     <IconAwesome size={30} color="black" name="cog" style={{ padding: 5 }} />
                 </TouchableOpacity>
 
-
-
-
-
-
-
                 {currentAlg.algo.length > 1 && <View style={{ flexDirection: 'row', position: 'relative' }}>
                     <TouchableButton
                         disabled={whichAlg === 0}
@@ -92,13 +72,6 @@ const AlgoPage = ({ route }) => {
                         text='Next'
                     />
                 </View>}
-
-
-
-
-
-
-
             </SafeAreaView>}
         </>
     )

@@ -16,21 +16,23 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
     const { settings, webViewKey } = useSettingsContext()
 
     const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg._id))
-
     const [currentStep, setCurrentStep] = useState(0)
     const [triggerUseEffect, setTriggerUseEffect] = useState(false)
     const [allowControl, setAllowControl] = useState(true)
-    let { U, F, R, L, B, D, speed, cube, ignored } = settings
+
+    //For sending JS to webview
     const cubeAnimationWebView = useRef(null);
+
     const algArray = alg.split(' ');
     const len = algArray.length;
+
+    let { U, F, R, L, B, D, speed, cube, ignored } = settings
     let solved = "";
     let setupmoves = "";
     let colored = "";
 
-    //https://stackoverflow.com/questions/58858518/react-native-component-not-re-rendering-on-state-change
 
-
+    // When user changes his settings, the webview resets the cube since its the new request, we have to restore current algorithm step (Start from the beginning)
     useEffect(() => {
         setCurrentStep(0)
     }, [settings])
@@ -40,24 +42,29 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
 
     //TODO заблокировать копку плей пока не загружен кубик, а то ломаетеся если успеть нажаьб плей пока куб ещё не отобразился
 
+
+    // When user changes algorithm, we reset the cube state
     useEffect(() => {
         setCurrentStep(0)
         setIsPlaying(false)
     }, [alg])
 
+
+    // Starting an Settimeout to highlight the current step of the cube whenever user press Play button
     useEffect(() => {
         if (isPlaying) {
             setAllowControl(false)
             if (currentStep === len - 1) setIsPlaying(false)
             setCurrentStep((prevStep) => (prevStep + 1));
             setTimeout(() => {
-                setTriggerUseEffect(!triggerUseEffect)
+                setTriggerUseEffect(!triggerUseEffect) // using for run this useEffect once again if the cube is not at the last step yet. 
                 setAllowControl(true)
-            }, algArray[currentStep].includes('2') ? parseFloat(speed) * 1.5 : parseFloat(speed)) //TODO change later to user setting about cube speed
+            }, algArray[currentStep].includes('2') ? parseFloat(speed) * 1.5 : parseFloat(speed)) // Dynamic timeout since when the move is doubled (U2, D2 ...) the animation takes 1.5x more time. 
         }
     }, [isPlaying, triggerUseEffect])
 
 
+    // Cube control buttons handler
     const handleButtonClick = (elementSelector) => {
         executeJavaScript(`$("${elementSelector}").click();true`);
         switch (elementSelector) {
@@ -81,10 +88,14 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
         }
     };
 
+
+    // Helper function to send JS code to our webview to proceed with cube movements
     const executeJavaScript = (jsCode) => {
         cubeAnimationWebView.current && cubeAnimationWebView.current.injectJavaScript(jsCode);
     };
 
+
+    // For different categories we want some elements to be ignored, since they are not necessary
     switch (category) {
         case "F2L":
             solved = "U-*"
@@ -99,36 +110,32 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
             colored = currentAlg.colored || ""
             setupmoves = currentAlg.setupmoves || ''
             switch (currentAlg.subset) {
-
+                // When learning how to solve cross, we have to rotate cube but instead we just mirror the colors
                 case "Cross":
                     [U, D] = [D, U];
                     [F, R] = [R, F];
                     [B, L] = [L, B];
-                    // D:#fcff02 R:#ff0001 F:#01dd01 B:#1777fe L:#ffa501 U:#eeefef
-                    colored = currentAlg.colored || 'U*/Ie U F R'
-                    setupmoves = currentAlg.setupmoves || ''
-
+                    colored = currentAlg.colored || 'U*/Ie U F R';
+                    setupmoves = currentAlg.setupmoves || '';
                     break;
                 default:
                     break;
             }
 
-            // setupmoves = alg
             break;
         default:
             break;
     }
     return (
+
         <View style={{ flex: 1 }}>
-
             <View style={styles.container}>
-
                 <WebView
                     source={{
                         uri: `https://cube-xpert.vercel.app/animation?alg=${alg}&colored=${colored}
                         &speed=${speed}
                         &colors=U:${U} F:${F} R:${R} L:${L} B:${B} D:${D} ignored:${ignored} cube:${cube}
-                        &hover=1
+                        &hover=1 
                         &solved=${solved}
                         &setupmoves=${setupmoves}
                         ` }}
@@ -138,25 +145,24 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                     bounces={false}
                     overScrollMode={'never'}
                     style={styles.webview}
-                    startInLoadingState={true} // Tells the WebView to show the loading view on the first load
+                    startInLoadingState={true}
                     renderLoading={() => <Loading />}
-                    onLoadProgress={() => <Loading />} // TEST
+                    onLoadProgress={() => <Loading />} // TODO TEST this one if works
                 // onLoadStart={() => <Loading />}
                 />
             </View >
 
             <View style={styles.otherContainer}>
                 <View style={{ alignItems: 'center' }}>
-                    <Text style={{ textAlign: 'center', fontSize: 16, width: '80%' }}>
+                    <Text style={styles.algoText}>
                         {currentStep > 0 && algArray.slice(0, currentStep - 1).join(' ')}
                         <Text style={{ fontWeight: 700 }}>{currentStep > 1 ? ' ' : ''}{algArray[currentStep - 1]}{currentStep > 0 ? ' ' : ''}</Text>
                         {algArray.slice(currentStep).join(' ')}
                     </Text>
-                    <Text style={{ textAlign: 'center', fontSize: 16 }}>{currentStep} / {len}</Text>
+                    <Text style={styles.algoText}>{currentStep} / {len}</Text>
                 </View>
 
                 <View style={styles.buttonContainer}>
-
                     <TouchableButton
                         disabled={currentStep === 0 || isPlaying || !allowControl}
                         onPress={() => handleButtonClick("#prev-1")}
@@ -200,7 +206,9 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
         </View>
     );
 };
+
 const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -221,6 +229,11 @@ const styles = StyleSheet.create({
     buttonContainer: {
         position: 'relative',
         flexDirection: 'row',
+    },
+    algoText: {
+        textAlign: 'center',
+        fontSize: 16,
+        width: '80%'
     }
 });
 

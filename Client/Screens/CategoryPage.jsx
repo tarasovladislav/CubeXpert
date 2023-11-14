@@ -7,9 +7,9 @@ import Loading from '../Components/Loading';
 
 const CategoryPage = ({ route, navigation }) => {
     const { category } = route.params
+
     const [subsetList, setSubsetList] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
-
 
     useEffect(() => {
         setIsLoading(true)
@@ -17,7 +17,6 @@ const CategoryPage = ({ route, navigation }) => {
             .then(data => setSubsetList(data))
             .finally(() => setIsLoading(false))
     }, [])
-
 
     if (isLoading) {
         return <Loading />

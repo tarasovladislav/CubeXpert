@@ -9,7 +9,7 @@ const Loading = () => {
             alignItems: 'center'
         }}>
             <ActivityIndicator size="large" />
-            <Text style={{marginTop: 10}}>Loading</Text>
+            <Text style={{ marginTop: 10 }}>Loading</Text>
         </View>
     )
 }

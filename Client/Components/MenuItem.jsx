@@ -1,7 +1,7 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, Text, Image } from 'react-native'
+import { StyleSheet, TouchableOpacity, Text } from 'react-native'
 
-const MenuItem = ({ onPress = () => { }, text,children }) => {
+const MenuItem = ({ onPress = () => { }, text, children }) => {
     const styles = getDynamicStyles();
     return (
         <TouchableOpacity style={styles.controlBtn} onPress={onPress} >

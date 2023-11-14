@@ -13,7 +13,7 @@ const Subset = ({ navigation, category, subset }) => {
 
     return (
         <>
-            {subsetAlgs.length>0 && <View>
+            {subsetAlgs.length > 0 && <View>
                 <Text style={styles.subsetTitle}>{subset}</Text>
                 <FlatList
                     data={subsetAlgs}

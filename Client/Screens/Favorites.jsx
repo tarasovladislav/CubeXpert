@@ -3,7 +3,7 @@ import { ScrollView, FlatList, View, Text, StyleSheet } from 'react-native';
 import { useFavoritesContext } from '../Contexts/FavoritesContext';
 import SubsetElement from '../Components/SubsetElement';
 
-const Favorites = ({ route, navigation }) => {
+const Favorites = ({ navigation }) => {
     const { favoritesList } = useFavoritesContext()
     const [groupedFavorites, setGroupedFavorites] = useState([])
 

@@ -6,10 +6,6 @@ import ColorPicker, { Panel1, Swatches, Preview, HueSlider } from 'reanimated-co
 
 import TouchableButton from './TouchableButton'
 
-
-
-
-
 import { useSettingsContext } from '../Contexts/SettingsContext';
 
 const ProfileSettings = ({ }) => {
@@ -154,11 +150,6 @@ const styles = StyleSheet.create({
     },
     container: {
         width: width * 0.8,
-
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // alignSelf: 'center' ,
-        // justifyContent: 'space-evenly',
     },
     title: {
         fontSize: 18,

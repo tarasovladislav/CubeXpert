@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { TouchableOpacity, View, Text, ScrollView, StyleSheet, ActivityIndicator, Dimensions } from 'react-native'
-import { Divider } from 'react-native-elements';
 import { Image } from 'react-native-elements';
 import { imageMapping } from '../assets/img/'
 

@@ -1,8 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import AlgoPage from './Screens/AlgoPage';
-import Subset from './Components/Subset';
-import { TouchableOpacity } from 'react-native-web';
 import CategoryPage from './Screens/CategoryPage';
 import CategoryChoisePage from './Screens/CategoryChoisePage';
 
@@ -10,7 +6,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './Screens/Home';
 const Stack = createNativeStackNavigator();
-import { createContext, useState } from 'react';
 
 // export const SettingsContext = createContext();
 import { SettingsContextProvider } from './Contexts/SettingsContext';
@@ -18,12 +13,10 @@ import { FavoritesContextProvider } from './Contexts/FavoritesContext';
 import Favorites from './Screens/Favorites';
 import BeginnersLessonChoice from './Screens/BeginnersLessonChoice';
 import LessonPage from './Screens/LessonPage';
+
+
+
 export default function App() {
-
-
-
-
-
     return (
         <NavigationContainer>
             {/* <Stack.Navigator initialRouteName="Details"> */}

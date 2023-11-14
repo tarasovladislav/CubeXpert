@@ -60,9 +60,6 @@ const LessonPage = ({ navigation, route }) => {
                         source={imageTo} style={styles.algoImage} />
                 </View>
 
-
-
-
                 {data.data.map((element, index) => {
                     switch (element.type) {
                         case 'paragraph':
