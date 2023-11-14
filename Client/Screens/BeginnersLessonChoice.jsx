@@ -3,15 +3,24 @@ import { TouchableOpacity, View, Text, ScrollView, StyleSheet, ActivityIndicator
 import { Image } from 'react-native-elements';
 import { imageMapping } from '../assets/img/'
 import apiService from '../apiService'
+import Loading from '../Components/Loading';
+
 const BeginnersLessonChoice = ({ navigation, }) => {
 
     //TODO try to reuse for catchoicepage
     const [categoryList, setCategoryList] = useState([])
     const [lessonsList, setLessonsList] = useState([])
     useEffect(() => {
-        apiService.getAllLessons().then(data => setLessonsList(data))
-    }, [])
+        setIsLoading(true)
 
+        apiService.getAllLessons()
+            .then(data => setLessonsList(data))
+            .finally(() => setIsLoading(false))
+    }, [])
+    const [isLoading, setIsLoading] = useState(true)
+    if (isLoading) {
+        return <Loading />
+    }
     return (
         <ScrollView>
             {/* <View style={styles.container}>
@@ -54,8 +63,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginHorizontal:10,
-        marginVertical:5,
+        marginHorizontal: 10,
+        marginVertical: 5,
         backgroundColor: 'white',
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 2.22,

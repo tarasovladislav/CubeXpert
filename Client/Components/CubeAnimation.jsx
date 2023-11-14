@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { View, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Dimensions, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { WebView } from 'react-native-webview';
 import { useSettingsContext } from '../Contexts/SettingsContext';
 
@@ -9,12 +9,12 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { useFavoritesContext } from '../Contexts/FavoritesContext';
 
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Loading from './Loading';
 
 const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) => {
     const { toggleFavorites, isInFavorites } = useFavoritesContext()
     const { settings, webViewKey } = useSettingsContext()
 
+    const [isCubeLoading, setIsCubeLoading] = useState(false)
     const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg._id))
     const [currentStep, setCurrentStep] = useState(0)
     const [triggerUseEffect, setTriggerUseEffect] = useState(false)
@@ -36,12 +36,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
     useEffect(() => {
         setCurrentStep(0)
     }, [settings])
-
-    //TODO add loading spinner when loading cube
-
-
-    //TODO заблокировать копку плей пока не загружен кубик, а то ломаетеся если успеть нажаьб плей пока куб ещё не отобразился
-
+    
 
     // When user changes algorithm, we reset the cube state
     useEffect(() => {
@@ -126,10 +121,15 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
         default:
             break;
     }
+
     return (
 
         <View style={{ flex: 1 }}>
             <View style={styles.container}>
+                {/* {isCubeLoading && <Loading />} */}
+                {isCubeLoading && <View style={styles.loadingOverlay}>
+                    <ActivityIndicator size="large" />
+                </View>}
                 <WebView
                     source={{
                         uri: `https://cube-xpert.vercel.app/animation?alg=${alg}&colored=${colored}
@@ -144,11 +144,9 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                     scrollEnabled={false}
                     bounces={false}
                     overScrollMode={'never'}
-                    style={styles.webview}
-                    startInLoadingState={true}
-                    renderLoading={() => <Loading />}
-                    onLoadProgress={() => <Loading />} // TODO TEST this one if works
-                // onLoadStart={() => <Loading />}
+                    style={[styles.webview, { opacity: isCubeLoading ? 0 : 1 }]}
+                    onLoadStart={() => setIsCubeLoading(true)}
+                    onLoadEnd={() => setIsCubeLoading(false)}
                 />
             </View >
 
@@ -164,25 +162,26 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
 
                 <View style={styles.buttonContainer}>
                     <TouchableButton
-                        disabled={currentStep === 0 || isPlaying || !allowControl}
+                        disabled={currentStep === 0 || isPlaying || !allowControl || isCubeLoading}
                         onPress={() => handleButtonClick("#prev-1")}
                         text={<IconAwesome size={24} color="black" name="arrow-left" />} />
                     <TouchableButton
-                        disabled={currentStep === len || isPlaying || !allowControl}
+                        disabled={currentStep === len || isPlaying || !allowControl || isCubeLoading}
                         onPress={() => handleButtonClick("#next-1")}
                         text={<IconAwesome size={24} color="black" name="arrow-right" />} />
                     {!isPlaying && <TouchableButton
-                        disabled={currentStep === len}
+                        disabled={currentStep === len || isCubeLoading}
                         onPress={() => handleButtonClick("#play-1")}
                         text={<IconAwesome size={24} color="black" name="play" />} />}
                     {isPlaying && <TouchableButton
                         onPress={() => handleButtonClick("#pause-1")}
                         text={<IconAwesome size={24} color="black" name="pause" />} />}
                     <TouchableButton
-                        disabled={currentStep == 0 || isPlaying || !allowControl}
+                        disabled={currentStep == 0 || isPlaying || !allowControl || isCubeLoading}
                         onPress={() => handleButtonClick("#reset-1")}
                         text={<IconAwesome size={24} color="black" name="redo" />} />
                     <TouchableButton
+                        disabled={isCubeLoading}
                         onPress={() => executeJavaScript(`$("body").trigger("resetCamera"); true`)}
                         text={<IconMaterialIcons size={24} color="black" type="material" name="3d-rotation" />} />
                 </View>
@@ -224,7 +223,7 @@ const styles = StyleSheet.create({
             { translateX: -width / 2 },
             { translateY: -width / 2 },
         ],
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
     },
     buttonContainer: {
         position: 'relative',
@@ -234,7 +233,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 16,
         width: '80%'
-    }
+    },
+    loadingOverlay: {
+        ...StyleSheet.absoluteFillObject,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
 });
 
 
