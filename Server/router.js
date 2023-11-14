@@ -8,7 +8,7 @@ router.get('/subsets/', controller.getSubsets)
 
 router.post('/algorithms', controller.addAlgorithm)
 
-router.get('/animation/', controller.cubeAnimation)
+router.get('/', controller.cubeAnimation)
 
 
 
