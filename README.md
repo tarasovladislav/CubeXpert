@@ -1,4 +1,8 @@
 
+# CubeXpert
+
+
+
 ## Run Locally
 
 Clone the project
@@ -29,4 +33,9 @@ Start the Client
 Server does not need to be started, it runs online. 
 
 But if you want to change some backend, you have to deploy it online and change url for requests at the client side.
+
+
+## Authors
+
+- [@tarasovladislav](https://www.github.com/tarasovladislav)
 
