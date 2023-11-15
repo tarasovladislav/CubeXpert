@@ -26,7 +26,7 @@ Install dependencies
 Start the Client
 
 ```bash
-  cd ./Client
+  cd Client
   npm start
 ```
 
