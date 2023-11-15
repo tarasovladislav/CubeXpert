@@ -19,7 +19,7 @@ const CategoryChoisePage = ({ navigation, type }) => {
             {categoryList && categoryList.map(cat => (<View style={commonStyles.container} key={cat.title}>
 
                 <TouchableOpacity
-                    style={{ flexDirection: 'row', alignItems: 'center', gap: 20, margin: 10 }}
+                    style={{ flexDirection: 'row', alignItems: 'center', gap: 20, margin: 10,width:'100%' }}
                     onPress={() => navigation.navigate('Category', {
                         name: cat.title,
                         category: cat.path

@@ -28,7 +28,7 @@ const BeginnersLessonChoice = ({ navigation, }) => {
 
                 <TouchableOpacity
 
-                    style={{ flexDirection: 'row', alignItems: 'center', gap: 20, margin: 10 }}
+                    style={{ flexDirection: 'row', alignItems: 'center', gap: 20, margin: 10, width:'100%' }}
                     onPress={() => navigation.navigate('Lesson', {
                         name: lesson.stepTitle,
                         data: lesson
