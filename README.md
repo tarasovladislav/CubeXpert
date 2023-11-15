@@ -1,7 +1,7 @@
 
 # CubeXpert
 
-
+React Native app for those who are interested in learning how to solve Rubik's Cube and improoving their solving time. 
 
 ## Run Locally
 
@@ -34,6 +34,14 @@ Server does not need to be started, it runs online.
 
 But if you want to change some backend, you have to deploy it online and change url for requests at the client side.
 
+
+## Tech Stack
+
+**Client:** React Native
+
+**Server:** Express JS 
+
+**Database:** MongoDB, Mongoose
 
 ## Authors
 
