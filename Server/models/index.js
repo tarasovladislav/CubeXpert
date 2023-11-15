@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-
+require('dotenv').config();
 const Algorithm = require('./algorithm')
 const Lesson = require('./lesson')
 // mongoose.connect('mongodb://127.0.0.1:27017/cubium').then(() => {
 //     console.log('Connected to DB')
 // }).catch((err) => console.log(err))
-
-mongoose.connect(process.env.MONGODB_URI).then(() => {
+mongoose.connect(process.env.MONGODB_CONNECT_URI).then(() => {
     console.log('Connected to DB')
 }).catch((err) => console.log(err))
 
