@@ -6,7 +6,7 @@ const Lesson = require('./lesson')
 //     console.log('Connected to DB')
 // }).catch((err) => console.log(err))
 
-mongoose.connect(`mongodb+srv://tarasovladislav:Qc5ZP9Ldkf9rFSNz@mymongodb.wfd7nqz.mongodb.net/mymongodb`).then(() => {
+mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log('Connected to DB')
 }).catch((err) => console.log(err))
 
