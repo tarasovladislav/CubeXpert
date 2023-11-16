@@ -34,6 +34,18 @@ Server does not need to be started, it runs online.
 
 But if you want to change some backend, you have to deploy it online and change url for requests at the client side.
 
+## Run It On Your Phone
+
+Download Expo Go app on your phone. https://expo.dev/client
+
+Scan QR Code below
+
+iOS: 
+![iOS](https://qr.expo.dev/eas-update?updateId=a4df52c8-3a4e-45b4-ba7f-fd8d8d764598&appScheme=exp&host=u.expo.dev)
+
+Android: 
+![Android](https://qr.expo.dev/eas-update?updateId=2d8a53fa-6704-48e2-94b9-cef189f92bc5&appScheme=exp&host=u.expo.dev)
+
 
 ## Tech Stack
 
