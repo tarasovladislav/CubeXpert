@@ -76,7 +76,11 @@ const ProfileSettings = () => {
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableButton text='RESET COLORS'
-                    onPress={() => { setSettings({ ...defaultSettings, speed: selectedSpeed }); setShowLayout(false) }} />
+                    onPress={() => {
+                        setSettings({ ...defaultSettings, speed: selectedSpeed });
+                        setWebViewKey(prev => prev + 1);
+                        setShowLayout(false);
+                    }} />
             </View>
 
 
