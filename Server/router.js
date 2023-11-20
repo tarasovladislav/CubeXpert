@@ -9,6 +9,9 @@ router.get('/subsets/', controller.getSubsets)
 router.post('/algorithms', controller.addAlgorithm)
 
 router.get('/', controller.cubeAnimation)
+router.get('/rotate', (req, res)=> {
+    res.sendFile(__dirname + '/public/rotate.html');
+})
 
 
 

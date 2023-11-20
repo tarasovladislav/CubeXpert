@@ -42,7 +42,7 @@ const Home = ({ navigation }) => {
                         }}
                     >
                         <Text style={styles.title}>Random Algorithm</Text>
-                        <View style={{ alignItems: 'center', flex: 1, justifyContent:'center' }}>
+                        <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
                             <Image
                                 PlaceholderContent={<ActivityIndicator size="large" />}
                                 style={styles.cubeImage}
@@ -82,6 +82,16 @@ const Home = ({ navigation }) => {
                                 })
                             }} />
                         </View>
+                        <View style={styles.buttonRow}>
+
+                            <MenuItem text="Rotate The Cube" onPress={() => {
+                                navigation.navigate('RotateTheCube', {
+                                    name: 'Favorites',
+                                    // category: 'Patterns'
+                                })
+                            }} />
+                        </View>
+
                     </View>
                 </View>
             </SafeAreaView>
@@ -95,8 +105,8 @@ const styles = StyleSheet.create({
     cubeImage: {
         flex: 1,
         aspectRatio: 1,
-        maxWidth: width-100,
-        maxHeight: width-100,
+        maxWidth: width - 100,
+        maxHeight: width - 100,
         margin: 5
     },
     buttonRow: {

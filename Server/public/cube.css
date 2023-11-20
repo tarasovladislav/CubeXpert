@@ -1,0 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+.cube {
+    height: 99vh;
+    width: 100vw;
+}

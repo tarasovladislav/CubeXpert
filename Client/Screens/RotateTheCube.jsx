@@ -25,8 +25,11 @@ const AlgoPage = ({ route }) => {
     // Get algo details 
     useEffect(() => {
         setIsLoading(true)
-        apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
-        }).finally(() => setIsLoading(false))
+        // apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
+        // }).finally(() => setIsLoading(false))
+        setCurrentAlg({algo:['U']})
+        setIsLoading(false)
+
     }, [])
 
     const [isLoading, setIsLoading] = useState(true)

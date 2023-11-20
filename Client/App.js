@@ -13,7 +13,7 @@ import Favorites from './Screens/Favorites';
 import BeginnersLessonChoice from './Screens/BeginnersLessonChoice';
 import LessonPage from './Screens/LessonPage';
 import commonStyles from './commonStyles';
-
+import RotateTheCube from './Screens/RotateTheCube'
 
 export default function App() {
     return (
@@ -47,6 +47,7 @@ export default function App() {
                         <Stack.Screen name="Favorites" component={Favorites} options={({ route }) => ({ title: route.params.name })} />
                         <Stack.Screen name="Category" component={CategoryPage} options={({ route }) => ({ title: route.params.name })} />
                         <Stack.Screen name="Algo" component={AlgoPage} options={({ route }) => ({ title: route.params.name })} />
+                        <Stack.Screen name="RotateTheCube" component={RotateTheCube} options={({ route }) => ({ title: route.params.name })} />
 
                     </Stack.Navigator>
                 </SettingsContextProvider>
