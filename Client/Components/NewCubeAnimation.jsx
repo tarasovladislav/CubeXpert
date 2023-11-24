@@ -35,7 +35,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
     let facelets;
 
     // facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
-    facelets = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+    // facelets = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
     // facelets = 'wLwLwLwLwyLyLyLyLygLgLgLgLgbLbLbLbLboLoLoLoLorLrLrLrLr'
 
     // When user changes his settings, the webview resets the cube since its the new request, we have to restore current algorithm step (Start from the beginning)
@@ -65,7 +65,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
     }, [isPlaying, triggerUseEffect])
 
     const { width } = Dimensions.get('window');
-    console.log(width)
+
     // Cube control buttons handler
     const handleButtonClick = (elementSelector) => {
         console.log(width, elementSelector)
@@ -98,9 +98,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
         cubeAnimationWebView.current && cubeAnimationWebView.current.injectJavaScript(jsCode);
     };
 
-    // let setupmoves = 'U2'
     function manipulateString(inputString) {
-        console.log(inputString, 'input')
         let outputArray = []
         let inputArray = inputString.split(' ')
 
@@ -114,6 +112,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
             if (inputArray[i] === "M2") xMoves=xMoves+2
             if (inputArray[i] === "r2") xMoves=xMoves+2
             if (inputArray[i] === "l2") xMoves=xMoves+2
+
             if (inputArray[i] === "x") xMoves++
             if (inputArray[i] === "x'") xMoves--
             if (inputArray[i] === "y") yMoves++
@@ -124,16 +123,14 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
             if (inputArray[i] === "r'") xMoves--
             if (inputArray[i] === "M'") xMoves++
             if (inputArray[i] === "M") xMoves--
-
-            // Check NA NB perm 4/4
             if (inputArray[i] === "d'") yMoves++
             if (inputArray[i] === "d") yMoves--
-
 
 
             if (inputArray[i] === "z") zMoves++
             if (inputArray[i] === "z'") zMoves--
         }
+
         if (xMoves > 0) {
             for (let i = 0; i < Math.abs(xMoves); i++) {
                 outputArray.push("x'")
@@ -169,11 +166,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
             }
         }
         // просчитать как сдвинется центр куба и привести к его стейту, типо удалить повторящиеся или просто направлять xy
-        console.log(outputArray)
 
-
-        console.log(inputArray.join(' ') +" "+ outputArray.join(' '), 'outpusdt')
-        // return inputArray.join(' ');
         return inputArray.join(' ') +" "+ outputArray.join(' ');
     }
 
@@ -206,7 +199,9 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
 
             break;
         case "Patterns":
-            setupmoves = alg
+            setupmoves = "";
+            // facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
+
 
             break;
         case "Beginners":
@@ -219,6 +214,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                     [F, R] = [R, F];
                     [B, L] = [L, B];
                     colored = currentAlg.colored || 'U*/Ie U F R';
+                    //TODO change to facelets
                     setupmoves = currentAlg.setupmoves || '';
                     break;
                 default:
@@ -237,11 +233,9 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                 {isCubeLoading && <View style={styles.loadingOverlay}>
                     <ActivityIndicator size="large" />
                 </View>}
-                {/* TODO xy1 инит мовес плохо работают с y */}
                 <WebView
                     source={{
-                        uri: `http://192.168.178.103:3100/rotate?cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}`
-                        // uri: `http://10.197.47.59:3100/rotate?cubecolor=${cube.replace('#', '')}&initmove=${setupmoves || '#'}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}`
+                        uri: `http://192.168.178.103:3100/rotate?cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
                     }}
                     ref={cubeAnimationWebView}
                     key={webViewKey}
@@ -339,17 +333,17 @@ const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     webview: {
-        flex: 1,
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        width: "100%",
-        height: '100%',
-        transform: [
-            { translateX: -width / 2 },
-            { translateY: -width / 2 },
-        ],
-        backgroundColor: 'transparent',
+        // flex: 1,
+        // position: 'absolute',
+        // top: '50%',
+        // left: '50%',
+        // width: "100%",
+        // height: '100%',
+        // transform: [
+        //     { translateX: -width / 2 },
+        //     { translateY: -width / 2 },
+        // ],
+        // backgroundColor: 'transparent',
     },
     buttonContainer: {
         position: 'relative',

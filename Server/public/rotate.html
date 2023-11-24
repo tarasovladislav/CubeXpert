@@ -22,7 +22,17 @@
 
 
     <!-- edit=1" to stop from moving cube -->
-    <script>
+
+        <script>
+   
+    document.addEventListener('contextmenu', function (event) {
+      event.preventDefault();
+    });
+
+
+//clickprogress maybe add later? 
+
+
         function getQueryStringParams() {
             var params = {};
             var queryString = window.location.href.split('?')[1];
@@ -35,13 +45,17 @@
             }
             return params;
         }
+        
         let globalCanvas;
         let clickEvent;
 // 0-6
         function clickCanvas(width, buttonPosition) {
             const canvasWidth = globalCanvas.getBoundingClientRect().width;
             const canvasHeight = globalCanvas.getBoundingClientRect().height;
-           
+          
+            
+
+
 // 1 последняя
 // 1.25 next
 // 1.5 плей
@@ -60,24 +74,30 @@
             // Dispatch the click event to the canvas element (bottom-right corner)
             globalCanvas.dispatchEvent(clickEvent);
         }
-
+        
         document.addEventListener('DOMContentLoaded', function () {
+            const overlay = document.getElementById('overlay');
             let cubeDiv = document.createElement('div');
             cubeDiv.className = 'cube';
             document.body.appendChild(cubeDiv);
             let queryParams = getQueryStringParams();
+            overlay.style.backgroundColor = "#"+queryParams.bgcolor;
             // Create the configuration string for AnimCubeJS
             console.log(queryParams)
             
-            let animCubeConfig = `bgcolor=${queryParams.bgcolor || 'e7f0f8'}&snap=${queryParams.snap || 0}&buttonbar=${queryParams.buttonbar || 1}&borderwidth=${queryParams.borderwidth || 5}&counter=${queryParams.counter || 1}&speed=${queryParams.speed}&cubecolor=${queryParams.cubecolor}&colors=${queryParams.colors || ''}&colorscheme=${queryParams.colorscheme}&move=${queryParams.move || ''}&initrevmove=${queryParams.initmove || ''}&yz=1&facelets=${queryParams.facelets || ''}&ignored=${queryParams.ignored || '#eeeeee'}&repeat=0`;
+            let animCubeConfig = `bgcolor=${queryParams.bgcolor || 'e7f0f8'}&snap=${queryParams.snap || 0}&buttonbar=${queryParams.buttonbar || 1}&borderwidth=${queryParams.borderwidth || 5}&counter=${queryParams.counter || 1}&speed=${queryParams.speed}&cubecolor=${queryParams.cubecolor}&colors=${queryParams.colors || ''}&colorscheme=${queryParams.colorscheme}&move=${queryParams.move || ''}&initrevmove=${queryParams.initmove || ''}&yz=1&facelets=${queryParams.facelets || ''}&ignored=${queryParams.ignored || '#eeeeee'}&repeat=0&clickprogress=0&textsize=0`;
 
             // Create a script element to configure AnimCubeJS
             let script = document.createElement('script');
             script.textContent = `AnimCube3("${animCubeConfig}")`;
             cubeDiv.appendChild(script);
             globalCanvas = document.querySelector('canvas');
+            
+           
         });
+
     </script>
+  <div class="overlay" id="overlay"></div>
 
 </body>
 

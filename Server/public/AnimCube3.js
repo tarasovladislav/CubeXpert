@@ -115,7 +115,7 @@ function AnimCube3(params) {
     drawButtons = !0,
     pushed,
     buttonPressed = -1,
-    progressHeight = 6,
+    progressHeight = 0,
     textHeight = 12,
     moveText,
     moveTextSpace,
@@ -399,11 +399,11 @@ function AnimCube3(params) {
       (hintVert = g);
     ((hintBorder = 0),
     null != (e = getParameter("hintborder")) && "1" == e && (hintBorder = 1),
-    (buttonHeight = 30),
+    (buttonHeight = 1),
     null != (e = getParameter("buttonheight"))) &&
       ((g = parseInt(e)) >= 9) & (g <= 25) &&
       (buttonHeight = g);
-    ((progressHeight = 0 == move.length ? 0 : 6),
+    ((progressHeight = 0 == move.length ? 0 : 0), // progressHeight здесь
     (buttonBar = 1),
     "0" == (e = getParameter("buttonbar"))
       ? ((buttonBar = 0), (buttonHeight = 0), (progressHeight = 0))
@@ -420,8 +420,8 @@ function AnimCube3(params) {
     (e = getParameter("movetext")) >= 1 && e <= 5 && (moveText = parseInt(e)),
     (moveTextSpace = 1),
     "0" == (e = getParameter("movetextspace")) && (moveTextSpace = 0),
-    null != (e = getParameter("textsize"))) &&
-      ((g = parseInt(e)) >= 5) & (g <= 40) &&
+    null != (e = getParameter("textsize"))) &&  //здесь было >=5
+      ((g = parseInt(e)) >= 0) & (g <= 40) &&
       (textHeight = g);
     ((e = getParameter("fonttype")),
     (outlined = null == e || "1" == e),
