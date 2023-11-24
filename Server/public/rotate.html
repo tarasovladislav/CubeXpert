@@ -68,7 +68,8 @@
             let queryParams = getQueryStringParams();
             // Create the configuration string for AnimCubeJS
             console.log(queryParams)
-            let animCubeConfig = `bgcolor=${queryParams.bgcolor || 'e7f0f8'}&snap=${queryParams.snap || 0}&buttonbar=${queryParams.buttonbar || 1}&borderwidth=${queryParams.borderwidth || 5}&counter=${queryParams.counter || 1}&speed=${queryParams.speed}&cubecolor=${queryParams.cubecolor}&colors=${queryParams.colors || 'ff888888ff888888ff88ffffff88ffffff88'}&colorscheme=012345&initrevmove=${queryParams.initmove || '#'}&move=${queryParams.move || 'U'}&yz=1`;
+            
+            let animCubeConfig = `bgcolor=${queryParams.bgcolor || 'e7f0f8'}&snap=${queryParams.snap || 0}&buttonbar=${queryParams.buttonbar || 1}&borderwidth=${queryParams.borderwidth || 5}&counter=${queryParams.counter || 1}&speed=${queryParams.speed}&cubecolor=${queryParams.cubecolor}&colors=${queryParams.colors || ''}&colorscheme=${queryParams.colorscheme}&move=${queryParams.move || ''}&initrevmove=${queryParams.initmove || ''}&yz=1&facelets=${queryParams.facelets || ''}&ignored=${queryParams.ignored || '#eeeeee'}&repeat=0`;
 
             // Create a script element to configure AnimCubeJS
             let script = document.createElement('script');

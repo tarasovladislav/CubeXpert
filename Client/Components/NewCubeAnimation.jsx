@@ -32,7 +32,11 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
     let solved = "";
     let setupmoves = "";
     let colored = "";
+    let facelets;
 
+    // facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
+    facelets = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+    // facelets = 'wLwLwLwLwyLyLyLyLygLgLgLgLgbLbLbLbLboLoLoLoLorLrLrLrLr'
 
     // When user changes his settings, the webview resets the cube since its the new request, we have to restore current algorithm step (Start from the beginning)
     useEffect(() => {
@@ -95,17 +99,115 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
     };
 
     // let setupmoves = 'U2'
+    function manipulateString(inputString) {
+        console.log(inputString, 'input')
+        let outputArray = []
+        let inputArray = inputString.split(' ')
+
+        let xMoves = 0
+        let yMoves = 0
+        let zMoves = 0
+
+        for (let i = 0; i < inputArray.length; i++) {
+            if (inputArray[i] === "x2") xMoves=xMoves+2
+            if (inputArray[i] === "y2") yMoves=yMoves+2
+            if (inputArray[i] === "M2") xMoves=xMoves+2
+            if (inputArray[i] === "r2") xMoves=xMoves+2
+            if (inputArray[i] === "l2") xMoves=xMoves+2
+            if (inputArray[i] === "x") xMoves++
+            if (inputArray[i] === "x'") xMoves--
+            if (inputArray[i] === "y") yMoves++
+            if (inputArray[i] === "y'") yMoves--
+            if (inputArray[i] === "l'") xMoves++
+            if (inputArray[i] === "l") xMoves--
+            if (inputArray[i] === "r") xMoves++
+            if (inputArray[i] === "r'") xMoves--
+            if (inputArray[i] === "M'") xMoves++
+            if (inputArray[i] === "M") xMoves--
+
+            // Check NA NB perm 4/4
+            if (inputArray[i] === "d'") yMoves++
+            if (inputArray[i] === "d") yMoves--
+
+
+
+            if (inputArray[i] === "z") zMoves++
+            if (inputArray[i] === "z'") zMoves--
+        }
+        if (xMoves > 0) {
+            for (let i = 0; i < Math.abs(xMoves); i++) {
+                outputArray.push("x'")
+            }
+
+        } else if (xMoves < 0) {
+            for (let i = 0; i < Math.abs(xMoves); i++) {
+                outputArray.push("x")
+            }
+        }
+
+
+        if (yMoves > 0) {
+            for (let i = 0; i < Math.abs(yMoves); i++) {
+                outputArray.push("y'")
+            }
+
+
+        } else if (yMoves < 0) {
+            for (let i = 0; i < Math.abs(yMoves); i++) {
+                outputArray.push("y")
+            }
+        }
+
+        if (zMoves > 0) {
+            for (let i = 0; i < Math.abs(zMoves); i++) {
+                outputArray.push("z'")
+            }
+
+        } else if (zMoves < 0) {
+            for (let i = 0; i < Math.abs(zMoves); i++) {
+                outputArray.push("z")
+            }
+        }
+        // просчитать как сдвинется центр куба и привести к его стейту, типо удалить повторящиеся или просто направлять xy
+        console.log(outputArray)
+
+
+        console.log(inputArray.join(' ') +" "+ outputArray.join(' '), 'outpusdt')
+        // return inputArray.join(' ');
+        return inputArray.join(' ') +" "+ outputArray.join(' ');
+    }
+
+
+
+
 
     // For different categories we want some elements to be ignored, since they are not necessary
     switch (category) {
         case "F2L":
-            solved = "U-*"
+            // solved = "U-*"
+            // facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
+            facelets = 'qqqqqqqqq111111111q22q22q22q33q33q33qqq444444q55q55q55';
+            setupmoves = manipulateString(alg);
             break;
         case "OLL":
-            colored = "u"
+            // colored = "u"
+            // facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
+            facelets = '000000000qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+            setupmoves = manipulateString(alg);
+
+            break;
+        case "PLL":
+            // colored = "u"
+            // facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
+            facelets = '000000000qqqqqqqqq2qq2qq2qq3qq3qq3qq444qqqqqq5qq5qq5qq'
+            setupmoves = manipulateString(alg);
+
+
+
             break;
         case "Patterns":
             setupmoves = alg
+
             break;
         case "Beginners":
             colored = currentAlg.colored || ""
@@ -127,8 +229,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
         default:
             break;
     }
-console.log(alg)
-console.log(setupmoves)
+
     return (
 
         <View style={[commonStyles.flex1]}>
@@ -139,7 +240,9 @@ console.log(setupmoves)
                 {/* TODO xy1 инит мовес плохо работают с y */}
                 <WebView
                     source={{
-                        uri: `http://192.168.178.103:3100/rotate?cubecolor=${cube.replace('#','')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#','')}${D.replace('#','')}${F.replace('#','')}${B.replace('#','')}${L.replace('#','')}${R.replace('#','')}&speed=${speed}` }}
+                        uri: `http://192.168.178.103:3100/rotate?cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}`
+                        // uri: `http://10.197.47.59:3100/rotate?cubecolor=${cube.replace('#', '')}&initmove=${setupmoves || '#'}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}`
+                    }}
                     ref={cubeAnimationWebView}
                     key={webViewKey}
                     scrollEnabled={false}
@@ -180,7 +283,7 @@ console.log(setupmoves)
                 </View>
 
                 <View style={styles.buttonContainer}>
-                {/* // 1 последняя
+                    {/* // 1 последняя
                         // 1.25 next
                         // 1.5 плей
                         // 2. средняя

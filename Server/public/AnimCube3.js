@@ -184,7 +184,7 @@ function AnimCube3(params) {
       (colors[20] = rgbToHex(255, 160, 192)),
       (colors[21] = rgbToHex(32, 255, 16)),
       (colors[22] = rgbToHex(0, 0, 0)),
-      (colors[23] = rgbToHex(128, 128, 128));
+      (colors[23] = getParameter("ignored"));
     var e = getParameter("bgcolor");
     if (
       ((bgColor =
@@ -399,7 +399,7 @@ function AnimCube3(params) {
       (hintVert = g);
     ((hintBorder = 0),
     null != (e = getParameter("hintborder")) && "1" == e && (hintBorder = 1),
-    (buttonHeight = 13),
+    (buttonHeight = 30),
     null != (e = getParameter("buttonheight"))) &&
       ((g = parseInt(e)) >= 9) & (g <= 25) &&
       (buttonHeight = g);
