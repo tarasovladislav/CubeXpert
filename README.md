@@ -1,3 +1,46 @@
+<p align="center">
+  <img src="https://your-image-url.com" alt="CubeXpert Logo" width="200">
+</p>
+
+# CubeXpert
+
+[![React Native](https://img.shields.io/badge/React%20Native-%5E0.64.0-blue.svg?style=flat-square)](https://reactnative.dev/)
+[![License](https://img.shields.io/github/license/tarasovladislav/CubeXpert?style=flat-square)](https://github.com/tarasovladislav/CubeXpert/blob/main/LICENSE)
+
+A cutting-edge React Native app to revolutionize your cube solving experience.
+
+## Table of Contents
+
+- [About CubeXpert](#about-cubexpert)
+- [Features](#features)
+- [Demo](#demo)
+- [Getting Started](#getting-started)
+- [Contributing](#contributing)
+- [License](#license)
+
+## About CubeXpert
+
+CubeXpert is a state-of-the-art React Native application designed to enhance the way you solve Rubik's cubes. Whether you're a beginner or an expert solver, CubeXpert offers an intuitive and customizable interface, advanced solving algorithms, and real-time statistics to help you improve your solving skills.
+
+## Features
+
+- **Intuitive Interface**: CubeXpert provides an easy-to-navigate interface for solving Rubik's cubes of different sizes.
+
+- **Advanced Solving Algorithms**: We've integrated advanced solving algorithms to help you find the quickest solutions.
+
+- **Customizable Themes**: Personalize your cube with various themes and backgrounds.
+
+- **Real-Time Statistics**: Track your solving times and analyze your progress over time.
+
+- **Solver Tips**: Get tips and hints for solving cubes faster and more efficiently.
+
+- **Cross-Platform**: CubeXpert is available for both iOS and Android.
+
+
+
+
+
+
 
 # CubeXpert
 
