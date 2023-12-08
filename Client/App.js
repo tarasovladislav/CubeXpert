@@ -1,7 +1,6 @@
 import AlgoPage from './Screens/AlgoPage';
 import CategoryPage from './Screens/CategoryPage';
 import CategoryChoisePage from './Screens/CategoryChoisePage';
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './Screens/Home';
@@ -21,7 +20,7 @@ export default function App() {
             <FavoritesContextProvider>
                 <SettingsContextProvider>
                     <Stack.Navigator
-                        initialRouteName="Home"
+                        initialRouteName="HomeTabs"
                         screenOptions={{
                             headerStyle: {
                                 backgroundColor: '#6374ae',
@@ -31,12 +30,10 @@ export default function App() {
                                 fontWeight: 'bold',
                             },
                             headerBackTitle: 'Back',
-                            contentStyle: {backgroundColor: commonStyles.backgroundColor}
+                            contentStyle: { backgroundColor: commonStyles.backgroundColor }
                         }}
                     >
-
-
-                        <Stack.Screen name="Home" component={Home} />
+                        <Stack.Screen name="Home" component={Home} options={{ title: 'Home' }} />
                         <Stack.Screen name="Choose Category" component={CategoryChoisePage} options={{
                             title: 'Advanced Algorithms'
                         }} />

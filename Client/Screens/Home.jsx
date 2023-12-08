@@ -86,8 +86,7 @@ const Home = ({ navigation }) => {
 
                             <MenuItem text="Rotate The Cube" onPress={() => {
                                 navigation.navigate('RotateTheCube', {
-                                    name: 'Favorites',
-                                    // category: 'Patterns'
+                                    name: 'Rotate The Cube',
                                 })
                             }} />
                         </View>

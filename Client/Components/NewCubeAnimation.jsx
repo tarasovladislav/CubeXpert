@@ -8,14 +8,12 @@ import TouchableButton from './TouchableButton'
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { useFavoritesContext } from '../Contexts/FavoritesContext';
 
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 import commonStyles from '../commonStyles';
 
-const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) => {
+const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg, scramble = 0 }) => {
     const { toggleFavorites, isInFavorites } = useFavoritesContext()
     const { settings, webViewKey } = useSettingsContext()
-
+    const [isRotated, setIsRotated] = useState(false)
     const [isCubeLoading, setIsCubeLoading] = useState(true)
     const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg._id))
     const [currentStep, setCurrentStep] = useState(0)
@@ -65,7 +63,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
     }, [isPlaying, triggerUseEffect])
 
     const { width } = Dimensions.get('window');
-
+    //TODO добавить возможность перекрасить быстро? типо подобрать цвет чтобы совпадал с твоим 
     // Cube control buttons handler
     const handleButtonClick = (elementSelector) => {
         console.log(width, elementSelector)
@@ -73,12 +71,15 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
         switch (elementSelector) {
             case 1.5:
                 setIsPlaying(true);
+
                 break;
             case 2:
                 setIsPlaying(false);
+
                 break;
             case 0:
                 setCurrentStep(0);
+                setIsRotated(false)
                 break;
             case 4:
                 setCurrentStep((prevStep) => (prevStep - 1));
@@ -107,11 +108,11 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
         let zMoves = 0
 
         for (let i = 0; i < inputArray.length; i++) {
-            if (inputArray[i] === "x2") xMoves=xMoves+2
-            if (inputArray[i] === "y2") yMoves=yMoves+2
-            if (inputArray[i] === "M2") xMoves=xMoves+2
-            if (inputArray[i] === "r2") xMoves=xMoves+2
-            if (inputArray[i] === "l2") xMoves=xMoves+2
+            if (inputArray[i] === "x2") xMoves = xMoves + 2
+            if (inputArray[i] === "y2") yMoves = yMoves + 2
+            if (inputArray[i] === "M2") xMoves = xMoves + 2
+            if (inputArray[i] === "r2") xMoves = xMoves + 2
+            if (inputArray[i] === "l2") xMoves = xMoves + 2
 
             if (inputArray[i] === "x") xMoves++
             if (inputArray[i] === "x'") xMoves--
@@ -167,7 +168,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
         }
         // просчитать как сдвинется центр куба и привести к его стейту, типо удалить повторящиеся или просто направлять xy
 
-        return inputArray.join(' ') +" "+ outputArray.join(' ');
+        return inputArray.join(' ') + " " + outputArray.join(' ');
     }
 
 
@@ -235,7 +236,9 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                 </View>}
                 <WebView
                     source={{
-                        uri: `http://192.168.178.103:3100/rotate?cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
+                        // uri: `https://cube-xpert-git-testingcube-vladislavs-projects-37d9eb96.vercel.app?_vercel_share=sFw2S4yJD8jrXFVL4wWsmzo8wMUZfkfV/rotate?cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
+                        uri: `https://cube-xpert.vercel.app/rotate?cubesize=3&scramble=${scramble}&cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
+                        // uri: `http://localhost:3100/rotate?cubesize=3&scramble=${scramble}&cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
                     }}
                     ref={cubeAnimationWebView}
                     key={webViewKey}
@@ -245,28 +248,11 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                     style={[styles.webview, { opacity: isCubeLoading ? 0 : 1 }]}
                     onLoadStart={() => setIsCubeLoading(true)}
                     onLoadEnd={() => setIsCubeLoading(false)}
+                    onTouchStart={() => { setIsRotated(true) }}
                 />
-                {/* <WebView
-                    source={{
-                        uri: `https://cube-xpert.vercel.app/?alg=${alg}&colored=${colored}
-                        &speed=${speed}
-                        &colors=U:${U} F:${F} R:${R} L:${L} B:${B} D:${D} ignored:${ignored} cube:${cube}
-                        &hover=1 
-                        &solved=${solved}
-                        &setupmoves=${setupmoves}
-                        ` }}
-                    ref={cubeAnimationWebView}
-                    key={webViewKey}
-                    scrollEnabled={false}
-                    bounces={false}
-                    overScrollMode={'never'}
-                    style={[styles.webview, { opacity: isCubeLoading ? 0 : 1 }]}
-                    onLoadStart={() => setIsCubeLoading(true)}
-                    onLoadEnd={() => setIsCubeLoading(false)}
-                /> */}
             </View >
 
-            <View style={styles.otherContainer}>
+            {scramble === 0 ?  <View style={styles.otherContainer}>
                 <View style={{ alignItems: 'center' }}>
                     <Text style={styles.algoText}>
                         {currentStep > 0 && algArray.slice(0, currentStep - 1).join(' ')}
@@ -275,6 +261,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                     </Text>
                     <Text style={styles.algoText}>{currentStep} / {len}</Text>
                 </View>
+                {/* сверху можно убрать на раондоме */}
 
                 <View style={styles.buttonContainer}>
                     {/* // 1 последняя
@@ -300,14 +287,19 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                         onPress={() => handleButtonClick(2)}
                         text={<IconAwesome size={24} color="black" name="pause" />} />}
                     <TouchableButton
-                        disabled={currentStep == 0 || isPlaying || !allowControl || isCubeLoading}
+                        // disabled={currentStep == 0 || isPlaying || !allowControl || isCubeLoading}
+
+                        //TODO add checker if cube was turned
+                        disabled={isPlaying || !allowControl || isCubeLoading}
                         onPress={() => handleButtonClick(0)}
-                        text={<IconAwesome size={24} color="black" name="redo" />} />
-                    <TouchableButton
-                        disabled={isCubeLoading}
-                        onPress={() => executeJavaScript(`$("body").trigger("resetCamera"); true`)}
-                        text={<IconMaterialIcons size={24} color="black" type="material" name="3d-rotation" />} />
-                </View>
+                        text={<IconAwesome size={24} color="black" name="redo" />}
+                    />
+                    
+
+                </View> 
+
+
+
                 <TouchableOpacity
                     style={{
                         flex: 0,
@@ -324,7 +316,28 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg }) =
                 >
                     <IconAntDesign size={30} color="orange" name={isFavorite ? "star" : "staro"} style={{ padding: 5 }} />
                 </TouchableOpacity>
+            </View> :  <View style={styles.otherContainer}>
+
+
+            <View style={styles.buttonContainer}>
+
+                    <TouchableButton
+                        text="Change size"
+                    />
+
+                </View> 
+            <View style={styles.buttonContainer}>
+
+                    <TouchableButton
+                        text="Another scramble"
+                    />
+
+                </View> 
             </View>
+            
+            
+            
+            }
         </View>
     );
 };
