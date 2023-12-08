@@ -1,7 +1,6 @@
 import AlgoPage from './Screens/AlgoPage';
 import CategoryPage from './Screens/CategoryPage';
 import CategoryChoisePage from './Screens/CategoryChoisePage';
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './Screens/Home';
@@ -13,7 +12,7 @@ import Favorites from './Screens/Favorites';
 import BeginnersLessonChoice from './Screens/BeginnersLessonChoice';
 import LessonPage from './Screens/LessonPage';
 import commonStyles from './commonStyles';
-
+import RotateTheCube from './Screens/RotateTheCube'
 
 export default function App() {
     return (
@@ -31,12 +30,10 @@ export default function App() {
                                 fontWeight: 'bold',
                             },
                             headerBackTitle: 'Back',
-                            contentStyle: {backgroundColor: commonStyles.backgroundColor}
+                            contentStyle: { backgroundColor: commonStyles.backgroundColor }
                         }}
                     >
-
-
-                        <Stack.Screen name="Home" component={Home} />
+                        <Stack.Screen name="Home" component={Home} options={{ title: 'Home' }} />
                         <Stack.Screen name="Choose Category" component={CategoryChoisePage} options={{
                             title: 'Advanced Algorithms'
                         }} />
@@ -47,6 +44,7 @@ export default function App() {
                         <Stack.Screen name="Favorites" component={Favorites} options={({ route }) => ({ title: route.params.name })} />
                         <Stack.Screen name="Category" component={CategoryPage} options={({ route }) => ({ title: route.params.name })} />
                         <Stack.Screen name="Algo" component={AlgoPage} options={({ route }) => ({ title: route.params.name })} />
+                        <Stack.Screen name="RotateTheCube" component={RotateTheCube} options={({ route }) => ({ title: route.params.name })} />
 
                     </Stack.Navigator>
                 </SettingsContextProvider>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <link rel="stylesheet" href="/css.css"> -->
+    <link rel="stylesheet" href="/cube.css">
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script src="/jquery-3.1.1.min.js"></script> -->
+    <!-- <script src="/roofpig_and_three.min.js"></script> -->
+    <script src="/AnimCube2.js"></script>
+    <script src="/AnimCube3.js"></script>
+    <script src="/AnimCube4.js"></script>
+    <script src="/AnimCube5.js"></script>
+    <script src="/AnimCube6.js"></script>
+    <script src="/AnimCube7.js"></script>
+
+    <!-- 
+    <div class="cube" >
+        <script>AnimCube3("bgcolor=e7f0f8&snap=0&buttonbar=0&borderwidth=5&counter=0&speed=20")</script>
+       </div> -->
+
+
+
+
+    <!-- edit=1" to stop from moving cube -->
+
+    <script>
+
+        document.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        });
+
+
+        //clickprogress maybe add later? 
+
+
+        function getQueryStringParams() {
+            var params = {};
+            var queryString = window.location.href.split('?')[1];
+            if (queryString) {
+                var pairs = queryString.split('&');
+                for (let i = 0; i < pairs.length; i++) {
+                    let pair = pairs[i].split('=');
+                    params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+                }
+            }
+            return params;
+        }
+
+        let globalCanvas;
+        let clickEvent;
+        // 0-6
+        function clickCanvas(width, buttonPosition) {
+            const canvasWidth = globalCanvas.getBoundingClientRect().width;
+            const canvasHeight = globalCanvas.getBoundingClientRect().height;
+            let clickX
+            
+            if (buttonPosition === 0) {
+                clickX = 10
+            } else {
+                clickX = (canvasWidth) / (buttonPosition) - 10;
+            }
+
+            const clickY = canvasHeight - 1;
+
+
+            // 1 последняя
+            // 1.25 next
+            // 1.5 плей
+            // 2. средняя
+            // 0 reset
+            //3 назад плей
+            //4 назад
+            clickEvent = new MouseEvent("mousedown", {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+                clientX: clickX,
+                clientY: clickY
+            });
+
+            // Dispatch the click event to the canvas element (bottom-right corner)
+            globalCanvas.dispatchEvent(clickEvent);
+
+            const mouseUpEvent = new MouseEvent("mouseup", {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+                clientX: clickX,
+                clientY: clickY
+            });
+            globalCanvas.dispatchEvent(mouseUpEvent);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const overlay = document.getElementById('overlay');
+            let cubeDiv = document.createElement('div');
+            cubeDiv.className = 'cube';
+            document.body.appendChild(cubeDiv);
+            let queryParams = getQueryStringParams();
+            overlay.style.backgroundColor = "#" + queryParams.bgcolor;
+            // Create the configuration string for AnimCubeJS
+            console.log(queryParams)
+
+            let animCubeConfig = `scramble=${queryParams.scramble}&bgcolor=${queryParams.bgcolor || 'e7f0f8'}&snap=${queryParams.snap || 0}&buttonbar=${queryParams.buttonbar || 1}&borderwidth=${queryParams.borderwidth || 5}&counter=${queryParams.counter || 1}&speed=${queryParams.speed}&cubecolor=${queryParams.cubecolor}&colors=${queryParams.colors || ''}&colorscheme=${queryParams.colorscheme}&move=${queryParams.move || ''}&initrevmove=${queryParams.initmove || ''}&yz=1&facelets=${queryParams.facelets || ''}&ignored=${queryParams.ignored || '#eeeeee'}&repeat=0&clickprogress=0&textsize=0`;
+                if (!queryParams.cubesize)queryParams.cubesize = 3
+            // Create a script element to configure AnimCubeJS
+            let script = document.createElement('script');
+            script.textContent = `AnimCube${queryParams.cubesize}("${animCubeConfig}")`;
+            cubeDiv.appendChild(script);
+            globalCanvas = document.querySelector('canvas');
+
+
+        });
+
+    </script>
+    <div class="overlay" id="overlay"></div>
+
+</body>
+
+</html>

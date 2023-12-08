@@ -12,7 +12,7 @@ import Loading from '../Components/Loading';
 import IconAwesome from 'react-native-vector-icons/FontAwesome5';
 
 const AlgoPage = ({ route }) => {
-    const { _id } = route.params
+    const _id = route?.params?._id;
 
     const [isPlaying, setIsPlaying] = useState(false)
 
@@ -25,8 +25,11 @@ const AlgoPage = ({ route }) => {
     // Get algo details 
     useEffect(() => {
         setIsLoading(true)
-        apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
-        }).finally(() => setIsLoading(false))
+        // apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
+        // }).finally(() => setIsLoading(false))
+        setCurrentAlg({algo:['U']})
+        setIsLoading(false)
+
     }, [])
 
     const [isLoading, setIsLoading] = useState(true)
@@ -37,20 +40,15 @@ const AlgoPage = ({ route }) => {
     return (
         <>
             {currentAlg && <SafeAreaView style={{ flex: 1 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', left: 0, top: 12, width: 70, zIndex: 2 }}>
+                {/* <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', left: 0, top: 12, width: 70, zIndex: 2 }}>
                     <Text style={{ fontSize: 20, fontWeight: 800 }}>{whichAlg + 1} / {currentAlg.algo.length}</Text>
-                </View>
+                </View> */}
 
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay} animationType="fade">
                     <ProfileSettings />
                 </Overlay>
 
-                {currentAlg.category === 'Beginners' ?
-                    <CubeAnimation isPlaying={isPlaying} setIsPlaying={setIsPlaying} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} currentAlg={currentAlg} />
-                    :
-                    <NewCubeAnimation isPlaying={isPlaying} setIsPlaying={setIsPlaying} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} currentAlg={currentAlg} />
-
-                }
+                <NewCubeAnimation isPlaying={isPlaying} setIsPlaying={setIsPlaying} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} currentAlg={currentAlg} scramble={2}/>
 
 
                 <TouchableOpacity
