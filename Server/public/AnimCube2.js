@@ -1,12 +1,6 @@
 "use strict";
-function dispatchCustomEvent(action) {
-    const event = new CustomEvent("customEvent", {
-      detail: { action },
-    });
-    document.dispatchEvent(event);
-  }
-function AnimCube3(params) {
-  var cubeDim = 3,
+function AnimCube2(params) {
+  var cubeDim = 2,
     config = [],
     bgColor,
     hlColor,
@@ -115,7 +109,7 @@ function AnimCube3(params) {
     drawButtons = !0,
     pushed,
     buttonPressed = -1,
-    progressHeight = 0,
+    progressHeight =0, // здесь
     textHeight = 12,
     moveText,
     moveTextSpace,
@@ -131,16 +125,21 @@ function AnimCube3(params) {
     borderWidth = 0,
     posFaceTransform = [3, 2, 0, 5, 1, 4],
     posFaceletTransform = [
-      [6, 3, 0, 7, 4, 1, 8, 5, 2],
-      [2, 5, 8, 1, 4, 7, 0, 3, 6],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8],
-      [6, 3, 0, 7, 4, 1, 8, 5, 2],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      [2, 0, 3, 1],
+      [1, 3, 0, 2],
+      [0, 1, 2, 3],
+      [0, 1, 2, 3],
+      [2, 0, 3, 1],
+      [0, 1, 2, 3],
     ];
   function onModuleLoad() {
     var e = getParameter("config");
-    null != e ? loadConfigFile(e) : init();
+    if (null == e) init();
+    else {
+      var r = location.pathname,
+        t = r.substring(r.lastIndexOf("/") + 1);
+      loadConfigFile(0 == t.length ? r + e : r.replace(t, e));
+    }
   }
   function loadConfigFile(e) {
     var r = new XMLHttpRequest();
@@ -184,7 +183,7 @@ function AnimCube3(params) {
       (colors[20] = rgbToHex(255, 160, 192)),
       (colors[21] = rgbToHex(32, 255, 16)),
       (colors[22] = rgbToHex(0, 0, 0)),
-      (colors[23] = getParameter("ignored"));
+      (colors[23] = rgbToHex(128, 128, 128));
     var e = getParameter("bgcolor");
     if (
       ((bgColor =
@@ -198,10 +197,10 @@ function AnimCube3(params) {
         var o = e.substr(t, 6);
         6 == o.length && validateColor(o) && (colors[r] = "#" + o);
       }
-    for (r = 0; r < 6; r++) for (t = 0; t < 9; t++) cube[r][t] = r + 10;
+    for (r = 0; r < 6; r++) for (t = 0; t < 4; t++) cube[r][t] = r + 10;
     if (null != (e = getParameter("supercube")) && "1" == e) {
       (superCube = !0), setBorderWidth(0.06);
-      for (r = 0; r < 9; r++) cube[0][r] = 22;
+      for (r = 0; r < 4; r++) cube[0][r] = 22;
       null != (e = getParameter("scw")) &&
         ("1" == e ? (scw = 1) : "2" == e && (scw = 2)),
         1 == scw && (colors[10] = "#000000");
@@ -232,7 +231,7 @@ function AnimCube3(params) {
         setBorderWidth(borderWidth / 100);
     }
     if (superCube)
-      for (r = 0; r < 6; r++) for (t = 0; t < 9; t++) scube[r][t] = 0;
+      for (r = 0; r < 6; r++) for (t = 0; t < 4; t++) scube[r][t] = 0;
     var a = "lluu";
     if (null != (e = getParameter("colorscheme")) && 6 == e.length)
       for (r = 0; r < 6; r++) {
@@ -242,19 +241,23 @@ function AnimCube3(params) {
             i = t;
             break;
           }
-        for (t = 0; t < 9; t++) cube[r][t] = i;
+        for (t = 0; t < 4; t++) cube[r][t] = i;
       }
     if (
       ("1" == (e = getParameter("scramble"))
         ? (scramble = 1)
         : "2" == e && (scramble = 2),
-      0 == scramble)
-    ) {
-      if (null != (e = getParameter("pos")) && 54 == e.length) {
+      2 == scramble)
+    )
+      for (r = 0; r < 6; r++)
+        for (t = 0; t < 4; t++)
+          (initialCube[r][t] = cube[r][t]), (initialSCube[r][t] = scube[r][t]);
+    if (0 == scramble) {
+      if (null != (e = getParameter("pos")) && 24 == e.length) {
         (a = "uuuuff"), "gray" == bgColor && (bgColor = "white");
         for (r = 0; r < 6; r++) {
           var n = posFaceTransform[r];
-          for (t = 0; t < 9; t++) {
+          for (t = 0; t < 4; t++) {
             var s = posFaceletTransform[r][t];
             cube[n][s] = 23;
             for (var l = 0; l < 14; l++)
@@ -265,24 +268,24 @@ function AnimCube3(params) {
           }
         }
       }
-      if (null != (e = getParameter("facelets")) && 54 == e.length)
+      if (null != (e = getParameter("facelets")) && 24 == e.length)
         for (r = 0; r < 6; r++)
-          for (t = 0; t < 9; t++) {
+          for (t = 0; t < 4; t++) {
             cube[r][t] = 23;
             for (l = 0; l < 23; l++)
               if (
-                e[9 * r + t].toLowerCase() ==
+                e[4 * r + t].toLowerCase() ==
                 "0123456789wyorgbldmcpnk".charAt(l)
               ) {
                 cube[r][t] = l;
                 break;
               }
           }
-      if (null != (e = getParameter("superfacelets")) && 54 == e.length)
+      if (null != (e = getParameter("superfacelets")) && 24 == e.length)
         for (r = 0; r < 6; r++)
-          for (t = 0; t < 9; t++)
+          for (t = 0; t < 4; t++)
             for (l = 0; l < 4; l++)
-              if (e[9 * r + t].toLowerCase() == "0123".charAt(l)) {
+              if (e[4 * r + t].toLowerCase() == "0123".charAt(l)) {
                 scube[r][t] = l;
                 break;
               }
@@ -306,19 +309,19 @@ function AnimCube3(params) {
       c > 0 && (randMoveCount = c);
     }
     ("random" == (e = getParameter("move")) || scramble > 0) &&
-      (e = randMoves(3, randMoveCount)),
+      (e = randMoves(2, randMoveCount)),
       (move = null == e ? [] : getMove(e, !0)),
       (movePos = 0),
       (curInfoText = -1),
       0 == scramble &&
         (null != (e = getParameter("initmove")) &&
-          ("random" == e && (e = randMoves(3, randMoveCount)),
+          ("random" == e && (e = randMoves(2, randMoveCount)),
           (initialMove = "#" == e ? move : getMove(e, !1))),
         null != (e = getParameter("initrevmove")) &&
-          ("random" == e && (e = randMoves(3, randMoveCount)),
+          ("random" == e && (e = randMoves(2, randMoveCount)),
           (initialReversedMove = "#" == e ? move : getMove(e, !1))),
         null != (e = getParameter("demo")) &&
-          ("random" == e && (e = randMoves(3, randMoveCount)),
+          ("random" == e && (e = randMoves(2, randMoveCount)),
           (demoMove = "#" == e ? move : getMove(e, !0)).length > 0 &&
             demoMove[0].length > 0 &&
             (demo = !0))),
@@ -399,12 +402,12 @@ function AnimCube3(params) {
       (hintVert = g);
     ((hintBorder = 0),
     null != (e = getParameter("hintborder")) && "1" == e && (hintBorder = 1),
-    (buttonHeight = 1),
+    (buttonHeight = 13),
     null != (e = getParameter("buttonheight"))) &&
       ((g = parseInt(e)) >= 9) & (g <= 25) &&
       (buttonHeight = g);
-    ((progressHeight = 0 == move.length ? 0 : 0), // progressHeight здесь
-    (buttonBar = 1),
+      ((progressHeight = 0 == move.length ? 0 : 0), // progressHeight здесь
+      (buttonBar = 1),
     "0" == (e = getParameter("buttonbar"))
       ? ((buttonBar = 0), (buttonHeight = 0), (progressHeight = 0))
       : "1" == e
@@ -417,7 +420,9 @@ function AnimCube3(params) {
     (repeatable = "0" != e),
     (e = getParameter("clickprogress")),
     (clickProgress = "0" != e),
-    (e = getParameter("movetext")) >= 1 && e <= 5 && (moveText = parseInt(e)),
+    "1" == (e = getParameter("movetext"))
+      ? (moveText = 1)
+      : "5" == e && (moveText = 5),
     (moveTextSpace = 1),
     "0" == (e = getParameter("movetextspace")) && (moveTextSpace = 0),
     null != (e = getParameter("textsize"))) &&  //здесь было >=5
@@ -438,7 +443,7 @@ function AnimCube3(params) {
       (g >= 3) & (g <= 99) && (align = g / 100));
     null != (e = getParameter("snap")) && "1" == e && (snap = !0);
     for (r = 0; r < 6; r++)
-      for (t = 0; t < 9; t++)
+      for (t = 0; t < 4; t++)
         (initialCube[r][t] = cube[r][t]), (initialSCube[r][t] = scube[r][t]);
     initialMove.length > 0 &&
       doMove(cube, initialMove[0], 0, initialMove[0].length, !1),
@@ -537,15 +542,17 @@ function AnimCube3(params) {
       } else
         for (var l = 0; l < 21; l++)
           if (e.charAt(n) == i.charAt(l)) {
+            var c = e.charAt(n);
+            if ("E" == c || "S" == c || "M" == c) continue;
             n++;
-            var c = moveModes[l];
+            var d = moveModes[l];
             if (((a[o] = 24 * moveCodes[l]), n < e.length && 0 == moveModes[l]))
-              for (var d = 0; d < modeChar.length; d++)
-                if (e.charAt(n) == modeChar[d]) {
-                  (c = d + 1), n++;
+              for (var u = 0; u < modeChar.length; u++)
+                if (e.charAt(n) == modeChar[u]) {
+                  (d = u + 1), n++;
                   break;
                 }
-            (a[o] += 4 * c),
+            (a[o] += 4 * d),
               n < e.length &&
                 ("1" == e.charAt(n)
                   ? n++
@@ -711,7 +718,7 @@ function AnimCube3(params) {
   function clear() {
     (movePos = 0), (natural = !0), (mirrored = !1);
     for (var e = 0; e < 6; e++)
-      for (var r = 0; r < 9; r++)
+      for (var r = 0; r < 4; r++)
         (cube[e][r] = initialCube[e][r]), (scube[e][r] = initialSCube[e][r]);
     initialMove.length > 0 &&
       void 0 !== initialMove[curMove] &&
@@ -726,7 +733,7 @@ function AnimCube3(params) {
           !0,
         ),
       move.length > 0 && initInfoText(move[curMove]),
-      scramble > 0 && (move = getMove(randMoves(3, randMoveCount), !1)),
+      scramble > 0 && (move = getMove(randMoves(2, randMoveCount), !1)),
       2 == scramble && doMove(cube, move[0], 0, move[0].length, !0);
     for (e = 0; e < 3; e++)
       (eye[e] = initialEye[e]),
@@ -736,32 +743,31 @@ function AnimCube3(params) {
   }
   var cubeBlocks = [
       [
-        [0, 3],
-        [0, 3],
+        [0, 2],
+        [0, 2],
       ],
       [
-        [0, 3],
-        [0, 3],
+        [0, 2],
+        [0, 2],
       ],
       [
-        [0, 3],
-        [0, 3],
+        [0, 2],
+        [0, 2],
       ],
       [
-        [0, 3],
-        [0, 3],
+        [0, 2],
+        [0, 2],
       ],
       [
-        [0, 3],
-        [0, 3],
+        [0, 2],
+        [0, 2],
       ],
       [
-        [0, 3],
-        [0, 3],
+        [0, 2],
+        [0, 2],
       ],
     ],
     topBlocks = [],
-    midBlocks = [],
     botBlocks = [],
     topBlockTable = [
       [
@@ -769,38 +775,24 @@ function AnimCube3(params) {
         [0, 0],
       ],
       [
-        [0, 3],
-        [0, 3],
+        [0, 2],
+        [0, 2],
       ],
       [
-        [0, 3],
+        [0, 2],
         [0, 1],
       ],
       [
         [0, 1],
-        [0, 3],
+        [0, 2],
       ],
       [
-        [0, 3],
-        [2, 3],
-      ],
-      [
-        [2, 3],
-        [0, 3],
-      ],
-    ],
-    midBlockTable = [
-      [
-        [0, 0],
-        [0, 0],
-      ],
-      [
-        [0, 3],
+        [0, 2],
         [1, 2],
       ],
       [
         [1, 2],
-        [0, 3],
+        [0, 2],
       ],
     ],
     topBlockFaceDim = [
@@ -810,14 +802,6 @@ function AnimCube3(params) {
       [4, 5, 0, 1, 5, 4],
       [3, 2, 2, 4, 1, 0],
       [5, 4, 4, 2, 0, 1],
-    ],
-    midBlockFaceDim = [
-      [0, 0, 2, 2, 1, 2],
-      [0, 0, 2, 2, 1, 2],
-      [1, 2, 0, 0, 2, 1],
-      [1, 2, 0, 0, 2, 1],
-      [2, 1, 1, 1, 0, 0],
-      [2, 1, 1, 1, 0, 0],
     ],
     botBlockFaceDim = [
       [0, 1, 5, 5, 4, 5],
@@ -830,31 +814,18 @@ function AnimCube3(params) {
   function splitCube(e) {
     for (var r = 0; r < 6; r++)
       (topBlocks[r] = topBlockTable[topBlockFaceDim[e][r]]),
-        (botBlocks[r] = topBlockTable[botBlockFaceDim[e][r]]),
-        (midBlocks[r] = midBlockTable[midBlockFaceDim[e][r]]);
+        (botBlocks[r] = topBlockTable[botBlockFaceDim[e][r]]);
     natural = !1;
   }
   function twistLayers(e, r, t, o) {
-    switch (o) {
-      case 3:
-        twistLayer(e, 1 ^ r, t, !1);
-      case 2:
-        twistLayer(e, r, 4 - t, !1);
-      case 1:
-        twistLayer(e, r, 4 - t, !0);
-        break;
-      case 5:
-        twistLayer(e, 1 ^ r, 4 - t, !1), twistLayer(e, r, 4 - t, !1);
-        break;
-      case 4:
-        twistLayer(e, 1 ^ r, t, !1);
-      default:
-        twistLayer(e, r, 4 - t, !1);
-    }
+    5 == o
+      ? twistLayer(e, 1 ^ r, 4 - t)
+      : (2 != o && 3 != o && 4 != o) || twistLayer(e, 1 ^ r, t),
+      twistLayer(e, r, 4 - t);
   }
-  var cycleOrder = [0, 1, 2, 5, 8, 7, 6, 3],
-    cycleFactors = [1, 3, -1, -3, 1, 3, -1, -3],
-    cycleOffsets = [0, 2, 8, 6, 3, 1, 5, 7],
+  var cycleOrder = [0, 1, 3, 2],
+    cycleFactors = [1, 2, -1, -2],
+    cycleOffsets = [0, 1, 3, 2],
     cycleLayerSides = [
       [3, 3, 3, 0],
       [2, 1, 1, 1],
@@ -863,94 +834,65 @@ function AnimCube3(params) {
       [3, 2, 0, 0],
       [2, 2, 0, 1],
     ],
-    cycleCenters = [
-      [7, 7, 7, 4],
-      [6, 5, 5, 5],
-      [7, 7, 4, 4],
-      [6, 5, 5, 6],
-      [7, 6, 4, 4],
-      [6, 6, 4, 5],
-    ],
     twistBuffer = [];
-  function twistLayer(e, r, t, o) {
-    twistLayer2(e, r, t, o),
+  function twistLayer(e, r, t) {
+    twistLayer2(e, r, t),
       1 == superCube &&
         t > 0 &&
         t < 4 &&
-        (twistLayer2(scube, r, t, o), twistSuperLayer(r, t, o));
+        (twistLayer2(scube, r, t), twistSuperLayer(r, t));
   }
-  function twistLayer2(e, r, t, o) {
-    if (!o) {
-      for (var a = 0; a < 8; a++)
-        twistBuffer[(a + 2 * t) % 8] = e[r][cycleOrder[a]];
-      for (a = 0; a < 8; a++) e[r][cycleOrder[a]] = twistBuffer[a];
-    }
-    var i = 3 * t;
-    for (a = 0; a < 4; a++)
+  function twistLayer2(e, r, t) {
+    for (var o = 0; o < 4; o++) twistBuffer[(o + t) % 4] = e[r][cycleOrder[o]];
+    for (o = 0; o < 4; o++) e[r][cycleOrder[o]] = twistBuffer[o];
+    var a = 2 * t;
+    for (o = 0; o < 4; o++)
       for (
-        var n = adjacentFaces[r][a],
-          s = o ? cycleCenters[r][a] : cycleLayerSides[r][a],
-          l = cycleFactors[s],
-          c = cycleOffsets[s],
-          d = 0;
-        d < 3;
-        d++, i++
+        var i = adjacentFaces[r][o],
+          n = cycleLayerSides[r][o],
+          s = cycleFactors[n],
+          l = cycleOffsets[n],
+          c = 0;
+        c < 2;
+        c++, a++
       )
-        twistBuffer[i % 12] = e[n][d * l + c];
-    for (a = 0, i = 0; a < 4; a++)
+        twistBuffer[a % 8] = e[i][c * s + l];
+    for (o = 0, a = 0; o < 4; o++)
       for (
-        n = adjacentFaces[r][a],
-          s = o ? cycleCenters[r][a] : cycleLayerSides[r][a],
-          l = cycleFactors[s],
-          c = cycleOffsets[s],
-          d = 0;
-        d < 3;
-        d++, i++
+        i = adjacentFaces[r][o],
+          n = cycleLayerSides[r][o],
+          s = cycleFactors[n],
+          l = cycleOffsets[n],
+          c = 0;
+        c < 2;
+        c++, a++
       )
-        e[n][d * l + c] = twistBuffer[i];
+        e[i][c * s + l] = twistBuffer[a];
   }
   var superTwistArr = [
       [
         [0, 1, 0],
-        [0, 3, 1],
-        [0, 3, 4],
+        [0, 2, 1],
+        [0, 2, 4],
         [0, 1, 5],
       ],
       [
-        [6, 1, 0],
-        [2, 3, 1],
-        [2, 3, 4],
-        [6, 1, 5],
+        [2, 1, 0],
+        [1, 2, 1],
+        [1, 2, 4],
+        [2, 1, 5],
       ],
       [
-        [3, 1, 0],
-        [1, 3, 1],
-        [1, 3, 4],
-        [3, 1, 5],
-      ],
-      [
-        [6, 1, 3],
+        [2, 1, 3],
         [0, 1, 1],
         [0, 1, 2],
-        [0, 3, 0],
+        [0, 2, 0],
       ],
       [
         [0, 1, 3],
-        [2, 3, 0],
-        [6, 1, 2],
-        [6, 1, 1],
-      ],
-      [
-        [3, 1, 3],
-        [3, 1, 1],
-        [3, 1, 2],
-        [1, 3, 0],
-      ],
-      [
-        [3, 1, 3],
-        [1, 3, 0],
-        [3, 1, 2],
-        [3, 1, 1],
+        [1, 2, 0],
+        [2, 1, 2],
+        [2, 1, 1],
       ],
     ],
     width,
@@ -962,28 +904,23 @@ function AnimCube3(params) {
     dragAreas;
   function twistSuperLayer(e, r, t) {
     if (0 == t) {
-      for (var o = 0; o < 9; o++) scube[e][o] = (scube[e][o] + 4 - r) % 4;
+      for (var o = 0; o < 4; o++) scube[e][o] = (scube[e][o] + 4 - r) % 4;
       2 == e && superTwist2(0, 4 - r),
         3 == e && superTwist2(1, r),
-        4 == e && superTwist(3, r),
-        5 == e && superTwist(4, r);
+        4 == e && superTwist(2, r),
+        5 == e && superTwist(3, r);
     }
-    1 == t &&
-      (2 == e && superTwist2(2, 4 - r),
-      3 == e && superTwist2(2, r),
-      4 == e && superTwist(5, r),
-      5 == e && superTwist(6, r));
   }
   function superTwist(e, r) {
     superTwist1(superTwistArr[e][0]), superTwist1(superTwistArr[e][r]);
   }
   function superTwist1(e) {
-    for (var r = e[0], t = 0; t < 3; r += e[1], t++)
+    for (var r = e[0], t = 0; t < 2; r += e[1], t++)
       scube[e[2]][r] = (scube[e[2]][r] + 2) % 4;
   }
   function superTwist2(e, r) {
     for (var t = 0; t < 4; t++)
-      for (var o = superTwistArr[e][t], a = o[0], i = 0; i < 3; a += o[1], i++)
+      for (var o = superTwistArr[e][t], a = o[0], i = 0; i < 2; a += o[1], i++)
         scube[o[2]][a] = (scube[o[2]][a] + r) % 4;
   }
   var dragCornersX = [],
@@ -993,39 +930,27 @@ function AnimCube3(params) {
     dragBlocks = [
       [
         [0, 0],
-        [3, 0],
-        [3, 1],
+        [2, 0],
+        [2, 1],
         [0, 1],
       ],
       [
-        [3, 0],
-        [3, 3],
-        [2, 3],
         [2, 0],
+        [2, 2],
+        [1, 2],
+        [1, 0],
       ],
       [
-        [3, 3],
-        [0, 3],
+        [2, 2],
         [0, 2],
-        [3, 2],
+        [0, 1],
+        [2, 1],
       ],
       [
-        [0, 3],
+        [0, 2],
         [0, 0],
         [1, 0],
-        [1, 3],
-      ],
-      [
-        [0, 1],
-        [3, 1],
-        [3, 2],
-        [0, 2],
-      ],
-      [
-        [2, 0],
-        [2, 3],
-        [1, 3],
-        [1, 0],
+        [1, 2],
       ],
     ],
     areaDirs = [
@@ -1033,16 +958,14 @@ function AnimCube3(params) {
       [0, 1],
       [-1, 0],
       [0, -1],
-      [1, 0],
-      [0, 1],
     ],
     twistDirs = [
-      [1, 1, 1, 1, 1, -1],
-      [1, 1, 1, 1, 1, -1],
-      [1, -1, 1, -1, 1, 1],
-      [1, -1, 1, -1, -1, 1],
-      [-1, 1, -1, 1, -1, -1],
-      [1, -1, 1, -1, 1, 1],
+      [1, 1, 1, 1],
+      [1, 1, 1, 1],
+      [1, -1, 1, -1],
+      [1, -1, 1, -1],
+      [-1, 1, -1, 1],
+      [1, -1, 1, -1],
     ],
     dragLayers = [],
     dragModes = [],
@@ -1113,26 +1036,26 @@ function AnimCube3(params) {
     eyeArrayX = [],
     eyeArrayY = [],
     eyeOrder = [
-      [1, 0, 0],
-      [0, 1, 0],
-      [1, 1, 0],
-      [1, 1, 1],
-      [1, 0, 1],
-      [1, 0, 2],
+      [1, 0],
+      [1, 0],
+      [1, 1],
+      [1, 1],
+      [1, 1],
+      [1, 2],
     ],
     blockArray = [],
     blockMode = [
-      [0, 2, 2],
-      [2, 1, 2],
-      [2, 2, 2],
-      [2, 2, 2],
-      [2, 2, 2],
-      [2, 2, 2],
+      [0, 2],
+      [2, 1],
+      [2, 2],
+      [2, 2],
+      [2, 2],
+      [2, 2],
     ],
     drawOrder = [
-      [0, 1, 2],
-      [2, 1, 0],
-      [0, 2, 1],
+      [0, 1],
+      [1, 0],
+      [0, 1],
     ];
   function paint() {
     if (
@@ -1193,8 +1116,7 @@ function AnimCube3(params) {
         (eyeArrayX[2] = tempEyeX2),
         (eyeArrayY[2] = tempEyeY2),
         (blockArray[0] = topBlocks),
-        (blockArray[1] = midBlocks),
-        (blockArray[2] = botBlocks),
+        (blockArray[1] = botBlocks),
         vSub(
           vScale(vCopy(perspEye, eye), 5 + persp),
           vScale(vCopy(perspNormal, faceNormals[twistedLayer]), 1 / 3),
@@ -1207,7 +1129,7 @@ function AnimCube3(params) {
         l = vProd(perspEye, faceNormals[twistedLayer]),
         c = vProd(perspEyeI, faceNormals[1 ^ twistedLayer]);
       s = l < 0 && c > 0 ? 0 : l > 0 && c < 0 ? 1 : 2;
-      for (t = 0; t < 3; t++) {
+      for (t = 0; t < 2; t++) {
         o = drawOrder[s][t];
         var d = eyeOrder[twistedMode][o];
         fixBlock(
@@ -1393,22 +1315,22 @@ function AnimCube3(params) {
                       fillX,
                       fillY,
                       i,
-                      scube[i][3 * v + m],
-                      colors[cube[i][3 * v + m]],
+                      scube[i][2 * v + m],
+                      colors[cube[i][2 * v + m]],
                     ))
                   : (fillPolygon(
                       graphics,
                       fillX,
                       fillY,
-                      colors[cube[i][3 * v + m]],
+                      colors[cube[i][2 * v + m]],
                     ),
                     drawPolygon(
                       graphics,
                       fillX,
                       fillY,
                       hintBorder
-                        ? darker(colors[cube[i][3 * v + m]])
-                        : colors[cube[i][3 * v + m]],
+                        ? darker(colors[cube[i][2 * v + m]])
+                        : colors[cube[i][2 * v + m]],
                     ));
               }
         }
@@ -1418,10 +1340,10 @@ function AnimCube3(params) {
         for (l = 0; l < 4; l++) {
           var p = oppositeCorners[i][l];
           (fillX[l] = Math.floor(
-            cooX[i][l] + (2 * (cooX[1 ^ i][p] - cooX[i][l])) / 3,
+            cooX[i][l] + (1 * (cooX[1 ^ i][p] - cooX[i][l])) / 2,
           )),
             (fillY[l] = Math.floor(
-              cooY[i][l] + (2 * (cooY[1 ^ i][p] - cooY[i][l])) / 3,
+              cooY[i][l] + (1 * (cooY[1 ^ i][p] - cooY[i][l])) / 2,
             )),
             mirrored && (fillX[l] = width - fillX[l]);
         }
@@ -1467,20 +1389,20 @@ function AnimCube3(params) {
                     fillX,
                     fillY,
                     i,
-                    scube[i][3 * v + m],
-                    colors[cube[i][3 * v + m]],
+                    scube[i][2 * v + m],
+                    colors[cube[i][2 * v + m]],
                   ))
                 : (drawPolygon(
                     graphics,
                     fillX,
                     fillY,
-                    colors[cube[i][3 * v + m]],
+                    colors[cube[i][2 * v + m]],
                   ),
                   fillPolygon(
                     graphics,
                     fillX,
                     fillY,
-                    colors[cube[i][3 * v + m]],
+                    colors[cube[i][2 * v + m]],
                   ));
             }
         if (!editable || animating) continue;
@@ -1489,7 +1411,7 @@ function AnimCube3(params) {
           y = (cooY[i][1] - cooY[i][0] + cooY[i][2] - cooY[i][3]) / 6,
           M = (cooY[i][3] - cooY[i][0] + cooY[i][2] - cooY[i][1]) / 6;
         if (3 == a)
-          for (l = 0; l < 6; l++) {
+          for (l = 0; l < 4; l++) {
             for (p = 0; p < 4; p++)
               getCorners(
                 i,
@@ -1506,39 +1428,18 @@ function AnimCube3(params) {
               (dragDirsY[dragAreas] =
                 (w * areaDirs[l][0] + M * areaDirs[l][1]) * twistDirs[i][l]),
               (dragLayers[dragAreas] = adjacentFaces[i][l % 4]),
-              l >= 4 && (dragLayers[dragAreas] &= -2),
               (dragModes[dragAreas] = Math.floor(l / 4)),
-              18 == ++dragAreas)
+              12 == ++dragAreas)
             )
               break;
           }
-        else if (0 == a) {
-          if (i != twistedLayer && u > 0 && g > 0) {
-            for (
-              l = 3 == u ? (0 == o[i][1][0] ? 0 : 2) : 0 == o[i][0][0] ? 3 : 1,
-                p = 0;
-              p < 4;
-              p++
-            )
-              getCorners(
-                i,
-                p,
-                dragCornersX[dragAreas],
-                dragCornersY[dragAreas],
-                dragBlocks[l][p][0],
-                dragBlocks[l][p][1],
-                !1,
-              );
-            (dragDirsX[dragAreas] =
-              (b * areaDirs[l][0] + y * areaDirs[l][1]) * twistDirs[i][l]),
-              (dragDirsY[dragAreas] =
-                (w * areaDirs[l][0] + M * areaDirs[l][1]) * twistDirs[i][l]),
-              (dragLayers[dragAreas] = twistedLayer),
-              (dragModes[dragAreas] = 0),
-              dragAreas++;
-          }
-        } else if (1 == a && i != twistedLayer && u > 0 && g > 0) {
-          for (l = 3 == u ? 4 : 5, p = 0; p < 4; p++)
+        else if (0 == a && i != twistedLayer && u > 0 && g > 0) {
+          for (
+            l = 2 == u ? (0 == o[i][1][0] ? 0 : 2) : 0 == o[i][0][0] ? 3 : 1,
+              p = 0;
+            p < 4;
+            p++
+          )
             getCorners(
               i,
               p,
@@ -1553,13 +1454,13 @@ function AnimCube3(params) {
             (dragDirsY[dragAreas] =
               (w * areaDirs[l][0] + M * areaDirs[l][1]) * twistDirs[i][l]),
             (dragLayers[dragAreas] = twistedLayer),
-            (dragModes[dragAreas] = 1),
+            (dragModes[dragAreas] = 0),
             dragAreas++;
         }
       }
   }
   function getCorners(e, r, t, o, a, i, n) {
-    (a /= 3), (i /= 3);
+    (a /= 2), (i /= 2);
     var s = cooX[e][0] + (cooX[e][1] - cooX[e][0]) * a,
       l = cooY[e][0] + (cooY[e][1] - cooY[e][0]) * a,
       c = cooX[e][3] + (cooX[e][2] - cooX[e][3]) * a,
@@ -1650,8 +1551,6 @@ function AnimCube3(params) {
     }
     return -1;
   }
-
-
   var buttonAction = [-1, 3, 1, -1, 0, 2, 4, -1];
   function vCopy(e, r) {
     return (e[0] = r[0]), (e[1] = r[1]), (e[2] = r[2]), e;
@@ -2037,8 +1936,8 @@ function AnimCube3(params) {
                 moveAnimated)
               ) {
                 (d = Math.PI / 2), (c = r ? 1 : -1);
-                var w = speed; // здесь
-                2 == o && ((d = Math.PI), (w = doubleSpeed)), // здесь
+                var w = speed; 
+                2 == o && ((d = Math.PI), (w = doubleSpeed)),
                   (twisting = !0),
                   (twistedLayer = i),
                   (twistedMode = a),
@@ -2103,7 +2002,7 @@ function AnimCube3(params) {
   function clearDemo(e) {
     movePos = 0;
     for (var r = 0; r < 6; r++)
-      for (var t = 0; t < 9; t++)
+      for (var t = 0; t < 4; t++)
         (cube[r][t] = initialCube[r][t]), (scube[r][t] = initialSCube[r][t]);
     initialMove.length > 0 &&
       void 0 !== initialMove[curMove] &&
@@ -2119,47 +2018,6 @@ function AnimCube3(params) {
         ),
       initInfoText(e);
   }
-
-
-
-//   document.addEventListener('keydown', startAnimation)
-//   document.addEventListener('keydown', ()=>doMove(cube, move[curMove], t, movePos - t, !0))
-// document.addEventListener('keydown', ()=>startAnimation(buttonAction[0]))
-document.addEventListener("customEvent", function (event) {
-    const action = event.detail.action;
-    
-    // Dispatch the appropriate function based on the action
-    switch (action) {
-      case "play":
-        startAnimation(buttonAction[0])
-        break;
-      case "pause":
-        stopAnimation()
-        break;
-      case "reset":
-        break;
-        case "next":
-//   var buttonAction = [-1, 3, 1, -1, 0, 2, 4, -1];
-startAnimation(1)
-curMove = (curMove + 1) % move.length;
-// startAnimation(buttonAction[buttonPressed]);
-
-            // startAnimation(buttonAction[4])
-            stopAnimation(), clear()
-            // startAnimation(buttonAction[6]) //finish
-            // startAnimation(buttonAction[5])
-        break;
-        case "back":
-          startAnimation(buttonAction[1])
-        previous();
-        break;
-      default:
-        console.log("Unknown action:", action);
-    }
-  });
-  
-  
-  
   document.addEventListener("touchstart", mousedown),
     document.addEventListener("touchmove", mousemove, { passive: !1 }),
     document.addEventListener("touchend", mouseup),
@@ -2203,8 +2061,6 @@ curMove = (curMove + 1) % move.length;
     }
   }
   function mousedown(e) {
-    console.log(e.clientX)
-    console.log(e.clientY)
     var r = canvas.getBoundingClientRect(),
       t = Math.floor(r.left),
       o = Math.floor(r.top);
@@ -2215,7 +2071,7 @@ curMove = (curMove + 1) % move.length;
     a < t ||
       a > t + width / dpr ||
       i < o ||
-      i > o + (height + (1 == buttonBar ? buttonHeight : 0)) / dpr ||
+      i > o + (height + buttonHeight) / dpr ||
       (e.preventDefault(),
       (mouseIsDown = !0),
       (showContextMenu = !1),
@@ -2343,7 +2199,8 @@ curMove = (curMove + 1) % move.length;
         (toTwist = !1), (lastX = lastDragX), (lastY = lastDragY);
       }
       (i = (o - lastX) / dpr *0.2),//здесь можно менять скорость как двигается кубик
-        (n = (a - lastY) / dpr*0.2),//здесь можно менять скорость как двигается кубик
+      (n = (a - lastY) / dpr*0.2),//здесь можно менять скорость как двигается кубик
+
         !twisting || animating
           ? (vNorm(vAdd(eye, vScale(vCopy(eyeD, eyeX), -0.016 * i))),
             vNorm(vMul(eyeX, eyeY, eye)),
@@ -2352,9 +2209,9 @@ curMove = (curMove + 1) % move.length;
             (lastX = o),
             (lastY = a))
           : (natural && splitCube(twistedLayer),
-          (currentAngle =
-            (0.03 * (dragX * i + dragY * n)) /
-            Math.sqrt(dragX * dragX + dragY * dragY))),
+            (currentAngle =
+              (0.03 * (dragX * i + dragY * n)) /
+              Math.sqrt(dragX * dragX + dragY * dragY))),
         paint();
     }
   }
@@ -2471,7 +2328,7 @@ curMove = (curMove + 1) % move.length;
         (scube[o] = []),
         (initialCube[o] = []),
         (initialSCube[o] = []);
-    for (o = 0; o < 18; o++) (dragCornersX[o] = []), (dragCornersY[o] = []);
+    for (o = 0; o < 12; o++) (dragCornersX[o] = []), (dragCornersY[o] = []);
     (curMove = 0),
       (originalAngle = 0),
       onModuleLoad(),
