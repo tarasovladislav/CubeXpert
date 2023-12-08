@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tarasovladislav.CubeXpert"
     },
     "android": {
       "adaptiveIcon": {
@@ -36,8 +37,7 @@
       "policy": "appVersion"
     },
     "updates": {
-        "url": "https://u.expo.dev/fc5548a8-fd8b-440b-a3e0-064e880b2d9f"
+      "url": "https://u.expo.dev/fc5548a8-fd8b-440b-a3e0-064e880b2d9f"
     }
+  }
 }
-}
-
