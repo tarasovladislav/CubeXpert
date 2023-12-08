@@ -28,7 +28,7 @@ const AlgoPage = ({ route }) => {
         apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
         }).finally(() => setIsLoading(false))
     }, [])
-    currentAlg && console.log(currentAlg.category);
+
     const [isLoading, setIsLoading] = useState(true)
     if (isLoading) {
         return <Loading />

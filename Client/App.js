@@ -20,7 +20,7 @@ export default function App() {
             <FavoritesContextProvider>
                 <SettingsContextProvider>
                     <Stack.Navigator
-                        initialRouteName="HomeTabs"
+                        initialRouteName="Home"
                         screenOptions={{
                             headerStyle: {
                                 backgroundColor: '#6374ae',
