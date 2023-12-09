@@ -6,7 +6,6 @@ import {
 	Dimensions,
 	ActivityIndicator,
 	SafeAreaView,
-	TouchableOpacity,
 } from 'react-native'
 import { Image } from 'react-native-elements'
 import Loading from '../Components/Loading'
@@ -16,23 +15,16 @@ import { imageMapping } from '../assets/img'
 import commonStyles from '../commonStyles'
 const Home = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(true)
-	const [allAlgs, setAllAlgs] = useState([])
 	const [randomAlgo, setRandomAlgo] = useState()
 
-	useEffect(() => {
+	useEffect(() => randomAlg(), [])
+
+	const randomAlg = () => {
 		setIsLoading(true)
 		apiService
-			.getAllAlgs()
-			.then((data) =>
-				setAllAlgs(data.filter((alg) => alg.category !== 'Beginners'))
-			)
+			.getRandomAlg()
+			.then((data) => setRandomAlgo(data))
 			.finally(() => setIsLoading(false))
-	}, [])
-
-	useEffect(() => randomAlg(allAlgs), [allAlgs])
-
-	const randomAlg = (arr) => {
-		setRandomAlgo(arr[Math.floor(Math.random() * arr.length)])
 	}
 
 	if (isLoading) {
@@ -50,7 +42,7 @@ const Home = ({ navigation }) => {
 									_id: randomAlgo._id,
 									name: randomAlgo.title,
 								})
-								setTimeout(() => randomAlg(allAlgs), 500)
+								setTimeout(() => randomAlg(), 500)
 							}}
 						>
 							<Text style={styles.title}>Random Algorithm</Text>
