@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, FlatList, View, Text, StyleSheet } from 'react-native'
+import {
+	ScrollView,
+	FlatList,
+	View,
+	Text,
+	StyleSheet,
+	SafeAreaView,
+} from 'react-native'
 import { useFavoritesContext } from '../Contexts/FavoritesContext'
 import SubsetElement from '../Components/SubsetElement'
 
@@ -59,7 +66,18 @@ const Favorites = ({ navigation }) => {
 						)
 					})
 				) : (
-					<Text>No favorite algorithms yet</Text>
+					<SafeAreaView
+						style={{
+							flex: 1,
+							minHeight: '100%',
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					>
+						<Text style={{ fontSize: 20 }}>
+							No favourite algorithms yet
+						</Text>
+					</SafeAreaView>
 				)}
 			</ScrollView>
 		</>

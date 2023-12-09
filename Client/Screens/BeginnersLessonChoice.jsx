@@ -7,6 +7,7 @@ import {
 	StyleSheet,
 	ActivityIndicator,
 	Dimensions,
+	SafeAreaView,
 } from 'react-native'
 import { Image } from 'react-native-elements'
 import { imageMapping } from '../assets/img/'
@@ -30,41 +31,48 @@ const BeginnersLessonChoice = ({ navigation }) => {
 		return <Loading />
 	}
 	return (
-		<ScrollView>
-			{lessonsList &&
-				lessonsList.map((lesson) => (
-					<View style={commonStyles.container} key={lesson.stepTitle}>
-						<TouchableOpacity
-							style={{
-								flexDirection: 'row',
-								alignItems: 'center',
-								gap: 20,
-								margin: 10,
-								width: '100%',
-							}}
-							onPress={() =>
-								navigation.navigate('Lesson', {
-									name: lesson.stepTitle,
-									data: lesson,
-								})
-							}
+		<SafeAreaView>
+			<ScrollView>
+				{lessonsList &&
+					lessonsList.map((lesson) => (
+						<View
+							style={commonStyles.container}
+							key={lesson.stepTitle}
 						>
-							<Image
-								style={styles.image}
-								source={
-									imageMapping[`${lesson.to.toLowerCase()}`]
+							<TouchableOpacity
+								style={{
+									flexDirection: 'row',
+									alignItems: 'center',
+									gap: 20,
+									margin: 10,
+									width: '100%',
+								}}
+								onPress={() =>
+									navigation.navigate('Lesson', {
+										name: lesson.stepTitle,
+										data: lesson,
+									})
 								}
-								resizeMode="contain"
-								transition={true}
-							/>
+							>
+								<Image
+									style={styles.image}
+									source={
+										imageMapping[
+											`${lesson.to.toLowerCase()}`
+										]
+									}
+									resizeMode="contain"
+									transition={true}
+								/>
 
-							<Text style={styles.header}>
-								{lesson.stepTitle}
-							</Text>
-						</TouchableOpacity>
-					</View>
-				))}
-		</ScrollView>
+								<Text style={styles.header}>
+									{lesson.stepTitle}
+								</Text>
+							</TouchableOpacity>
+						</View>
+					))}
+			</ScrollView>
+		</SafeAreaView>
 	)
 }
 
