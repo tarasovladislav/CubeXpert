@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import apiService from '../apiService'
-import { ScrollView } from 'react-native'
+import { ScrollView, SafeAreaView } from 'react-native'
 import Subset from '../Components/Subset'
 import Loading from '../Components/Loading'
 
@@ -24,7 +24,7 @@ const CategoryPage = ({ route, navigation }) => {
 	}
 
 	return (
-		<>
+		<SafeAreaView>
 			<ScrollView>
 				{subsetList &&
 					subsetList.map((subset) => (
@@ -36,7 +36,7 @@ const CategoryPage = ({ route, navigation }) => {
 						/>
 					))}
 			</ScrollView>
-		</>
+		</SafeAreaView>
 	)
 }
 

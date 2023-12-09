@@ -9,6 +9,7 @@ import {
 	Dimensions,
 	Image,
 	ActivityIndicator,
+    SafeAreaView
 } from 'react-native'
 import SubsetElement from '../Components/SubsetElement'
 import apiService from '../apiService'
@@ -53,123 +54,134 @@ const LessonPage = ({ navigation, route }) => {
 
 	return (
 		<>
-			<ScrollView>
-				<View style={commonStyles.container}>
-					<Image
-						PlaceholderContent={<ActivityIndicator size="large" />}
-						resizeMode="contain"
-						transition={true}
-						source={imageFrom}
-						style={styles.algoImage}
-					/>
-					<IconEntypo
-						size={50}
-						color="black"
-						name="arrow-right"
-						style={styles.bottomIcon}
-					/>
-
-					<Image
-						PlaceholderContent={<ActivityIndicator size="large" />}
-						resizeMode="contain"
-						transition={true}
-						source={imageTo}
-						style={styles.algoImage}
-					/>
-				</View>
-				{data.data.map((element, index) => {
-					switch (element.type) {
-						case 'paragraph':
-							return (
-								<Text
-									key={element._id}
-									style={styles.paragraph}
-								>
-									{element.content}
-								</Text>
-							)
-
-						case 'algo':
-							if (isLoading) {
-								return <Loading key={element._id} />
+			<SafeAreaView>
+				<ScrollView>
+					<View style={commonStyles.container}>
+						<Image
+							PlaceholderContent={
+								<ActivityIndicator size="large" />
 							}
-							return (
-								<View
-									key={element._id}
-									style={
-										data.data[index].content.length === 1 &&
-										styles.aloneAlgo
-									}
-								>
-									<FlatList
-										data={algoData[index]}
-										numColumns={2}
-										scrollEnabled={false}
-										renderItem={({ item }) => (
-											<SubsetElement
-												navigation={navigation}
-												algo={item}
-											/>
-										)}
-										keyExtractor={(alg) => alg._id}
-									/>
-								</View>
-							)
+							resizeMode="contain"
+							transition={true}
+							source={imageFrom}
+							style={styles.algoImage}
+						/>
+						<IconEntypo
+							size={50}
+							color="black"
+							name="arrow-right"
+							style={styles.bottomIcon}
+						/>
 
-						case 'image':
-							return (
-								<View
-									key={element._id}
-									style={{
-										flexDirection: 'row',
-										justifyContent: 'center',
-									}}
-								>
-									{element.content.map((image, index) => {
-										return (
-											<View
-												key={index}
-												style={[
-													commonStyles.container,
-													{ padding: 5, margin: 5 },
-												]}
-											>
-												<Image
-													PlaceholderContent={
-														<ActivityIndicator size="large" />
-													}
-													resizeMode="contain"
-													transition={true}
-													source={imageMapping[image]}
-													style={
-														element.content
-															.length === 2
-															? styles.algoImage
-															: styles.algoImage2
-													}
-													key={`${element._id}.${index}`}
+						<Image
+							PlaceholderContent={
+								<ActivityIndicator size="large" />
+							}
+							resizeMode="contain"
+							transition={true}
+							source={imageTo}
+							style={styles.algoImage}
+						/>
+					</View>
+					{data.data.map((element, index) => {
+						switch (element.type) {
+							case 'paragraph':
+								return (
+									<Text
+										key={element._id}
+										style={styles.paragraph}
+									>
+										{element.content}
+									</Text>
+								)
+
+							case 'algo':
+								if (isLoading) {
+									return <Loading key={element._id} />
+								}
+								return (
+									<View
+										key={element._id}
+										style={
+											data.data[index].content.length ===
+												1 && styles.aloneAlgo
+										}
+									>
+										<FlatList
+											data={algoData[index]}
+											numColumns={2}
+											scrollEnabled={false}
+											renderItem={({ item }) => (
+												<SubsetElement
+													navigation={navigation}
+													algo={item}
 												/>
-											</View>
-										)
-									})}
-								</View>
-							)
+											)}
+											keyExtractor={(alg) => alg._id}
+										/>
+									</View>
+								)
 
-						case 'note':
-							return (
-								<Text key={element._id} style={styles.note}>
-									<Text style={{ fontWeight: 'bold' }}>
-										Note:
-									</Text>{' '}
-									{element.content}
-								</Text>
-							)
+							case 'image':
+								return (
+									<View
+										key={element._id}
+										style={{
+											flexDirection: 'row',
+											justifyContent: 'center',
+										}}
+									>
+										{element.content.map((image, index) => {
+											return (
+												<View
+													key={index}
+													style={[
+														commonStyles.container,
+														{
+															padding: 5,
+															margin: 5,
+														},
+													]}
+												>
+													<Image
+														PlaceholderContent={
+															<ActivityIndicator size="large" />
+														}
+														resizeMode="contain"
+														transition={true}
+														source={
+															imageMapping[image]
+														}
+														style={
+															element.content
+																.length === 2
+																? styles.algoImage
+																: styles.algoImage2
+														}
+														key={`${element._id}.${index}`}
+													/>
+												</View>
+											)
+										})}
+									</View>
+								)
 
-						default:
-							break
-					}
-				})}
-			</ScrollView>
+							case 'note':
+								return (
+									<Text key={element._id} style={styles.note}>
+										<Text style={{ fontWeight: 'bold' }}>
+											Note:
+										</Text>{' '}
+										{element.content}
+									</Text>
+								)
+
+							default:
+								break
+						}
+					})}
+				</ScrollView>
+			</SafeAreaView>
 		</>
 	)
 }
