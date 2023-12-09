@@ -13,6 +13,9 @@ router.get('/rotate', (req, res)=> {
     res.sendFile(__dirname + '/public/rotate.html');
 })
 
+//random algo
+router.get('/algorithms/random', controller.getRandomAlgo)
+
 
 
 
