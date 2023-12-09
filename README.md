@@ -113,10 +113,10 @@ Download Expo Go app on your phone. https://expo.dev/client
 Scan QR Code below
 
 #### iOS with your camera app: 
-![iOS](https://qr.expo.dev/eas-update?updateId=a4df52c8-3a4e-45b4-ba7f-fd8d8d764598&appScheme=exp&host=u.expo.dev)
+![iOS](https://qr.expo.dev/eas-update?updateId=456d400d-8ccd-49e4-9937-1bbb1622dba3&appScheme=exp&host=u.expo.dev)
 
 #### Android with Expo Go app: 
-![Android](https://qr.expo.dev/eas-update?updateId=2d8a53fa-6704-48e2-94b9-cef189f92bc5&appScheme=exp&host=u.expo.dev)
+![Android](https://qr.expo.dev/eas-update?updateId=c750f7cb-f63d-40fc-9182-dbc3e7a8fd48&appScheme=exp&host=u.expo.dev)
 
 
 ## Tech Stack
