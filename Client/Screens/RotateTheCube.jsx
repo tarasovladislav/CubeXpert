@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity, } from 'react-native'
 // import { Image } from 'react-native-elements';
 import { Button, Overlay, } from 'react-native-elements';
+// import {Picker} from '@react-native-picker/picker';
+import { Picker, DatePicker } from 'react-native-wheel-pick';
 
 import apiService from '../apiService'
 import ProfileSettings from '../Components/ProfileSettings'
@@ -27,15 +29,19 @@ const AlgoPage = ({ route }) => {
         setIsLoading(true)
         // apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
         // }).finally(() => setIsLoading(false))
-        setCurrentAlg({algo:['U']})
+        setCurrentAlg({ algo: ['U'] })
         setIsLoading(false)
 
     }, [])
+    const [animationKey, setAnimationKey] = useState(0);
 
+    const [cubeSize, setCubeSize] = useState(3)
     const [isLoading, setIsLoading] = useState(true)
+
     if (isLoading) {
         return <Loading />
     }
+
 
     return (
         <>
@@ -48,7 +54,41 @@ const AlgoPage = ({ route }) => {
                     <ProfileSettings />
                 </Overlay>
 
-                <NewCubeAnimation isPlaying={isPlaying} setIsPlaying={setIsPlaying} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} currentAlg={currentAlg} scramble={2}/>
+                <NewCubeAnimation cubeSize={cubeSize} key={animationKey} isPlaying={isPlaying} setIsPlaying={setIsPlaying} category={currentAlg.category} alg={currentAlg.algo[whichAlg]} currentAlg={currentAlg} scramble={2} />
+
+                {/* <Picker
+                    selectedValue={cubeSize}
+                    onValueChange={(size) => setCubeSize(size)}
+                >
+                    <Picker.Item label="2" value={2} />
+                    <Picker.Item label="3" value={3} />
+                    <Picker.Item label="4" value={4} />
+                    <Picker.Item label="5" value={5} />
+                    <Picker.Item label="6" value={6} />
+                    <Picker.Item label="7" value={7} />
+                </Picker> */}
+                <Picker
+                    style={{ backgroundColor: 'white', width: 300, height: 215 }}
+                    selectedValue={3}
+                    pickerData={[2, 3, 4, 5, 6, 7]}
+                    onValueChange={(size) => setCubeSize(size)}
+                />
+                <View style={styles.buttonContainer}>
+
+                    <TouchableButton
+                        onPress={() => { setCubeSize(4) }}
+                        text="Change size"
+                    />
+
+                </View>
+                <View style={styles.buttonContainer}>
+
+                    <TouchableButton
+                        onPress={() => { setAnimationKey(animationKey + 1) }}
+                        text="Another scramble"
+                    />
+
+                </View>
 
 
                 <TouchableOpacity
@@ -82,7 +122,10 @@ const AlgoPage = ({ route }) => {
 }
 
 const styles = StyleSheet.create({
-
+    buttonContainer: {
+        position: 'relative',
+        flexDirection: 'row',
+    },
 })
 
 export default AlgoPage

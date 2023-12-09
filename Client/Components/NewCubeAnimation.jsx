@@ -10,7 +10,7 @@ import { useFavoritesContext } from '../Contexts/FavoritesContext';
 
 import commonStyles from '../commonStyles';
 
-const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg, scramble = 0 }) => {
+const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg, scramble = 0, cubeSize = 3 }) => {
     const { toggleFavorites, isInFavorites } = useFavoritesContext()
     const { settings, webViewKey } = useSettingsContext()
     const [isRotated, setIsRotated] = useState(false)
@@ -237,7 +237,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg, scr
                 <WebView
                     source={{
                         // uri: `https://cube-xpert-git-testingcube-vladislavs-projects-37d9eb96.vercel.app?_vercel_share=sFw2S4yJD8jrXFVL4wWsmzo8wMUZfkfV/rotate?cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
-                        uri: `https://cube-xpert.vercel.app/rotate?cubesize=3&scramble=${scramble}&cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
+                        uri: `https://cube-xpert.vercel.app/rotate?cubesize=${cubeSize}&scramble=${scramble}&cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
                         // uri: `http://localhost:3100/rotate?cubesize=3&scramble=${scramble}&cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
                     }}
                     ref={cubeAnimationWebView}
@@ -252,7 +252,7 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg, scr
                 />
             </View >
 
-            {scramble === 0 ?  <View style={styles.otherContainer}>
+            {scramble === 0 ? <View style={styles.otherContainer}>
                 <View style={{ alignItems: 'center' }}>
                     <Text style={styles.algoText}>
                         {currentStep > 0 && algArray.slice(0, currentStep - 1).join(' ')}
@@ -294,9 +294,9 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg, scr
                         onPress={() => handleButtonClick(0)}
                         text={<IconAwesome size={24} color="black" name="redo" />}
                     />
-                    
 
-                </View> 
+
+                </View>
 
 
 
@@ -316,27 +316,27 @@ const CubeAnimation = ({ category, alg, isPlaying, setIsPlaying, currentAlg, scr
                 >
                     <IconAntDesign size={30} color="orange" name={isFavorite ? "star" : "staro"} style={{ padding: 5 }} />
                 </TouchableOpacity>
-            </View> :  <View style={styles.otherContainer}>
+            </View> : <View style={styles.otherContainer}>
 
 
-            <View style={styles.buttonContainer}>
+                {/* <View style={styles.buttonContainer}>
 
                     <TouchableButton
                         text="Change size"
                     />
 
-                </View> 
-            <View style={styles.buttonContainer}>
+                </View>
+                <View style={styles.buttonContainer}>
 
                     <TouchableButton
                         text="Another scramble"
                     />
 
-                </View> 
+                </View> */}
             </View>
-            
-            
-            
+
+
+
             }
         </View>
     );
