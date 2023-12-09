@@ -1,7 +1,7 @@
 const { Alert } = require('react-native')
 
-const BASE_URL = 'http://localhost:3100'
-// const BASE_URL = 'https://cube-xpert.vercel.app'
+// const BASE_URL = 'http://localhost:3100'
+const BASE_URL = 'https://cube-xpert.vercel.app'
 
 async function getAllAlgs() {
 	try {
