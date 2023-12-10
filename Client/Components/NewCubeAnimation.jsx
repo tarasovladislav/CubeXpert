@@ -13,6 +13,7 @@ import { useSettingsContext } from '../Contexts/SettingsContext'
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
 import TouchableButton from './TouchableButton'
 import IconAntDesign from 'react-native-vector-icons/AntDesign'
+import * as icons from 'react-native-vector-icons'
 import { useFavoritesContext } from '../Contexts/FavoritesContext'
 
 import commonStyles from '../commonStyles'
@@ -400,7 +401,7 @@ const CubeAnimation = ({
 								/>
 							}
 						/>
-						<TouchableButton
+						{(category === 'F2L' || category === 'PLL') && <TouchableButton
 							// disabled={currentStep == 0 || isPlaying || !allowControl || isCubeLoading}
 
 							//TODO add checker if cube was turned
@@ -409,14 +410,14 @@ const CubeAnimation = ({
 							}
 							onPress={() => handleRecolor()}
 							text={
-								'recolor'
-								// <IconAwesome
-								// 	size={24}
-								// 	color="black"
-								// 	name="redo"
-								// />
+								// 'recolor'
+								<icons.Feather
+									size={24}
+									color="black"
+									name="repeat"
+								/>
 							}
-						/>
+						/>}
 					</View>
 
 					<TouchableOpacity
