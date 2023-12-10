@@ -85,8 +85,8 @@ const getDynamicStyles = (category) => {
 	return StyleSheet.create({
 		algoElement: {
 			flex: 1,
-			maxWidth: width / 2 - 20,
-			margin: 10,
+			maxWidth: width / 2 - 10,
+			margin: 5,
 			padding: 10,
 			borderRadius: 8,
 			backgroundColor: '#ffffff',

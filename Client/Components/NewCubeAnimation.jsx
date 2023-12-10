@@ -41,7 +41,17 @@ const CubeAnimation = ({
 	const algArray = alg.split(' ')
 	const len = algArray.length
 
-	let { U, F, R, L, B, D, speed, cube, ignored } = settings
+	let {
+		U,
+		F: front,
+		R: right,
+		L: left,
+		B: back,
+		D,
+		speed,
+		cube,
+		ignored,
+	} = settings
 	let solved = ''
 	let setupmoves = ''
 	let colored = ''
@@ -50,6 +60,17 @@ const CubeAnimation = ({
 	// facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
 	// facelets = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
 	// facelets = 'wLwLwLwLwyLyLyLyLygLgLgLgLgbLbLbLbLboLoLoLoLorLrLrLrLr'
+	const [F, setF] = useState(front)
+	const [L, setL] = useState(left)
+	const [B, setB] = useState(back)
+	const [R, setR] = useState(right)
+	const handleRecolor = () => {
+		let temp = L
+		setL(F)
+		setF(R)
+		setR(B)
+		setB(temp)
+	}
 
 	// When user changes his settings, the webview resets the cube since its the new request, we have to restore current algorithm step (Start from the beginning)
 	useEffect(() => {
@@ -84,7 +105,6 @@ const CubeAnimation = ({
 	//TODO добавить возможность перекрасить быстро? типо подобрать цвет чтобы совпадал с твоим
 	// Cube control buttons handler
 	const handleButtonClick = (elementSelector) => {
-		console.log(width, elementSelector)
 		executeJavaScript(`clickCanvas(${width}, ${elementSelector});true`)
 		switch (elementSelector) {
 			case 1.5:
@@ -125,24 +145,36 @@ const CubeAnimation = ({
 		let zMoves = 0
 
 		for (let i = 0; i < inputArray.length; i++) {
-			if (inputArray[i] === 'x2') xMoves = xMoves + 2
+			if (
+				inputArray[i] === 'x2' ||
+				inputArray[i] === 'M2' ||
+				inputArray[i] === 'r2' ||
+				inputArray[i] === 'l2'
+			) {
+				xMoves = xMoves + 2
+			}
 			if (inputArray[i] === 'y2') yMoves = yMoves + 2
-			if (inputArray[i] === 'M2') xMoves = xMoves + 2
-			if (inputArray[i] === 'r2') xMoves = xMoves + 2
-			if (inputArray[i] === 'l2') xMoves = xMoves + 2
 
-			if (inputArray[i] === 'x') xMoves++
-			if (inputArray[i] === "x'") xMoves--
-			if (inputArray[i] === 'y') yMoves++
-			if (inputArray[i] === "y'") yMoves--
-			if (inputArray[i] === "l'") xMoves++
-			if (inputArray[i] === 'l') xMoves--
-			if (inputArray[i] === 'r') xMoves++
-			if (inputArray[i] === "r'") xMoves--
-			if (inputArray[i] === "M'") xMoves++
-			if (inputArray[i] === 'M') xMoves--
-			if (inputArray[i] === "d'") yMoves++
-			if (inputArray[i] === 'd') yMoves--
+			if (
+				inputArray[i] === 'x' ||
+				inputArray[i] === "l'" ||
+				inputArray[i] === 'r' ||
+				inputArray[i] === "M'"
+			) {
+				xMoves++
+			}
+			if (
+				inputArray[i] === "x'" ||
+				inputArray[i] === 'l' ||
+				inputArray[i] === "r'" ||
+				inputArray[i] === 'M'
+			) {
+				xMoves--
+			}
+
+			if (inputArray[i] === 'y' || inputArray[i] === "d'") yMoves++
+
+			if (inputArray[i] === "y'" || inputArray[i] === 'd') yMoves--
 
 			if (inputArray[i] === 'z') zMoves++
 			if (inputArray[i] === "z'") zMoves--
@@ -177,7 +209,6 @@ const CubeAnimation = ({
 				outputArray.push('z')
 			}
 		}
-		// просчитать как сдвинется центр куба и привести к его стейту, типо удалить повторящиеся или просто направлять xy
 
 		return inputArray.join(' ') + ' ' + outputArray.join(' ')
 	}
@@ -233,7 +264,7 @@ const CubeAnimation = ({
 
 	return (
 		<View style={[commonStyles.flex1]}>
-			<View style={[commonStyles.flex1]}>
+			<View style={[commonStyles.flex1, {}]}>
 				{isCubeLoading && (
 					<View style={styles.loadingOverlay}>
 						<ActivityIndicator size="large" />
@@ -241,7 +272,6 @@ const CubeAnimation = ({
 				)}
 				<WebView
 					source={{
-						// uri: `https://cube-xpert-git-testingcube-vladislavs-projects-37d9eb96.vercel.app?_vercel_share=sFw2S4yJD8jrXFVL4wWsmzo8wMUZfkfV/rotate?cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
 						uri: `https://cube-xpert.vercel.app/rotate?cubesize=${cubeSize}&scramble=${scramble}&cubecolor=${cube.replace(
 							'#',
 							''
@@ -255,7 +285,6 @@ const CubeAnimation = ({
 							'#',
 							''
 						)}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`,
-						// uri: `http://localhost:3100/rotate?cubesize=3&scramble=${scramble}&cubecolor=${cube.replace('#', '')}&initmove=${setupmoves}&move=${alg}&colors=${U.replace('#', '')}${D.replace('#', '')}${F.replace('#', '')}${B.replace('#', '')}${L.replace('#', '')}${R.replace('#', '')}${R.replace('#', '')}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`
 					}}
 					ref={cubeAnimationWebView}
 					key={webViewKey}
@@ -271,13 +300,13 @@ const CubeAnimation = ({
 				/>
 			</View>
 
-			{scramble === 0 ? (
+			{scramble === 0 && (
 				<View style={styles.otherContainer}>
 					<View style={{ alignItems: 'center' }}>
 						<Text style={styles.algoText}>
 							{currentStep > 0 &&
 								algArray.slice(0, currentStep - 1).join(' ')}
-							<Text style={{ fontWeight: 700 }}>
+							<Text style={{ fontWeight: '700' }}>
 								{currentStep > 1 ? ' ' : ''}
 								{algArray[currentStep - 1]}
 								{currentStep > 0 ? ' ' : ''}
@@ -371,6 +400,23 @@ const CubeAnimation = ({
 								/>
 							}
 						/>
+						<TouchableButton
+							// disabled={currentStep == 0 || isPlaying || !allowControl || isCubeLoading}
+
+							//TODO add checker if cube was turned
+							disabled={
+								isPlaying || !allowControl || isCubeLoading
+							}
+							onPress={() => handleRecolor()}
+							text={
+								'recolor'
+								// <IconAwesome
+								// 	size={24}
+								// 	color="black"
+								// 	name="redo"
+								// />
+							}
+						/>
 					</View>
 
 					<TouchableOpacity
@@ -394,23 +440,6 @@ const CubeAnimation = ({
 						/>
 					</TouchableOpacity>
 				</View>
-			) : (
-				<View style={styles.otherContainer}>
-					{/* <View style={styles.buttonContainer}>
-
-                    <TouchableButton
-                        text="Change size"
-                    />
-
-                </View>
-                <View style={styles.buttonContainer}>
-
-                    <TouchableButton
-                        text="Another scramble"
-                    />
-
-                </View> */}
-				</View>
 			)}
 		</View>
 	)
@@ -420,18 +449,7 @@ const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
 	webview: {
-		maxHeight: width * 1.55,
-		// flex: 1,
-		// position: 'absolute',
-		// top: '50%',
-		// left: '50%',
-		// width: "100%",
-		// height: '100%',
-		// transform: [
-		//     { translateX: -width / 2 },
-		//     { translateY: -width / 2 },
-		// ],
-		// backgroundColor: 'transparent',
+		maxHeight: width * 1.49,
 	},
 	buttonContainer: {
 		position: 'relative',

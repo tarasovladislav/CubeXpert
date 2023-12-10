@@ -171,7 +171,7 @@ const CubeAnimation = ({
 					<Text style={styles.algoText}>
 						{currentStep > 0 &&
 							algArray.slice(0, currentStep - 1).join(' ')}
-						<Text style={{ fontWeight: 700 }}>
+						<Text style={{ fontWeight: '700' }}>
 							{currentStep > 1 ? ' ' : ''}
 							{algArray[currentStep - 1]}
 							{currentStep > 0 ? ' ' : ''}

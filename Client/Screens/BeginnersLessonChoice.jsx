@@ -5,7 +5,6 @@ import {
 	Text,
 	ScrollView,
 	StyleSheet,
-	ActivityIndicator,
 	Dimensions,
 	SafeAreaView,
 } from 'react-native'
@@ -15,12 +14,9 @@ import apiService from '../apiService'
 import Loading from '../Components/Loading'
 import commonStyles from '../commonStyles'
 const BeginnersLessonChoice = ({ navigation }) => {
-	//TODO try to reuse for catchoicepage
-	const [categoryList, setCategoryList] = useState([])
 	const [lessonsList, setLessonsList] = useState([])
 	useEffect(() => {
 		setIsLoading(true)
-
 		apiService
 			.getAllLessons()
 			.then((data) => setLessonsList(data))
@@ -85,7 +81,7 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		fontSize: 22,
-		fontWeight: 600,
+        fontWeight: '600',
 	},
 })
 export default BeginnersLessonChoice

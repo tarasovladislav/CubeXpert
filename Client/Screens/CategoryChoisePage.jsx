@@ -3,9 +3,7 @@ import {
 	TouchableOpacity,
 	View,
 	Text,
-	ScrollView,
 	StyleSheet,
-	ActivityIndicator,
 	Dimensions,
 } from 'react-native'
 import { Image } from 'react-native-elements'
@@ -64,7 +62,7 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		fontSize: 22,
-		fontWeight: 600,
+		fontWeight: '600',
 	},
 })
 
