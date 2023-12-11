@@ -109,7 +109,7 @@ function AnimCube7(params) {
     drawButtons = !0,
     pushed,
     buttonPressed = -1,
-    progressHeight = 6,
+    progressHeight = 0,
     textHeight = 12,
     moveText,
     moveTextSpace,
@@ -417,7 +417,7 @@ function AnimCube7(params) {
       (hintVert = u);
     ((hintBorder = 0),
     null != (e = getParameter("hintborder")) && "1" == e && (hintBorder = 1),
-    (buttonHeight = 13),
+    (buttonHeight = 1),
     null != (e = getParameter("buttonheight"))) &&
       ((u = parseInt(e)) >= 9) & (u <= 25) &&
       (buttonHeight = u);
