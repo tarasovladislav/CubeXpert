@@ -10,8 +10,6 @@
 
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- <script src="/jquery-3.1.1.min.js"></script> -->
-    <!-- <script src="/roofpig_and_three.min.js"></script> -->
     <script src="/AnimCube2.js"></script>
     <script src="/AnimCube3.js"></script>
     <script src="/AnimCube4.js"></script>
@@ -105,7 +103,6 @@
             let queryParams = getQueryStringParams();
             overlay.style.backgroundColor = "#" + queryParams.bgcolor;
             // Create the configuration string for AnimCubeJS
-            console.log(queryParams)
 
             let animCubeConfig = `scramble=${queryParams.scramble}&bgcolor=${queryParams.bgcolor || 'e7f0f8'}&snap=${queryParams.snap || 0}&buttonbar=${queryParams.buttonbar || 1}&borderwidth=${queryParams.borderwidth || 5}&counter=${queryParams.counter || 1}&speed=${queryParams.speed}&cubecolor=${queryParams.cubecolor}&colors=${queryParams.colors || ''}&colorscheme=${queryParams.colorscheme}&move=${queryParams.move || ''}&initrevmove=${queryParams.initmove || ''}&yz=1&facelets=${queryParams.facelets || ''}&ignored=${queryParams.ignored || '#eeeeee'}&repeat=0&clickprogress=0&textsize=0`;
                 if (!queryParams.cubesize)queryParams.cubesize = 3
