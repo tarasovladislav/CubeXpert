@@ -17,6 +17,7 @@ import { useFavoritesContext } from '../Contexts/FavoritesContext'
 
 import commonStyles from '../commonStyles'
 import TouchableButtonTooltip from './TouchableButtonTooltip'
+import { BASE_URL } from '../env'
 
 const CubeAnimation = ({
 	category,
@@ -71,6 +72,8 @@ const CubeAnimation = ({
 		setF(R)
 		setR(B)
 		setB(temp)
+        setCurrentStep(0)
+				setIsRotated(false)
 	}
 
 	// When user changes his settings, the webview resets the cube since its the new request, we have to restore current algorithm step (Start from the beginning)
@@ -273,7 +276,7 @@ const CubeAnimation = ({
 				)}
 				<WebView
 					source={{
-						uri: `https://cube-xpert.vercel.app/rotate?cubesize=${cubeSize}&scramble=${scramble}&cubecolor=${cube.replace(
+						uri: `${BASE_URL}/rotate?cubesize=${cubeSize}&scramble=${scramble}&cubecolor=${cube.replace(
 							'#',
 							''
 						)}&initmove=${setupmoves}&move=${alg}&colors=${U.replace(

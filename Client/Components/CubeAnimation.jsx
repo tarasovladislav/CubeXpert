@@ -20,6 +20,7 @@ import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import TouchableButtonTooltip from './TouchableButtonTooltip'
 
 import commonStyles from '../commonStyles'
+import { BASE_URL } from '../env'
 
 const CubeAnimation = ({
 	category,
@@ -149,7 +150,7 @@ const CubeAnimation = ({
 				)}
 				<WebView
 					source={{
-						uri: `https://cube-xpert.vercel.app/?alg=${alg}&colored=${colored}
+						uri: `${BASE_URL}/?alg=${alg}&colored=${colored}
                         &speed=${speed}
                         &colors=U:${U} F:${F} R:${R} L:${L} B:${B} D:${D} ignored:${ignored} cube:${cube}
                         &hover=1 
