@@ -9,6 +9,9 @@ import Loading from '../Components/Loading'
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
 import CubeSizePicker from '../Components/CubeSizePicker'
 
+
+//todo add posibility to watch how the cube solves? ??? ? ? ??  ? ??
+
 const RotateTheCube = () => {
 	const [isPlaying, setIsPlaying] = useState(false)
 
