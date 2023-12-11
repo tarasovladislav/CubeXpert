@@ -1,28 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import {
-	SafeAreaView,
-	StyleSheet,
-	View,
-	Text,
-	TouchableOpacity,
-} from 'react-native'
+import { SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native'
 // import { Image } from 'react-native-elements';
-import { Button, Overlay } from 'react-native-elements'
-// import {Picker} from '@react-native-picker/picker';
-import { Picker, DatePicker } from 'react-native-wheel-pick'
-
-import apiService from '../apiService'
+import { Overlay } from 'react-native-elements'
 import ProfileSettings from '../Components/ProfileSettings'
-import CubeAnimation from '../Components/CubeAnimation'
 import NewCubeAnimation from '../Components/NewCubeAnimation'
 import TouchableButton from '../Components/TouchableButton'
 import Loading from '../Components/Loading'
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
 import CubeSizePicker from '../Components/CubeSizePicker'
 
-const RotateTheCube = ({ route }) => {
-	const _id = route?.params?._id
-
+const RotateTheCube = () => {
 	const [isPlaying, setIsPlaying] = useState(false)
 
 	const [visible, setVisible] = useState(false)
@@ -34,8 +21,6 @@ const RotateTheCube = ({ route }) => {
 	// Get algo details
 	useEffect(() => {
 		setIsLoading(true)
-		// apiService.getAlgo(_id).then(data => setCurrentAlg(data)).then(data => {
-		// }).finally(() => setIsLoading(false))
 		setCurrentAlg({ algo: ['U'] })
 		setIsLoading(false)
 	}, [])
@@ -55,10 +40,6 @@ const RotateTheCube = ({ route }) => {
 		<>
 			{currentAlg && (
 				<SafeAreaView style={{ flex: 1 }}>
-					{/* <View style={{ flexDirection: 'row', justifyContent: 'center', position: 'absolute', left: 0, top: 12, width: 70, zIndex: 2 }}>
-                    <Text style={{ fontSize: 20, fontWeight: 800 }}>{whichAlg + 1} / {currentAlg.algo.length}</Text>
-                </View> */}
-
 					<Overlay
 						isVisible={visible}
 						onBackdropPress={toggleOverlay}

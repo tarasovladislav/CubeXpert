@@ -8,7 +8,6 @@ async function getAllAlgs() {
 		const response = await fetch(`${BASE_URL}/algorithms/`)
 		return await response.json()
 	} catch (error) {
-		Alert.alert(error)
 		console.log(error)
 	}
 }
@@ -18,8 +17,10 @@ async function getRandomAlg() {
 		const response = await fetch(`${BASE_URL}/algorithms/random`)
 		return await response.json()
 	} catch (error) {
-		// Alert.alert(error)
-		console.log(error)
+		Alert.alert(
+			'Error',
+			'An error occurred while fetching data. Please try again later.'
+		)
 	}
 }
 
@@ -28,7 +29,6 @@ async function getAllLessons() {
 		const response = await fetch(`${BASE_URL}/lessons`)
 		return await response.json()
 	} catch (error) {
-		Alert.alert(error)
 		console.log(error)
 	}
 }
@@ -38,7 +38,6 @@ async function getAlgo(_id) {
 		const response = await fetch(`${BASE_URL}/algo/${_id}`)
 		return await response.json()
 	} catch (error) {
-		Alert.alert(error)
 		console.log(error)
 	}
 }
@@ -49,7 +48,6 @@ async function getSubsetAlgorithms(cat, subset) {
 		)
 		return await response.json()
 	} catch (error) {
-		Alert.alert(error)
 		console.log(error)
 	}
 }
@@ -59,7 +57,6 @@ async function getSubsetList(cat) {
 		const response = await fetch(`${BASE_URL}/subsets/?category=${cat}`)
 		return await response.json()
 	} catch (error) {
-		Alert.alert(error)
 		console.log(error)
 	}
 }

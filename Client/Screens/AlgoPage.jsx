@@ -6,9 +6,7 @@ import {
 	Text,
 	TouchableOpacity,
 } from 'react-native'
-// import { Image } from 'react-native-elements';
-import { Button, Overlay } from 'react-native-elements'
-
+import { Overlay } from 'react-native-elements'
 import apiService from '../apiService'
 import ProfileSettings from '../Components/ProfileSettings'
 import CubeAnimation from '../Components/CubeAnimation'
@@ -34,7 +32,6 @@ const AlgoPage = ({ route }) => {
 		apiService
 			.getAlgo(_id)
 			.then((data) => setCurrentAlg(data))
-			.then((data) => {})
 			.finally(() => setIsLoading(false))
 	}, [])
 
@@ -58,7 +55,7 @@ const AlgoPage = ({ route }) => {
 							zIndex: 2,
 						}}
 					>
-						<Text style={{ fontSize: 20, fontWeight: 800 }}>
+						<Text style={{ fontSize: 20, fontWeight: '800' }}>
 							{whichAlg + 1} / {currentAlg.algo.length}
 						</Text>
 					</View>

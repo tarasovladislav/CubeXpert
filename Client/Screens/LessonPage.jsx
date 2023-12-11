@@ -200,10 +200,12 @@ const styles = StyleSheet.create({
 	algoImage: {
 		width: width / 3,
 		height: width / 3,
+        margin:10
 	},
 	algoImage2: {
 		width: width / 3.8,
 		height: width / 3.8,
+
 	},
 	aloneAlgo: {
 		flex: 1,

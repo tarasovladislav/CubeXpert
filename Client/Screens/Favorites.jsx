@@ -6,6 +6,7 @@ import {
 	Text,
 	StyleSheet,
 	SafeAreaView,
+	Platform,
 } from 'react-native'
 import { useFavoritesContext } from '../Contexts/FavoritesContext'
 import SubsetElement from '../Components/SubsetElement'
@@ -69,9 +70,8 @@ const Favorites = ({ navigation }) => {
 					<SafeAreaView
 						style={{
 							flex: 1,
-							minHeight: '100%',
+                            marginVertical:'50%',
 							alignItems: 'center',
-							justifyContent: 'center',
 						}}
 					>
 						<Text style={{ fontSize: 20 }}>
