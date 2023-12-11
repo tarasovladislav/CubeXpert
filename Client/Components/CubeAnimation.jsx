@@ -17,6 +17,8 @@ import { useFavoritesContext } from '../Contexts/FavoritesContext'
 
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
+import TouchableButtonTooltip from './TouchableButtonTooltip'
+
 import commonStyles from '../commonStyles'
 
 const CubeAnimation = ({
@@ -184,7 +186,7 @@ const CubeAnimation = ({
 				</View>
 
 				<View style={styles.buttonContainer}>
-					<TouchableButton
+					<TouchableButtonTooltip
 						disabled={
 							currentStep === 0 ||
 							isPlaying ||
@@ -199,8 +201,10 @@ const CubeAnimation = ({
 								name="arrow-left"
 							/>
 						}
+                        popover="Previous Move"
+
 					/>
-					<TouchableButton
+					<TouchableButtonTooltip
 						disabled={
 							currentStep === len ||
 							isPlaying ||
@@ -215,9 +219,11 @@ const CubeAnimation = ({
 								name="arrow-right"
 							/>
 						}
+                        popover="Next Move"
+
 					/>
 					{!isPlaying && (
-						<TouchableButton
+						<TouchableButtonTooltip
 							disabled={currentStep === len || isCubeLoading}
 							onPress={() => handleButtonClick('#play-1')}
 							text={
@@ -227,10 +233,12 @@ const CubeAnimation = ({
 									name="play"
 								/>
 							}
+                            popover="Play"
+
 						/>
 					)}
 					{isPlaying && (
-						<TouchableButton
+						<TouchableButtonTooltip
 							onPress={() => handleButtonClick('#pause-1')}
 							text={
 								<IconAwesome
@@ -239,9 +247,11 @@ const CubeAnimation = ({
 									name="pause"
 								/>
 							}
+                            popover="Pause Rotation"
+
 						/>
 					)}
-					<TouchableButton
+					<TouchableButtonTooltip
 						disabled={
 							currentStep == 0 ||
 							isPlaying ||
@@ -252,8 +262,10 @@ const CubeAnimation = ({
 						text={
 							<IconAwesome size={24} color="black" name="redo" />
 						}
+                        popover="Reset Cube"
+
 					/>
-					<TouchableButton
+					<TouchableButtonTooltip
 						disabled={isCubeLoading}
 						onPress={() =>
 							executeJavaScript(
@@ -268,6 +280,8 @@ const CubeAnimation = ({
 								name="3d-rotation"
 							/>
 						}
+                        popover="Reset Cube Position"
+
 					/>
 				</View>
 				<TouchableOpacity

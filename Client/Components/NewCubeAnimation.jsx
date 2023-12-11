@@ -11,12 +11,12 @@ import { WebView } from 'react-native-webview'
 import { useSettingsContext } from '../Contexts/SettingsContext'
 
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
-import TouchableButton from './TouchableButton'
 import IconAntDesign from 'react-native-vector-icons/AntDesign'
 import * as icons from 'react-native-vector-icons'
 import { useFavoritesContext } from '../Contexts/FavoritesContext'
 
 import commonStyles from '../commonStyles'
+import TouchableButtonTooltip from './TouchableButtonTooltip'
 
 const CubeAnimation = ({
 	category,
@@ -103,7 +103,7 @@ const CubeAnimation = ({
 	}, [isPlaying, triggerUseEffect])
 
 	const { width } = Dimensions.get('window')
-	//TODO добавить возможность перекрасить быстро? типо подобрать цвет чтобы совпадал с твоим
+
 	// Cube control buttons handler
 	const handleButtonClick = (elementSelector) => {
 		executeJavaScript(`clickCanvas(${width}, ${elementSelector});true`)
@@ -328,7 +328,7 @@ const CubeAnimation = ({
                         // 0 reset
                         //3 назад плей
                         //4 назад */}
-						<TouchableButton
+						<TouchableButtonTooltip
 							disabled={
 								currentStep === 0 ||
 								isPlaying ||
@@ -343,8 +343,10 @@ const CubeAnimation = ({
 									name="arrow-left"
 								/>
 							}
+                            popover="Previous Move"
+
 						/>
-						<TouchableButton
+						<TouchableButtonTooltip
 							disabled={
 								currentStep === len ||
 								isPlaying ||
@@ -359,9 +361,11 @@ const CubeAnimation = ({
 									name="arrow-right"
 								/>
 							}
+                            popover="Next Move"
+
 						/>
 						{!isPlaying && (
-							<TouchableButton
+							<TouchableButtonTooltip
 								disabled={currentStep === len || isCubeLoading}
 								onPress={() => handleButtonClick(1.5)}
 								text={
@@ -371,10 +375,12 @@ const CubeAnimation = ({
 										name="play"
 									/>
 								}
+                                popover="Play"
+
 							/>
 						)}
 						{isPlaying && (
-							<TouchableButton
+							<TouchableButtonTooltip
 								onPress={() => handleButtonClick(2)}
 								text={
 									<IconAwesome
@@ -383,9 +389,11 @@ const CubeAnimation = ({
 										name="pause"
 									/>
 								}
+								popover="Pause Rotation"
 							/>
 						)}
-						<TouchableButton
+
+						<TouchableButtonTooltip
 							// disabled={currentStep == 0 || isPlaying || !allowControl || isCubeLoading}
 
 							//TODO add checker if cube was turned
@@ -400,24 +408,28 @@ const CubeAnimation = ({
 									name="redo"
 								/>
 							}
+							popover="Reset Cube"
 						/>
-						{(category === 'F2L' || category === 'PLL') && <TouchableButton
-							// disabled={currentStep == 0 || isPlaying || !allowControl || isCubeLoading}
+						{(category === 'F2L' || category === 'PLL') && (
+							<TouchableButtonTooltip
+								// disabled={currentStep == 0 || isPlaying || !allowControl || isCubeLoading}
 
-							//TODO add checker if cube was turned
-							disabled={
-								isPlaying || !allowControl || isCubeLoading
-							}
-							onPress={() => handleRecolor()}
-							text={
-								// 'recolor'
-								<icons.Feather
-									size={24}
-									color="black"
-									name="repeat"
-								/>
-							}
-						/>}
+								//TODO add checker if cube was turned
+								disabled={
+									isPlaying || !allowControl || isCubeLoading
+								}
+								onPress={() => handleRecolor()}
+								text={
+									// 'recolor'
+									<icons.Feather
+										size={24}
+										color="black"
+										name="repeat"
+									/>
+								}
+								popover="Swap Colors"
+							/>
+						)}
 					</View>
 
 					<TouchableOpacity
