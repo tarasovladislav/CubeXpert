@@ -6,18 +6,23 @@ import {
 	Dimensions,
 	ActivityIndicator,
 	SafeAreaView,
+	FlatListComponent,
 } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native'
+
 import { Image } from 'react-native-elements'
 import Loading from '../Components/Loading'
 import apiService from '../apiService'
 import MenuItem from '../Components/MenuItem'
 import { imageMapping } from '../assets/img'
 import commonStyles from '../commonStyles'
+import Demo from '../Components/Demo'
 const Home = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [randomAlgo, setRandomAlgo] = useState()
 
-	useEffect(() => randomAlg(), [])
+	// useEffect(() => randomAlg(), [])
+	const [isDemoCubeVisible, setIsDemoCubeVisible] = useState(false) // Set it to true initially
 
 	const randomAlg = () => {
 		setIsLoading(true)
@@ -26,7 +31,14 @@ const Home = ({ navigation }) => {
 			.then((data) => setRandomAlgo(data))
 			.finally(() => setIsLoading(false))
 	}
+	useFocusEffect(() => {
+        setIsLoading(false)
+		setIsDemoCubeVisible(true) // Hide and unmount the Demo cube WebView
 
+		return () => {
+            setIsDemoCubeVisible(false) 
+		}
+	})
 	if (isLoading) {
 		return <Loading />
 	}
@@ -34,8 +46,8 @@ const Home = ({ navigation }) => {
 	return (
 		<>
 			<SafeAreaView style={[commonStyles.flex1]}>
-				<View style={[commonStyles.flex1]}>
-					{randomAlgo && (
+				<View style={[{flex:3}]}>
+					{/* {randomAlgo && (
 						<MenuItem
 							onPress={() => {
 								navigation.navigate('Algo', {
@@ -71,9 +83,10 @@ const Home = ({ navigation }) => {
 								{randomAlgo.algo[0]}
 							</Text>
 						</MenuItem>
-					)}
+					)} */}
+					{isDemoCubeVisible && <Demo demo="zzUuzzd'D'UE'D'D'E'U" />}
 				</View>
-				<View style={[commonStyles.flex0]}>
+				<View style={[{flex:2}]}>
 					<View style={styles.buttonContainer}>
 						<View style={styles.buttonRow}>
 							<MenuItem
@@ -141,10 +154,13 @@ const styles = StyleSheet.create({
 	},
 	buttonRow: {
 		flexDirection: 'row',
-		height: width / 3.5,
+        height:'33.33%'
+		// minHeight: width / 8,
+		// height: width / 4,
+		// maxHeight: width / 4,
 	},
 	buttonContainer: {
-		flex: 0,
+		flex: 1,
 	},
 	firstAlgo: {
 		fontSize: 20,

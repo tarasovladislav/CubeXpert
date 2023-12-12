@@ -10,7 +10,6 @@ import CubeSizePicker from '../Components/CubeSizePicker'
 
 
 //todo add posibility to watch how the cube solves? ??? ? ? ??  ? ??
-// todo, make new route for rotating with button height 0
 // todo, to main screen instead of random alg make cube which is rotating. 
 const RotateTheCube = () => {
 	const [isPlaying, setIsPlaying] = useState(false)

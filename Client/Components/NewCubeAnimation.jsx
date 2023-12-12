@@ -27,6 +27,7 @@ const CubeAnimation = ({
 	currentAlg,
 	scramble = 0,
 	cubeSize = 3,
+	demo = '',
 }) => {
 	const { toggleFavorites, isInFavorites } = useFavoritesContext()
 	const { settings, webViewKey } = useSettingsContext()
@@ -58,6 +59,12 @@ const CubeAnimation = ({
 	let setupmoves = ''
 	let colored = ''
 	let facelets
+	useEffect(() => {
+		setL(left)
+		setF(front)
+		setR(right)
+		setB(back)
+	}, [front, right, left, back])
 
 	// facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
 	// facelets = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
@@ -72,8 +79,8 @@ const CubeAnimation = ({
 		setF(R)
 		setR(B)
 		setB(temp)
-        setCurrentStep(0)
-				setIsRotated(false)
+		setCurrentStep(0)
+		setIsRotated(false)
 	}
 
 	// When user changes his settings, the webview resets the cube since its the new request, we have to restore current algorithm step (Start from the beginning)
@@ -288,7 +295,7 @@ const CubeAnimation = ({
 						)}${L.replace('#', '')}${R.replace('#', '')}${R.replace(
 							'#',
 							''
-						)}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8`,
+						)}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8&demo=${demo}`,
 					}}
 					ref={cubeAnimationWebView}
 					key={webViewKey}
@@ -346,8 +353,7 @@ const CubeAnimation = ({
 									name="arrow-left"
 								/>
 							}
-                            popover="Previous Move"
-
+							popover="Previous Move"
 						/>
 						<TouchableButtonTooltip
 							disabled={
@@ -364,8 +370,7 @@ const CubeAnimation = ({
 									name="arrow-right"
 								/>
 							}
-                            popover="Next Move"
-
+							popover="Next Move"
 						/>
 						{!isPlaying && (
 							<TouchableButtonTooltip
@@ -378,8 +383,7 @@ const CubeAnimation = ({
 										name="play"
 									/>
 								}
-                                popover="Play"
-
+								popover="Play"
 							/>
 						)}
 						{isPlaying && (
