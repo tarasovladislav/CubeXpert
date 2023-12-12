@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/AnimCube2.js"></script>
     <script src="/AnimCube3.js"></script>
@@ -16,6 +17,10 @@
     <script src="/AnimCube5.js"></script>
     <script src="/AnimCube6.js"></script>
     <script src="/AnimCube7.js"></script>
+
+
+
+    <div class="overlay2" id="overlay2"></div>
 
     <!-- 
     <div class="cube" >
@@ -97,11 +102,13 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const overlay = document.getElementById('overlay');
+            const overlay2 = document.getElementById('overlay2');
             let cubeDiv = document.createElement('div');
             cubeDiv.className = 'cube';
             document.body.appendChild(cubeDiv);
             let queryParams = getQueryStringParams();
             overlay.style.backgroundColor = "#" + queryParams.bgcolor;
+            overlay2.style.backgroundColor = "#" + queryParams.bgcolor;
             // Create the configuration string for AnimCubeJS
 
             let animCubeConfig = `scramble=${queryParams.scramble}&bgcolor=${queryParams.bgcolor || 'e7f0f8'}&snap=${queryParams.snap || 0}&buttonbar=${queryParams.buttonbar || 1}&borderwidth=${queryParams.borderwidth || 5}&counter=${queryParams.counter || 1}&speed=${queryParams.speed}&cubecolor=${queryParams.cubecolor}&colors=${queryParams.colors || ''}&colorscheme=${queryParams.colorscheme}&move=${queryParams.move || ''}&initrevmove=${queryParams.initmove || ''}&yz=1&facelets=${queryParams.facelets || ''}&ignored=${queryParams.ignored || '#eeeeee'}&repeat=0&clickprogress=0&textsize=0&demo=${queryParams.demo || ""}`;

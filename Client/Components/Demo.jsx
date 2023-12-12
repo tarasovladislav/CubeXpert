@@ -53,6 +53,10 @@ const styles = StyleSheet.create({
 	webview: {
 		maxHeight: width * 1.49,
 		margin: '15%',
+		borderWidth: 3,
+		borderColor: 'black',
+
+		borderRadius: 1000,
 	},
 	buttonContainer: {
 		position: 'relative',
