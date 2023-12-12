@@ -28,7 +28,7 @@ const BeginnersLessonChoice = ({ navigation }) => {
 	}
 	return (
 		<SafeAreaView>
-			<ScrollView>
+			<ScrollView style={{ paddingVertical: 5 }}>
 				{lessonsList &&
 					lessonsList.map((lesson) => (
 						<View
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		fontSize: 22,
-        fontWeight: '600',
+		fontWeight: '600',
 	},
 })
 export default BeginnersLessonChoice

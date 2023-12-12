@@ -25,7 +25,7 @@ const CategoryPage = ({ route, navigation }) => {
 
 	return (
 		<SafeAreaView>
-			<ScrollView>
+			<ScrollView style={{padding:5}}>
 				{subsetList &&
 					subsetList.map((subset) => (
 						<Subset

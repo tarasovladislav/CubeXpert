@@ -9,7 +9,7 @@ import {
 	Dimensions,
 	Image,
 	ActivityIndicator,
-    SafeAreaView
+	SafeAreaView,
 } from 'react-native'
 import SubsetElement from '../Components/SubsetElement'
 import apiService from '../apiService'
@@ -55,7 +55,7 @@ const LessonPage = ({ navigation, route }) => {
 	return (
 		<>
 			<SafeAreaView>
-				<ScrollView>
+				<ScrollView style={{ paddingVertical: 5 }}>
 					<View style={commonStyles.container}>
 						<Image
 							PlaceholderContent={
@@ -104,7 +104,9 @@ const LessonPage = ({ navigation, route }) => {
 										key={element._id}
 										style={
 											data.data[index].content.length ===
-												1 && styles.aloneAlgo
+											1
+												? styles.aloneAlgo
+												: { paddingHorizontal: 5 }
 										}
 									>
 										<FlatList
@@ -196,16 +198,16 @@ const styles = StyleSheet.create({
 	paragraph: {
 		fontSize: 16,
 		margin: 10,
+		textAlign: 'justify',
 	},
 	algoImage: {
 		width: width / 3,
 		height: width / 3,
-        margin:10
+		margin: 10,
 	},
 	algoImage2: {
 		width: width / 3.8,
 		height: width / 3.8,
-
 	},
 	aloneAlgo: {
 		flex: 1,

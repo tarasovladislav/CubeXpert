@@ -16,7 +16,7 @@ const Subset = ({ navigation, category, subset }) => {
 		<>
 			{subset && subsetAlgs && subsetAlgs.length > 0 && (
 				<View>
-					<Text style={styles.subsetTitle}>{subset}</Text>
+					{subset !== 'Patterns' && <Text style={styles.subsetTitle}>{subset}</Text>}
 					<FlatList
 						data={subsetAlgs}
 						numColumns={2}
@@ -40,14 +40,14 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		fontSize: 24,
 		fontWeight: 'bold',
-		margin: 10,
+		margin: 5,
 		padding: 10,
-		backgroundColor: '#ffffff',
-		shadowOffset: { width: 0, height: 2 },
-		shadowRadius: 2.22,
-		elevation: 3,
-		borderRadius: 8,
-		shadowOpacity: 0.23,
+		// backgroundColor: '#ffffff',
+		// shadowOffset: { width: 0, height: 2 },
+		// shadowRadius: 2.22,
+		// elevation: 3,
+		// borderRadius: 8,
+		// shadowOpacity: 0.23,
 	},
 })
 

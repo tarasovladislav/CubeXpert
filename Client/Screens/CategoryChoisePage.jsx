@@ -17,7 +17,7 @@ const CategoryChoisePage = ({ navigation, type }) => {
 	])
 
 	return (
-		<>
+		<View style={{paddingVertical:5}}>
 			{categoryList &&
 				categoryList.map((cat) => (
 					<View style={commonStyles.container} key={cat.title}>
@@ -50,7 +50,7 @@ const CategoryChoisePage = ({ navigation, type }) => {
 						</TouchableOpacity>
 					</View>
 				))}
-		</>
+		</View>
 	)
 }
 const width = Dimensions.get('window').width
