@@ -12,7 +12,7 @@ const Demo = ({ demo = '', cubeSize = 3 }) => {
 
 	return (
 		<View style={[commonStyles.flex1]}>
-			<View style={[commonStyles.flex1, {}]}>
+			<View style={[commonStyles.flex1, styles.webviewContainer]}>
 				{isCubeLoading && (
 					<View style={styles.loadingOverlay}>
 						<ActivityIndicator size="large" />
@@ -51,12 +51,13 @@ const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
 	webview: {
-		maxHeight: width * 1.49,
-		margin: '15%',
-		borderWidth: 3,
-		borderColor: 'black',
+		flex: 1,
+        maxHeight:width,
 
-		borderRadius: 1000,
+	},
+	webviewContainer: {
+        margin: '15%',
+		
 	},
 	buttonContainer: {
 		position: 'relative',
