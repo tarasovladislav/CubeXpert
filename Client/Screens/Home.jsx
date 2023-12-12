@@ -96,7 +96,7 @@ const Home = ({ navigation }) => {
 							</Text>
 						</MenuItem>
 					)} */}
-					{isDemoCubeVisible && <Demo demo="zzUuzzd'D'UE'D'D'E'U" />}
+					{isDemoCubeVisible && <Demo demo="d'D'UE'D'D'E'U" />}
 				</View>
 				<View style={[{ flex: 3 }]}>
 					<View style={styles.buttonContainer}>
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
 	},
 	buttonContainer: {
 		flex: 1,
-		paddingHorizontal: 5,
+		padding: 5,
 
 	},
 	firstAlgo: {

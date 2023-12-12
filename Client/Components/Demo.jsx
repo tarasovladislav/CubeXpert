@@ -10,8 +10,6 @@ const Demo = ({ demo = '', cubeSize = 3 }) => {
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
 	let { U, F, R, L, B, D, cube } = settings
 
-	
-
 	return (
 		<View style={[commonStyles.flex1]}>
 			<View style={[commonStyles.flex1, {}]}>
@@ -54,6 +52,11 @@ const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
 	webview: {
 		maxHeight: width * 1.49,
+		margin: '15%',
+		borderWidth: 3,
+		borderColor: 'black',
+
+		borderRadius: 1000,
 	},
 	buttonContainer: {
 		position: 'relative',
