@@ -10,25 +10,44 @@ const MenuItem = ({ onPress = () => {}, text, children }) => {
 	)
 }
 const styles = StyleSheet.create({
+	// controlBtn: {
+	// 	flex: 1,
+	// 	justifyContent: 'center',
+	// 	margin: 10,
+	// 	backgroundColor: '#ffffff',
+	// 	shadowOffset: { width: 0, height: 2 },
+	// 	shadowRadius: 2.22,
+	// 	elevation: 3,
+	// 	borderRadius: 8,
+	// 	shadowOpacity: 0.23,
+	// },
 	controlBtn: {
 		flex: 1,
 		justifyContent: 'center',
-		margin: 10,
+		margin: 5,
 		backgroundColor: '#ffffff',
-		shadowOffset: { width: 0, height: 2 },
+		shadowOffset: { width: 0, height: 1 },
 		shadowRadius: 2.22,
-		elevation: 3,
+		elevation: 8,
 		borderRadius: 8,
-		shadowOpacity: 0.23,
+		shadowOpacity: 0.33,
 	},
 
 	buttonText: {
 		padding: 10,
 		alignSelf: 'center',
-		fontSize: 24,
+		fontSize: 20,
 		textAlign: 'center',
-		fontWeight: 'bold',
+		// fontWeight: 'bold',
 	},
+    
+	// buttonText: {
+	// 	padding: 10,
+	// 	alignSelf: 'center',
+	// 	fontSize: 24,
+	// 	textAlign: 'center',
+	// 	fontWeight: 'bold',
+	// },
 })
 
 export default MenuItem

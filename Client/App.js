@@ -38,7 +38,7 @@ export default function App() {
 						<Stack.Screen
 							name="Home"
 							component={Home}
-							options={{ title: 'Home' }}
+							options={{ title: 'Home', headerShown: false }}
 						/>
 						<Stack.Screen
 							name="Choose Category"

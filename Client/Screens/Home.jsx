@@ -32,11 +32,11 @@ const Home = ({ navigation }) => {
 			.finally(() => setIsLoading(false))
 	}
 	useFocusEffect(() => {
-        setIsLoading(false)
+		setIsLoading(false)
 		setIsDemoCubeVisible(true) // Hide and unmount the Demo cube WebView
 
 		return () => {
-            setIsDemoCubeVisible(false) 
+			setIsDemoCubeVisible(false)
 		}
 	})
 	if (isLoading) {
@@ -46,7 +46,19 @@ const Home = ({ navigation }) => {
 	return (
 		<>
 			<SafeAreaView style={[commonStyles.flex1]}>
-				<View style={[{flex:3}]}>
+				<View style={[{ flex: 7 }]}>
+					<Text
+						style={{
+							fontSize: 34,
+							textAlign: 'center',
+							marginTop: 30,
+							fontWeight: '600',
+						}}
+
+						// todo. add sme styles
+					>
+						CubeXpert
+					</Text>
 					{/* {randomAlgo && (
 						<MenuItem
 							onPress={() => {
@@ -86,18 +98,18 @@ const Home = ({ navigation }) => {
 					)} */}
 					{isDemoCubeVisible && <Demo demo="zzUuzzd'D'UE'D'D'E'U" />}
 				</View>
-				<View style={[{flex:2}]}>
+				<View style={[{ flex: 3 }]}>
 					<View style={styles.buttonContainer}>
 						<View style={styles.buttonRow}>
 							<MenuItem
-								text="Beginners Method"
+								text="Beginners"
 								onPress={() => {
 									navigation.navigate('Beginners Lessons')
 								}}
 							/>
 
 							<MenuItem
-								text="Advanced Algorithms"
+								text="Advanced"
 								onPress={() => {
 									navigation.navigate('Choose Category')
 								}}
@@ -154,13 +166,12 @@ const styles = StyleSheet.create({
 	},
 	buttonRow: {
 		flexDirection: 'row',
-        height:'33.33%'
-		// minHeight: width / 8,
-		// height: width / 4,
-		// maxHeight: width / 4,
+		height: '33.33%',
 	},
 	buttonContainer: {
 		flex: 1,
+		paddingHorizontal: 5,
+
 	},
 	firstAlgo: {
 		fontSize: 20,
