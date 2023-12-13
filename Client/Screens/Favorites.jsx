@@ -75,7 +75,7 @@ const Favorites = ({ navigation }) => {
 						}}
 					>
 						<Text style={{ fontSize: 20 }}>
-							No favourite algorithms yet
+							No favorite algorithms yet
 						</Text>
 					</SafeAreaView>
 				)}
@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		margin: 10,
 		padding: 10,
-		borderRadius: 8,
-		backgroundColor: 'white',
-		shadowOffset: { width: 0, height: 2 },
-		shadowRadius: 2.22,
-		elevation: 3,
-		shadowOpacity: 0.23,
+		// borderRadius: 8,
+		// backgroundColor: 'white',
+		// shadowOffset: { width: 0, height: 2 },
+		// shadowRadius: 2.22,
+		// elevation: 3,
+		// shadowOpacity: 0.23,
 	},
 })
 

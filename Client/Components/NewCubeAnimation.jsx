@@ -295,7 +295,10 @@ const CubeAnimation = ({
 						)}${L.replace('#', '')}${R.replace('#', '')}${R.replace(
 							'#',
 							''
-						)}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=e7f0f8&demo=${demo}`,
+						)}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=${commonStyles.backgroundColor.replace(
+							'#',
+							''
+						)}&demo=${demo}`,
 					}}
 					ref={cubeAnimationWebView}
 					key={webViewKey}
@@ -349,7 +352,7 @@ const CubeAnimation = ({
 							text={
 								<IconAwesome
 									size={24}
-									color="black"
+									color={commonStyles.iconColor}
 									name="arrow-left"
 								/>
 							}
@@ -366,7 +369,7 @@ const CubeAnimation = ({
 							text={
 								<IconAwesome
 									size={24}
-									color="black"
+									color={commonStyles.iconColor}
 									name="arrow-right"
 								/>
 							}
@@ -379,7 +382,7 @@ const CubeAnimation = ({
 								text={
 									<IconAwesome
 										size={24}
-										color="black"
+										color={commonStyles.iconColor}
 										name="play"
 									/>
 								}
@@ -392,7 +395,7 @@ const CubeAnimation = ({
 								text={
 									<IconAwesome
 										size={24}
-										color="black"
+										color={commonStyles.iconColor}
 										name="pause"
 									/>
 								}
@@ -411,7 +414,7 @@ const CubeAnimation = ({
 							text={
 								<IconAwesome
 									size={24}
-									color="black"
+									color={commonStyles.iconColor}
 									name="redo"
 								/>
 							}
@@ -430,7 +433,7 @@ const CubeAnimation = ({
 									// 'recolor'
 									<icons.Feather
 										size={24}
-										color="black"
+										color={commonStyles.iconColor}
 										name="repeat"
 									/>
 								}

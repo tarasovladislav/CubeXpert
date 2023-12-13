@@ -28,6 +28,7 @@ const CategoryChoisePage = ({ navigation, type }) => {
 								gap: 20,
 								margin: 10,
 								width: '100%',
+                                
 							}}
 							onPress={() =>
 								navigation.navigate('Category', {
@@ -63,6 +64,8 @@ const styles = StyleSheet.create({
 	header: {
 		fontSize: 22,
 		fontWeight: '600',
+        color: commonStyles.buttonColor
+
 	},
 })
 

@@ -45,21 +45,9 @@ const Home = ({ navigation }) => {
 
 	return (
 		<>
-			<SafeAreaView style={[commonStyles.flex1]}>
-				<View style={[{ flex: 7 }]}>
-					<Text
-						style={{
-							fontSize: 34,
-							textAlign: 'center',
-							marginTop: 30,
-							fontWeight: '600',
-						}}
-
-						// todo. add sme styles
-					>
-						CubeXpert
-					</Text>
-					{/* {randomAlgo && (
+			<SafeAreaView style={[commonStyles.flex1, {justifyContent:'flex-start', margin:5}]}>
+				{/* <View style={[{ flex: 7 }]}> */}
+				{/* {randomAlgo && (
 						<MenuItem
 							onPress={() => {
 								navigation.navigate('Algo', {
@@ -96,59 +84,58 @@ const Home = ({ navigation }) => {
 							</Text>
 						</MenuItem>
 					)} */}
-					{isDemoCubeVisible && <Demo demo="d'D'UE'D'D'E'U" />}
-				</View>
-				<View style={[{ flex: 3 }]}>
-					<View style={styles.buttonContainer}>
-						<View style={styles.buttonRow}>
-							<MenuItem
-								text="Beginners"
-								onPress={() => {
-									navigation.navigate('Beginners Lessons')
-								}}
-							/>
+				{/* </View> */}
+				{/* <View style={[{ flex: 1 }]}> */}
+				{/* <View style={styles.buttonContainer}> */}
+				{/* <View style={styles.buttonRow}> */}
+				<MenuItem
+					text="Beginners"
+					onPress={() => {
+						navigation.navigate('Beginners Lessons')
+					}}
+				/>
 
-							<MenuItem
-								text="Advanced"
-								onPress={() => {
-									navigation.navigate('Choose Category')
-								}}
-							/>
-						</View>
+				<MenuItem
+					text="Advanced"
+					onPress={() => {
+						navigation.navigate('Choose Category')
+					}}
+				/>
+				{/* </View> */}
 
-						<View style={styles.buttonRow}>
-							<MenuItem
-								text="Patterns"
-								onPress={() => {
-									navigation.navigate('Category', {
-										name: 'Patterns',
-										category: 'Patterns',
-									})
-								}}
-							/>
+				{/* <View style={styles.buttonRow}> */}
+				<MenuItem
+					text="Patterns"
+					onPress={() => {
+						navigation.navigate('Category', {
+							name: 'Patterns',
+							category: 'Patterns',
+						})
+					}}
+				/>
 
-							<MenuItem
-								text="Favorites"
-								onPress={() => {
-									navigation.navigate('Favorites', {
-										name: 'Favorites',
-										category: 'Patterns',
-									})
-								}}
-							/>
-						</View>
-						<View style={styles.buttonRow}>
-							<MenuItem
-								text="Rotate The Cube"
-								onPress={() => {
-									navigation.navigate('RotateTheCube', {
-										name: 'Rotate The Cube',
-									})
-								}}
-							/>
-						</View>
-					</View>
-				</View>
+				<MenuItem
+					text="Favorites"
+					onPress={() => {
+						navigation.navigate('Favorites', {
+							name: 'Favorites',
+							category: 'Patterns',
+						})
+					}}
+				/>
+				{/* </View> */}
+				{/* <View style={styles.buttonRow}> */}
+				<MenuItem
+					text="Rotate The Cube"
+					onPress={() => {
+						navigation.navigate('RotateTheCube', {
+							name: 'Rotate The Cube',
+						})
+					}}
+				/>
+				{/* </View> */}
+				{/* </View> */}
+				{/* </View> */}
 			</SafeAreaView>
 		</>
 	)

@@ -12,6 +12,7 @@ import ColorPicker, {
 import TouchableButton from './TouchableButton'
 
 import { useSettingsContext } from '../Contexts/SettingsContext'
+import commonStyles from '../commonStyles'
 
 const ProfileSettings = () => {
 	const { settings, setSettings, setWebViewKey, defaultSettings } =
@@ -62,7 +63,7 @@ const ProfileSettings = () => {
 	}, [selectedSpeed])
 
 	return (
-		<>
+		<View style={{backgroundColor:commonStyles.mainColor}}>
 			<Text style={styles.title}>Change Colors</Text>
 			<View style={styles.buttonContainer}>
 				<TouchableButton
@@ -221,7 +222,7 @@ const ProfileSettings = () => {
 					Speed: {settings['speed']} ms / rotation
 				</Text>
 			</View>
-		</>
+		</View>
 	)
 }
 

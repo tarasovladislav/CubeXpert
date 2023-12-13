@@ -7,12 +7,12 @@ const SettingsContextProvider = ({ children }) => {
 	const [webViewKey, setWebViewKey] = useState(1)
 
 	const defaultSettings = {
-		U: '#fcff02',
-		F: '#ff0001',
-		R: '#01dd01',
-		L: '#1777fe',
-		B: '#ffa501',
-		D: '#eeefef',
+		U: '#efcc00',
+		F: '#E84855',
+		R: '#386641',
+		L: '#3185FC',
+		B: '#ff7f00',
+		D: '#F7F9F9',
 		cube: '#000000',
 		ignored: '#454445',
 		speed: '500',

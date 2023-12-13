@@ -198,12 +198,11 @@ const CubeAnimation = ({
 						text={
 							<IconAwesome
 								size={24}
-								color="black"
+								color={commonStyles.iconColor}
 								name="arrow-left"
 							/>
 						}
-                        popover="Previous Move"
-
+						popover="Previous Move"
 					/>
 					<TouchableButtonTooltip
 						disabled={
@@ -216,12 +215,11 @@ const CubeAnimation = ({
 						text={
 							<IconAwesome
 								size={24}
-								color="black"
+								color={commonStyles.iconColor}
 								name="arrow-right"
 							/>
 						}
-                        popover="Next Move"
-
+						popover="Next Move"
 					/>
 					{!isPlaying && (
 						<TouchableButtonTooltip
@@ -230,12 +228,11 @@ const CubeAnimation = ({
 							text={
 								<IconAwesome
 									size={24}
-									color="black"
+									color={commonStyles.iconColor}
 									name="play"
 								/>
 							}
-                            popover="Play"
-
+							popover="Play"
 						/>
 					)}
 					{isPlaying && (
@@ -244,12 +241,11 @@ const CubeAnimation = ({
 							text={
 								<IconAwesome
 									size={24}
-									color="black"
+									color={commonStyles.iconColor}
 									name="pause"
 								/>
 							}
-                            popover="Pause Rotation"
-
+							popover="Pause Rotation"
 						/>
 					)}
 					<TouchableButtonTooltip
@@ -261,10 +257,13 @@ const CubeAnimation = ({
 						}
 						onPress={() => handleButtonClick('#reset-1')}
 						text={
-							<IconAwesome size={24} color="black" name="redo" />
+							<IconAwesome
+								size={24}
+								color={commonStyles.iconColor}
+								name="redo"
+							/>
 						}
-                        popover="Reset Cube"
-
+						popover="Reset Cube"
 					/>
 					<TouchableButtonTooltip
 						disabled={isCubeLoading}
@@ -276,13 +275,12 @@ const CubeAnimation = ({
 						text={
 							<IconMaterialIcons
 								size={24}
-								color="black"
+								color={commonStyles.iconColor}
 								type="material"
 								name="3d-rotation"
 							/>
 						}
-                        popover="Reset Cube Position"
-
+						popover="Reset Cube Position"
 					/>
 				</View>
 				<TouchableOpacity

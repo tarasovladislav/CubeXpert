@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, FlatList, Text } from 'react-native'
 import apiService from '../apiService'
 import SubsetElement from './SubsetElement'
-
+import commonStyles from '../commonStyles'
 const Subset = ({ navigation, category, subset }) => {
 	const [subsetAlgs, setSubsetAlgs] = useState([])
 
@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		margin: 5,
 		padding: 10,
+        color:commonStyles.titleColor
+
 		// backgroundColor: '#ffffff',
 		// shadowOffset: { width: 0, height: 2 },
 		// shadowRadius: 2.22,

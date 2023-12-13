@@ -13,8 +13,8 @@ export default function CubeSizePicker({ cubeSize, setCubeSize }) {
 						text="2x2x2"
 						activeColor={
 							cubeSize === 2
-								? '#e50000'
-								: commonStyles.buttonActiveColor
+								? commonStyles.buttonActiveColor
+								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
 							setCubeSize(2)
@@ -24,8 +24,8 @@ export default function CubeSizePicker({ cubeSize, setCubeSize }) {
 						text="3x3x3"
 						activeColor={
 							cubeSize === 3
-								? '#e50000'
-								: commonStyles.buttonActiveColor
+								? commonStyles.buttonActiveColor
+								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
 							setCubeSize(3)
@@ -37,8 +37,8 @@ export default function CubeSizePicker({ cubeSize, setCubeSize }) {
 						text="4x4x4"
 						activeColor={
 							cubeSize === 4
-								? '#e50000'
-								: commonStyles.buttonActiveColor
+								? commonStyles.buttonActiveColor
+								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
 							setCubeSize(4)
@@ -48,8 +48,8 @@ export default function CubeSizePicker({ cubeSize, setCubeSize }) {
 						text="5x5x5"
 						activeColor={
 							cubeSize === 5
-								? '#e50000'
-								: commonStyles.buttonActiveColor
+								? commonStyles.buttonActiveColor
+								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
 							setCubeSize(5)
@@ -61,8 +61,8 @@ export default function CubeSizePicker({ cubeSize, setCubeSize }) {
 						text="6x6x6"
 						activeColor={
 							cubeSize === 6
-								? '#e50000'
-								: commonStyles.buttonActiveColor
+								? commonStyles.buttonActiveColor
+								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
 							setCubeSize(6)
@@ -72,8 +72,8 @@ export default function CubeSizePicker({ cubeSize, setCubeSize }) {
 						text="7x7x7"
 						activeColor={
 							cubeSize === 7
-								? '#e50000'
-								: commonStyles.buttonActiveColor
+								? commonStyles.buttonActiveColor
+								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
 							setCubeSize(7)

@@ -5,7 +5,7 @@ const TouchableButton = ({
 	onPress = () => {},
 	text,
 	disabled = false,
-	textColor = '#000000',
+	textColor = commonStyles.buttonColor,
 	activeColor = commonStyles.buttonActiveColor,
 	disabledColor = commonStyles.buttonDisabledColor,
 }) => {

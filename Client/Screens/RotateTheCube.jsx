@@ -72,7 +72,7 @@ const RotateTheCube = () => {
 						scramble={2}
 					/>
 
-					<View style={styles.buttonContainer}>
+					<View style={[styles.buttonContainer]}>
 						<TouchableButton
 							onPress={toggleCubeSize}
 							text="Change Cube Size"
@@ -105,7 +105,7 @@ const RotateTheCube = () => {
 						/>
 					</TouchableOpacity>
 
-					{currentAlg.algo.length > 1 && (
+					{/* {currentAlg.algo.length > 1 && (
 						<View
 							style={{
 								flexDirection: 'row',
@@ -125,7 +125,7 @@ const RotateTheCube = () => {
 								text="Next"
 							/>
 						</View>
-					)}
+					)} */}
 				</SafeAreaView>
 			)}
 		</>
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
 	buttonContainer: {
 		position: 'relative',
 		flexDirection: 'row',
+        // height:50
 	},
 })
 

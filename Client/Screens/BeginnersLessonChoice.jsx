@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
 	header: {
 		fontSize: 22,
 		fontWeight: '600',
+        color:commonStyles.buttonColor
 	},
 })
 export default BeginnersLessonChoice
