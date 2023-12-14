@@ -14,8 +14,11 @@ import BeginnersLessonChoice from './Screens/BeginnersLessonChoice'
 import LessonPage from './Screens/LessonPage'
 import commonStyles from './commonStyles'
 import RotateTheCube from './Screens/RotateTheCube'
+import { StatusBar, Platform } from 'react-native'
 
 export default function App() {
+	const statusBarStyle = 'dark-content'
+
 	return (
 		<NavigationContainer>
 			<FavoritesContextProvider>
@@ -98,6 +101,7 @@ export default function App() {
 					</Stack.Navigator>
 				</SettingsContextProvider>
 			</FavoritesContextProvider>
+			{Platform === 'ios' && <StatusBar barStyle={statusBarStyle} />}
 		</NavigationContainer>
 	)
 }

@@ -44,7 +44,7 @@ async function allSubsets(query) {
 }
 
 async function oneAlgo(params) {
-  return await Algorithm.findOne({ _id: params._id });
+    return await Algorithm.findOne({ _id: params._id });
 }
 
 async function randomAlgo() {

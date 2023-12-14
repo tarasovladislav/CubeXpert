@@ -14,7 +14,7 @@ import NewCubeAnimation from '../Components/NewCubeAnimation'
 import TouchableButton from '../Components/TouchableButton'
 import Loading from '../Components/Loading'
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const AlgoPage = ({ route }) => {
 	const { _id } = route.params
 
@@ -29,10 +29,23 @@ const AlgoPage = ({ route }) => {
 	// Get algo details
 	useEffect(() => {
 		setIsLoading(true)
-		apiService
-			.getAlgo(_id)
-			.then((data) => setCurrentAlg(data))
-			.finally(() => setIsLoading(false))
+		const storageKey = `algo_${_id}`
+
+		const fetchData = async () => {
+			const fetchedData = await apiService.getAlgo(_id)
+			setCurrentAlg(fetchedData)
+			AsyncStorage.setItem(storageKey, JSON.stringify(fetchedData))
+			setIsLoading(false)
+		}
+
+		AsyncStorage.getItem(storageKey).then((storedData) => {
+			if (storedData) {
+				setCurrentAlg(JSON.parse(storedData))
+				setIsLoading(false)
+			} else {
+				fetchData()
+			}
+		})
 	}, [])
 
 	const [isLoading, setIsLoading] = useState(true)
