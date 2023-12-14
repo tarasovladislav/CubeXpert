@@ -33,7 +33,6 @@ const Home = ({ navigation }) => {
 	return (
 		<>
 			<LinearGradient
-				// colors={['#1C3738',"#283d3f", '#555d5e',]} // Customize these colors
 				colors={['#1C3738', '#283d3f', '#555d5e']} // Customize these colors
 				start={{ x: 3, y: 0 }} // Adjust these values for the diagonal direction
 				end={{ x: 0, y: 1 }}
@@ -44,7 +43,7 @@ const Home = ({ navigation }) => {
 						<Text style={styles.logoText}>CubeXpert</Text>
 					</View>
 					<View style={{ flex: 2 }}>
-						{isDemoCubeVisible && <Demo demo="d'D'UE'D'D'E'U" />}
+						{isDemoCubeVisible && <Demo demo="zzUuzzd'D'UE'D'D'E'UzzUuzzd'D'UE'D'D'E'U" />}
 					</View>
 					<View style={[{ flex: 1 }]}>
 						<View style={styles.buttonContainer}>

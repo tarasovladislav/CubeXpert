@@ -1,10 +1,6 @@
 import React from 'react'
 import { StyleSheet, Dimensions, SafeAreaView, ScrollView } from 'react-native'
-
-import { Image } from 'react-native-elements'
 import MenuItem from '../Components/MenuItem'
-import { imageMapping } from '../assets/img'
-import commonStyles from '../commonStyles'
 const Home = ({ navigation }) => {
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
