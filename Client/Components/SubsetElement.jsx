@@ -104,14 +104,13 @@ const getDynamicStyles = (category) => {
 			marginTop: 5,
 			fontSize: 16,
 			fontWeight: 'bold',
-            color: commonStyles.buttonColor
+			color: commonStyles.buttonColor,
 		},
 		firstAlgo: {
 			fontSize: 14,
 			maxWidth: '90%',
 			marginBottom: 5,
-            color: commonStyles.buttonColor
-
+			color: commonStyles.buttonColor,
 		},
 		bottomSection: {
 			flexDirection: 'row',

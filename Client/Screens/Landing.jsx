@@ -1,21 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, } from 'react'
 import {
 	View,
 	Text,
 	StyleSheet,
 	Dimensions,
-	ActivityIndicator,
 	SafeAreaView,
-	FlatListComponent,
 	TouchableOpacity,
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
-
-import { Image } from 'react-native-elements'
 import Loading from '../Components/Loading'
 import apiService from '../apiService'
-import MenuItem from '../Components/MenuItem'
-import { imageMapping } from '../assets/img'
 import commonStyles from '../commonStyles'
 import Demo from '../Components/Demo'
 
@@ -23,18 +17,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 const Home = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(true)
-	const [randomAlgo, setRandomAlgo] = useState()
-
-	// useEffect(() => randomAlg(), [])
 	const [isDemoCubeVisible, setIsDemoCubeVisible] = useState(false) // Set it to true initially
-
-	const randomAlg = () => {
-		setIsLoading(true)
-		apiService
-			.getRandomAlg()
-			.then((data) => setRandomAlgo(data))
-			.finally(() => setIsLoading(false))
-	}
 	useFocusEffect(() => {
 		setIsLoading(false)
 		setIsDemoCubeVisible(true) // Hide and unmount the Demo cube WebView
@@ -58,20 +41,7 @@ const Home = ({ navigation }) => {
 			>
 				<SafeAreaView style={[commonStyles.flex1, { marginTop: 50 }]}>
 					<View style={[{ flex: 1 }]}>
-						<Text
-							style={{
-								fontSize: 40,
-								textAlign: 'center',
-								marginTop: 50,
-								fontWeight: '700',
-								textShadowColor: commonStyles.shadowColor, // Shadow color
-								textShadowOffset: { width: 2, height: 2 }, // Shadow offset
-								textShadowRadius: 1, // Shadow radius
-								color: commonStyles.logoColor,
-							}}
-						>
-							CubeXpert
-						</Text>
+						<Text style={styles.logoText}>CubeXpert</Text>
 					</View>
 					<View style={{ flex: 2 }}>
 						{isDemoCubeVisible && <Demo demo="d'D'UE'D'D'E'U" />}
@@ -110,7 +80,6 @@ const styles = StyleSheet.create({
 
 	buttonRow: {
 		flexDirection: 'row',
-		// height: '33.33%',
 		height: '50%',
 	},
 	buttonContainer: {
@@ -138,6 +107,17 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: commonStyles.buttonColor,
 		fontWeight: 'bold',
+	},
+
+	logoText: {
+		fontSize: 40,
+		textAlign: 'center',
+		marginTop: 50,
+		fontWeight: '700',
+		textShadowColor: commonStyles.shadowColor, // Shadow color
+		textShadowOffset: { width: 2, height: 2 }, // Shadow offset
+		textShadowRadius: 1, // Shadow radius
+		color: commonStyles.logoColor,
 	},
 })
 

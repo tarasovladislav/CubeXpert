@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import {
 	View,
@@ -10,6 +10,7 @@ import {
 	Image,
 	ActivityIndicator,
 	SafeAreaView,
+	RefreshControl,
 } from 'react-native'
 import SubsetElement from '../Components/SubsetElement'
 import apiService from '../apiService'
@@ -17,6 +18,7 @@ import { imageMapping } from '../assets/img'
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import Loading from '../Components/Loading'
 import commonStyles from '../commonStyles'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LessonPage = ({ navigation, route }) => {
 	const { data } = route.params
@@ -25,6 +27,9 @@ const LessonPage = ({ navigation, route }) => {
 
 	useEffect(() => {
 		setIsLoading(true)
+		const encodedStepTitle = encodeURIComponent(data.stepTitle)
+		const storageKey = `lessonPage_${encodedStepTitle}`
+
 		const fetchData = async () => {
 			const fetchedData = await Promise.all(
 				data.data.map(async (element) => {
@@ -41,10 +46,48 @@ const LessonPage = ({ navigation, route }) => {
 				})
 			)
 			setAlgoData(fetchedData)
+			AsyncStorage.setItem(storageKey, JSON.stringify(fetchedData))
 			setIsLoading(false)
 		}
 
-		fetchData()
+		AsyncStorage.getItem(storageKey).then((storedData) => {
+			if (storedData) {
+				setAlgoData(JSON.parse(storedData))
+				setIsLoading(false)
+			} else {
+				fetchData()
+			}
+		})
+	}, [])
+
+	const [refreshing, setRefreshing] = useState(false)
+
+	const onRefresh = useCallback(() => {
+		setRefreshing(true)
+		const encodedStepTitle = encodeURIComponent(data.stepTitle)
+		const storageKey = `lessonPage_${encodedStepTitle}`
+		AsyncStorage.removeItem(storageKey).then(() => {
+			const fetchData = async () => {
+				const fetchedData = await Promise.all(
+					data.data.map(async (element) => {
+						if (element.type === 'algo') {
+							const algoDataArray = await Promise.all(
+								element.content.map(async (algoId) => {
+									return await apiService.getAlgo(algoId)
+								})
+							)
+							return algoDataArray
+						} else {
+							return []
+						}
+					})
+				)
+				setAlgoData(fetchedData)
+				AsyncStorage.setItem(storageKey, JSON.stringify(fetchedData))
+				setRefreshing(false)
+			}
+			fetchData()
+		})
 	}, [])
 
 	const imageFrom = imageMapping[`${data.from.toLowerCase()}`]
@@ -55,7 +98,15 @@ const LessonPage = ({ navigation, route }) => {
 	return (
 		<>
 			<SafeAreaView>
-				<ScrollView style={{ paddingVertical: 5 }}>
+				<ScrollView
+					style={{ paddingVertical: 5 }}
+					refreshControl={
+						<RefreshControl
+							refreshing={refreshing}
+							onRefresh={onRefresh}
+						/>
+					}
+				>
 					<View style={commonStyles.container}>
 						<Image
 							PlaceholderContent={

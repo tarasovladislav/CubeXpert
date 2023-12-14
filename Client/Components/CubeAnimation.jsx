@@ -9,16 +9,11 @@ import {
 } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { useSettingsContext } from '../Contexts/SettingsContext'
-
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
-import TouchableButton from './TouchableButton'
 import IconAntDesign from 'react-native-vector-icons/AntDesign'
 import { useFavoritesContext } from '../Contexts/FavoritesContext'
-
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons'
-
 import TouchableButtonTooltip from './TouchableButtonTooltip'
-
 import commonStyles from '../commonStyles'
 import { BASE_URL } from '../env'
 

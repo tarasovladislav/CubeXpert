@@ -6,11 +6,10 @@ import {
 	Text,
 	StyleSheet,
 	SafeAreaView,
-	Platform,
 } from 'react-native'
 import { useFavoritesContext } from '../Contexts/FavoritesContext'
 import SubsetElement from '../Components/SubsetElement'
-
+import commonStyles from '../commonStyles'
 const Favorites = ({ navigation }) => {
 	const { favoritesList } = useFavoritesContext()
 	const [groupedFavorites, setGroupedFavorites] = useState([])
@@ -40,10 +39,9 @@ const Favorites = ({ navigation }) => {
 		setGroupedFavorites(groupAlgorithmsByCategory(favoritesList))
 	}, [favoritesList])
 
-	//TODO style no favorite algs
 	return (
 		<>
-			<ScrollView>
+			<ScrollView style={{ margin: 5 }}>
 				{groupedFavorites.length ? (
 					groupedFavorites.map((category) => {
 						return (
@@ -70,7 +68,7 @@ const Favorites = ({ navigation }) => {
 					<SafeAreaView
 						style={{
 							flex: 1,
-                            marginVertical:'50%',
+							marginVertical: '50%',
 							alignItems: 'center',
 						}}
 					>
@@ -89,14 +87,12 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		fontSize: 24,
 		fontWeight: 'bold',
-		margin: 10,
+		margin: 5,
 		padding: 10,
-		// borderRadius: 8,
-		// backgroundColor: 'white',
-		// shadowOffset: { width: 0, height: 2 },
-		// shadowRadius: 2.22,
-		// elevation: 3,
-		// shadowOpacity: 0.23,
+		color: commonStyles.titleColor,
+		textShadowColor: commonStyles.subsetTitleShadowColor,
+		textShadowOffset: { width: 2, height: 2 },
+		textShadowRadius: 1,
 	},
 })
 

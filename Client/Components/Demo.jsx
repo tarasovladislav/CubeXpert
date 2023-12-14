@@ -4,8 +4,6 @@ import {
 	StyleSheet,
 	Dimensions,
 	ActivityIndicator,
-	Platform,
-    Text
 } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { useSettingsContext } from '../Contexts/SettingsContext'
@@ -97,21 +95,9 @@ const styles = StyleSheet.create({
 		},
 		shadowOpacity: 0.98,
 		shadowRadius: 100.0,
+        
 	},
 
-	buttonContainer: {
-		position: 'relative',
-		flexDirection: 'row',
-	},
-	algoText: {
-		textAlign: 'center',
-		fontSize: 16,
-		width: '80%',
-	},
-	loadingOverlay: {
-		...StyleSheet.absoluteFillObject,
-		...commonStyles.cencen,
-	},
 })
 
 export default Demo

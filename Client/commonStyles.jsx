@@ -1,14 +1,14 @@
 const mainColor = '#F4FFF8'
 const secondaryColor = '#3b6a6e'
-// const secondaryColor = '#345052'
 const buttonColor = '#F7F9F9'
 const logoColor = '#F7F9F9'
 const demoCubeBackground = '#283d3f'
-const titleColor = "#283d3f"
+const titleColor = '#283d3f'
 const cubeBackground = '#283d3f'
-const shadowColor = "#000000"
+const shadowColor = '#000000'
 const demoButtonColor = '#283d3f'
 const iconColor = '#d4d4d4'
+const subsetTitleShadowColor = '#d3d3d3'
 export default {
 	buttonActiveColor: '#345052',
 	buttonDisabledColor: '#8BAAAD',
@@ -18,14 +18,15 @@ export default {
 	categoryBackground: secondaryColor,
 	cubeBackground: cubeBackground,
 	buttonColor: buttonColor,
-    shadowColor: shadowColor,
-    titleColor: titleColor,
-    demoButtonColor:demoButtonColor,
-    iconColor:iconColor,
+	shadowColor: shadowColor,
+	titleColor: titleColor,
+	demoButtonColor: demoButtonColor,
+	subsetTitleShadowColor: subsetTitleShadowColor,
+	iconColor: iconColor,
 	header: '#55555a',
 	fontSize: 16,
 	logoColor: logoColor,
-    demoCubeBackground:demoCubeBackground,
+	demoCubeBackground: demoCubeBackground,
 
 	container: {
 		backgroundColor: secondaryColor,

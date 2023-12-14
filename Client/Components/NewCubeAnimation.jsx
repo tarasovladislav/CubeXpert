@@ -9,12 +9,10 @@ import {
 } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { useSettingsContext } from '../Contexts/SettingsContext'
-
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
 import IconAntDesign from 'react-native-vector-icons/AntDesign'
 import * as icons from 'react-native-vector-icons'
 import { useFavoritesContext } from '../Contexts/FavoritesContext'
-
 import commonStyles from '../commonStyles'
 import TouchableButtonTooltip from './TouchableButtonTooltip'
 import { BASE_URL } from '../env'
@@ -31,7 +29,6 @@ const CubeAnimation = ({
 }) => {
 	const { toggleFavorites, isInFavorites } = useFavoritesContext()
 	const { settings, webViewKey } = useSettingsContext()
-	const [isRotated, setIsRotated] = useState(false)
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
 	const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg._id))
 	const [currentStep, setCurrentStep] = useState(0)
@@ -55,9 +52,7 @@ const CubeAnimation = ({
 		cube,
 		ignored,
 	} = settings
-	let solved = ''
 	let setupmoves = ''
-	let colored = ''
 	let facelets
 	useEffect(() => {
 		setL(left)
@@ -65,10 +60,6 @@ const CubeAnimation = ({
 		setR(right)
 		setB(back)
 	}, [front, right, left, back])
-
-	// facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
-	// facelets = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
-	// facelets = 'wLwLwLwLwyLyLyLyLygLgLgLgLgbLbLbLbLboLoLoLoLorLrLrLrLr'
 	const [F, setF] = useState(front)
 	const [L, setL] = useState(left)
 	const [B, setB] = useState(back)
@@ -80,7 +71,6 @@ const CubeAnimation = ({
 		setR(B)
 		setB(temp)
 		setCurrentStep(0)
-		setIsRotated(false)
 	}
 
 	// When user changes his settings, the webview resets the cube since its the new request, we have to restore current algorithm step (Start from the beginning)
@@ -128,7 +118,6 @@ const CubeAnimation = ({
 				break
 			case 0:
 				setCurrentStep(0)
-				setIsRotated(false)
 				break
 			case 4:
 				setCurrentStep((prevStep) => prevStep - 1)
@@ -227,28 +216,21 @@ const CubeAnimation = ({
 	// For different categories we want some elements to be ignored, since they are not necessary
 	switch (category) {
 		case 'F2L':
-			// solved = "U-*"
-			// facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
 			facelets = 'qqqqqqqqq111111111q22q22q22q33q33q33qqq444444q55q55q55'
 			setupmoves = manipulateString(alg)
 			break
 		case 'OLL':
-			// colored = "u"
-			// facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
 			facelets = '000000000qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
 			setupmoves = manipulateString(alg)
 
 			break
 		case 'PLL':
-			// colored = "u"
-			// facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
 			facelets = '000000000qqqqqqqqq2qq2qq2qq3qq3qq3qq444qqqqqq5qq5qq5qq'
 			setupmoves = manipulateString(alg)
 
 			break
 		case 'Patterns':
 			setupmoves = ''
-			// facelets = 'uuuuuuuuudddddddddfffffffffbbbbbbbbblllllllllrrrrrrrrr'
 
 			break
 		case 'Beginners':
@@ -308,9 +290,6 @@ const CubeAnimation = ({
 					style={[styles.webview, { opacity: isCubeLoading ? 0 : 1 }]}
 					onLoadStart={() => setIsCubeLoading(true)}
 					onLoadEnd={() => setIsCubeLoading(false)}
-					onTouchStart={() => {
-						setIsRotated(true)
-					}}
 				/>
 			</View>
 
@@ -331,16 +310,8 @@ const CubeAnimation = ({
 							{currentStep} / {len}
 						</Text>
 					</View>
-					{/* сверху можно убрать на раондоме */}
 
 					<View style={styles.buttonContainer}>
-						{/* // 1 последняя
-                        // 1.25 next
-                        // 1.5 плей
-                        // 2. средняя
-                        // 0 reset
-                        //3 назад плей
-                        //4 назад */}
 						<TouchableButtonTooltip
 							disabled={
 								currentStep === 0 ||
@@ -404,9 +375,6 @@ const CubeAnimation = ({
 						)}
 
 						<TouchableButtonTooltip
-							// disabled={currentStep == 0 || isPlaying || !allowControl || isCubeLoading}
-
-							//TODO add checker if cube was turned
 							disabled={
 								isPlaying || !allowControl || isCubeLoading
 							}
@@ -422,9 +390,6 @@ const CubeAnimation = ({
 						/>
 						{(category === 'F2L' || category === 'PLL') && (
 							<TouchableButtonTooltip
-								// disabled={currentStep == 0 || isPlaying || !allowControl || isCubeLoading}
-
-								//TODO add checker if cube was turned
 								disabled={
 									isPlaying || !allowControl || isCubeLoading
 								}
@@ -473,6 +438,7 @@ const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
 	webview: {
 		maxHeight: width * 1.49,
+        margin:-1//test this
 	},
 	buttonContainer: {
 		position: 'relative',
