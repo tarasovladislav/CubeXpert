@@ -175,4 +175,12 @@ export const imageMapping = {
     solvethecubeimage2: require('./beginners/solvethecubeimage2.png'),
     solvethecubeimage3: require('./beginners/solvethecubeimage3.png'),
 
+
+
+    favorite: require('./menu/favorite.png'),
+    advanced: require('./menu/advanced.png'),
+    beginner: require('./menu/beginner.png'),
+    rotate: require('./menu/rotate.png'),
+    patterns: require('./menu/patterns.png'),
+
 };
