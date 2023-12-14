@@ -14,6 +14,8 @@ const Home = ({ navigation }) => {
 					onPress={() => {
 						navigation.navigate('Beginners Lessons')
 					}}
+                    image="beginner"
+
 				/>
 
 				<MenuItem
@@ -21,6 +23,8 @@ const Home = ({ navigation }) => {
 					onPress={() => {
 						navigation.navigate('Choose Category')
 					}}
+                    image="advanced"
+
 				/>
 
 				<MenuItem
@@ -31,6 +35,7 @@ const Home = ({ navigation }) => {
 							category: 'Patterns',
 						})
 					}}
+                    image="patterns"
 				/>
 
 				<MenuItem
@@ -41,6 +46,7 @@ const Home = ({ navigation }) => {
 							category: 'Patterns',
 						})
 					}}
+                    image="favorite"
 				/>
 
 				<MenuItem
@@ -50,6 +56,7 @@ const Home = ({ navigation }) => {
 							name: 'Rotate The Cube',
 						})
 					}}
+                    image="rotate"
 				/>
 			</ScrollView>
 		</SafeAreaView>
