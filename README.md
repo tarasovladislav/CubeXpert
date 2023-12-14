@@ -61,17 +61,18 @@ Ready to elevate your Rubik's Cube game? Download CubeXpert now and take the fir
 ## ScreenShots
 
 <p align="center">
-  <img src="./Client/assets/screenshots/1.png" width="200">
-  <img src="./Client/assets/screenshots/2.png" width="200">
-  <img src="./Client/assets/screenshots/3.png" width="200">
-  <img src="./Client/assets/screenshots/4.png" width="200">
-  <img src="./Client/assets/screenshots/5.png" width="200">
-  <img src="./Client/assets/screenshots/6.png" width="200">
-  <img src="./Client/assets/screenshots/7.png" width="200">
-  <img src="./Client/assets/screenshots/8.png" width="200">
-  <img src="./Client/assets/screenshots/9.png" width="200">
-  <img src="./Client/assets/screenshots/10.png" width="200">
+  <img src="./Client/assets/screenshots/12.png" width="200">
   <img src="./Client/assets/screenshots/11.png" width="200">
+  <img src="./Client/assets/screenshots/10.png" width="200">
+  <img src="./Client/assets/screenshots/9.png" width="200">
+  <img src="./Client/assets/screenshots/8.png" width="200">
+  <img src="./Client/assets/screenshots/7.png" width="200">
+  <img src="./Client/assets/screenshots/6.png" width="200">
+  <img src="./Client/assets/screenshots/5.png" width="200">
+  <img src="./Client/assets/screenshots/4.png" width="200">
+  <img src="./Client/assets/screenshots/3.png" width="200">
+  <img src="./Client/assets/screenshots/2.png" width="200">
+  <img src="./Client/assets/screenshots/1.png" width="200">
 </p>
 
 ## Run Locally
@@ -113,10 +114,10 @@ Download Expo Go app on your phone. https://expo.dev/client
 Scan QR Code below
 
 #### iOS with your camera app: 
-![iOS](https://qr.expo.dev/eas-update?updateId=1de44c0b-d4ae-4d33-bcaf-ef430edec283&appScheme=exp&host=u.expo.dev)
+![iOS](https://qr.expo.dev/eas-update?updateId=ae2cb9cb-0209-42df-bba9-6dccb4c562ad&appScheme=exp&host=u.expo.dev)
 
 #### Android with Expo Go app: 
-![Android](https://qr.expo.dev/eas-update?updateId=2fd76dd0-bce3-44d2-8a97-7b1d678e3dda&appScheme=exp&host=u.expo.dev)
+![Android](https://qr.expo.dev/eas-update?updateId=3a73ff18-dc7f-485b-a51c-15ab39f71710&appScheme=exp&host=u.expo.dev)
 
 
 ## Tech Stack
