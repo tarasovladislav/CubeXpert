@@ -4,6 +4,7 @@ import CategoryChoisePage from './Screens/CategoryChoisePage'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import Home from './Screens/Home'
+import Landing from './Screens/Landing'
 const Stack = createNativeStackNavigator()
 
 import { SettingsContextProvider } from './Contexts/SettingsContext'
@@ -20,12 +21,12 @@ export default function App() {
 			<FavoritesContextProvider>
 				<SettingsContextProvider>
 					<Stack.Navigator
-						initialRouteName="Home"
+						initialRouteName="Landing"
 						screenOptions={{
 							headerStyle: {
-								backgroundColor: '#6374ae',
+								backgroundColor: commonStyles.backgroundColor,
 							},
-							headerTintColor: '#fff',
+							headerTintColor: commonStyles.titleColor,
 							headerTitleStyle: {
 								fontWeight: 'bold',
 							},
@@ -36,9 +37,14 @@ export default function App() {
 						}}
 					>
 						<Stack.Screen
+							name="Landing"
+							component={Landing}
+							options={{ title: 'Home', headerShown: false }}
+						/>
+						<Stack.Screen
 							name="Home"
 							component={Home}
-							options={{ title: 'Home', headerShown: false }}
+							options={{ title: 'Home' }}
 						/>
 						<Stack.Screen
 							name="Choose Category"

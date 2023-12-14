@@ -1,22 +1,69 @@
-import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, FlatList, Text } from 'react-native'
+import React, { useState, useEffect, useCallback } from 'react'
+import { View, StyleSheet, FlatList, Text, RefreshControl } from 'react-native'
 import apiService from '../apiService'
 import SubsetElement from './SubsetElement'
+import commonStyles from '../commonStyles'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const Subset = ({ navigation, category, subset }) => {
+const Subset = ({
+	navigation,
+	category,
+	subset,
+	refreshAllSubsets,
+	setRefreshAllSubsets,
+}) => {
 	const [subsetAlgs, setSubsetAlgs] = useState([])
 
 	useEffect(() => {
-		apiService
-			.getSubsetAlgorithms(category, subset)
-			.then((data) => setSubsetAlgs(data))
+		const encodedSubset = encodeURIComponent(subset)
+
+		const storageKey = `subsetAlgs_${category}_${encodedSubset}`
+		AsyncStorage.getItem(storageKey).then((cachedData) => {
+			if (cachedData) {
+				setSubsetAlgs(JSON.parse(cachedData))
+			} else {
+				apiService
+					.getSubsetAlgorithms(category, subset)
+					.then((data) => {
+						setSubsetAlgs(data)
+						AsyncStorage.setItem(storageKey, JSON.stringify(data))
+					})
+					.catch((error) => {
+						console.error(error)
+					})
+			}
+		})
+	}, [])
+	useEffect(() => {
+		if (refreshAllSubsets) {
+			onRefresh()
+			setRefreshAllSubsets(false)
+		}
+	}, [refreshAllSubsets])
+
+	const onRefresh = useCallback(() => {
+		const encodedSubset = encodeURIComponent(subset)
+		const storageKey = `subsetAlgs_${category}_${encodedSubset}`
+		AsyncStorage.removeItem(storageKey).then(() => {
+			apiService
+				.getSubsetAlgorithms(category, subset)
+				.then((data) => {
+					setSubsetAlgs(data)
+					AsyncStorage.setItem(storageKey, JSON.stringify(data))
+				})
+				.catch((error) => {
+					console.error(error)
+				})
+		})
 	}, [])
 
 	return (
 		<>
 			{subset && subsetAlgs && subsetAlgs.length > 0 && (
 				<View>
-					{subset !== 'Patterns' && <Text style={styles.subsetTitle}>{subset}</Text>}
+					{subset !== 'Patterns' && (
+						<Text style={styles.subsetTitle}>{subset}</Text>
+					)}
 					<FlatList
 						data={subsetAlgs}
 						numColumns={2}
@@ -42,12 +89,10 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		margin: 5,
 		padding: 10,
-		// backgroundColor: '#ffffff',
-		// shadowOffset: { width: 0, height: 2 },
-		// shadowRadius: 2.22,
-		// elevation: 3,
-		// borderRadius: 8,
-		// shadowOpacity: 0.23,
+		color: commonStyles.titleColor,
+        textShadowColor: commonStyles.subsetTitleShadowColor, 
+		textShadowOffset: { width: 2, height: 2 }, 
+		textShadowRadius: 1, 
 	},
 })
 

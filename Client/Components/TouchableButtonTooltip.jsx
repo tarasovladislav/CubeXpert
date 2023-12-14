@@ -6,7 +6,7 @@ const TouchableButtonTooltip = ({
 	onPress = () => {},
 	text,
 	disabled = false,
-	textColor = '#000000',
+	textColor = commonStyles.titleColor,
 	activeColor = commonStyles.buttonActiveColor,
 	disabledColor = commonStyles.buttonDisabledColor,
 	popover = "",
@@ -40,7 +40,7 @@ const TouchableButtonTooltip = ({
 				}}
 				popover={<Text>{popover}</Text>}
                 withPointer={false}
-                backgroundColor={"#7cacff"}
+                backgroundColor={commonStyles.buttonDisabledColor}
 
 			>
 			</Tooltip>}
@@ -67,7 +67,7 @@ const getDynamicStyles = (activeColor, disabledColor, textColor) =>
 		},
 		buttonText: {
 			padding: 10,
-			color: textColor,
+			color: "white",
 			alignSelf: 'center',
 		},
 	})

@@ -11,6 +11,7 @@ import { Image } from 'react-native-elements'
 import { imageMapping } from '../assets/img'
 import IconAntDesign from 'react-native-vector-icons/AntDesign'
 import { useFavoritesContext } from '../Contexts/FavoritesContext'
+import commonStyles from '../commonStyles'
 
 const SubsetElement = ({ navigation, algo }) => {
 	const styles = getDynamicStyles(algo.category)
@@ -89,7 +90,7 @@ const getDynamicStyles = (category) => {
 			margin: 5,
 			padding: 10,
 			borderRadius: 8,
-			backgroundColor: '#ffffff',
+			backgroundColor: commonStyles.subsetBackground,
 			shadowOffset: { width: 0, height: 2 },
 			shadowOpacity: 0.23,
 			shadowRadius: 2.22,
@@ -103,11 +104,13 @@ const getDynamicStyles = (category) => {
 			marginTop: 5,
 			fontSize: 16,
 			fontWeight: 'bold',
+			color: commonStyles.buttonColor,
 		},
 		firstAlgo: {
 			fontSize: 14,
 			maxWidth: '90%',
 			marginBottom: 5,
+			color: commonStyles.buttonColor,
 		},
 		bottomSection: {
 			flexDirection: 'row',

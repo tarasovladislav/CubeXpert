@@ -8,9 +8,6 @@ import Loading from '../Components/Loading'
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
 import CubeSizePicker from '../Components/CubeSizePicker'
 
-
-//todo add posibility to watch how the cube solves? ??? ? ? ??  ? ??
-// todo, to main screen instead of random alg make cube which is rotating. 
 const RotateTheCube = () => {
 	const [isPlaying, setIsPlaying] = useState(false)
 
@@ -18,7 +15,6 @@ const RotateTheCube = () => {
 	const toggleOverlay = () => setVisible(!visible)
 
 	const [currentAlg, setCurrentAlg] = useState()
-	const [whichAlg, setWhichAlg] = useState(0)
 
 	// Get algo details
 	useEffect(() => {
@@ -26,6 +22,7 @@ const RotateTheCube = () => {
 		setCurrentAlg({ algo: ['U'] })
 		setIsLoading(false)
 	}, [])
+
 	const [animationKey, setAnimationKey] = useState(0)
 
 	const [cubeSize, setCubeSize] = useState(3)
@@ -67,12 +64,12 @@ const RotateTheCube = () => {
 						isPlaying={isPlaying}
 						setIsPlaying={setIsPlaying}
 						category={currentAlg.category}
-						alg={currentAlg.algo[whichAlg]}
+						alg={""}
 						currentAlg={currentAlg}
 						scramble={2}
 					/>
 
-					<View style={styles.buttonContainer}>
+					<View style={[styles.buttonContainer]}>
 						<TouchableButton
 							onPress={toggleCubeSize}
 							text="Change Cube Size"
@@ -105,27 +102,7 @@ const RotateTheCube = () => {
 						/>
 					</TouchableOpacity>
 
-					{currentAlg.algo.length > 1 && (
-						<View
-							style={{
-								flexDirection: 'row',
-								position: 'relative',
-							}}
-						>
-							<TouchableButton
-								disabled={whichAlg === 0}
-								onPress={() => setWhichAlg(whichAlg - 1)}
-								text="Previous"
-							/>
-							<TouchableButton
-								disabled={
-									whichAlg === currentAlg.algo.length - 1
-								}
-								onPress={() => setWhichAlg(whichAlg + 1)}
-								text="Next"
-							/>
-						</View>
-					)}
+					
 				</SafeAreaView>
 			)}
 		</>

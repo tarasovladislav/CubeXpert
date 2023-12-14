@@ -5,6 +5,7 @@ import {
 	Text,
 	StyleSheet,
 	Dimensions,
+    ScrollView,
 } from 'react-native'
 import { Image } from 'react-native-elements'
 import { imageMapping } from '../assets/img/'
@@ -17,7 +18,7 @@ const CategoryChoisePage = ({ navigation, type }) => {
 	])
 
 	return (
-		<View style={{paddingVertical:5}}>
+		<ScrollView style={{paddingVertical:5}}>
 			{categoryList &&
 				categoryList.map((cat) => (
 					<View style={commonStyles.container} key={cat.title}>
@@ -28,6 +29,7 @@ const CategoryChoisePage = ({ navigation, type }) => {
 								gap: 20,
 								margin: 10,
 								width: '100%',
+                                
 							}}
 							onPress={() =>
 								navigation.navigate('Category', {
@@ -50,7 +52,7 @@ const CategoryChoisePage = ({ navigation, type }) => {
 						</TouchableOpacity>
 					</View>
 				))}
-		</View>
+		</ScrollView>
 	)
 }
 const width = Dimensions.get('window').width
@@ -63,6 +65,8 @@ const styles = StyleSheet.create({
 	header: {
 		fontSize: 22,
 		fontWeight: '600',
+        color: commonStyles.buttonColor
+
 	},
 })
 

@@ -7,7 +7,6 @@ const FavoritesContextProvider = ({ children }) => {
 	const [favoritesList, setFavoritesList] = useState([])
 
 	const toggleFavorites = (item) => {
-		// setFavoritesList([])
 		const index = favoritesList.findIndex((alg) => alg._id === item._id)
 		if (index === -1) {
 			setFavoritesList([...favoritesList, item])
@@ -25,10 +24,8 @@ const FavoritesContextProvider = ({ children }) => {
 	}
 
 	useEffect(() => {
-		// setFavoritesList([])
 		AsyncStorage.getItem('favoritesList')
 			.then((savedFavorites) => {
-				// console.log(savedFavorites, 'INITIAL')
 				savedFavorites && setFavoritesList(JSON.parse(savedFavorites))
 			})
 			.catch((error) => {
