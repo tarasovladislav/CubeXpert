@@ -34,9 +34,9 @@
 
     <script>
 
-        document.addEventListener('contextmenu', function (event) {
-            event.preventDefault();
-        });
+        // document.addEventListener('contextmenu', function (event) {
+        //     event.preventDefault();
+        // });
 
 
         //clickprogress maybe add later? 
@@ -59,117 +59,40 @@
         let clickEvent;
         // 0-6
         function clickCanvas(width, buttonPosition) {
-    console.log('hi');
-    const canvasWidth = globalCanvas.getBoundingClientRect().width;
-    const canvasHeight = globalCanvas.getBoundingClientRect().height;
-    console.log(canvasWidth, canvasHeight);
-    let clickX;
+            console.log('hi');
+            const canvasWidth = Math.floor(globalCanvas.getBoundingClientRect().width);
+            const canvasHeight =  Math.floor(globalCanvas.getBoundingClientRect().height);
+            console.log(canvasWidth, canvasHeight);
+            let clickX
 
-    if (buttonPosition === 0) {
-        clickX = 10;
-    } else {
-        clickX = (canvasWidth) / (buttonPosition) - 10;
-    }
+            
+            if (buttonPosition === 0) {
+                clickX = 10
+            } else {
+                clickX = (canvasWidth) / (buttonPosition) - 10;
+            }
+            const clickY = canvasHeight - 1;
 
-    const clickY = canvasHeight - 1;
-
-    // Check if the device supports touch events
-    const isTouchDevice = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
-
-    // Define the event type based on the device type
-    const eventType = isTouchDevice ? 'touchstart' : 'mousedown';
-
-    const clickEvent = new MouseEvent(eventType, {
-        bubbles: true,
-        cancelable: true,
-        view: window,
-        clientX: clickX,
-        clientY: clickY
-    });
-
-    // Dispatch the click event to the canvas element
-    globalCanvas.dispatchEvent(clickEvent);
-
-    // Handle touch and mouse events differently
-    if (isTouchDevice) {
-        // For touch devices, simulate a touchend event after a short delay
-        // setTimeout(() => {
-            const touchEndEvent = new MouseEvent('touchend', {
+            clickEvent = new MouseEvent("mousedown", {
                 bubbles: true,
                 cancelable: true,
                 view: window,
                 clientX: clickX,
                 clientY: clickY
             });
-            globalCanvas.dispatchEvent(touchEndEvent);
-        // }, 100); // Adjust the delay as needed
-    } else {
-        // For non-touch devices (mouse), simulate a mouseup event
-        const mouseUpEvent = new MouseEvent("mouseup", {
-            bubbles: true,
-            cancelable: true,
-            view: window,
-            clientX: clickX,
-            clientY: clickY
-        });
-        globalCanvas.dispatchEvent(mouseUpEvent);
-    }
-}
-        // function clickCanvas(width, buttonPosition) {
-        //     console.log('hi');
-        //     const canvasWidth = globalCanvas.getBoundingClientRect().width;
-        //     const canvasHeight = globalCanvas.getBoundingClientRect().height;
-        //     console.log(canvasWidth, canvasHeight);
-        //     let clickX
 
-            
-        //     if (buttonPosition === 0) {
-        //         clickX = 10
-        //     } else {
-        //         clickX = (canvasWidth) / (buttonPosition) - 10;
-        //     }
+            // Dispatch the click event to the canvas element (bottom-right corner)
+            globalCanvas.dispatchEvent(clickEvent);
 
-        //     const clickY = canvasHeight - 1;
-
-
-        //     // 1 последняя
-        //     // 1.25 next
-        //     // 1.5 плей
-        //     // 2. средняя
-        //     // 0 reset
-        //     //3 назад плей
-        //     //4 назад
-        //     clickEvent = new MouseEvent("mousedown", {
-        //         bubbles: true,
-        //         cancelable: true,
-        //         view: window,
-        //         clientX: clickX,
-        //         clientY: clickY
-        //     });
-
-        //     // Dispatch the click event to the canvas element (bottom-right corner)
-        //     globalCanvas.dispatchEvent(clickEvent);
-
-        //     const mouseUpEvent = new MouseEvent("mouseup", {
-        //         bubbles: true,
-        //         cancelable: true,
-        //         view: window,
-        //         clientX: clickX,
-        //         clientY: clickY
-        //     });
-        //     globalCanvas.dispatchEvent(mouseUpEvent);
-
-            
-
-
-
-
-
-
-
-
-
-        // }
+            const mouseUpEvent = new MouseEvent("mouseup", {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+                clientX: clickX,
+                clientY: clickY
+            });
+            globalCanvas.dispatchEvent(mouseUpEvent);
+        }
 
         document.addEventListener('DOMContentLoaded', function () {
             const overlay = document.getElementById('overlay');
