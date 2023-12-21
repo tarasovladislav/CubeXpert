@@ -16,6 +16,7 @@ import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import TouchableButtonTooltip from './TouchableButtonTooltip'
 import commonStyles from '../commonStyles'
 import { BASE_URL } from '../env'
+import * as icons from 'react-native-vector-icons'
 
 const CubeAnimation = ({
 	category,
@@ -25,7 +26,7 @@ const CubeAnimation = ({
 	currentAlg,
 }) => {
 	const { toggleFavorites, isInFavorites } = useFavoritesContext()
-	const { settings, webViewKey } = useSettingsContext()
+	const { settings, webViewKey, setWebViewKey } = useSettingsContext()
 
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
 	const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg._id))
@@ -39,10 +40,40 @@ const CubeAnimation = ({
 	const algArray = alg.split(' ')
 	const len = algArray.length
 
-	let { U, F, R, L, B, D, speed, cube, ignored } = settings
+	let {
+		U,
+		F: front,
+		R: right,
+		L: left,
+		B: back,
+		D,
+		speed,
+		cube,
+		ignored,
+	} = settings
 	let solved = ''
 	let setupmoves = ''
 	let colored = ''
+
+	useEffect(() => {
+		setL(left)
+		setF(front)
+		setR(right)
+		setB(back)
+	}, [front, right, left, back])
+	const [F, setF] = useState(front)
+	const [L, setL] = useState(left)
+	const [B, setB] = useState(back)
+	const [R, setR] = useState(right)
+	const handleRecolor = () => {
+        setWebViewKey(webViewKey + 1)
+		let temp = L
+		setL(F)
+		setF(R)
+		setR(B)
+		setB(temp)
+		setCurrentStep(0)
+	}
 
 	// When user changes his settings, the webview resets the cube since its the new request, we have to restore current algorithm step (Start from the beginning)
 	useEffect(() => {
@@ -121,8 +152,8 @@ const CubeAnimation = ({
 				// When learning how to solve cross, we have to rotate cube but instead we just mirror the colors
 				case 'Cross':
 					;[U, D] = [D, U]
-					;[F, R] = [R, F]
-					;[B, L] = [L, B]
+					;[front, right] = [right, front]
+					;[back, left] = [left, back]
 					colored = currentAlg.colored || 'U*/Ie U F R'
 					setupmoves = currentAlg.setupmoves || ''
 					break
@@ -277,6 +308,23 @@ const CubeAnimation = ({
 						}
 						popover="Reset Cube Position"
 					/>
+					{category !== 'OLL' && (
+						<TouchableButtonTooltip
+							disabled={
+								isPlaying || !allowControl || isCubeLoading
+							}
+							onPress={handleRecolor}
+							text={
+								// 'recolor'
+								<icons.Feather
+									size={24}
+									color={commonStyles.iconColor}
+									name="repeat"
+								/>
+							}
+							popover="Swap Colors"
+						/>
+					)}
 				</View>
 				<TouchableOpacity
 					style={{

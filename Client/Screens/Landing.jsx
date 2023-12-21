@@ -43,7 +43,8 @@ const Home = ({ navigation }) => {
 						<Text style={styles.logoText}>CubeXpert</Text>
 					</View>
 					<View style={{ flex: 2 }}>
-						{isDemoCubeVisible && <Demo demo="zzUuzzd'D'UE'D'D'E'UzzUuzzd'D'UE'D'D'E'U" />}
+						{/* {isDemoCubeVisible && <Demo demo="zzUuzzd'D'UE'D'D'E'UzzUuzzd'D'UE'D'D'E'U" />} */}
+						{isDemoCubeVisible && <Demo demo="RRRR" />}
 					</View>
 					<View style={[{ flex: 1 }]}>
 						<View style={styles.buttonContainer}>

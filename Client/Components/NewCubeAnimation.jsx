@@ -85,7 +85,10 @@ const CubeAnimation = ({
 	}, [alg])
 
 	// Starting an Settimeout to highlight the current step of the cube whenever user press Play button
-	useEffect(() => {
+
+//todo since animation finished straght after, remove delay
+
+    useEffect(() => {
 		if (isPlaying) {
 			setAllowControl(false)
 			if (currentStep === len - 1) setIsPlaying(false)
@@ -103,10 +106,11 @@ const CubeAnimation = ({
 	}, [isPlaying, triggerUseEffect])
 
 	const { width } = Dimensions.get('window')
-
 	// Cube control buttons handler
 	const handleButtonClick = (elementSelector) => {
-		executeJavaScript(`clickCanvas(${width}, ${elementSelector});true`)
+console.log(width)
+const newWidth = Math.floor(width);
+		executeJavaScript(`clickCanvas(${newWidth}, ${elementSelector});true`)
 		switch (elementSelector) {
 			case 1.5:
 				setIsPlaying(true)
@@ -282,6 +286,7 @@ const CubeAnimation = ({
 							''
 						)}&demo=${demo}`,
 					}}
+                    javaScriptEnabled={true}
 					ref={cubeAnimationWebView}
 					key={webViewKey}
 					scrollEnabled={false}
