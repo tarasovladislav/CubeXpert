@@ -19,7 +19,7 @@
       "bundleIdentifier": "com.tarasovladislav.CubeXpert"
     },
     "android": {
-        "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -38,15 +38,16 @@
       "policy": "nativeVersion"
     },
     "updates": {
+      "fallbackToCacheTimeout": 60000,
       "url": "https://u.expo.dev/fc5548a8-fd8b-440b-a3e0-064e880b2d9f"
     },
     "plugins": [
-        [
-          "expo-updates",
-          {
-            "username": "tarasovladislav"
-          }
-        ]
+      [
+        "expo-updates",
+        {
+          "username": "tarasovladislav"
+        }
       ]
+    ]
   }
 }
