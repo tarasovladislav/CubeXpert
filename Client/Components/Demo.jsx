@@ -9,6 +9,8 @@ import Animated, {
 	useAnimatedStyle,
 	withSpring,
 	withTiming,
+    withSequence,
+    Easing
 } from 'react-native-reanimated'
 
 const Demo = ({ demo = '', cubeSize = 3 }) => {
@@ -19,15 +21,24 @@ const Demo = ({ demo = '', cubeSize = 3 }) => {
 	//animated
 	const borderRadius = useSharedValue(50)
 	const opacity = useSharedValue(0)
+
+    const scale = useSharedValue(0)
+
 	const animatedStyles = useAnimatedStyle(() => {
 		return {
 			// opacity: opacity.value,
+            transform: [{ scale: scale.value }],
+
 			borderRadius: borderRadius.value,
 		}
 	}, [])
 
 	useEffect(() => {
 		if (!isCubeLoading) {
+            scale.value = withSequence(
+                withTiming(1.5, { duration: 150, easing: Easing.ease }),
+                withSpring(1, { damping: 2, stiffness: 80 })
+            )
 			borderRadius.value = withTiming(1000, { duration: 3000 })
 		}
 	}, [isCubeLoading])
