@@ -117,7 +117,7 @@ Scan QR Code below
 ![iOS](https://qr.expo.dev/eas-update?updateId=ae2cb9cb-0209-42df-bba9-6dccb4c562ad&appScheme=exp&host=u.expo.dev)
 
 #### Android with Expo Go app: 
-![Android](https://qr.expo.dev/eas-update?updateId=3a73ff18-dc7f-485b-a51c-15ab39f71710&appScheme=exp&host=u.expo.dev)
+![Android](https://qr.expo.dev/eas-update?updateId=11034e5a-6411-4314-b8c8-96bd9066f3b5&appScheme=exp&host=u.expo.dev)
 
 
 ## Tech Stack
