@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
 	StyleSheet,
 	Text,
@@ -12,7 +12,14 @@ import { imageMapping } from '../assets/img'
 import IconAntDesign from 'react-native-vector-icons/AntDesign'
 import { useFavoritesContext } from '../Contexts/FavoritesContext'
 import commonStyles from '../commonStyles'
-
+import Animated, {
+	Easing,
+	withSpring,
+	useSharedValue,
+	useAnimatedStyle,
+	withTiming,
+	withSequence,
+} from 'react-native-reanimated'
 const SubsetElement = ({ navigation, algo }) => {
 	const styles = getDynamicStyles(algo.category)
 
@@ -21,9 +28,24 @@ const SubsetElement = ({ navigation, algo }) => {
 	const imageSource = imageMapping[`${algo.picturePath.toLowerCase()}`]
 	const [isFavorite, setIsFavorite] = useState(isInFavorites(algo._id))
 
+	const scale = useSharedValue(0)
+
+	useEffect(() => {
+		scale.value = withSequence(
+			withTiming(1.05, { duration: 150, easing: Easing.ease }),
+			withSpring(1, { damping: 2, stiffness: 80 })
+		)
+	}, [])
+
+	const animatedStyle = useAnimatedStyle(() => {
+		return {
+			transform: [{ scale: scale.value }],
+		}
+	})
+
 	return (
 		<>
-			<View style={{ flex: 1 }}>
+			<Animated.View style={[{ flex: 1 }, animatedStyle]}>
 				<TouchableOpacity
 					style={styles.algoElement}
 					onPress={() =>
@@ -69,7 +91,7 @@ const SubsetElement = ({ navigation, algo }) => {
 						</TouchableOpacity>
 					</View>
 				</TouchableOpacity>
-			</View>
+			</Animated.View>
 		</>
 	)
 }

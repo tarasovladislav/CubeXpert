@@ -49,46 +49,6 @@ const Home = ({ navigation }) => {
 						timeout={index * 100}
 					/>
 				))}
-
-				{/* <MenuItem
-					text="Advanced"
-					onPress={() => {
-						navigation.navigate('Choose Category')
-					}}
-					image="advanced"
-				/>
-
-				<MenuItem
-					text="Patterns"
-					onPress={() => {
-						navigation.navigate('Category', {
-							name: 'Patterns',
-							category: 'Patterns',
-						})
-					}}
-					image="patterns"
-				/>
-
-				<MenuItem
-					text="Favorites"
-					onPress={() => {
-						navigation.navigate('Favorites', {
-							name: 'Favorites',
-							category: 'Patterns',
-						})
-					}}
-					image="favorite"
-				/>
-
-				<MenuItem
-					text="Rotate The Cube"
-					onPress={() => {
-						navigation.navigate('RotateTheCube', {
-							name: 'Rotate The Cube',
-						})
-					}}
-					image="rotate"
-				/> */}
 			</ScrollView>
 		</SafeAreaView>
 	)
