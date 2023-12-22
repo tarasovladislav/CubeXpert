@@ -18,7 +18,7 @@ const CategoryChoisePage = ({ navigation, type }) => {
 	])
 
 	return (
-		<ScrollView style={{paddingVertical:5}}>
+		<ScrollView style={{paddingVertical:5, marginBottom: 5}}>
 			{categoryList &&
 				categoryList.map((cat) => (
 					<View style={commonStyles.container} key={cat.title}>

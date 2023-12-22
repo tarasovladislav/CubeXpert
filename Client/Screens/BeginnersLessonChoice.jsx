@@ -66,7 +66,7 @@ const BeginnersLessonChoice = ({ navigation }) => {
 	return (
 		<SafeAreaView>
 			<ScrollView
-				style={{ paddingVertical: 5 }}
+				style={{ paddingVertical: 5, marginBottom: 5 }}
 				refreshControl={
 					<RefreshControl
 						refreshing={refreshing}

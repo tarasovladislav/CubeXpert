@@ -101,6 +101,7 @@ export default function App() {
 					</Stack.Navigator>
 				</SettingsContextProvider>
 			</FavoritesContextProvider>
+			{Platform.OS === 'android' && <StatusBar barStyle={statusBarStyle} />}
 			{Platform.OS === 'ios' && <StatusBar barStyle={statusBarStyle} />}
 		</NavigationContainer>
 	)

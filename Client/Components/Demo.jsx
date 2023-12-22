@@ -18,7 +18,7 @@ const Demo = ({ demo = '', cubeSize = 3 }) => {
 	return (
 		<View style={[commonStyles.flex1, {}]}>
           
-			<View style={[commonStyles.flex1]}>
+			<View style={[commonStyles.flex1, ]}>
 				{isCubeLoading && (
 					<View style={styles.loadingOverlay}>
 						<ActivityIndicator size="large" />
