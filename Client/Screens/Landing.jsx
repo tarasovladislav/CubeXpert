@@ -21,33 +21,41 @@ import Animated, {
 	useAnimatedStyle,
 	withSpring,
 	withTiming,
+    withSequence,
+    Easing
 } from 'react-native-reanimated'
 
 const Home = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [isDemoCubeVisible, setIsDemoCubeVisible] = useState(false) // Set it to true initially
-	useFocusEffect(() => {
-		setIsLoading(false)
-		setIsDemoCubeVisible(true) // Hide and unmount the Demo cube WebView
-		buttonOpacity.value = withTiming(1, { duration: 2000 })
-
-		return () => {
-			setIsDemoCubeVisible(false)
-			buttonOpacity.value = withTiming(0)
-		}
-	})
+	
 
 	// adding animation to get started button
+    const scale = useSharedValue(0)
 
 	const buttonOpacity = useSharedValue(0)
 	const animatedStyles = useAnimatedStyle(() => {
 		return {
 			// opacity: opacity.value,
+            transform: [{ scale: scale.value }],
 			opacity: buttonOpacity.value,
 		}
 	}, [])
 
-	
+	useFocusEffect(() => {
+		setIsLoading(false)
+		setIsDemoCubeVisible(true) // Hide and unmount the Demo cube WebView
+		buttonOpacity.value = withTiming(1, { duration: 2000 })
+        scale.value = withSequence(
+            withTiming(1.2, { duration: 800, easing: Easing.ease }),
+            withSpring(1, { damping: 2, stiffness: 80 })
+        )
+		return () => {
+			setIsDemoCubeVisible(false)
+			buttonOpacity.value = withTiming(0)
+            scale.value = withTiming(0)
+		}
+	})
 	if (isLoading) {
 		return <Loading />
 	}

@@ -20,7 +20,6 @@ const Demo = ({ demo = '', cubeSize = 3 }) => {
 
 	//animated
 	const borderRadius = useSharedValue(50)
-	const opacity = useSharedValue(0)
 
     const scale = useSharedValue(0)
 
