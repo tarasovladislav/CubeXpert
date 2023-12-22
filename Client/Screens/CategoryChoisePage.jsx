@@ -1,15 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import {
-	TouchableOpacity,
-	View,
-	Text,
-	StyleSheet,
-	Dimensions,
-    ScrollView,
-} from 'react-native'
-import { Image } from 'react-native-elements'
-import { imageMapping } from '../assets/img/'
-import commonStyles from '../commonStyles'
+import React, { useState } from 'react'
+import { ScrollView } from 'react-native'
+import MenuItem from '../Components/MenuItem'
+
 const CategoryChoisePage = ({ navigation, type }) => {
 	const [categoryList, setCategoryList] = useState([
 		{ title: 'First Two Layers', path: 'F2L', picturePath: 'F2L1' },
@@ -18,56 +10,24 @@ const CategoryChoisePage = ({ navigation, type }) => {
 	])
 
 	return (
-		<ScrollView style={{paddingVertical:5}}>
+		<ScrollView style={{ paddingVertical: 5, marginBottom: 5 }}>
 			{categoryList &&
-				categoryList.map((cat) => (
-					<View style={commonStyles.container} key={cat.title}>
-						<TouchableOpacity
-							style={{
-								flexDirection: 'row',
-								alignItems: 'center',
-								gap: 20,
-								margin: 10,
-								width: '100%',
-                                
-							}}
-							onPress={() =>
-								navigation.navigate('Category', {
-									name: cat.title,
-									category: cat.path,
-								})
-							}
-						>
-							<Image
-								style={styles.image}
-								source={
-									imageMapping[
-										`${cat.picturePath.toLowerCase()}`
-									]
-								}
-								resizeMode="contain"
-								transition={true}
-							/>
-							<Text style={styles.header}>{cat.title}</Text>
-						</TouchableOpacity>
-					</View>
+				categoryList.map((cat, index) => (
+					<MenuItem
+						onPress={() =>
+							navigation.navigate('Category', {
+								name: cat.title,
+								category: cat.path,
+							})
+						}
+						text={cat.title}
+						image={cat.picturePath.toLowerCase()}
+						timeout={index * 100}
+						key={index}
+					/>
 				))}
 		</ScrollView>
 	)
 }
-const width = Dimensions.get('window').width
-
-const styles = StyleSheet.create({
-	image: {
-		width: width / 4,
-		height: width / 4,
-	},
-	header: {
-		fontSize: 22,
-		fontWeight: '600',
-        color: commonStyles.buttonColor
-
-	},
-})
 
 export default CategoryChoisePage

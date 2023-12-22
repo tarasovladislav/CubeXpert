@@ -65,7 +65,7 @@ const CategoryPage = ({ route, navigation }) => {
 	return (
 		<SafeAreaView>
 			<ScrollView
-				style={{ padding: 5 }}
+				style={{ padding: 5, marginBottom: 5 }}
 				refreshControl={
 					<RefreshControl
 						refreshing={refreshing}

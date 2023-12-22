@@ -1,4 +1,4 @@
-import React, { useState, } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
 	View,
 	Text,
@@ -15,21 +15,42 @@ import Demo from '../Components/Demo'
 
 import { LinearGradient } from 'expo-linear-gradient'
 
+//animated
+import Animated, {
+	useSharedValue,
+	useAnimatedStyle,
+	withSpring,
+	withTiming,
+} from 'react-native-reanimated'
+
 const Home = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [isDemoCubeVisible, setIsDemoCubeVisible] = useState(false) // Set it to true initially
 	useFocusEffect(() => {
 		setIsLoading(false)
 		setIsDemoCubeVisible(true) // Hide and unmount the Demo cube WebView
+		buttonOpacity.value = withTiming(1, { duration: 2000 })
 
 		return () => {
 			setIsDemoCubeVisible(false)
+			buttonOpacity.value = withTiming(0)
 		}
 	})
+
+	// adding animation to get started button
+
+	const buttonOpacity = useSharedValue(0)
+	const animatedStyles = useAnimatedStyle(() => {
+		return {
+			// opacity: opacity.value,
+			opacity: buttonOpacity.value,
+		}
+	}, [])
+
+	
 	if (isLoading) {
 		return <Loading />
 	}
-
 	return (
 		<>
 			<LinearGradient
@@ -39,14 +60,17 @@ const Home = ({ navigation }) => {
 				style={{ flex: 1 }}
 			>
 				<SafeAreaView style={[commonStyles.flex1, { marginTop: 50 }]}>
-					<View style={[{ flex: 1 }]}>
+					<Animated.View style={[{ flex: 1 }, animatedStyles]}>
 						<Text style={styles.logoText}>CubeXpert</Text>
-					</View>
+					</Animated.View>
 					<View style={{ flex: 2 }}>
-						{/* {isDemoCubeVisible && <Demo demo="zzUuzzd'D'UE'D'D'E'UzzUuzzd'D'UE'D'D'E'U" />} */}
-						{isDemoCubeVisible && <Demo demo="RRRR" />}
+						{isDemoCubeVisible && (
+							<Demo demo="zzUuzzd'D'UE'D'D'E'UzzUuzzd'D'UE'D'D'E'U" />
+						)}
+
+						{/* {isDemoCubeVisible && <Demo demo="DDMM" />} */}
 					</View>
-					<View style={[{ flex: 1 }]}>
+					<Animated.View style={[{ flex: 1 }, animatedStyles]}>
 						<View style={styles.buttonContainer}>
 							<View style={styles.buttonRow}>
 								<TouchableOpacity
@@ -61,7 +85,7 @@ const Home = ({ navigation }) => {
 								</TouchableOpacity>
 							</View>
 						</View>
-					</View>
+					</Animated.View>
 				</SafeAreaView>
 			</LinearGradient>
 		</>

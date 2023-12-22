@@ -2,7 +2,7 @@
   "expo": {
     "name": "CubeXpert",
     "slug": "CubeXpert",
-    "version": "1.0.1",
+    "version": "4.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,6 +19,7 @@
       "bundleIdentifier": "com.tarasovladislav.CubeXpert"
     },
     "android": {
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -37,7 +38,16 @@
       "policy": "nativeVersion"
     },
     "updates": {
+      "fallbackToCacheTimeout": 60000,
       "url": "https://u.expo.dev/fc5548a8-fd8b-440b-a3e0-064e880b2d9f"
-    }
+    },
+    "plugins": [
+      [
+        "expo-updates",
+        {
+          "username": "tarasovladislav"
+        }
+      ]
+    ]
   }
 }

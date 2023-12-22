@@ -1,26 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Dimensions, SafeAreaView, ScrollView } from 'react-native'
 import MenuItem from '../Components/MenuItem'
+
 const Home = ({ navigation }) => {
+	const [menuItems, setMenuItems] = useState([
+		{
+			text: 'Beginners',
+			navigateTo: 'Beginners Lessons',
+			image: 'beginner',
+		},
+		{ text: 'Advanced', navigateTo: 'Choose Category', image: 'advanced' },
+		{
+			text: 'Patterns',
+			navigateTo: 'Category',
+			image: 'patterns',
+			name: 'Patterns',
+			category: 'Patterns',
+		},
+		{
+			text: 'Favorites',
+			navigateTo: 'Favorites',
+			image: 'favorite',
+			name: 'Favorites',
+			category: 'Patterns',
+		},
+		{
+			text: 'Rotate The Cube',
+			navigateTo: 'RotateTheCube',
+			image: 'rotate',
+			name: 'Rotate The Cube',
+		},
+	])
+
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<ScrollView style={{ flex: 1, margin: 5 }}>
-				<MenuItem
-					text="Beginners"
-					onPress={() => {
-						navigation.navigate('Beginners Lessons')
-					}}
-                    image="beginner"
+				{menuItems.map((item, index) => (
+					<MenuItem
+						text={item.text}
+						onPress={() => {
+							navigation.navigate(item.navigateTo, {
+								name: item.name,
+								category: item.category,
+							})
+						}}
+						image={item.image}
+						key={index}
+						timeout={index * 100}
+					/>
+				))}
 
-				/>
-
-				<MenuItem
+				{/* <MenuItem
 					text="Advanced"
 					onPress={() => {
 						navigation.navigate('Choose Category')
 					}}
-                    image="advanced"
-
+					image="advanced"
 				/>
 
 				<MenuItem
@@ -31,7 +66,7 @@ const Home = ({ navigation }) => {
 							category: 'Patterns',
 						})
 					}}
-                    image="patterns"
+					image="patterns"
 				/>
 
 				<MenuItem
@@ -42,7 +77,7 @@ const Home = ({ navigation }) => {
 							category: 'Patterns',
 						})
 					}}
-                    image="favorite"
+					image="favorite"
 				/>
 
 				<MenuItem
@@ -52,8 +87,8 @@ const Home = ({ navigation }) => {
 							name: 'Rotate The Cube',
 						})
 					}}
-                    image="rotate"
-				/>
+					image="rotate"
+				/> */}
 			</ScrollView>
 		</SafeAreaView>
 	)
@@ -61,8 +96,6 @@ const Home = ({ navigation }) => {
 
 const width = Dimensions.get('window').width
 
-const styles = StyleSheet.create({
-	
-})
+const styles = StyleSheet.create({})
 
 export default Home
