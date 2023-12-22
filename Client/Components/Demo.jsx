@@ -1,31 +1,53 @@
-import React, { useState } from 'react'
-import {
-	View,
-	StyleSheet,
-	Dimensions,
-	ActivityIndicator,
-} from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { useSettingsContext } from '../Contexts/SettingsContext'
 import commonStyles from '../commonStyles'
 import { BASE_URL } from '../env'
+import Animated, {
+	useSharedValue,
+	useAnimatedStyle,
+	withSpring,
+	withTiming,
+} from 'react-native-reanimated'
 
 const Demo = ({ demo = '', cubeSize = 3 }) => {
 	const { settings, webViewKey } = useSettingsContext()
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
 	let { U, F, R, L, B, D, cube } = settings
 
+	//animated
+	const borderRadius = useSharedValue(50)
+	const opacity = useSharedValue(0)
+	const animatedStyles = useAnimatedStyle(() => {
+		return {
+			// opacity: opacity.value,
+			borderRadius: borderRadius.value,
+		}
+	}, [])
+
+	useEffect(() => {
+		if (!isCubeLoading) {
+			borderRadius.value = withTiming(1000, { duration: 3000 })
+		}
+	}, [isCubeLoading])
+
 	return (
-		<View style={[commonStyles.flex1, {}]}>
-          
-			<View style={[commonStyles.flex1, ]}>
+		<View style={[commonStyles.flex1]}>
+			<View style={[commonStyles.flex1]}>
 				{isCubeLoading && (
 					<View style={styles.loadingOverlay}>
-						<ActivityIndicator size="large" />
+						{/* <ActivityIndicator size="large" /> */}
 					</View>
 				)}
-				<View style={styles.shadow}>
-					<View style={styles.webviewWrapper}>
+				{/* <Animated.View style={[styles.shadow, animatedStyles]}> */}
+					<Animated.View
+						style={[
+							styles.webviewWrapper,
+							animatedStyles,
+							{ opacity: isCubeLoading ? 0 : 1 },
+						]}
+					>
 						<WebView
 							source={{
 								uri: `${BASE_URL}/rotate?cubesize=${cubeSize}&cubecolor=${cube.replace(
@@ -59,8 +81,8 @@ const Demo = ({ demo = '', cubeSize = 3 }) => {
 							onLoadStart={() => setIsCubeLoading(true)}
 							onLoadEnd={() => setIsCubeLoading(false)}
 						/>
-					</View>
-				</View>
+					</Animated.View>
+				{/* </Animated.View> */}
 			</View>
 		</View>
 	)
@@ -69,20 +91,29 @@ const Demo = ({ demo = '', cubeSize = 3 }) => {
 const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
-
 	webview: {
 		flex: 1,
 		margin: -2,
+		backgroundColor: commonStyles.demoCubeBackground,
+		borderRadius: 50,
 	},
 	webviewWrapper: {
 		flex: 1,
 		marginHorizontal: '20%',
-		borderRadius: 1000,
+		// borderRadius: 1000,
 		overflow: 'hidden',
 		maxWidth: width * 0.8,
 		maxHeight: width * 0.6,
-        shadowColor: commonStyles.shadowColor,
-		elevation:100, //android shadow
+		shadowColor: commonStyles.shadowColor,
+		elevation: 50, //android shadow
+        // backgroundColor: commonStyles.demoCubeBackground,
+
+        // shadowOffset: {
+		// 	width: 0,
+		// 	height: 12,
+		// },
+		// shadowOpacity: 0.98,
+		// shadowRadius: 100.0,
 	},
 	shadow: {
 		//ios shadow
@@ -95,9 +126,7 @@ const styles = StyleSheet.create({
 		},
 		shadowOpacity: 0.98,
 		shadowRadius: 100.0,
-        
 	},
-
 })
 
 export default Demo
