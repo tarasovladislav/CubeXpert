@@ -16,7 +16,14 @@ import { useFavoritesContext } from '../Contexts/FavoritesContext'
 import commonStyles from '../commonStyles'
 import TouchableButtonTooltip from './TouchableButtonTooltip'
 import { BASE_URL } from '../env'
-
+import Animated, {
+	useSharedValue,
+	useAnimatedStyle,
+	withSpring,
+	withTiming,
+    withSequence,
+    Easing
+} from 'react-native-reanimated'
 const CubeAnimation = ({
 	category,
 	alg,
@@ -86,9 +93,9 @@ const CubeAnimation = ({
 
 	// Starting an Settimeout to highlight the current step of the cube whenever user press Play button
 
-//todo since animation finished straght after, remove delay
+	//todo since animation finished straght after, remove delay
 
-    useEffect(() => {
+	useEffect(() => {
 		if (isPlaying) {
 			setAllowControl(false)
 			if (currentStep === len - 1) setIsPlaying(false)
@@ -108,8 +115,7 @@ const CubeAnimation = ({
 	const { width } = Dimensions.get('window')
 	// Cube control buttons handler
 	const handleButtonClick = (elementSelector) => {
-console.log(width)
-const newWidth = Math.floor(width);
+		const newWidth = Math.floor(width)
 		executeJavaScript(`clickCanvas(${newWidth}, ${elementSelector});true`)
 		switch (elementSelector) {
 			case 1.5:
@@ -259,9 +265,30 @@ const newWidth = Math.floor(width);
 			break
 	}
 
+    const scale = useSharedValue(0)
+
+	const animatedStyles = useAnimatedStyle(() => {
+		return {
+            transform: [{ scale: scale.value }],
+		}
+	}, [])
+
+    useEffect(() => {
+		if (!isCubeLoading) {
+            scale.value = withSequence(
+                withTiming(1.2, { duration: 200, easing: Easing.ease }),
+                withSpring(1, { damping: 2, stiffness: 80,  }),
+                // withSpring(1, { damping: 2, stiffness: 80 })
+            )
+		}
+        return () => {
+            scale.value = withTiming(0)
+        }
+	}, [isCubeLoading])
+
 	return (
 		<View style={[commonStyles.flex1]}>
-			<View style={[commonStyles.flex1, {}]}>
+			<Animated.View style={[commonStyles.flex1, animatedStyles]}>
 				{isCubeLoading && (
 					<View style={styles.loadingOverlay}>
 						<ActivityIndicator size="large" />
@@ -286,7 +313,7 @@ const newWidth = Math.floor(width);
 							''
 						)}&demo=${demo}`,
 					}}
-                    javaScriptEnabled={true}
+					javaScriptEnabled={true}
 					ref={cubeAnimationWebView}
 					key={webViewKey}
 					scrollEnabled={false}
@@ -296,7 +323,7 @@ const newWidth = Math.floor(width);
 					onLoadStart={() => setIsCubeLoading(true)}
 					onLoadEnd={() => setIsCubeLoading(false)}
 				/>
-			</View>
+			</Animated.View>
 
 			{scramble === 0 && (
 				<View style={styles.otherContainer}>
@@ -443,7 +470,7 @@ const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
 	webview: {
 		maxHeight: width * 1.49,
-        margin:-1//test this
+		margin: -1, //test this
 	},
 	buttonContainer: {
 		position: 'relative',

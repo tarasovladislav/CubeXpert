@@ -17,7 +17,14 @@ import TouchableButtonTooltip from './TouchableButtonTooltip'
 import commonStyles from '../commonStyles'
 import { BASE_URL } from '../env'
 import * as icons from 'react-native-vector-icons'
-
+import Animated, {
+	useSharedValue,
+	useAnimatedStyle,
+	withSpring,
+	withTiming,
+	withSequence,
+	Easing,
+} from 'react-native-reanimated'
 const CubeAnimation = ({
 	category,
 	alg,
@@ -66,7 +73,7 @@ const CubeAnimation = ({
 	const [B, setB] = useState(back)
 	const [R, setR] = useState(right)
 	const handleRecolor = () => {
-        setWebViewKey(webViewKey + 1)
+		setWebViewKey(webViewKey + 1)
 		let temp = L
 		setL(F)
 		setF(R)
@@ -165,10 +172,30 @@ const CubeAnimation = ({
 		default:
 			break
 	}
+	const scale = useSharedValue(0)
+
+	const animatedStyles = useAnimatedStyle(() => {
+		return {
+			transform: [{ scale: scale.value }],
+		}
+	}, [])
+
+	useEffect(() => {
+		if (!isCubeLoading) {
+			scale.value = withSequence(
+				withTiming(1.2, { duration: 200, easing: Easing.ease }),
+				withSpring(1, { damping: 2, stiffness: 80 })
+				// withSpring(1, { damping: 2, stiffness: 80 })
+			)
+		}
+		return () => {
+			scale.value = withTiming(0)
+		}
+	}, [isCubeLoading])
 
 	return (
 		<View style={[commonStyles.flex1]}>
-			<View style={[commonStyles.flex1]}>
+			<Animated.View style={[commonStyles.flex1, animatedStyles]}>
 				{isCubeLoading && (
 					<View style={styles.loadingOverlay}>
 						<ActivityIndicator size="large" />
@@ -193,7 +220,7 @@ const CubeAnimation = ({
 					onLoadStart={() => setIsCubeLoading(true)}
 					onLoadEnd={() => setIsCubeLoading(false)}
 				/>
-			</View>
+			</Animated.View>
 
 			<View style={styles.otherContainer}>
 				<View style={{ alignItems: 'center' }}>
