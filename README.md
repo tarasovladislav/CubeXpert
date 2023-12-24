@@ -61,18 +61,18 @@ Ready to elevate your Rubik's Cube game? Download CubeXpert now and take the fir
 ## ScreenShots
 
 <p align="center">
-  <img src="./Client/assets/screenshots/1.png" width="200">
-  <img src="./Client/assets/screenshots/2.png" width="200">
-  <img src="./Client/assets/screenshots/3.png" width="200">
-  <img src="./Client/assets/screenshots/4.png" width="200">
-  <img src="./Client/assets/screenshots/5.png" width="200">
-  <img src="./Client/assets/screenshots/6.png" width="200">
-  <img src="./Client/assets/screenshots/7.png" width="200">
-  <img src="./Client/assets/screenshots/8.png" width="200">
-  <img src="./Client/assets/screenshots/9.png" width="200">
-  <img src="./Client/assets/screenshots/10.png" width="200">
-  <img src="./Client/assets/screenshots/11.png" width="200">
   <img src="./Client/assets/screenshots/12.png" width="200">
+  <img src="./Client/assets/screenshots/11.png" width="200">
+  <img src="./Client/assets/screenshots/10.png" width="200">
+  <img src="./Client/assets/screenshots/9.png" width="200">
+  <img src="./Client/assets/screenshots/8.png" width="200">
+  <img src="./Client/assets/screenshots/7.png" width="200">
+  <img src="./Client/assets/screenshots/6.png" width="200">
+  <img src="./Client/assets/screenshots/5.png" width="200">
+  <img src="./Client/assets/screenshots/4.png" width="200">
+  <img src="./Client/assets/screenshots/3.png" width="200">
+  <img src="./Client/assets/screenshots/2.png" width="200">
+  <img src="./Client/assets/screenshots/1.png" width="200">
 </p>
 
 ## Run Locally
@@ -131,4 +131,3 @@ Scan QR Code below
 ## Authors
 
 - [@tarasovladislav](https://www.github.com/tarasovladislav)
-
