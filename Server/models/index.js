@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const Algorithm = require("./algorithm");
 const Lesson = require("./lesson");
-
+const User = require("./user");
 mongoose
   .connect(process.env.MONGODB_CONNECT_URI)
   .then(() => {
@@ -44,7 +44,7 @@ async function allSubsets(query) {
 }
 
 async function oneAlgo(params) {
-    return await Algorithm.findOne({ _id: params._id });
+  return await Algorithm.findOne({ _id: params._id });
 }
 
 async function randomAlgo() {
@@ -85,6 +85,16 @@ async function modifyAlgo(params, body) {
   return await Algorithm.find({ picturePath: params.picturePath });
 }
 
+async function addPush(body) {
+  const existingUser = await User.findOne(body);
+  if (existingUser) {
+    console.log("User with the same expoPushToken already exists.");
+    return existingUser;
+  } else {
+    return await User.insertMany(body);
+  }
+}
+
 module.exports = {
   deleteAlgo,
   modifyAlgo,
@@ -96,4 +106,5 @@ module.exports = {
   allLessons,
   createLesson,
   randomAlgo,
+  addPush,
 };

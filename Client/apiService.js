@@ -58,6 +58,21 @@ async function getSubsetList(cat) {
 	}
 }
 
+async function registerForPushNotifications(expoPushToken) {
+    try {
+        const response = await fetch(`${BASE_URL}/push-token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ expoPushToken }),
+        })
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = {
 	getAlgo,
 	getSubsetAlgorithms,
@@ -65,4 +80,5 @@ module.exports = {
 	getAllAlgs,
 	getAllLessons,
 	getRandomAlg,
+    registerForPushNotifications
 }

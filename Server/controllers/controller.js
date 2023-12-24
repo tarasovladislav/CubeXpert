@@ -45,14 +45,14 @@ async function getSubsets(req, res) {
 }
 
 async function getAlgo(req, res) {
-    try {
-      const result = await model.oneAlgo(req.params);
-      res.status(200).send(result);
-    } catch (error) {
-      console.error("Error in getAlgo:", error);
-      res.status(500).send({ error: "Internal Server Error" });
-    }
+  try {
+    const result = await model.oneAlgo(req.params);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error in getAlgo:", error);
+    res.status(500).send({ error: "Internal Server Error" });
   }
+}
 
 async function removeAlgo(req, res) {
   try {
@@ -97,6 +97,17 @@ async function addLesson(req, res) {
   }
 }
 
+async function addPushToken(req, res) {
+  try {
+    const result = await model.addPush(req.body);
+    res.status(200);
+    res.send(result);
+  } catch (error) {
+    res.status(500);
+    res.send(error);
+  }
+}
+
 function cubeAnimation(req, res) {
   res.sendFile(__dirname + "/public/index.html");
 }
@@ -112,4 +123,5 @@ module.exports = {
   addLesson,
   cubeAnimation,
   getRandomAlgo,
+  addPushToken
 };
