@@ -2,7 +2,7 @@
   "expo": {
     "name": "CubeXpert",
     "slug": "CubeXpert",
-    "version": "4.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,7 +19,8 @@
       "bundleIdentifier": "com.tarasovladislav.CubeXpert"
     },
     "android": {
-      "versionCode": 4,
+        "googleServicesFile": "./google-services.json",
+      "versionCode": 5,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
