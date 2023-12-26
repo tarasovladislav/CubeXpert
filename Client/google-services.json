@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "848450522985",
+    "project_id": "cubexpert-177e5",
+    "storage_bucket": "cubexpert-177e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848450522985:android:70ad6807268e9e7d68f7f8",
+        "android_client_info": {
+          "package_name": "com.tarasovladislav.CubeXpert"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBONejYxUs93DlyWhwjUfsft9qq18tHddU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

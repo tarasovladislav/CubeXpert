@@ -24,6 +24,7 @@ import Animated, {
     withSequence,
     Easing
 } from 'react-native-reanimated'
+import * as Updates from 'expo-updates';
 
 const Home = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(true)
@@ -41,6 +42,24 @@ const Home = ({ navigation }) => {
 			opacity: buttonOpacity.value,
 		}
 	}, [])
+
+//check this asap 
+// useEffect(() => {
+//     async function onFetchUpdateAsync() {
+//     try {
+//       const update = await Updates.checkForUpdateAsync();
+
+//       if (update.isAvailable) {
+//         await Updates.fetchUpdateAsync();
+//         await Updates.reloadAsync();
+//       }
+//     } catch (error) {
+//       // You can also add an alert() to see the error message in case of an error when fetching updates.
+//       alert(`Error fetching latest Expo update: ${error}`);
+//     }
+//   }
+// onFetchUpdateAsync()
+// }, [])
 
 	useFocusEffect(() => {
 		setIsLoading(false)
@@ -73,6 +92,7 @@ const Home = ({ navigation }) => {
 					</Animated.View>
 					<View style={{ flex: 2 }}>
 						{isDemoCubeVisible && (
+							// <Demo demo="MMM" />
 							<Demo demo="zzUuzzd'D'UE'D'D'E'UzzUuzzd'D'UE'D'D'E'U" />
 						)}
 
