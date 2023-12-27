@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import { SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native'
+import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 import { Overlay } from 'react-native-elements'
 import ProfileSettings from '../Components/ProfileSettings'
 import TouchableButton from '../Components/TouchableButton'
@@ -25,8 +25,8 @@ const CrossTrainer = () => {
 		algo: ['U'],
 		category: 'CrossTraining',
 	})
-    console.log(scramble);
-    console.log(difficulty);
+	console.log(scramble)
+	console.log(difficulty)
 	const [difficultyVisible, setDifficultyVisible] = useState(false)
 	const toggleDifficulty = () => setDifficultyVisible(!difficultyVisible)
 
@@ -60,6 +60,11 @@ const CrossTrainer = () => {
 				currentAlg={currentAlg}
 				scramble={0}
 			/>
+            <View style={styles.otherContainer}>
+				<View style={{ alignItems: 'center' }}>
+					<Text style={styles.algoText}>{scramble}</Text>
+				</View>
+			</View>
 			<View style={[styles.buttonContainer]}>
 				<TouchableButton
 					onPress={toggleDifficulty}
@@ -72,6 +77,8 @@ const CrossTrainer = () => {
 					text="Another Scramble"
 				/>
 			</View>
+			
+
 			<View style={styles.buttonContainer}></View>
 
 			<TouchableOpacity
@@ -100,6 +107,16 @@ const styles = StyleSheet.create({
 	buttonContainer: {
 		position: 'relative',
 		flexDirection: 'row',
+	},
+    otherContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    algoText: {
+		textAlign: 'center',
+		fontSize: 16,
+		width: '80%',
 	},
 })
 export default CrossTrainer
