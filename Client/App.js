@@ -26,6 +26,7 @@ import * as Device from 'expo-device'
 import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import apiService from './apiService'
+import CrossTrainer from './Screens/CrossTrainer'
 
 
 export default function App() {
@@ -164,6 +165,13 @@ export default function App() {
 							options={({ route }) => ({
 								title: route.params.name,
 							})}
+						/>
+						<Stack.Screen
+							name="CrossTrainer"
+							component={CrossTrainer}
+							options={{
+								title: 'Cross Trainer',
+							}}
 						/>
 					</Stack.Navigator>
 				</SettingsContextProvider>

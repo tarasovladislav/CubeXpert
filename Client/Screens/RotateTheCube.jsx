@@ -64,7 +64,7 @@ const RotateTheCube = () => {
 						isPlaying={isPlaying}
 						setIsPlaying={setIsPlaying}
 						category={currentAlg.category}
-						alg={""}
+						alg={''}
 						currentAlg={currentAlg}
 						scramble={2}
 					/>
@@ -78,7 +78,7 @@ const RotateTheCube = () => {
 							onPress={() => {
 								setAnimationKey(animationKey + 1)
 							}}
-							text="Another scramble"
+							text="Another Scramble"
 						/>
 					</View>
 					<View style={styles.buttonContainer}></View>
@@ -101,8 +101,6 @@ const RotateTheCube = () => {
 							style={{ padding: 5 }}
 						/>
 					</TouchableOpacity>
-
-					
 				</SafeAreaView>
 			)}
 		</>

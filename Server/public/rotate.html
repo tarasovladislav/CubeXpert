@@ -105,7 +105,7 @@
             overlay2.style.backgroundColor = "#" + queryParams.bgcolor;
             // Create the configuration string for AnimCubeJS
 
-            let animCubeConfig = `scramble=${queryParams.scramble}&bgcolor=${queryParams.bgcolor || 'e7f0f8'}&snap=${queryParams.snap || 0}&buttonbar=${queryParams.buttonbar || 1}&borderwidth=${queryParams.borderwidth || 5}&counter=${queryParams.counter || 1}&speed=${queryParams.speed}&cubecolor=${queryParams.cubecolor}&colors=${queryParams.colors || ''}&colorscheme=${queryParams.colorscheme}&move=${queryParams.move || ''}&initrevmove=${queryParams.initmove || ''}&yz=1&facelets=${queryParams.facelets || ''}&ignored=${queryParams.ignored || '#eeeeee'}&repeat=0&clickprogress=0&textsize=0&demo=${queryParams.demo || ""}`;
+            let animCubeConfig = `scramble=${queryParams.scramble}&bgcolor=${queryParams.bgcolor || 'e7f0f8'}&snap=${queryParams.snap || 0}&buttonbar=${queryParams.buttonbar || 1}&borderwidth=${queryParams.borderwidth || 5}&counter=${queryParams.counter || 1}&speed=${queryParams.speed}&cubecolor=${queryParams.cubecolor}&colors=${queryParams.colors || ''}&colorscheme=${queryParams.colorscheme}&move=${queryParams.move || ''}&initmove=${queryParams.initmove || ''}&initrevmove=${queryParams.initrevmove || ''}&yz=1&facelets=${queryParams.facelets || ''}&ignored=${queryParams.ignored || '#eeeeee'}&repeat=0&clickprogress=0&textsize=0&demo=${queryParams.demo || ""}`;
                 if (!queryParams.cubesize)queryParams.cubesize = 3
             // Create a script element to configure AnimCubeJS
             let script = document.createElement('script');

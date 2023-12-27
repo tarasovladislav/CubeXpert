@@ -21,8 +21,8 @@ import Animated, {
 	useAnimatedStyle,
 	withSpring,
 	withTiming,
-    withSequence,
-    Easing
+	withSequence,
+	Easing,
 } from 'react-native-reanimated'
 const CubeAnimation = ({
 	category,
@@ -243,6 +243,11 @@ const CubeAnimation = ({
 			setupmoves = ''
 
 			break
+		case 'CrossTraining':
+			facelets = 'qqqq0qqqqq1q111q1qqqqq22qqqqqqq33qqqqqqq4qq4qqqqq55qqq'
+			setupmoves = manipulateString(alg)
+
+			break
 		case 'Beginners':
 			colored = currentAlg.colored || ''
 			setupmoves = currentAlg.setupmoves || ''
@@ -265,25 +270,25 @@ const CubeAnimation = ({
 			break
 	}
 
-    const scale = useSharedValue(0)
+	const scale = useSharedValue(0)
 
 	const animatedStyles = useAnimatedStyle(() => {
 		return {
-            transform: [{ scale: scale.value }],
+			transform: [{ scale: scale.value }],
 		}
 	}, [])
 
-    useEffect(() => {
+	useEffect(() => {
 		if (!isCubeLoading) {
-            scale.value = withSequence(
-                withTiming(1.2, { duration: 200, easing: Easing.ease }),
-                withSpring(1, { damping: 2, stiffness: 80,  }),
-                // withSpring(1, { damping: 2, stiffness: 80 })
-            )
+			scale.value = withSequence(
+				withTiming(1.2, { duration: 200, easing: Easing.ease }),
+				withSpring(1, { damping: 2, stiffness: 80 })
+				// withSpring(1, { damping: 2, stiffness: 80 })
+			)
 		}
-        return () => {
-            scale.value = withTiming(0)
-        }
+		return () => {
+			scale.value = withTiming(0)
+		}
 	}, [isCubeLoading])
 
 	return (
@@ -299,13 +304,17 @@ const CubeAnimation = ({
 						uri: `${BASE_URL}/rotate?cubesize=${cubeSize}&scramble=${scramble}&cubecolor=${cube.replace(
 							'#',
 							''
-						)}&initmove=${setupmoves}&move=${alg}&colors=${U.replace(
+						)}${
+							category === 'CrossTraining'
+								? `&initmove=${setupmoves}`
+								: `&initrevmove=${setupmoves}`
+						}&move=${alg}&colors=${U.replace('#', '')}${D.replace(
 							'#',
 							''
-						)}${D.replace('#', '')}${F.replace('#', '')}${B.replace(
+						)}${F.replace('#', '')}${B.replace('#', '')}${L.replace(
 							'#',
 							''
-						)}${L.replace('#', '')}${R.replace('#', '')}${R.replace(
+						)}${R.replace('#', '')}${R.replace(
 							'#',
 							''
 						)}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=${commonStyles.backgroundColor.replace(
@@ -325,7 +334,8 @@ const CubeAnimation = ({
 				/>
 			</Animated.View>
 
-			{scramble === 0 && (
+			{/* {scramble === 0 && ( */}
+			{scramble === 0 && category !== 'CrossTraining' && (
 				<View style={styles.otherContainer}>
 					<View style={{ alignItems: 'center' }}>
 						<Text style={styles.algoText}>

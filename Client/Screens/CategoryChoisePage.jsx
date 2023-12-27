@@ -11,6 +11,13 @@ const CategoryChoisePage = ({ navigation, type }) => {
 
 	return (
 		<ScrollView style={{ paddingVertical: 5, marginBottom: 5 }}>
+			<MenuItem
+				onPress={() => navigation.navigate('CrossTrainer')}
+				text={'Cross Trainer'}
+				image={'crossto'}
+				timeout={0 * 100}
+				key={1}
+			/>
 			{categoryList &&
 				categoryList.map((cat, index) => (
 					<MenuItem
@@ -22,7 +29,7 @@ const CategoryChoisePage = ({ navigation, type }) => {
 						}
 						text={cat.title}
 						image={cat.picturePath.toLowerCase()}
-						timeout={index * 100}
+						timeout={(index + 1) * 100}
 						key={index}
 					/>
 				))}
