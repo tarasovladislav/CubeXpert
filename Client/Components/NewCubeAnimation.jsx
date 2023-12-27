@@ -116,23 +116,24 @@ const CubeAnimation = ({
 	// Cube control buttons handler
 	const handleButtonClick = (elementSelector) => {
 		const newWidth = Math.floor(width)
-		executeJavaScript(`clickCanvas(${newWidth}, ${elementSelector});true`)
+		// executeJavaScript(`clickCanvas(${newWidth}, ${elementSelector});true`)
+		executeJavaScript(`btn("", ${elementSelector});true`)
 		switch (elementSelector) {
-			case 1.5:
+			case 4:
 				setIsPlaying(true)
 
 				break
-			case 2:
+			case 3:
 				setIsPlaying(false)
 
 				break
 			case 0:
 				setCurrentStep(0)
 				break
-			case 4:
+			case 1:
 				setCurrentStep((prevStep) => prevStep - 1)
 				break
-			case 1.25:
+			case 5:
 				setCurrentStep((prevStep) => prevStep + 1)
 				break
 			default:
@@ -283,14 +284,20 @@ const CubeAnimation = ({
 			scale.value = withSequence(
 				withTiming(1.2, { duration: 200, easing: Easing.ease }),
 				withSpring(1, { damping: 2, stiffness: 80 })
-				// withSpring(1, { damping: 2, stiffness: 80 })
 			)
 		}
 		return () => {
 			scale.value = withTiming(0)
 		}
 	}, [isCubeLoading])
-
+// const [cubeState, setCubeState] = useState({})
+// 	useEffect(() => {
+// 		if (category === 'CrossTraining') {
+// 			// console.log(executeJavaScript(`ret()`))
+//             console.log(executeJavaScript(`window.ReactNativeWebView.postMessage(JSON.stringify(window.acjs_cube[""]));`))
+//             console.log("cubestate", cubeState);
+// 		}
+// 	}, [currentAlg])
 	return (
 		<View style={[commonStyles.flex1]}>
 			<Animated.View style={[commonStyles.flex1, animatedStyles]}>
@@ -331,6 +338,12 @@ const CubeAnimation = ({
 					style={[styles.webview, { opacity: isCubeLoading ? 0 : 1 }]}
 					onLoadStart={() => setIsCubeLoading(true)}
 					onLoadEnd={() => setIsCubeLoading(false)}
+					// onMessage={(event) => {
+					// 	const { data } = event.nativeEvent
+					// 	const arrayData = JSON.parse(data)
+					// 	console.log('Received array from WebView:', arrayData)
+                    //     setCubeState(arrayData)
+					// }}
 				/>
 			</Animated.View>
 
@@ -361,7 +374,8 @@ const CubeAnimation = ({
 								!allowControl ||
 								isCubeLoading
 							}
-							onPress={() => handleButtonClick(4)}
+							// onPress={() => handleButtonClick(4)}
+							onPress={() => handleButtonClick(1)}
 							text={
 								<IconAwesome
 									size={24}
@@ -378,7 +392,8 @@ const CubeAnimation = ({
 								!allowControl ||
 								isCubeLoading
 							}
-							onPress={() => handleButtonClick(1.25)}
+							// onPress={() => handleButtonClick(1.25)}
+							onPress={() => handleButtonClick(5)}
 							text={
 								<IconAwesome
 									size={24}
@@ -391,7 +406,8 @@ const CubeAnimation = ({
 						{!isPlaying && (
 							<TouchableButtonTooltip
 								disabled={currentStep === len || isCubeLoading}
-								onPress={() => handleButtonClick(1.5)}
+								// onPress={() => handleButtonClick(1.5)}
+								onPress={() => handleButtonClick(4)}
 								text={
 									<IconAwesome
 										size={24}
@@ -404,7 +420,8 @@ const CubeAnimation = ({
 						)}
 						{isPlaying && (
 							<TouchableButtonTooltip
-								onPress={() => handleButtonClick(2)}
+								// onPress={() => handleButtonClick(2)}
+								onPress={() => handleButtonClick(3)}
 								text={
 									<IconAwesome
 										size={24}
@@ -420,6 +437,7 @@ const CubeAnimation = ({
 							disabled={
 								isPlaying || !allowControl || isCubeLoading
 							}
+							// onPress={() => handleButtonClick(0)}
 							onPress={() => handleButtonClick(0)}
 							text={
 								<IconAwesome

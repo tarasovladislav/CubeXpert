@@ -25,8 +25,6 @@ const CrossTrainer = () => {
 		algo: ['U'],
 		category: 'CrossTraining',
 	})
-	console.log(scramble)
-	console.log(difficulty)
 	const [difficultyVisible, setDifficultyVisible] = useState(false)
 	const toggleDifficulty = () => setDifficultyVisible(!difficultyVisible)
 
