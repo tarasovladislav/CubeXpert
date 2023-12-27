@@ -2267,6 +2267,51 @@ curMove = (curMove + 1) % move.length;
                 (toTwist = !0)
               : editable && !animating && (toTwist = !0)));
   }
+
+//adding new //BLBALBALBALBLALBALALBLABLALBLA
+function button(buttonPressed) {
+    pushed = true;
+    if (buttonPressed == 3) {
+      if (!animating) // special feature
+        mirrored = !mirrored;
+      else
+        stopAnimation();
+    }
+    else if (buttonPressed == 0) { // clear everything to the initial setup
+      if (scramble > 0 && buttonBar == 2) {
+        if (scrambleToggle == true) {
+          scrambleToggle = false;
+          stopAnimation();
+          clear();
+        }
+        else {
+          scrambleToggle = true;
+          buttonPressed = 6;
+          startAnimation(buttonAction[buttonPressed]);
+        }
+      }
+      else {
+        stopAnimation();
+        clear();
+      }
+    }
+    else if (buttonPressed == 7 || buttonPressed == 8) { // next sequence
+      stopAnimation();
+      setTimeout(clear, 20);
+      if (buttonPressed == 7)
+        curMove = curMove > 0 ? curMove - 1 : move.length - 1;
+      else
+        curMove = curMove < move.length - 1 ? curMove + 1 : 0;
+    }
+    else
+      startAnimation(buttonAction[buttonPressed]);
+    drawButtons = true;
+    paint();
+  }
+
+  
+
+
   function progress(e) {
     if (e > nowServing) setTimeout(progress, 0, e);
     else {

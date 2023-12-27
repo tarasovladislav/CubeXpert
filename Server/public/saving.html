@@ -99,6 +99,8 @@
             const overlay2 = document.getElementById('overlay2');
             let cubeDiv = document.createElement('div');
             cubeDiv.className = 'cube';
+            cubeDiv.id = '1';
+
             document.body.appendChild(cubeDiv);
             let queryParams = getQueryStringParams();
             overlay.style.backgroundColor = "#" + queryParams.bgcolor;
@@ -114,12 +116,23 @@
             globalCanvas = document.querySelector('canvas');
 
 
+            
         });
-        var acjs_cube = [];
-        var acjs_button = [];
+        var acjs_cube = [];   // array of cube objects
+        var acjs_paint = [];
+        var tmp_cube = [];    // temp storage for saved info
+        function save(id) {
+  copy_cube(tmp_cube, acjs_cube[id]);      // save cube facelets
+}
 
-        function btn(c, n) {
-  acjs_button[c](n);
+function restore(id) {
+  copy_cube(acjs_cube[id], tmp_cube);      // restore cube facelets
+  acjs_paint[id]();                        // redisplay cube
+}
+
+function copy_cube(dest, src) {            // copy 6x9 array of 54 facelets
+  for (var i=0; i < src.length; i++)
+    dest[i] = src[i].slice();
 }
     </script>
     <div class="overlay" id="overlay"></div>

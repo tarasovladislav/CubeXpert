@@ -12,6 +12,9 @@ router.get("/", controller.cubeAnimation);
 router.get("/rotate", (req, res) => {
   res.sendFile(__dirname + "/public/rotate.html");
 });
+router.get("/saving", (req, res) => {
+  res.sendFile(__dirname + "/public/saving.html");
+});
 
 router.get("/algorithms/random", controller.getRandomAlgo);
 
