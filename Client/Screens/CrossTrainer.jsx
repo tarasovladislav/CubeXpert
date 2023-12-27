@@ -28,6 +28,10 @@ const CrossTrainer = () => {
 	const [difficultyVisible, setDifficultyVisible] = useState(false)
 	const toggleDifficulty = () => setDifficultyVisible(!difficultyVisible)
 
+
+    
+
+
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<Overlay
@@ -57,6 +61,8 @@ const CrossTrainer = () => {
 				alg={scramble}
 				currentAlg={currentAlg}
 				scramble={0}
+                edit={1}
+                snap={1}
 			/>
             <View style={styles.otherContainer}>
 				<View style={{ alignItems: 'center' }}>

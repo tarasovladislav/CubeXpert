@@ -67,6 +67,8 @@ const RotateTheCube = () => {
 						alg={''}
 						currentAlg={currentAlg}
 						scramble={2}
+                        edit={1}
+                        snap={1}
 					/>
 
 					<View style={[styles.buttonContainer]}>

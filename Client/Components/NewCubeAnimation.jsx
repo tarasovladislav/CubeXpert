@@ -6,6 +6,7 @@ import {
 	Text,
 	TouchableOpacity,
 	ActivityIndicator,
+    Alert,
 } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { useSettingsContext } from '../Contexts/SettingsContext'
@@ -33,6 +34,8 @@ const CubeAnimation = ({
 	scramble = 0,
 	cubeSize = 3,
 	demo = '',
+	edit = 0,
+	snap = 0,
 }) => {
 	const { toggleFavorites, isInFavorites } = useFavoritesContext()
 	const { settings, webViewKey } = useSettingsContext()
@@ -118,6 +121,7 @@ const CubeAnimation = ({
 		const newWidth = Math.floor(width)
 		// executeJavaScript(`clickCanvas(${newWidth}, ${elementSelector});true`)
 		executeJavaScript(`btn("", ${elementSelector});true`)
+		executeJavaScript(`clickCanvas(0, 0);true`)
 		switch (elementSelector) {
 			case 4:
 				setIsPlaying(true)
@@ -290,14 +294,16 @@ const CubeAnimation = ({
 			scale.value = withTiming(0)
 		}
 	}, [isCubeLoading])
-// const [cubeState, setCubeState] = useState({})
-// 	useEffect(() => {
-// 		if (category === 'CrossTraining') {
-// 			// console.log(executeJavaScript(`ret()`))
-//             console.log(executeJavaScript(`window.ReactNativeWebView.postMessage(JSON.stringify(window.acjs_cube[""]));`))
-//             console.log("cubestate", cubeState);
-// 		}
-// 	}, [currentAlg])
+	const [cubeState, setCubeState] = useState({})
+
+	// const [cubeState, setCubeState] = useState({})
+	// 	useEffect(() => {
+	// 		if (category === 'CrossTraining') {
+	// 			// console.log(executeJavaScript(`ret()`))
+	//             console.log(executeJavaScript(`window.ReactNativeWebView.postMessage(JSON.stringify(window.acjs_cube[""]));`))
+	//             console.log("cubestate", cubeState);
+	// 		}
+	// 	}, [currentAlg])
 	return (
 		<View style={[commonStyles.flex1]}>
 			<Animated.View style={[commonStyles.flex1, animatedStyles]}>
@@ -327,7 +333,7 @@ const CubeAnimation = ({
 						)}&colorscheme=012345&speed=${speed}&facelets=${facelets}&ignored=${ignored}&bgcolor=${commonStyles.backgroundColor.replace(
 							'#',
 							''
-						)}&demo=${demo}`,
+						)}&demo=${demo}&edit=${edit}&snap=${snap}`,
 					}}
 					javaScriptEnabled={true}
 					ref={cubeAnimationWebView}
@@ -337,13 +343,16 @@ const CubeAnimation = ({
 					overScrollMode={'never'}
 					style={[styles.webview, { opacity: isCubeLoading ? 0 : 1 }]}
 					onLoadStart={() => setIsCubeLoading(true)}
-					onLoadEnd={() => setIsCubeLoading(false)}
-					// onMessage={(event) => {
-					// 	const { data } = event.nativeEvent
-					// 	const arrayData = JSON.parse(data)
-					// 	console.log('Received array from WebView:', arrayData)
-                    //     setCubeState(arrayData)
-					// }}
+					onLoadEnd={() => {
+						setIsCubeLoading(false)
+                        // category === "CrossTraining"&& executeJavaScript(`window.ReactNativeWebView.postMessage(JSON.stringify(window.acjs_cube[""]));true;`)
+					}}
+
+					onMessage={(event) => {
+						const arrayData = JSON.parse(event.nativeEvent.data)
+                        Alert.alert("arrayData", arrayData)
+					    setCubeState(arrayData)
+					}}
 				/>
 			</Animated.View>
 
