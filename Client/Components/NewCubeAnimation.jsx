@@ -290,7 +290,14 @@ const CubeAnimation = ({
 			scale.value = withTiming(0)
 		}
 	}, [isCubeLoading])
-
+// const [cubeState, setCubeState] = useState({})
+// 	useEffect(() => {
+// 		if (category === 'CrossTraining') {
+// 			// console.log(executeJavaScript(`ret()`))
+//             console.log(executeJavaScript(`window.ReactNativeWebView.postMessage(JSON.stringify(window.acjs_cube[""]));`))
+//             console.log("cubestate", cubeState);
+// 		}
+// 	}, [currentAlg])
 	return (
 		<View style={[commonStyles.flex1]}>
 			<Animated.View style={[commonStyles.flex1, animatedStyles]}>
@@ -331,6 +338,12 @@ const CubeAnimation = ({
 					style={[styles.webview, { opacity: isCubeLoading ? 0 : 1 }]}
 					onLoadStart={() => setIsCubeLoading(true)}
 					onLoadEnd={() => setIsCubeLoading(false)}
+					// onMessage={(event) => {
+					// 	const { data } = event.nativeEvent
+					// 	const arrayData = JSON.parse(data)
+					// 	console.log('Received array from WebView:', arrayData)
+                    //     setCubeState(arrayData)
+					// }}
 				/>
 			</Animated.View>
 
