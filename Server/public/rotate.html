@@ -55,6 +55,42 @@
           cancelable: true,
           view: window,
           clientX: clickX,
+          clientY: clickY,
+        });
+
+        globalCanvas.dispatchEvent(clickEvent);
+
+        const mouseUpEvent = new MouseEvent("mouseup", {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+          clientX: clickX,
+          clientY: clickY,
+        });
+        globalCanvas.dispatchEvent(mouseUpEvent);
+      }
+
+      function clickCanvas2(width, buttonPosition) {
+        const canvasWidth = Math.floor(
+          globalCanvas.getBoundingClientRect().width
+        );
+        const canvasHeight = Math.floor(
+          globalCanvas.getBoundingClientRect().height
+        );
+        let clickX;
+
+        if (buttonPosition === 0) {
+          clickX = 10;
+        } else {
+          clickX = canvasWidth / buttonPosition - 10;
+        }
+        const clickY = canvasHeight - 1;
+
+        clickEvent = new MouseEvent("mousedown", {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+          clientX: clickX,
           clientY: 0,
         });
 
