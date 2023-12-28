@@ -2,8 +2,6 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <!-- <link rel="stylesheet" href="/css.css"> -->
     <link rel="stylesheet" href="/cube.css" />
   </head>
 
@@ -18,20 +16,7 @@
 
     <div class="overlay2" id="overlay2"></div>
 
-    <!-- 
-    <div class="cube" >
-        <script>AnimCube3("bgcolor=e7f0f8&snap=0&buttonbar=0&borderwidth=5&counter=0&speed=20")</script>
-       </div> -->
-
-    <!-- edit=1" to stop from moving cube -->
-
     <script>
-      // document.addEventListener('contextmenu', function (event) {
-      //     event.preventDefault();
-      // });
-
-      //clickprogress maybe add later?
-
       function getQueryStringParams() {
         var params = {};
         var queryString = window.location.href.split("?")[1];
@@ -49,9 +34,7 @@
 
       let globalCanvas;
       let clickEvent;
-      // 0-6
       function clickCanvas(width, buttonPosition) {
-        console.log("hi");
         const canvasWidth = Math.floor(
           globalCanvas.getBoundingClientRect().width
         );
@@ -75,7 +58,6 @@
           clientY: 0,
         });
 
-        // Dispatch the click event to the canvas element (bottom-right corner)
         globalCanvas.dispatchEvent(clickEvent);
 
         const mouseUpEvent = new MouseEvent("mouseup", {
@@ -88,6 +70,7 @@
         globalCanvas.dispatchEvent(mouseUpEvent);
       }
 
+      //function to check the state of the cube in the interval
       const checkCube = (cube) => {
         const isSameElements = cube.every((arr) => {
           const filteredArray = arr.filter((element) => element !== 23);
@@ -99,9 +82,16 @@
         });
 
         if (isSameElements) {
-          window.ReactNativeWebView.postMessage(
-            JSON.stringify("The Cross is Solved!")
-          );
+          if (cube[0].filter((element) => element !== 23).length === 1) {
+            window.ReactNativeWebView.postMessage(
+              JSON.stringify("The Cross is Solved!")
+            );
+          } else {
+            window.ReactNativeWebView.postMessage(
+              JSON.stringify("The Cube is Solved!")
+            );
+          }
+
           clearInterval(checkerInterval);
         }
       };
@@ -143,10 +133,12 @@
         cubeDiv.appendChild(script);
         globalCanvas = document.querySelector("canvas");
 
-        // do only if category is rotate / category
-        checkerInterval = setInterval(() => {
-          checkCube(acjs_cube[""]);
-        }, 1000);
+        // do only if category is editable cube
+        checkerInterval =
+          queryParams.edit &&
+          setInterval(() => {
+            checkCube(acjs_cube[""]);
+          }, 500);
       });
       var acjs_cube = [];
       var acjs_button = [];

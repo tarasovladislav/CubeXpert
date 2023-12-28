@@ -6,7 +6,7 @@ import {
 	Text,
 	TouchableOpacity,
 	ActivityIndicator,
-    Alert,
+	Alert,
 } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { useSettingsContext } from '../Contexts/SettingsContext'
@@ -36,6 +36,7 @@ const CubeAnimation = ({
 	demo = '',
 	edit = 0,
 	snap = 0,
+	onSuccessfulSolve,
 }) => {
 	const { toggleFavorites, isInFavorites } = useFavoritesContext()
 	const { settings, webViewKey } = useSettingsContext()
@@ -294,16 +295,7 @@ const CubeAnimation = ({
 			scale.value = withTiming(0)
 		}
 	}, [isCubeLoading])
-	const [cubeState, setCubeState] = useState({})
 
-	// const [cubeState, setCubeState] = useState({})
-	// 	useEffect(() => {
-	// 		if (category === 'CrossTraining') {
-	// 			// console.log(executeJavaScript(`ret()`))
-	//             console.log(executeJavaScript(`window.ReactNativeWebView.postMessage(JSON.stringify(window.acjs_cube[""]));`))
-	//             console.log("cubestate", cubeState);
-	// 		}
-	// 	}, [currentAlg])
 	return (
 		<View style={[commonStyles.flex1]}>
 			<Animated.View style={[commonStyles.flex1, animatedStyles]}>
@@ -345,13 +337,20 @@ const CubeAnimation = ({
 					onLoadStart={() => setIsCubeLoading(true)}
 					onLoadEnd={() => {
 						setIsCubeLoading(false)
-                        // category === "CrossTraining"&& executeJavaScript(`window.ReactNativeWebView.postMessage(JSON.stringify(window.acjs_cube[""]));true;`)
-					}}
 
+						// can be change so I call the function whcih starts checking the cube state
+						// category === "CrossTraining"&& executeJavaScript(`window.ReactNativeWebView.postMessage(JSON.stringify(window.acjs_cube[""]));true;`)
+					}}
 					onMessage={(event) => {
-						const arrayData = JSON.parse(event.nativeEvent.data)
-                        Alert.alert("arrayData", arrayData)
-					    setCubeState(arrayData)
+						const message = JSON.parse(event.nativeEvent.data)
+						Alert.alert('Congratulations!', message, [
+							{
+								text: 'Another one!',
+								onPress: () => {
+									onSuccessfulSolve()
+								},
+							},
+						])
 					}}
 				/>
 			</Animated.View>
