@@ -2054,11 +2054,12 @@ function AnimCube3(params) {
             (h &&
               (moveAnimated && currentAngle * c < d
                 ? (paint(),
-
                 // здесь можно отменить snap при выключении паузы, найти как сделать чтобы работало только когда пауза а не некст мув
-                  (interrupted || restarted) && (m = !0),
+                //   (interrupted || restarted) && (m = !0),
+                ((moveOne && (interrupted || restarted)) && (m = !0)),
                   (s = Date.now()),
                   (currentAngle = l * (s - n)))
+
                 : (m = !0)),
             m &&
               ((m = !1),
