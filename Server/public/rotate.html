@@ -1,15 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <!-- <link rel="stylesheet" href="/css.css"> -->
-    <link rel="stylesheet" href="/cube.css">
-</head>
+    <link rel="stylesheet" href="/cube.css" />
+  </head>
 
-<body>
-
+  <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/AnimCube2.js"></script>
     <script src="/AnimCube3.js"></script>
@@ -18,112 +14,139 @@
     <script src="/AnimCube6.js"></script>
     <script src="/AnimCube7.js"></script>
 
-
-
     <div class="overlay2" id="overlay2"></div>
 
-    <!-- 
-    <div class="cube" >
-        <script>AnimCube3("bgcolor=e7f0f8&snap=0&buttonbar=0&borderwidth=5&counter=0&speed=20")</script>
-       </div> -->
-
-
-
-
-    <!-- edit=1" to stop from moving cube -->
-
     <script>
-
-        // document.addEventListener('contextmenu', function (event) {
-        //     event.preventDefault();
-        // });
-
-
-        //clickprogress maybe add later? 
-
-
-        function getQueryStringParams() {
-            var params = {};
-            var queryString = window.location.href.split('?')[1];
-            if (queryString) {
-                var pairs = queryString.split('&');
-                for (let i = 0; i < pairs.length; i++) {
-                    let pair = pairs[i].split('=');
-                    params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
-                }
-            }
-            return params;
+      function getQueryStringParams() {
+        var params = {};
+        var queryString = window.location.href.split("?")[1];
+        if (queryString) {
+          var pairs = queryString.split("&");
+          for (let i = 0; i < pairs.length; i++) {
+            let pair = pairs[i].split("=");
+            params[decodeURIComponent(pair[0])] = decodeURIComponent(
+              pair[1] || ""
+            );
+          }
         }
+        return params;
+      }
 
-        let globalCanvas;
-        let clickEvent;
-        // 0-6
-        function clickCanvas(width, buttonPosition) {
-            console.log('hi');
-            const canvasWidth = Math.floor(globalCanvas.getBoundingClientRect().width);
-            const canvasHeight =  Math.floor(globalCanvas.getBoundingClientRect().height);
-            console.log(canvasWidth, canvasHeight);
-            let clickX
+      let globalCanvas;
+      let clickEvent;
+      function clickCanvas(width, buttonPosition) {
+        const canvasWidth = Math.floor(
+          globalCanvas.getBoundingClientRect().width
+        );
+        const canvasHeight = Math.floor(
+          globalCanvas.getBoundingClientRect().height
+        );
+        let clickX;
 
-            
-            if (buttonPosition === 0) {
-                clickX = 10
-            } else {
-                clickX = (canvasWidth) / (buttonPosition) - 10;
-            }
-            const clickY = canvasHeight - 1;
-
-            clickEvent = new MouseEvent("mousedown", {
-                bubbles: true,
-                cancelable: true,
-                view: window,
-                clientX: clickX,
-                clientY: clickY
-            });
-
-            // Dispatch the click event to the canvas element (bottom-right corner)
-            globalCanvas.dispatchEvent(clickEvent);
-
-            const mouseUpEvent = new MouseEvent("mouseup", {
-                bubbles: true,
-                cancelable: true,
-                view: window,
-                clientX: clickX,
-                clientY: clickY
-            });
-            globalCanvas.dispatchEvent(mouseUpEvent);
+        if (buttonPosition === 0) {
+          clickX = 10;
+        } else {
+          clickX = canvasWidth / buttonPosition - 10;
         }
+        const clickY = canvasHeight - 1;
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const overlay = document.getElementById('overlay');
-            const overlay2 = document.getElementById('overlay2');
-            let cubeDiv = document.createElement('div');
-            cubeDiv.className = 'cube';
-            document.body.appendChild(cubeDiv);
-            let queryParams = getQueryStringParams();
-            overlay.style.backgroundColor = "#" + queryParams.bgcolor;
-            overlay2.style.backgroundColor = "#" + queryParams.bgcolor;
-            // Create the configuration string for AnimCubeJS
-
-            let animCubeConfig = `scramble=${queryParams.scramble}&bgcolor=${queryParams.bgcolor || 'e7f0f8'}&snap=${queryParams.snap || 0}&buttonbar=${queryParams.buttonbar || 1}&borderwidth=${queryParams.borderwidth || 5}&counter=${queryParams.counter || 1}&speed=${queryParams.speed}&cubecolor=${queryParams.cubecolor}&colors=${queryParams.colors || ''}&colorscheme=${queryParams.colorscheme}&move=${queryParams.move || ''}&initmove=${queryParams.initmove || ''}&initrevmove=${queryParams.initrevmove || ''}&yz=1&facelets=${queryParams.facelets || ''}&ignored=${queryParams.ignored || '#eeeeee'}&repeat=0&clickprogress=0&textsize=0&demo=${queryParams.demo || ""}`;
-                if (!queryParams.cubesize)queryParams.cubesize = 3
-            // Create a script element to configure AnimCubeJS
-            let script = document.createElement('script');
-            script.textContent = `AnimCube${queryParams.cubesize}("${animCubeConfig}")`;
-            cubeDiv.appendChild(script);
-            globalCanvas = document.querySelector('canvas');
-
-
+        clickEvent = new MouseEvent("mousedown", {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+          clientX: clickX,
+          clientY: 0,
         });
-        var acjs_cube = [];
-        var acjs_button = [];
 
-        function btn(c, n) {
-  acjs_button[c](n);
-}
+        globalCanvas.dispatchEvent(clickEvent);
+
+        const mouseUpEvent = new MouseEvent("mouseup", {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+          clientX: clickX,
+          clientY: 0,
+        });
+        globalCanvas.dispatchEvent(mouseUpEvent);
+      }
+
+      //function to check the state of the cube in the interval
+      const checkCube = (cube) => {
+        const isSameElements = cube.every((arr) => {
+          const filteredArray = arr.filter((element) => element !== 23);
+          if (filteredArray.length === 0) {
+            return true;
+          }
+          const firstElement = filteredArray[0];
+          return filteredArray.every((element) => element === firstElement);
+        });
+
+        if (isSameElements) {
+          if (cube[0].filter((element) => element !== 23).length === 1) {
+            window.ReactNativeWebView.postMessage(
+              JSON.stringify("The Cross is Solved!")
+            );
+          } else {
+            window.ReactNativeWebView.postMessage(
+              JSON.stringify("The Cube is Solved!")
+            );
+          }
+
+          clearInterval(checkerInterval);
+        }
+      };
+      let checkerInterval;
+      document.addEventListener("DOMContentLoaded", function () {
+        const overlay = document.getElementById("overlay");
+        const overlay2 = document.getElementById("overlay2");
+        let cubeDiv = document.createElement("div");
+        cubeDiv.className = "cube";
+        document.body.appendChild(cubeDiv);
+        let queryParams = getQueryStringParams();
+        overlay.style.backgroundColor = "#" + queryParams.bgcolor;
+        overlay2.style.backgroundColor = "#" + queryParams.bgcolor;
+        // Create the configuration string for AnimCubeJS
+
+        let animCubeConfig = `scramble=${queryParams.scramble}&bgcolor=${
+          queryParams.bgcolor || "e7f0f8"
+        }&snap=${queryParams.snap || 0}&buttonbar=${
+          queryParams.buttonbar || 1
+        }&borderwidth=${queryParams.borderwidth || 5}&counter=${
+          queryParams.counter || 1
+        }&speed=${queryParams.speed}&cubecolor=${
+          queryParams.cubecolor
+        }&colors=${queryParams.colors || ""}&colorscheme=${
+          queryParams.colorscheme
+        }&move=${queryParams.move || ""}&initmove=${
+          queryParams.initmove || ""
+        }&initrevmove=${queryParams.initrevmove || ""}&yz=1&facelets=${
+          queryParams.facelets || ""
+        }&ignored=${
+          queryParams.ignored || "#eeeeee"
+        }&repeat=0&clickprogress=0&textsize=0&demo=${
+          queryParams.demo || ""
+        }&edit=${queryParams.edit || 0}`;
+        if (!queryParams.cubesize) queryParams.cubesize = 3;
+        // Create a script element to configure AnimCubeJS
+        let script = document.createElement("script");
+        script.textContent = `AnimCube${queryParams.cubesize}("${animCubeConfig}")`;
+        cubeDiv.appendChild(script);
+        globalCanvas = document.querySelector("canvas");
+
+        // do only if category is editable cube
+        checkerInterval =
+          queryParams.edit &&
+          setInterval(() => {
+            checkCube(acjs_cube[""]);
+          }, 500);
+      });
+      var acjs_cube = [];
+      var acjs_button = [];
+
+      function btn(c, n) {
+        acjs_button[c](n);
+      }
     </script>
     <div class="overlay" id="overlay"></div>
-
-</body>
-
+  </body>
 </html>

@@ -67,6 +67,11 @@ const RotateTheCube = () => {
 						alg={''}
 						currentAlg={currentAlg}
 						scramble={2}
+						edit={1}
+						snap={1}
+						onSuccessfulSolve={() => {
+							setAnimationKey(animationKey + 1)
+						}}
 					/>
 
 					<View style={[styles.buttonContainer]}>

@@ -1,5 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import {
+	SafeAreaView,
+	StyleSheet,
+	View,
+	TouchableOpacity,
+	Text,
+} from 'react-native'
 import { Overlay } from 'react-native-elements'
 import ProfileSettings from '../Components/ProfileSettings'
 import TouchableButton from '../Components/TouchableButton'
@@ -57,8 +63,13 @@ const CrossTrainer = () => {
 				alg={scramble}
 				currentAlg={currentAlg}
 				scramble={0}
+				edit={1}
+				snap={1}
+				onSuccessfulSolve={() => {
+					setAnimationKey(animationKey + 1)
+				}}
 			/>
-            <View style={styles.otherContainer}>
+			<View style={styles.otherContainer}>
 				<View style={{ alignItems: 'center' }}>
 					<Text style={styles.algoText}>{scramble}</Text>
 				</View>
@@ -75,7 +86,6 @@ const CrossTrainer = () => {
 					text="Another Scramble"
 				/>
 			</View>
-			
 
 			<View style={styles.buttonContainer}></View>
 
@@ -106,12 +116,12 @@ const styles = StyleSheet.create({
 		position: 'relative',
 		flexDirection: 'row',
 	},
-    otherContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    algoText: {
+	otherContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	algoText: {
 		textAlign: 'center',
 		fontSize: 16,
 		width: '80%',
