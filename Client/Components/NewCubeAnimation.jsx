@@ -25,6 +25,7 @@ import Animated, {
 	withSequence,
 	Easing,
 } from 'react-native-reanimated'
+import { useRotateTheCubeContext } from '../Contexts/RotateTheCubeContext'
 const CubeAnimation = ({
 	category,
 	alg,
@@ -37,7 +38,13 @@ const CubeAnimation = ({
 	edit = 0,
 	snap = 0,
 	onSuccessfulSolve,
+	cubeSaver = false,
+	setCubeSaver,
+	restoreCubeTrigger,
+	setRestoreCubeTrigger,
 }) => {
+	const { changeLastCubeFacelets, rotateTheCube, changeCubeSize } =
+		useRotateTheCubeContext()
 	const { toggleFavorites, isInFavorites } = useFavoritesContext()
 	const { settings, webViewKey } = useSettingsContext()
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
@@ -296,6 +303,30 @@ const CubeAnimation = ({
 		}
 	}, [isCubeLoading])
 
+	const saveCube = () => {
+		console.log(rotateTheCube)
+		executeJavaScript(
+			`window.ReactNativeWebView.postMessage(JSON.stringify(acjs_cube[""]));true;`
+		)
+	}
+
+	const restoreCube = () => {
+		console.log(rotateTheCube.lastCubeFacelets)
+		changeCubeSize(rotateTheCube.savedCubeSize)
+		executeJavaScript(
+			`restore(1, JSON.stringify(${rotateTheCube.lastCubeFacelets}));`
+		)
+		setRestoreCubeTrigger(false)
+	}
+
+	useEffect(() => {
+		cubeSaver && saveCube()
+	}, [cubeSaver])
+
+	useEffect(() => {
+		restoreCubeTrigger && restoreCube()
+	}, [restoreCubeTrigger])
+
 	return (
 		<View style={[commonStyles.flex1]}>
 			<Animated.View style={[commonStyles.flex1, animatedStyles]}>
@@ -343,14 +374,36 @@ const CubeAnimation = ({
 					}}
 					onMessage={(event) => {
 						const message = JSON.parse(event.nativeEvent.data)
-						onSuccessfulSolve && Alert.alert('Congratulations!', message, [
-							{
-								text: 'Another one!',
-								onPress: () => {
-									onSuccessfulSolve()
+						typeof message === 'string' &&
+							onSuccessfulSolve &&
+							Alert.alert('Congratulations!', message, [
+								{
+									text: 'Another one!',
+									onPress: () => {
+										onSuccessfulSolve()
+									},
 								},
-							},
-						])
+							])
+
+						if (cubeSaver) {
+							Alert.alert(
+								'Cube saved!',
+								'You can find it in your profile',
+								[
+									{
+										text: 'OK',
+									},
+								]
+							)
+
+							changeLastCubeFacelets(
+								JSON.stringify(message),
+								rotateTheCube.cubeSize
+							)
+							//save cube
+							console.log(JSON.stringify(message))
+							setCubeSaver(false)
+						}
 					}}
 				/>
 			</Animated.View>
