@@ -339,11 +339,11 @@ const CubeAnimation = ({
 						setIsCubeLoading(false)
 
 						// can be change so I call the function whcih starts checking the cube state
-						// category === "CrossTraining"&& executeJavaScript(`window.ReactNativeWebView.postMessage(JSON.stringify(window.acjs_cube[""]));true;`)
+						// category === "CrossTraining" && executeJavaScript(`window.startChecking();true;`)
 					}}
 					onMessage={(event) => {
 						const message = JSON.parse(event.nativeEvent.data)
-						Alert.alert('Congratulations!', message, [
+						onSuccessfulSolve && Alert.alert('Congratulations!', message, [
 							{
 								text: 'Another one!',
 								onPress: () => {
