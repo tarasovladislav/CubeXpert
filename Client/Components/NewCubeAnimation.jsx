@@ -388,7 +388,7 @@ const CubeAnimation = ({
 						if (cubeSaver) {
 							Alert.alert(
 								'Cube saved!',
-								'You can find it in your profile',
+								'You are safe to close the app now.',
 								[
 									{
 										text: 'OK',
