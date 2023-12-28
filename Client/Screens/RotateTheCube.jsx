@@ -9,7 +9,15 @@ import IconAwesome from 'react-native-vector-icons/FontAwesome5'
 import CubeSizePicker from '../Components/CubeSizePicker'
 import { useRotateTheCubeContext } from '../Contexts/RotateTheCubeContext'
 const RotateTheCube = () => {
-	const { rotateTheCube } = useRotateTheCubeContext()
+	const {
+		rotateTheCube,
+		newCubeScramble,
+		setNewCubeScramble,
+		cubeSaver,
+		setCubeSaver,
+		restoreCubeTrigger,
+		setRestoreCubeTrigger,
+	} = useRotateTheCubeContext()
 
 	const [isPlaying, setIsPlaying] = useState(false)
 
@@ -33,8 +41,8 @@ const RotateTheCube = () => {
 	const [cubeSizeVisible, setCubeSizeVisible] = useState(false)
 	const toggleCubeSize = () => setCubeSizeVisible(!cubeSizeVisible)
 
-	const [cubeSaver, setCubeSaver] = useState(false)
-	const [restoreCubeTrigger, setRestoreCubeTrigger] = useState(false)
+	// const [cubeSaver, setCubeSaver] = useState(false)
+	// const [restoreCubeTrigger, setRestoreCubeTrigger] = useState(false)
 	if (isLoading) {
 		return <Loading />
 	}
@@ -56,19 +64,11 @@ const RotateTheCube = () => {
 						onBackdropPress={toggleCubeSize}
 						animationType="fade"
 					>
-						<CubeSizePicker
-						// setCubeSize={setCubeSize}
-						// cubeSize={cubeSize}
-						/>
+						<CubeSizePicker />
 					</Overlay>
 
 					<NewCubeAnimation
-						cubeSize={
-							// rotateTheCube.savedCubeSize
-							// 	? rotateTheCube.savedCubeSize
-							// 	: rotateTheCube.cubeSize
-                                rotateTheCube.cubeSize
-						}
+						cubeSize={rotateTheCube.cubeSize}
 						key={animationKey}
 						isPlaying={isPlaying}
 						setIsPlaying={setIsPlaying}
@@ -81,10 +81,6 @@ const RotateTheCube = () => {
 						onSuccessfulSolve={() => {
 							setAnimationKey(animationKey + 1)
 						}}
-						cubeSaver={cubeSaver}
-						setCubeSaver={setCubeSaver}
-						restoreCubeTrigger={restoreCubeTrigger}
-						setRestoreCubeTrigger={setRestoreCubeTrigger}
 					/>
 					<View style={[styles.buttonContainer]}>
 						<TouchableButton
@@ -105,6 +101,7 @@ const RotateTheCube = () => {
 						/>
 						<TouchableButton
 							onPress={() => {
+								setNewCubeScramble(true)
 								setAnimationKey(animationKey + 1)
 							}}
 							text="Another Scramble"

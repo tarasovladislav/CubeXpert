@@ -38,13 +38,18 @@ const CubeAnimation = ({
 	edit = 0,
 	snap = 0,
 	onSuccessfulSolve,
-	cubeSaver = false,
-	setCubeSaver,
-	restoreCubeTrigger,
-	setRestoreCubeTrigger,
 }) => {
-	const { changeLastCubeFacelets, rotateTheCube, changeCubeSize } =
-		useRotateTheCubeContext()
+	const {
+		changeLastCubeFacelets,
+		rotateTheCube,
+		changeCubeSize,
+		newCubeScramble,
+		setNewCubeScramble,
+		cubeSaver,
+		setCubeSaver,
+		restoreCubeTrigger,
+		setRestoreCubeTrigger,
+	} = useRotateTheCubeContext()
 	const { toggleFavorites, isInFavorites } = useFavoritesContext()
 	const { settings, webViewKey } = useSettingsContext()
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
@@ -312,11 +317,13 @@ const CubeAnimation = ({
 
 	const restoreCube = () => {
 		console.log(rotateTheCube.lastCubeFacelets)
-		changeCubeSize(rotateTheCube.savedCubeSize)
-		executeJavaScript(
-			`restore(1, JSON.stringify(${rotateTheCube.lastCubeFacelets}));`
-		)
-		setRestoreCubeTrigger(false)
+		if (rotateTheCube.lastCubeFacelets !== '') {
+			changeCubeSize(rotateTheCube.savedCubeSize)
+			executeJavaScript(
+				`restore(1, JSON.stringify(${rotateTheCube.lastCubeFacelets}));`
+			)
+			setRestoreCubeTrigger(false)
+		}
 	}
 
 	useEffect(() => {
@@ -324,6 +331,7 @@ const CubeAnimation = ({
 	}, [cubeSaver])
 
 	useEffect(() => {
+		// restoreCubeTrigger && restoreCube()
 		restoreCubeTrigger && restoreCube()
 	}, [restoreCubeTrigger])
 
@@ -368,9 +376,18 @@ const CubeAnimation = ({
 					onLoadStart={() => setIsCubeLoading(true)}
 					onLoadEnd={() => {
 						setIsCubeLoading(false)
-
-						// can be change so I call the function whcih starts checking the cube state
-						// category === "CrossTraining" && executeJavaScript(`window.startChecking();true;`)
+						if (
+							newCubeScramble ||
+							rotateTheCube.lastCubeFacelets === ''
+						) {
+							setNewCubeScramble(false)
+						} else {
+							rotateTheCube.lastCubeFacelets !== '' &&
+								restoreCubeTrigger !== undefined &&
+								cubeSize === rotateTheCube.savedCubeSize &&
+								!restoreCubeTrigger &&
+								restoreCube()
+						}
 					}}
 					onMessage={(event) => {
 						const message = JSON.parse(event.nativeEvent.data)
