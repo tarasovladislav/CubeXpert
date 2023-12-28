@@ -177,9 +177,11 @@ export default function App() {
 				</SettingsContextProvider>
 			</FavoritesContextProvider>
 			{Platform.OS === 'android' && (
-				<StatusBar barStyle={statusBarStyle} />
+				// <StatusBar barStyle={statusBarStyle} />
+				<StatusBar  />
 			)}
-			{Platform.OS === 'ios' && <StatusBar barStyle={statusBarStyle} />}
+			{/* {Platform.OS === 'ios' && <StatusBar barStyle={statusBarStyle} />} */}
+			{Platform.OS === 'ios' && <StatusBar />}
 		</NavigationContainer>
 	)
 }

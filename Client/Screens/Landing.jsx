@@ -79,7 +79,7 @@ const Home = ({ navigation }) => {
 		return <Loading />
 	}
 	return (
-		<>
+		<View style={{flex:1}}>
 			<LinearGradient
 				colors={['#1C3738', '#283d3f', '#555d5e']} // Customize these colors
 				start={{ x: 3, y: 0 }} // Adjust these values for the diagonal direction
@@ -116,7 +116,7 @@ const Home = ({ navigation }) => {
 					</Animated.View>
 				</SafeAreaView>
 			</LinearGradient>
-		</>
+		</View>
 	)
 }
 

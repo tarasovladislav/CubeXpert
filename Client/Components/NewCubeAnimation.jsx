@@ -52,6 +52,7 @@ const CubeAnimation = ({
 	} = useRotateTheCubeContext()
 	const { toggleFavorites, isInFavorites } = useFavoritesContext()
 	const { settings, webViewKey } = useSettingsContext()
+    
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
 	const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg._id))
 	const [currentStep, setCurrentStep] = useState(0)
@@ -109,8 +110,6 @@ const CubeAnimation = ({
 
 	// Starting an Settimeout to highlight the current step of the cube whenever user press Play button
 
-	//todo since animation finished straght after, remove delay
-
 	useEffect(() => {
 		if (isPlaying) {
 			setAllowControl(false)
@@ -128,12 +127,12 @@ const CubeAnimation = ({
 		}
 	}, [isPlaying, triggerUseEffect])
 
-	const { width } = Dimensions.get('window')
 	// Cube control buttons handler
 	const handleButtonClick = (elementSelector) => {
-		const newWidth = Math.floor(width)
-		// executeJavaScript(`clickCanvas(${newWidth}, ${elementSelector});true`)
+		//trigger cube movement
 		executeJavaScript(`btn("", ${elementSelector});true`)
+
+		//set focus back on canvas
 		executeJavaScript(`clickCanvas2(0, 0);true`)
 		switch (elementSelector) {
 			case 4:
@@ -331,7 +330,6 @@ const CubeAnimation = ({
 	}, [cubeSaver])
 
 	useEffect(() => {
-		// restoreCubeTrigger && restoreCube()
 		restoreCubeTrigger && restoreCube()
 	}, [restoreCubeTrigger])
 
@@ -417,15 +415,13 @@ const CubeAnimation = ({
 								JSON.stringify(message),
 								rotateTheCube.cubeSize
 							)
-							//save cube
-							console.log(JSON.stringify(message))
+
 							setCubeSaver(false)
 						}
 					}}
 				/>
 			</Animated.View>
 
-			{/* {scramble === 0 && ( */}
 			{scramble === 0 && category !== 'CrossTraining' && (
 				<View style={styles.otherContainer}>
 					<View style={{ alignItems: 'center' }}>
@@ -452,7 +448,6 @@ const CubeAnimation = ({
 								!allowControl ||
 								isCubeLoading
 							}
-							// onPress={() => handleButtonClick(4)}
 							onPress={() => handleButtonClick(1)}
 							text={
 								<IconAwesome
@@ -470,7 +465,6 @@ const CubeAnimation = ({
 								!allowControl ||
 								isCubeLoading
 							}
-							// onPress={() => handleButtonClick(1.25)}
 							onPress={() => handleButtonClick(5)}
 							text={
 								<IconAwesome
@@ -484,7 +478,6 @@ const CubeAnimation = ({
 						{!isPlaying && (
 							<TouchableButtonTooltip
 								disabled={currentStep === len || isCubeLoading}
-								// onPress={() => handleButtonClick(1.5)}
 								onPress={() => handleButtonClick(4)}
 								text={
 									<IconAwesome
@@ -498,7 +491,6 @@ const CubeAnimation = ({
 						)}
 						{isPlaying && (
 							<TouchableButtonTooltip
-								// onPress={() => handleButtonClick(2)}
 								onPress={() => handleButtonClick(3)}
 								text={
 									<IconAwesome
@@ -515,7 +507,6 @@ const CubeAnimation = ({
 							disabled={
 								isPlaying || !allowControl || isCubeLoading
 							}
-							// onPress={() => handleButtonClick(0)}
 							onPress={() => handleButtonClick(0)}
 							text={
 								<IconAwesome
@@ -533,7 +524,6 @@ const CubeAnimation = ({
 								}
 								onPress={() => handleRecolor()}
 								text={
-									// 'recolor'
 									<icons.Feather
 										size={24}
 										color={commonStyles.iconColor}

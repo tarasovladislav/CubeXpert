@@ -1,4 +1,18 @@
 const model = require("../models/index");
+const solver = require('rubiks-cube-solver');
+
+function cubeSolver(req, res) {
+    let facelets = req.params.facelets;
+    let result = solver(facelets, {partitioned: true});
+
+    
+
+
+    console.log(result);
+    res.status(200);
+    res.send(result);
+}
+
 
 async function getAlgorithms(req, res) {
   try {
@@ -123,5 +137,6 @@ module.exports = {
   addLesson,
   cubeAnimation,
   getRandomAlgo,
-  addPushToken
+  addPushToken,
+  cubeSolver
 };

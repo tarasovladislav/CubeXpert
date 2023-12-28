@@ -11,11 +11,8 @@ import { useRotateTheCubeContext } from '../Contexts/RotateTheCubeContext'
 const RotateTheCube = () => {
 	const {
 		rotateTheCube,
-		newCubeScramble,
 		setNewCubeScramble,
-		cubeSaver,
 		setCubeSaver,
-		restoreCubeTrigger,
 		setRestoreCubeTrigger,
 	} = useRotateTheCubeContext()
 
@@ -35,14 +32,11 @@ const RotateTheCube = () => {
 
 	const [animationKey, setAnimationKey] = useState(0)
 
-	// const [cubeSize, setCubeSize] = useState(3)
 	const [isLoading, setIsLoading] = useState(true)
 
 	const [cubeSizeVisible, setCubeSizeVisible] = useState(false)
 	const toggleCubeSize = () => setCubeSizeVisible(!cubeSizeVisible)
 
-	// const [cubeSaver, setCubeSaver] = useState(false)
-	// const [restoreCubeTrigger, setRestoreCubeTrigger] = useState(false)
 	if (isLoading) {
 		return <Loading />
 	}
@@ -79,6 +73,7 @@ const RotateTheCube = () => {
 						edit={1}
 						snap={1}
 						onSuccessfulSolve={() => {
+                            setNewCubeScramble(true)
 							setAnimationKey(animationKey + 1)
 						}}
 					/>

@@ -25,4 +25,6 @@ router.get("/algorithms/categories", controller.getCategories);
 
 router.post("/push-token", controller.addPushToken);
 
+router.get("/cubeSolver/:facelets", controller.cubeSolver);
+
 module.exports = router;
