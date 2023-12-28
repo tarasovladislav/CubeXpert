@@ -2,8 +2,11 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import React from 'react'
 import TouchableButton from './TouchableButton'
 import commonStyles from '../commonStyles'
+import { useRotateTheCubeContext } from '../Contexts/RotateTheCubeContext'
 
-export default function CubeSizePicker({ cubeSize, setCubeSize }) {
+export default function CubeSizePicker({  }) {
+	const { rotateTheCube, changeCubeSize } = useRotateTheCubeContext()
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Choose Cube Size</Text>
@@ -12,23 +15,23 @@ export default function CubeSizePicker({ cubeSize, setCubeSize }) {
 					<TouchableButton
 						text="2x2x2"
 						activeColor={
-							cubeSize === 2
+							rotateTheCube.cubeSize === 2
 								? commonStyles.buttonActiveColor
 								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
-							setCubeSize(2)
+							changeCubeSize(2)
 						}}
 					/>
 					<TouchableButton
 						text="3x3x3"
 						activeColor={
-							cubeSize === 3
+							rotateTheCube.cubeSize === 3
 								? commonStyles.buttonActiveColor
 								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
-							setCubeSize(3)
+							changeCubeSize(3)
 						}}
 					/>
 				</View>
@@ -36,23 +39,23 @@ export default function CubeSizePicker({ cubeSize, setCubeSize }) {
 					<TouchableButton
 						text="4x4x4"
 						activeColor={
-							cubeSize === 4
+							rotateTheCube.cubeSize === 4
 								? commonStyles.buttonActiveColor
 								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
-							setCubeSize(4)
+							changeCubeSize(4)
 						}}
 					/>
 					<TouchableButton
 						text="5x5x5"
 						activeColor={
-							cubeSize === 5
+							rotateTheCube.cubeSize === 5
 								? commonStyles.buttonActiveColor
 								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
-							setCubeSize(5)
+							changeCubeSize(5)
 						}}
 					/>
 				</View>
@@ -60,23 +63,23 @@ export default function CubeSizePicker({ cubeSize, setCubeSize }) {
 					<TouchableButton
 						text="6x6x6"
 						activeColor={
-							cubeSize === 6
+							rotateTheCube.cubeSize === 6
 								? commonStyles.buttonActiveColor
 								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
-							setCubeSize(6)
+							changeCubeSize(6)
 						}}
 					/>
 					<TouchableButton
 						text="7x7x7"
 						activeColor={
-							cubeSize === 7
+							rotateTheCube.cubeSize === 7
 								? commonStyles.buttonActiveColor
 								: commonStyles.buttonDisabledColor
 						}
 						onPress={() => {
-							setCubeSize(7)
+							changeCubeSize(7)
 						}}
 					/>
 				</View>

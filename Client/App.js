@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import Home from './Screens/Home'
 import Landing from './Screens/Landing'
 const Stack = createNativeStackNavigator()
-import * as Updates from 'expo-updates';
+import * as Updates from 'expo-updates'
 
 import { SettingsContextProvider } from './Contexts/SettingsContext'
 import { FavoritesContextProvider } from './Contexts/FavoritesContext'
@@ -17,8 +17,6 @@ import commonStyles from './commonStyles'
 import RotateTheCube from './Screens/RotateTheCube'
 import { StatusBar, Platform } from 'react-native'
 
-
-
 import React, { useEffect } from 'react'
 import Constants from 'expo-constants'
 import * as Notifications from 'expo-notifications'
@@ -27,26 +25,25 @@ import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import apiService from './apiService'
 import CrossTrainer from './Screens/CrossTrainer'
-
+import { RotateTheCubeContextProvider } from './Contexts/RotateTheCubeContext'
 
 export default function App() {
 	const statusBarStyle = 'dark-content'
 	useEffect(() => {
-        async function onFetchUpdateAsync() {
-            try {
-              const update = await Updates.checkForUpdateAsync();
-        
-              if (update.isAvailable) {
-                await Updates.fetchUpdateAsync();
-                await Updates.reloadAsync();
-              }
-            } catch (error) {
-              // You can also add an alert() to see the error message in case of an error when fetching updates.
-              alert(`Error fetching latest Expo update: ${error}`);
-            }
-          }
-        onFetchUpdateAsync()
+		async function onFetchUpdateAsync() {
+			try {
+				const update = await Updates.checkForUpdateAsync()
 
+				if (update.isAvailable) {
+					await Updates.fetchUpdateAsync()
+					await Updates.reloadAsync()
+				}
+			} catch (error) {
+				// You can also add an alert() to see the error message in case of an error when fetching updates.
+				alert(`Error fetching latest Expo update: ${error}`)
+			}
+		}
+		onFetchUpdateAsync()
 
 		const checkExpoPushToken = async () => {
 			try {
@@ -55,7 +52,7 @@ export default function App() {
 				// if (!expoPushToken) {
 				const token = await registerForPushNotificationsAsync()
 				if (token) {
-                    console.log('token', token)
+					console.log('token', token)
 					await apiService.registerForPushNotifications(token)
 					token &&
 						(await AsyncStorage.setItem('expoPushToken', token))
@@ -69,111 +66,114 @@ export default function App() {
 		checkExpoPushToken()
 	}, [])
 
-    // useEffect(() => {
-    //     async function onFetchUpdateAsync() {
-    //     try {
-    //       const update = await Updates.checkForUpdateAsync();
-    
-    //       if (update.isAvailable) {
-    //         await Updates.fetchUpdateAsync();
-    //         await Updates.reloadAsync();
-    //       }
-    //     } catch (error) {
-    //       // You can also add an alert() to see the error message in case of an error when fetching updates.
-    //       alert(`Error fetching latest Expo update: ${error}`);
-    //     }
-    //   }
-    // onFetchUpdateAsync()
-    // }, [])
+	// useEffect(() => {
+	//     async function onFetchUpdateAsync() {
+	//     try {
+	//       const update = await Updates.checkForUpdateAsync();
 
+	//       if (update.isAvailable) {
+	//         await Updates.fetchUpdateAsync();
+	//         await Updates.reloadAsync();
+	//       }
+	//     } catch (error) {
+	//       // You can also add an alert() to see the error message in case of an error when fetching updates.
+	//       alert(`Error fetching latest Expo update: ${error}`);
+	//     }
+	//   }
+	// onFetchUpdateAsync()
+	// }, [])
 
 	return (
 		<NavigationContainer>
 			<FavoritesContextProvider>
 				<SettingsContextProvider>
-					<Stack.Navigator
-						initialRouteName="Landing"
-						screenOptions={{
-							headerStyle: {
-								backgroundColor: commonStyles.backgroundColor,
-							},
-							headerTintColor: commonStyles.titleColor,
-							headerTitleStyle: {
-								fontWeight: 'bold',
-							},
-							headerBackTitle: 'Back',
-							contentStyle: {
-								backgroundColor: commonStyles.backgroundColor,
-							},
-						}}
-					>
-						<Stack.Screen
-							name="Landing"
-							component={Landing}
-							options={{ title: 'Home', headerShown: false }}
-						/>
-						<Stack.Screen
-							name="Home"
-							component={Home}
-							options={{ title: 'Home' }}
-						/>
-						<Stack.Screen
-							name="Choose Category"
-							component={CategoryChoisePage}
-							options={{
-								title: 'Advanced Algorithms',
+					<RotateTheCubeContextProvider>
+						<Stack.Navigator
+							initialRouteName="Landing"
+							screenOptions={{
+								headerStyle: {
+									backgroundColor:
+										commonStyles.backgroundColor,
+								},
+								headerTintColor: commonStyles.titleColor,
+								headerTitleStyle: {
+									fontWeight: 'bold',
+								},
+								headerBackTitle: 'Back',
+								contentStyle: {
+									backgroundColor:
+										commonStyles.backgroundColor,
+								},
 							}}
-						/>
-						<Stack.Screen
-							name="Beginners Lessons"
-							component={BeginnersLessonChoice}
-							options={{
-								title: 'Beginners Lessons',
-							}}
-						/>
-						<Stack.Screen
-							name="Lesson"
-							component={LessonPage}
-							options={({ route }) => ({
-								title: route.params.name,
-							})}
-						/>
-						<Stack.Screen
-							name="Favorites"
-							component={Favorites}
-							options={({ route }) => ({
-								title: route.params.name,
-							})}
-						/>
-						<Stack.Screen
-							name="Category"
-							component={CategoryPage}
-							options={({ route }) => ({
-								title: route.params.name,
-							})}
-						/>
-						<Stack.Screen
-							name="Algo"
-							component={AlgoPage}
-							options={({ route }) => ({
-								title: route.params.name,
-							})}
-						/>
-						<Stack.Screen
-							name="RotateTheCube"
-							component={RotateTheCube}
-							options={({ route }) => ({
-								title: route.params.name,
-							})}
-						/>
-						<Stack.Screen
-							name="CrossTrainer"
-							component={CrossTrainer}
-							options={{
-								title: 'Cross Trainer',
-							}}
-						/>
-					</Stack.Navigator>
+						>
+							<Stack.Screen
+								name="Landing"
+								component={Landing}
+								options={{ title: 'Home', headerShown: false }}
+							/>
+							<Stack.Screen
+								name="Home"
+								component={Home}
+								options={{ title: 'Home' }}
+							/>
+							<Stack.Screen
+								name="Choose Category"
+								component={CategoryChoisePage}
+								options={{
+									title: 'Advanced Algorithms',
+								}}
+							/>
+							<Stack.Screen
+								name="Beginners Lessons"
+								component={BeginnersLessonChoice}
+								options={{
+									title: 'Beginners Lessons',
+								}}
+							/>
+							<Stack.Screen
+								name="Lesson"
+								component={LessonPage}
+								options={({ route }) => ({
+									title: route.params.name,
+								})}
+							/>
+							<Stack.Screen
+								name="Favorites"
+								component={Favorites}
+								options={({ route }) => ({
+									title: route.params.name,
+								})}
+							/>
+							<Stack.Screen
+								name="Category"
+								component={CategoryPage}
+								options={({ route }) => ({
+									title: route.params.name,
+								})}
+							/>
+							<Stack.Screen
+								name="Algo"
+								component={AlgoPage}
+								options={({ route }) => ({
+									title: route.params.name,
+								})}
+							/>
+							<Stack.Screen
+								name="RotateTheCube"
+								component={RotateTheCube}
+								options={({ route }) => ({
+									title: route.params.name,
+								})}
+							/>
+							<Stack.Screen
+								name="CrossTrainer"
+								component={CrossTrainer}
+								options={{
+									title: 'Cross Trainer',
+								}}
+							/>
+						</Stack.Navigator>
+					</RotateTheCubeContextProvider>
 				</SettingsContextProvider>
 			</FavoritesContextProvider>
 			{Platform.OS === 'android' && (

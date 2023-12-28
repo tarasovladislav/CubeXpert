@@ -7,8 +7,10 @@ import TouchableButton from '../Components/TouchableButton'
 import Loading from '../Components/Loading'
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
 import CubeSizePicker from '../Components/CubeSizePicker'
-
+import { useRotateTheCubeContext } from '../Contexts/RotateTheCubeContext'
 const RotateTheCube = () => {
+	const { rotateTheCube } = useRotateTheCubeContext()
+
 	const [isPlaying, setIsPlaying] = useState(false)
 
 	const [visible, setVisible] = useState(false)
@@ -25,12 +27,14 @@ const RotateTheCube = () => {
 
 	const [animationKey, setAnimationKey] = useState(0)
 
-	const [cubeSize, setCubeSize] = useState(3)
+	// const [cubeSize, setCubeSize] = useState(3)
 	const [isLoading, setIsLoading] = useState(true)
 
 	const [cubeSizeVisible, setCubeSizeVisible] = useState(false)
 	const toggleCubeSize = () => setCubeSizeVisible(!cubeSizeVisible)
 
+	const [cubeSaver, setCubeSaver] = useState(false)
+	const [restoreCubeTrigger, setRestoreCubeTrigger] = useState(false)
 	if (isLoading) {
 		return <Loading />
 	}
@@ -53,13 +57,18 @@ const RotateTheCube = () => {
 						animationType="fade"
 					>
 						<CubeSizePicker
-							setCubeSize={setCubeSize}
-							cubeSize={cubeSize}
+						// setCubeSize={setCubeSize}
+						// cubeSize={cubeSize}
 						/>
 					</Overlay>
 
 					<NewCubeAnimation
-						cubeSize={cubeSize}
+						cubeSize={
+							// rotateTheCube.savedCubeSize
+							// 	? rotateTheCube.savedCubeSize
+							// 	: rotateTheCube.cubeSize
+                                rotateTheCube.cubeSize
+						}
 						key={animationKey}
 						isPlaying={isPlaying}
 						setIsPlaying={setIsPlaying}
@@ -72,8 +81,23 @@ const RotateTheCube = () => {
 						onSuccessfulSolve={() => {
 							setAnimationKey(animationKey + 1)
 						}}
+						cubeSaver={cubeSaver}
+						setCubeSaver={setCubeSaver}
+						restoreCubeTrigger={restoreCubeTrigger}
+						setRestoreCubeTrigger={setRestoreCubeTrigger}
 					/>
-
+					<View style={[styles.buttonContainer]}>
+						<TouchableButton
+							onPress={() => setCubeSaver(true)}
+							text="Save The Cube"
+						/>
+						<TouchableButton
+							onPress={() => {
+								setRestoreCubeTrigger(true)
+							}}
+							text="Restore The Cube"
+						/>
+					</View>
 					<View style={[styles.buttonContainer]}>
 						<TouchableButton
 							onPress={toggleCubeSize}
