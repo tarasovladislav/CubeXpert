@@ -129,7 +129,7 @@ const CubeAnimation = ({
 		const newWidth = Math.floor(width)
 		// executeJavaScript(`clickCanvas(${newWidth}, ${elementSelector});true`)
 		executeJavaScript(`btn("", ${elementSelector});true`)
-		executeJavaScript(`clickCanvas(0, 0);true`)
+		executeJavaScript(`clickCanvas2(0, 0);true`)
 		switch (elementSelector) {
 			case 4:
 				setIsPlaying(true)
