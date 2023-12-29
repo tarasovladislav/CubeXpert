@@ -25,6 +25,9 @@ import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import apiService from './apiService'
 import CrossTrainer from './Screens/CrossTrainer'
+import CubeSolver from './Screens/CubeSolver'
+
+
 import { RotateTheCubeContextProvider } from './Contexts/RotateTheCubeContext'
 
 export default function App() {
@@ -172,13 +175,20 @@ export default function App() {
 									title: 'Cross Trainer',
 								}}
 							/>
+							<Stack.Screen
+								name="CubeSolver"
+								component={CubeSolver}
+								options={{
+									title: 'Cube Solver',
+								}}
+							/>
 						</Stack.Navigator>
 					</RotateTheCubeContextProvider>
 				</SettingsContextProvider>
 			</FavoritesContextProvider>
 			{Platform.OS === 'android' && (
 				// <StatusBar barStyle={statusBarStyle} />
-				<StatusBar  />
+				<StatusBar />
 			)}
 			{/* {Platform.OS === 'ios' && <StatusBar barStyle={statusBarStyle} />} */}
 			{Platform.OS === 'ios' && <StatusBar />}

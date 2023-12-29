@@ -5,6 +5,11 @@ import MenuItem from '../Components/MenuItem'
 const Home = ({ navigation }) => {
 	const [menuItems, setMenuItems] = useState([
 		{
+			text: 'Cube Solver',
+			navigateTo: 'CubeSolver',
+			image: 'beginner',
+		},
+		{
 			text: 'Beginners',
 			navigateTo: 'Beginners Lessons',
 			image: 'beginner',

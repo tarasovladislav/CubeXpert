@@ -1,18 +1,34 @@
 const model = require("../models/index");
-const solver = require('rubiks-cube-solver');
+const solver = require("rubiks-cube-solver");
+const Cube = require("cubejs");
+Cube.initSolver();
 
-function cubeSolver(req, res) {
-    let facelets = req.params.facelets;
-    let result = solver(facelets, {partitioned: true});
+async function cubeSolver(req, res) {
+  let facelets = req.params.facelets;
+  // let result = solver(facelets, {partitioned: false});
+  // Cube.initSolver()
+  //
+  // const cube =  Cube.fromString(facelets);
 
-    
+    const cube = new Cube();
+    cube.move("R U R' U'");
 
+  let result;
 
-    console.log(result);
-    res.status(200);
-    res.send(result);
+  try {
+    result = cube.solve([4]);
+  } catch (error) {
+    try {
+      result = cube.solve([7]);
+    } catch (error) {
+      result = cube.solve();
+    }
+  }
+
+  console.log(result);
+  res.status(200);
+  res.send(result);
 }
-
 
 async function getAlgorithms(req, res) {
   try {
@@ -138,5 +154,5 @@ module.exports = {
   cubeAnimation,
   getRandomAlgo,
   addPushToken,
-  cubeSolver
+  cubeSolver,
 };
