@@ -4,30 +4,55 @@ const Cube = require("cubejs");
 Cube.initSolver();
 
 async function cubeSolver(req, res) {
-  let facelets = req.params.facelets;
-  // let result = solver(facelets, {partitioned: false});
-  // Cube.initSolver()
-  //
-  // const cube =  Cube.fromString(facelets);
-
-    const cube = new Cube();
-    cube.move("R U R' U'");
-
-  let result;
-
   try {
-    result = cube.solve([4]);
-  } catch (error) {
-    try {
-      result = cube.solve([7]);
-    } catch (error) {
-      result = cube.solve();
+    let facelets = req.params.facelets;
+    let faceletsCopy = req.params.facelets;
+    let faceletsArray = [];
+    for (let i = 0; i < facelets.length; i += 9) {
+      faceletsArray.push(
+        faceletsCopy
+          .slice(i, i + 9)
+          .split("")
+          .reverse()
+          .join("")
+          .replace(/U/g, "temp") // Temporarily replace U with 'temp'
+          .replace(/D/g, "U")
+          .replace(/temp/g, "D")
+          .replace(/L/g, "temp") // Temporarily replace L with 'temp'
+          .replace(/R/g, "L")
+          .replace(/temp/g, "R")
+      );
     }
-  }
 
-  console.log(result);
-  res.status(200);
-  res.send(result);
+    //надо заменить up na down
+    // right na left?
+    //initial
+    // FBDLUFFRR FLBDRUDRL LUUBFRDRF BFLLDBBBU RUUDLLUDL RUDFBFBDR
+    // after reverse
+    // FRDRFBUUL LRDURDBLF RRFFULDBF UBBBDLLFB LDULLDUUR RDBFBFDUR
+    //correct
+    // flulfbddr rudrruddl dbbburrfb llffdrubf rludlubrf lubfbfudl
+    let testFacelets =
+      faceletsArray[2] + // corect
+      faceletsArray[4] + // corect
+      faceletsArray[3] + // corect
+      faceletsArray[0] + // corect
+      faceletsArray[1] + // corect
+      faceletsArray[5]; // corect
+    console.log(facelets);
+    console.log(testFacelets);
+    await solver(testFacelets); // Wait for solver() to complete
+
+    let cube = Cube.fromString(req.params.facelets);
+    let result = cube.solve();
+    console.log(result);
+
+    res.send(JSON.stringify(result));
+    res.status(200);
+  } catch (error) {
+    res.status(500);
+    res.send(JSON.stringify("The Cube is unsolvable."));
+  }
 }
 
 async function getAlgorithms(req, res) {

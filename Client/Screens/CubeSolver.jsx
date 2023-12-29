@@ -7,10 +7,12 @@ import {
 	SafeAreaView,
 	Dimensions,
 	Text,
+	Alert,
 } from 'react-native'
 import { useSettingsContext } from '../Contexts/SettingsContext'
 import TouchableButtonTooltip from '../Components/TouchableButtonTooltip'
-const CubeConfigurator = () => {
+import apiService from '../apiService'
+const CubeConfigurator = ({navigation}) => {
 	//"U...R...F...D...L...B..."
 
 	// Initialize each face of the cube with 9 squares, all set to grey
@@ -24,34 +26,34 @@ const CubeConfigurator = () => {
 		D: down,
 	} = defaultSettings
 	const initialCubeState = {
-		front: [
-			'grey',
-			'grey',
-			'grey',
-			'grey',
-			front,
-			'grey',
-			'grey',
-			'grey',
-			'grey',
-		],
-		back: [
-			'grey',
-			'grey',
-			'grey',
-			'grey',
-			back,
-			'grey',
-			'grey',
-			'grey',
-			'grey',
-		],
 		up: [
 			'grey',
 			'grey',
 			'grey',
 			'grey',
 			up,
+			'grey',
+			'grey',
+			'grey',
+			'grey',
+		],
+		right: [
+			'grey',
+			'grey',
+			'grey',
+			'grey',
+			right,
+			'grey',
+			'grey',
+			'grey',
+			'grey',
+		],
+		front: [
+			'grey',
+			'grey',
+			'grey',
+			'grey',
+			front,
 			'grey',
 			'grey',
 			'grey',
@@ -79,12 +81,12 @@ const CubeConfigurator = () => {
 			'grey',
 			'grey',
 		],
-		right: [
+		back: [
 			'grey',
 			'grey',
 			'grey',
 			'grey',
-			right,
+			back,
 			'grey',
 			'grey',
 			'grey',
@@ -95,7 +97,7 @@ const CubeConfigurator = () => {
 	const [cubeState, setCubeState] = useState(initialCubeState)
 	const [selectedColor, setSelectedColor] = useState('grey')
 
-	const colors = [left, front, back, right, up, down]
+	const colors = [left, front, back, right, up, down, 'grey']
 
 	const handleSquarePress = (face, squareIndex) => {
 		const newCubeState = { ...cubeState }
@@ -116,25 +118,7 @@ const CubeConfigurator = () => {
 			setCubeState(newCubeState)
 		}
 	}
-	const ColorSelector = () => {
-		return (
-			<View style={styles.colorSelector}>
-				{colors.map((color) => (
-					<TouchableOpacity
-						key={color}
-						style={[styles.colorButton, { backgroundColor: color }]}
-						onPress={() => handleColorSelect(color)}
-					>
-						<Text style={styles.colorButtonText}>
-							{color !== 'grey' &&
-								cubeState[color].filter((c) => c === color)
-									.length}
-						</Text>
-					</TouchableOpacity>
-				))}
-			</View>
-		)
-	}
+
 	// const [colorsUser, setColorsUser] = useState({})
 
 	// useEffect(() => {
@@ -157,7 +141,56 @@ const CubeConfigurator = () => {
 	const handleResetColors = () => {
 		setCubeState(initialCubeState)
 	}
+
+	const translateColor = (color) => {
+		switch (color) {
+			case up:
+				return 'U'
+			case front:
+				return 'F'
+			case right:
+				return 'R'
+			case left:
+				return 'L'
+			case back:
+				return 'B'
+			case down:
+				return 'D'
+		}
+	}
+
 	const handleSolve = () => {
+		//"U...R...F...D...L...B..."
+
+		const cubeStateString = Object.values(cubeState).reduce(
+			(cubeStateString, faceColors) => {
+				return cubeStateString + faceColors.map(translateColor).join('')
+			},
+			''
+		)
+        console.log(cubeStateString, 'cubeStateString')
+
+		apiService.cubeSolver(cubeStateString).then((data) => {
+			if (data === 'The Cube is unsolvable.') {
+				Alert.alert(
+					'The Cube is unsolvable',
+					'Please check facelet colors and try again.'
+				)
+			} else {
+				console.log(data)
+				Alert.alert('Solution is ready!', 'Check it out!', [
+					{
+						text: 'Let\'s go!',
+						onPress: () => navigation.navigate('CubeSolverSolution', {solution: data})
+					},
+                    {
+                        text: 'Cancel',
+                        style: 'cancel'
+                    }
+				])
+			}
+		})
+
 		// setCubeState(initialCubeState)
 	}
 
@@ -181,8 +214,6 @@ const CubeConfigurator = () => {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			{/* Color selection buttons */}
-
 			{/* Cube layout */}
 			<View></View>
 			<View style={styles.cubeLayout}>
@@ -202,6 +233,7 @@ const CubeConfigurator = () => {
 				</View>
 			</View>
 			<View>
+				{/* Color selection buttons */}
 				<View style={styles.colorSelector}>
 					{colors.map((color) => (
 						<TouchableOpacity
@@ -214,7 +246,23 @@ const CubeConfigurator = () => {
 							]}
 							onPress={() => handleColorSelect(color)}
 						>
-							{/* <Text style={styles.colorButtonText}>{colorsUser[color]}</Text> */}
+							{color !== 'grey' && (
+								<Text style={styles.colorButtonText}>
+									{9 -
+										Object.values(cubeState).reduce(
+											(count, faceColors) => {
+												return (
+													count +
+													faceColors.filter(
+														(colors) =>
+															colors === color
+													).length
+												)
+											},
+											0
+										)}
+								</Text>
+							)}
 						</TouchableOpacity>
 					))}
 				</View>
@@ -286,6 +334,7 @@ const styles = StyleSheet.create({
 		margin: 5,
 		borderColor: 'grey',
 		borderWidth: 1,
+		justifyContent: 'center',
 	},
 	selectedColorButton: {
 		width: 50,
@@ -295,6 +344,7 @@ const styles = StyleSheet.create({
 		borderColor: 'grey',
 		transform: [{ scale: 1.15 }],
 		borderWidth: 1,
+		justifyContent: 'center',
 	},
 	cubeLayout: {
 		gap: 5,
@@ -304,8 +354,6 @@ const styles = StyleSheet.create({
 	},
 	middleRow: {
 		flexDirection: 'row',
-		// alignItems: 'center',
-		// justifyContent: 'center',
 		gap: 5,
 	},
 	cubeFace: {
@@ -318,7 +366,6 @@ const styles = StyleSheet.create({
 	cubeSquare: {
 		width: (width - 25) / 4 / 3 - 1,
 		height: (width - 25) / 4 / 3 - 1,
-		// margin: 1,
 		borderRadius: 5,
 		borderColor: '#2c2c2c',
 		borderWidth: 1,
@@ -326,6 +373,12 @@ const styles = StyleSheet.create({
 	buttonContainer: {
 		flexDirection: 'row',
 		position: 'relative',
+	},
+	colorButtonText: {
+		fontSize: 20,
+		fontWeight: '800',
+		color: 'black',
+		textAlign: 'center',
 	},
 })
 

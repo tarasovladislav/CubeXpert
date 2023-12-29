@@ -52,7 +52,7 @@ const CubeAnimation = ({
 	} = useRotateTheCubeContext()
 	const { toggleFavorites, isInFavorites } = useFavoritesContext()
 	const { settings, webViewKey } = useSettingsContext()
-    
+
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
 	const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg._id))
 	const [currentStep, setCurrentStep] = useState(0)
@@ -242,6 +242,9 @@ const CubeAnimation = ({
 
 	// For different categories we want some elements to be ignored, since they are not necessary
 	switch (category) {
+		case 'Solution':
+			setupmoves = manipulateString(alg)+"y'"
+			break
 		case 'F2L':
 			facelets = 'qqqqqqqqq111111111q22q22q22q33q33q33qqq444444q55q55q55'
 			setupmoves = manipulateString(alg)
