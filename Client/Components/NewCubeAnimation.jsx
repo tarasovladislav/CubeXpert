@@ -38,6 +38,8 @@ const CubeAnimation = ({
 	edit = 0,
 	snap = 0,
 	onSuccessfulSolve,
+    customFacelets,
+    animationRef
 }) => {
 	const {
 		changeLastCubeFacelets,
@@ -242,6 +244,12 @@ const CubeAnimation = ({
 
 	// For different categories we want some elements to be ignored, since they are not necessary
 	switch (category) {
+        
+		case 'CubePreview':
+			setupmoves = "y'"
+            // facelets = 'qqqqqqqqq111111111q22q22q22q33q33q33qqq444444q55q55q55'
+            facelets = customFacelets
+			break
 		case 'Solution':
 			setupmoves = manipulateString(alg)+"y'"
 			break
@@ -368,7 +376,7 @@ const CubeAnimation = ({
 						)}&demo=${demo}&edit=${edit}&snap=${snap}`,
 					}}
 					javaScriptEnabled={true}
-					ref={cubeAnimationWebView}
+					ref={animationRef || cubeAnimationWebView}
 					key={webViewKey}
 					scrollEnabled={false}
 					bounces={false}
@@ -425,7 +433,7 @@ const CubeAnimation = ({
 				/>
 			</Animated.View>
 
-			{scramble === 0 && category !== 'CrossTraining' && (
+			{scramble === 0 && category !== 'CrossTraining' && category !== 'CubePreview' && (
 				<View style={styles.otherContainer}>
 					<View style={{ alignItems: 'center' }}>
 						<Text style={styles.algoText}>

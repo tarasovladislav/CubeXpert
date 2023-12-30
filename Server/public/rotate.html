@@ -189,6 +189,11 @@
         acjs_button[c](n);
       }
 
+      function update_facelet(side, square, color) {
+        acjs_cube[""][side][square] = color;
+        acjs_paint[""]();
+      }
+
       function copy_cube(dest, src) {
         for (var i = 0; i < src.length; i++) dest[i] = src[i].slice();
       }
