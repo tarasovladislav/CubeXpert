@@ -251,7 +251,7 @@ const CubeAnimation = ({
             facelets = customFacelets
 			break
 		case 'Solution':
-			setupmoves = manipulateString(alg)+"y'"
+            setupmoves = manipulateString(alg)+"y'"
 			break
 		case 'F2L':
 			facelets = 'qqqqqqqqq111111111q22q22q22q33q33q33qqq444444q55q55q55'
@@ -394,7 +394,7 @@ const CubeAnimation = ({
 							rotateTheCube.lastCubeFacelets !== '' &&
 								restoreCubeTrigger !== undefined &&
 								cubeSize === rotateTheCube.savedCubeSize &&
-								!restoreCubeTrigger &&
+								!restoreCubeTrigger && category !== 'Solution' &&
 								restoreCube()
 						}
 					}}

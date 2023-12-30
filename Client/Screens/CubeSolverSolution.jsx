@@ -53,7 +53,7 @@ const RotateTheCube = ({route}) => {
 						key={animationKey}
 						isPlaying={isPlaying}
 						setIsPlaying={setIsPlaying}
-						category={"Solution"}
+						category={'Solution'}
 						alg={solution}
 						currentAlg={currentAlg}
 						edit={0}
