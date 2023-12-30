@@ -8,11 +8,15 @@ import {
 	Dimensions,
 	Text,
 	Alert,
+	ActivityIndicator,
 } from 'react-native'
 import { useSettingsContext } from '../Contexts/SettingsContext'
 import TouchableButtonTooltip from '../Components/TouchableButtonTooltip'
 import apiService from '../apiService'
 import NewCubeAnimation from '../Components/NewCubeAnimation'
+import Loading from '../Components/Loading'
+import { Overlay } from 'react-native-elements'
+
 const CubeConfigurator = ({ navigation }) => {
 	//"U...R...F...D...L...B..."
 
@@ -393,9 +397,14 @@ const CubeConfigurator = ({ navigation }) => {
 		}, '')
 	}
 
+	const [isSolutionLoading, setIsSolutionLoading] = useState(false)
+
 	const handleSolve = () => {
 		const cubeStateString = cubeStateTranslator(cubeState)
+console.log(cubeStateString)
+		setIsSolutionLoading(true)
 		apiService.cubeSolver(cubeStateString).then((data) => {
+			setIsSolutionLoading(false)
 			if (data === 'The Cube is unsolvable.') {
 				Alert.alert(
 					'The Cube is unsolvable',
@@ -445,117 +454,131 @@ const CubeConfigurator = ({ navigation }) => {
 	const [animationKey, setAnimationKey] = useState(0)
 
 	return (
-		<SafeAreaView style={styles.container}>
-			{/* Cube layout */}
-			{/* Add the cube and in live change its facelets when we update any of the states.  */}
+		<>
+			<Overlay isVisible={isSolutionLoading} animationType="fade">
+				<View style={styles.loading}>
+					<Text style={{ marginBottom: 20 }}>Please, wait!</Text>
+					<ActivityIndicator size="large" />
+				</View>
+			</Overlay>
+			<SafeAreaView style={styles.container}>
+				{/* Cube layout */}
+				{/* Add the cube and in live change its facelets when we update any of the states.  */}
 
-			<NewCubeAnimation
-				cubeSize={3}
-				key={animationKey}
-				isPlaying={isPlaying}
-				setIsPlaying={setIsPlaying}
-				category={'CubePreview'}
-				alg={'U'}
-				currentAlg={currentAlg}
-				edit={0}
-				snap={0}
-				customFacelets={previewFacelets}
-				animationRef={animationRef}
-			/>
+				<NewCubeAnimation
+					cubeSize={3}
+					key={animationKey}
+					isPlaying={isPlaying}
+					setIsPlaying={setIsPlaying}
+					category={'CubePreview'}
+					alg={'U'}
+					currentAlg={currentAlg}
+					edit={0}
+					snap={0}
+					customFacelets={previewFacelets}
+					animationRef={animationRef}
+				/>
 
-			<View style={styles.cubeLayout}>
-				<View style={{ flexDirection: 'row', gap: 5 }}>
-					<CubeFace />
-					<CubeFace face="up" />
+				<View style={styles.cubeLayout}>
+					<View style={{ flexDirection: 'row', gap: 5 }}>
+						<CubeFace />
+						<CubeFace face="up" />
+					</View>
+					<View style={styles.middleRow}>
+						<CubeFace face="left" />
+						<CubeFace face="front" />
+						<CubeFace face="right" />
+						<CubeFace face="back" />
+					</View>
+					<View style={{ flexDirection: 'row', gap: 5 }}>
+						<CubeFace />
+						<CubeFace face="down" />
+					</View>
 				</View>
-				<View style={styles.middleRow}>
-					<CubeFace face="left" />
-					<CubeFace face="front" />
-					<CubeFace face="right" />
-					<CubeFace face="back" />
+				<View>
+					{/* Color selection buttons */}
+					<View style={styles.colorSelector}>
+						{colors.map((color) => (
+							<TouchableOpacity
+								key={color}
+								style={[
+									color === selectedColor
+										? styles.selectedColorButton
+										: styles.colorButton,
+									{ backgroundColor: color },
+								]}
+								onPress={() => handleColorSelect(color)}
+							>
+								{color !== 'grey' && (
+									<Text style={styles.colorButtonText}>
+										{9 -
+											Object.values(cubeState).reduce(
+												(count, faceColors) => {
+													return (
+														count +
+														faceColors.filter(
+															(colors) =>
+																colors === color
+														).length
+													)
+												},
+												0
+											)}
+									</Text>
+								)}
+							</TouchableOpacity>
+						))}
+					</View>
+					<View style={styles.buttonContainer}>
+						<TouchableButtonTooltip
+							disabled={
+								Object.values(cubeState).reduce(
+									(count, faceColors) => {
+										return (
+											count +
+											faceColors.filter(
+												(color) => color === 'grey'
+											).length
+										)
+									},
+									0
+								) === 48
+							}
+							onPress={handleResetColors}
+							text={'Reset Colors'}
+						/>
+						<TouchableButtonTooltip
+							disabled={
+								Object.values(cubeState).reduce(
+									(count, faceColors) => {
+										return (
+											count +
+											faceColors.filter(
+												(color) => color === 'grey'
+											).length
+										)
+									},
+									0
+								) > 0
+							}
+							onPress={handleSolve}
+							text={'Solve The Cube'}
+						/>
+					</View>
 				</View>
-				<View style={{ flexDirection: 'row', gap: 5 }}>
-					<CubeFace />
-					<CubeFace face="down" />
-				</View>
-			</View>
-			<View>
-				{/* Color selection buttons */}
-				<View style={styles.colorSelector}>
-					{colors.map((color) => (
-						<TouchableOpacity
-							key={color}
-							style={[
-								color === selectedColor
-									? styles.selectedColorButton
-									: styles.colorButton,
-								{ backgroundColor: color },
-							]}
-							onPress={() => handleColorSelect(color)}
-						>
-							{color !== 'grey' && (
-								<Text style={styles.colorButtonText}>
-									{9 -
-										Object.values(cubeState).reduce(
-											(count, faceColors) => {
-												return (
-													count +
-													faceColors.filter(
-														(colors) =>
-															colors === color
-													).length
-												)
-											},
-											0
-										)}
-								</Text>
-							)}
-						</TouchableOpacity>
-					))}
-				</View>
-				<View style={styles.buttonContainer}>
-					<TouchableButtonTooltip
-						disabled={
-							Object.values(cubeState).reduce(
-								(count, faceColors) => {
-									return (
-										count +
-										faceColors.filter(
-											(color) => color === 'grey'
-										).length
-									)
-								},
-								0
-							) === 48
-						}
-						onPress={handleResetColors}
-						text={'Reset Colors'}
-					/>
-					<TouchableButtonTooltip
-						disabled={
-							Object.values(cubeState).reduce(
-								(count, faceColors) => {
-									return (
-										count +
-										faceColors.filter(
-											(color) => color === 'grey'
-										).length
-									)
-								},
-								0
-							) > 0
-						}
-						onPress={handleSolve}
-						text={'Solve The Cube'}
-					/>
-				</View>
-			</View>
-		</SafeAreaView>
+			</SafeAreaView>
+		</>
 	)
 }
 const width = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
+	loading: {
+		width: width * 0.3,
+		height: width * 0.2,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 	scrollViewContent: {
 		flexGrow: 1,
 		justifyContent: 'center',
