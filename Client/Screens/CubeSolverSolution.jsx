@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native'
 import { Overlay } from 'react-native-elements'
 import ProfileSettings from '../Components/ProfileSettings'
+import IconAwesome from 'react-native-vector-icons/FontAwesome5'
 
 import NewCubeAnimation from '../Components/NewCubeAnimation'
 import TouchableButton from '../Components/TouchableButton'
@@ -10,7 +11,9 @@ const RotateTheCube = ({route}) => {
 	const { solution } = route.params
 
 
-	
+    const [visible, setVisible] = useState(false)
+	const toggleOverlay = () => setVisible(!visible)
+
 
 	const [isPlaying, setIsPlaying] = useState(false)
 
@@ -53,15 +56,28 @@ const RotateTheCube = ({route}) => {
 						category={"Solution"}
 						alg={solution}
 						currentAlg={currentAlg}
-						// scramble={2}
 						edit={0}
 						snap={0}
-						// onSuccessfulSolve={() => {
-                        //     setNewCubeScramble(true)
-						// 	setAnimationKey(animationKey + 1)
-						// }}
+						
 					/>
-					
+					<TouchableOpacity
+						onPress={toggleOverlay}
+						disabled={isPlaying}
+						style={{
+							flex: 0,
+							position: 'absolute',
+							top: 10,
+							right: 10,
+							zIndex: 2,
+						}}
+					>
+						<IconAwesome
+							size={30}
+							color="black"
+							name="cog"
+							style={{ padding: 5 }}
+						/>
+					</TouchableOpacity>
 				</SafeAreaView>
 			)}
 		</>

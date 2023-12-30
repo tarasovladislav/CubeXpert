@@ -12,7 +12,7 @@ import {
 import { useSettingsContext } from '../Contexts/SettingsContext'
 import TouchableButtonTooltip from '../Components/TouchableButtonTooltip'
 import apiService from '../apiService'
-const CubeConfigurator = ({navigation}) => {
+const CubeConfigurator = ({ navigation }) => {
 	//"U...R...F...D...L...B..."
 
 	// Initialize each face of the cube with 9 squares, all set to grey
@@ -160,15 +160,12 @@ const CubeConfigurator = ({navigation}) => {
 	}
 
 	const handleSolve = () => {
-		//"U...R...F...D...L...B..."
-
 		const cubeStateString = Object.values(cubeState).reduce(
 			(cubeStateString, faceColors) => {
 				return cubeStateString + faceColors.map(translateColor).join('')
 			},
 			''
 		)
-        console.log(cubeStateString, 'cubeStateString')
 
 		apiService.cubeSolver(cubeStateString).then((data) => {
 			if (data === 'The Cube is unsolvable.') {
@@ -180,18 +177,19 @@ const CubeConfigurator = ({navigation}) => {
 				console.log(data)
 				Alert.alert('Solution is ready!', 'Check it out!', [
 					{
-						text: 'Let\'s go!',
-						onPress: () => navigation.navigate('CubeSolverSolution', {solution: data})
+						text: "Let's go!",
+						onPress: () =>
+							navigation.navigate('CubeSolverSolution', {
+								solution: data,
+							}),
 					},
-                    {
-                        text: 'Cancel',
-                        style: 'cancel'
-                    }
+					{
+						text: 'Cancel',
+						style: 'cancel',
+					},
 				])
 			}
 		})
-
-		// setCubeState(initialCubeState)
 	}
 
 	const CubeFace = ({ face }) => {
@@ -328,8 +326,8 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 	},
 	colorButton: {
-		width: 50,
-		height: 50,
+		width: width/9,
+		height: width/9,
 		borderRadius: 5,
 		margin: 5,
 		borderColor: 'grey',
@@ -337,8 +335,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	selectedColorButton: {
-		width: 50,
-		height: 50,
+		width: width/9,
+		height: width/9,
 		borderRadius: 5,
 		margin: 5,
 		borderColor: 'grey',

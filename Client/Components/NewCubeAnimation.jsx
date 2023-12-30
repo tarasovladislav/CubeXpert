@@ -538,7 +538,7 @@ const CubeAnimation = ({
 						)}
 					</View>
 
-					<TouchableOpacity
+					{category !== "Solution" && <TouchableOpacity
 						style={{
 							flex: 0,
 							position: 'absolute',
@@ -557,7 +557,7 @@ const CubeAnimation = ({
 							name={isFavorite ? 'star' : 'staro'}
 							style={{ padding: 5 }}
 						/>
-					</TouchableOpacity>
+					</TouchableOpacity>}
 				</View>
 			)}
 		</View>

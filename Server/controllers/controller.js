@@ -8,7 +8,7 @@ async function cubeSolver(req, res) {
     let facelets = req.params.facelets;
     let faceletsCopy = req.params.facelets;
     let faceletsArray = [];
-    for (let i = 0; i < facelets.length; i += 9) {
+    for (let i = 0; i < faceletsCopy.length; i += 9) {
       faceletsArray.push(
         faceletsCopy
           .slice(i, i + 9)
@@ -23,15 +23,6 @@ async function cubeSolver(req, res) {
           .replace(/temp/g, "R")
       );
     }
-
-    //надо заменить up na down
-    // right na left?
-    //initial
-    // FBDLUFFRR FLBDRUDRL LUUBFRDRF BFLLDBBBU RUUDLLUDL RUDFBFBDR
-    // after reverse
-    // FRDRFBUUL LRDURDBLF RRFFULDBF UBBBDLLFB LDULLDUUR RDBFBFDUR
-    //correct
-    // flulfbddr rudrruddl dbbburrfb llffdrubf rludlubrf lubfbfudl
     let testFacelets =
       faceletsArray[2] + // corect
       faceletsArray[4] + // corect
@@ -39,13 +30,18 @@ async function cubeSolver(req, res) {
       faceletsArray[0] + // corect
       faceletsArray[1] + // corect
       faceletsArray[5]; // corect
-    console.log(facelets);
-    console.log(testFacelets);
+
     await solver(testFacelets); // Wait for solver() to complete
 
-    let cube = Cube.fromString(req.params.facelets);
-    let result = cube.solve();
-    console.log(result);
+    let cube = Cube.fromString(facelets);
+
+    let result;
+
+    try {
+      result = cube.solve([5]);
+    } catch (error) {
+      result = cube.solve();
+    }
 
     res.send(JSON.stringify(result));
     res.status(200);
