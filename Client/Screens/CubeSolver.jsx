@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import {
 	View,
 	TouchableOpacity,
@@ -12,6 +12,7 @@ import {
 import { useSettingsContext } from '../Contexts/SettingsContext'
 import TouchableButtonTooltip from '../Components/TouchableButtonTooltip'
 import apiService from '../apiService'
+import NewCubeAnimation from '../Components/NewCubeAnimation'
 const CubeConfigurator = ({ navigation }) => {
 	//"U...R...F...D...L...B..."
 
@@ -99,6 +100,246 @@ const CubeConfigurator = ({ navigation }) => {
 
 	const colors = [left, front, back, right, up, down, 'grey']
 
+	// const [previewFacelets, setPreviewFacelets] = useState(
+	// 	'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+	// )
+	let previewFacelets =
+		'qqqq0qqqqqqqq1qqqqqqqq2qqqqqqqq3qqqqqqqq4qqqqqqqq5qqqq'
+	const animationRef = useRef(null)
+
+	const handlePreviewChange = (face, squareIndex) => {
+		let faceIndex
+		let sqrIndex
+		let colorNumber
+
+		switch (selectedColor) {
+			case up:
+				colorNumber = 0
+				break
+			case front:
+				colorNumber = 5
+				break
+			case back:
+				colorNumber = 4
+				break
+			case right:
+				colorNumber = 3
+				break
+			case left:
+				colorNumber = 2
+				break
+			case down:
+				colorNumber = 1
+				break
+			default:
+				colorNumber = 23
+				break
+		}
+
+		switch (face) {
+			case 'up':
+				faceIndex = 0
+				switch (squareIndex) {
+					case 0:
+						sqrIndex = 6
+						break
+					case 1:
+						sqrIndex = 7
+						break
+					case 2:
+						sqrIndex = 8
+						break
+					case 3:
+						sqrIndex = 3
+						break
+					case 4:
+						sqrIndex = 4
+						break
+					case 5:
+						sqrIndex = 5
+						break
+					case 6:
+						sqrIndex = 0
+						break
+					case 7:
+						sqrIndex = 1
+						break
+					case 8:
+						sqrIndex = 2
+						break
+				}
+
+				break
+			case 'front':
+				faceIndex = 2
+				switch (squareIndex) {
+					case 0:
+						sqrIndex = 0
+						break
+					case 1:
+						sqrIndex = 3
+						break
+					case 2:
+						sqrIndex = 6
+						break
+					case 3:
+						sqrIndex = 1
+						break
+					case 4:
+						sqrIndex = 4
+						break
+					case 5:
+						sqrIndex = 7
+						break
+					case 6:
+						sqrIndex = 2
+						break
+					case 7:
+						sqrIndex = 5
+						break
+					case 8:
+						sqrIndex = 8
+						break
+				}
+
+				break
+			case 'right':
+				faceIndex = 5
+				switch (squareIndex) {
+					case 0:
+						sqrIndex = 0
+						break
+					case 1:
+						sqrIndex = 3
+						break
+					case 2:
+						sqrIndex = 6
+						break
+					case 3:
+						sqrIndex = 1
+						break
+					case 4:
+						sqrIndex = 4
+						break
+					case 5:
+						sqrIndex = 7
+						break
+					case 6:
+						sqrIndex = 2
+						break
+					case 7:
+						sqrIndex = 5
+						break
+					case 8:
+						sqrIndex = 8
+						break
+				}
+
+				break
+			case 'left':
+				faceIndex = 4
+				switch (squareIndex) {
+					case 0:
+						sqrIndex = 2
+						break
+					case 1:
+						sqrIndex = 1
+						break
+					case 2:
+						sqrIndex = 0
+						break
+					case 3:
+						sqrIndex = 5
+						break
+					case 4:
+						sqrIndex = 4
+						break
+					case 5:
+						sqrIndex = 3
+						break
+					case 6:
+						sqrIndex = 8
+						break
+					case 7:
+						sqrIndex = 7
+						break
+					case 8:
+						sqrIndex = 6
+						break
+				}
+				break
+			case 'back':
+				faceIndex = 3
+				switch (squareIndex) {
+					case 0:
+						sqrIndex = 0
+						break
+					case 1:
+						sqrIndex = 3
+						break
+					case 2:
+						sqrIndex = 6
+						break
+					case 3:
+						sqrIndex = 1
+						break
+					case 4:
+						sqrIndex = 4
+						break
+					case 5:
+						sqrIndex = 7
+						break
+					case 6:
+						sqrIndex = 2
+						break
+					case 7:
+						sqrIndex = 5
+						break
+					case 8:
+						sqrIndex = 8
+						break
+				}
+
+				break
+			case 'down':
+				faceIndex = 1
+				switch (squareIndex) {
+					case 0:
+						sqrIndex = 0
+						break
+					case 1:
+						sqrIndex = 3
+						break
+					case 2:
+						sqrIndex = 6
+						break
+					case 3:
+						sqrIndex = 1
+						break
+					case 4:
+						sqrIndex = 4
+						break
+					case 5:
+						sqrIndex = 7
+						break
+					case 6:
+						sqrIndex = 2
+						break
+					case 7:
+						sqrIndex = 5
+						break
+					case 8:
+						sqrIndex = 8
+						break
+				}
+				break
+		}
+
+		animationRef.current.injectJavaScript(
+			`update_facelet(${faceIndex},${sqrIndex},${colorNumber});true`
+		)
+	}
+
 	const handleSquarePress = (face, squareIndex) => {
 		const newCubeState = { ...cubeState }
 		const newFaceColors = [...newCubeState[face]]
@@ -112,33 +353,20 @@ const CubeConfigurator = ({ navigation }) => {
 			0
 		)
 
-		if (colorCount < 9) {
+		if (colorCount < 9 || selectedColor === 'grey') {
+			handlePreviewChange(face, squareIndex)
 			newFaceColors[squareIndex] = selectedColor
 			newCubeState[face] = newFaceColors
 			setCubeState(newCubeState)
 		}
 	}
 
-	// const [colorsUser, setColorsUser] = useState({})
-
-	// useEffect(() => {
-	//     const updateColorsUser = () => {
-	//         const newColorsUser = {}
-	//         colors.forEach((color) => {
-	//             const count = cubeState[color].filter((c) => c === color).length
-	//             newColorsUser[color] = count
-	//         })
-	//         setColorsUser(newColorsUser)
-	//     }
-
-	//     updateColorsUser()
-	// }, [cubeState])
-
 	const handleColorSelect = (color) => {
 		setSelectedColor(color)
 	}
 
 	const handleResetColors = () => {
+		setAnimationKey(animationKey + 1)
 		setCubeState(initialCubeState)
 	}
 
@@ -159,14 +387,14 @@ const CubeConfigurator = ({ navigation }) => {
 		}
 	}
 
-	const handleSolve = () => {
-		const cubeStateString = Object.values(cubeState).reduce(
-			(cubeStateString, faceColors) => {
-				return cubeStateString + faceColors.map(translateColor).join('')
-			},
-			''
-		)
+	const cubeStateTranslator = (state) => {
+		return Object.values(state).reduce((cubeStateString, faceColors) => {
+			return cubeStateString + faceColors.map(translateColor).join('')
+		}, '')
+	}
 
+	const handleSolve = () => {
+		const cubeStateString = cubeStateTranslator(cubeState)
 		apiService.cubeSolver(cubeStateString).then((data) => {
 			if (data === 'The Cube is unsolvable.') {
 				Alert.alert(
@@ -210,10 +438,31 @@ const CubeConfigurator = ({ navigation }) => {
 		)
 	}
 
+	const [isPlaying, setIsPlaying] = useState(false)
+
+	const [currentAlg, setCurrentAlg] = useState({ algo: ['U'] })
+
+	const [animationKey, setAnimationKey] = useState(0)
+
 	return (
 		<SafeAreaView style={styles.container}>
 			{/* Cube layout */}
-			<View></View>
+			{/* Add the cube and in live change its facelets when we update any of the states.  */}
+
+			<NewCubeAnimation
+				cubeSize={3}
+				key={animationKey}
+				isPlaying={isPlaying}
+				setIsPlaying={setIsPlaying}
+				category={'CubePreview'}
+				alg={'U'}
+				currentAlg={currentAlg}
+				edit={0}
+				snap={0}
+				customFacelets={previewFacelets}
+				animationRef={animationRef}
+			/>
+
 			<View style={styles.cubeLayout}>
 				<View style={{ flexDirection: 'row', gap: 5 }}>
 					<CubeFace />
@@ -313,6 +562,7 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		flex: 1,
+		gap: 10,
 		margin: 5,
 		justifyContent: 'space-between',
 	},
@@ -320,14 +570,13 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		margin: 5,
-		marginBottom: 20,
 		backgroundColor: 'lightgrey',
 		padding: 5,
 		borderRadius: 5,
 	},
 	colorButton: {
-		width: width/9,
-		height: width/9,
+		width: width / 9,
+		height: width / 9,
 		borderRadius: 5,
 		margin: 5,
 		borderColor: 'grey',
@@ -335,8 +584,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	selectedColorButton: {
-		width: width/9,
-		height: width/9,
+		width: width / 9,
+		height: width / 9,
 		borderRadius: 5,
 		margin: 5,
 		borderColor: 'grey',

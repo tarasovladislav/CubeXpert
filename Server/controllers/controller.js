@@ -5,6 +5,7 @@ Cube.initSolver();
 
 async function cubeSolver(req, res) {
   try {
+    console.log(req.params.facelets)
     let facelets = req.params.facelets;
     let faceletsCopy = req.params.facelets;
     let faceletsArray = [];
