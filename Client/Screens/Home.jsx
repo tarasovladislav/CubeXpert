@@ -7,7 +7,7 @@ const Home = ({ navigation }) => {
 		{
 			text: 'Cube Solver',
 			navigateTo: 'CubeSolver',
-			image: 'beginner',
+			image: 'cubesolver',
 		},
 		{
 			text: 'Beginners',
