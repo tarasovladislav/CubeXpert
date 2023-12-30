@@ -1,5 +1,16 @@
 const { Alert } = require('react-native')
 import { BASE_URL } from './env'
+
+async function cubeSolver(facelets) {
+    try {
+        const response = await fetch(`${BASE_URL}/cubeSolver/${facelets}`)
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
 async function getAllAlgs() {
 	try {
 		const response = await fetch(`${BASE_URL}/algorithms/`)
@@ -80,5 +91,6 @@ module.exports = {
 	getAllAlgs,
 	getAllLessons,
 	getRandomAlg,
-    registerForPushNotifications
+    registerForPushNotifications,
+    cubeSolver
 }

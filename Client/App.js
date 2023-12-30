@@ -25,7 +25,12 @@ import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import apiService from './apiService'
 import CrossTrainer from './Screens/CrossTrainer'
+import CubeSolver from './Screens/CubeSolver'
+import CubeSolverSolution from './Screens/CubeSolverSolution'
+
 import { RotateTheCubeContextProvider } from './Contexts/RotateTheCubeContext'
+
+
 
 export default function App() {
 	const statusBarStyle = 'dark-content'
@@ -172,14 +177,30 @@ export default function App() {
 									title: 'Cross Trainer',
 								}}
 							/>
+							<Stack.Screen
+								name="CubeSolver"
+								component={CubeSolver}
+								options={{
+									title: 'Cube Solver',
+								}}
+							/>
+							<Stack.Screen
+								name="CubeSolverSolution"
+								component={CubeSolverSolution}
+								options={{
+									title: 'Solution',
+								}}
+							/>
 						</Stack.Navigator>
 					</RotateTheCubeContextProvider>
 				</SettingsContextProvider>
 			</FavoritesContextProvider>
 			{Platform.OS === 'android' && (
-				<StatusBar barStyle={statusBarStyle} />
+				// <StatusBar barStyle={statusBarStyle} />
+				<StatusBar />
 			)}
-			{Platform.OS === 'ios' && <StatusBar barStyle={statusBarStyle} />}
+			{/* {Platform.OS === 'ios' && <StatusBar barStyle={statusBarStyle} />} */}
+			{Platform.OS === 'ios' && <StatusBar />}
 		</NavigationContainer>
 	)
 }

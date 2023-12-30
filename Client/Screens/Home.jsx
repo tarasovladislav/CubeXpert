@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
-import { SafeAreaView, ScrollView } from 'react-native'
+import { SafeAreaView, ScrollView, View } from 'react-native'
 import MenuItem from '../Components/MenuItem'
 
 const Home = ({ navigation }) => {
 	const [menuItems, setMenuItems] = useState([
+		{
+			text: 'Cube Solver',
+			navigateTo: 'CubeSolver',
+			image: 'beginner',
+		},
 		{
 			text: 'Beginners',
 			navigateTo: 'Beginners Lessons',
