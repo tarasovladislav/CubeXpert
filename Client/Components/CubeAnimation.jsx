@@ -194,8 +194,8 @@ const CubeAnimation = ({
 	}, [isCubeLoading])
 
 	return (
-		<View style={[commonStyles.flex1]}>
-			<Animated.View style={[commonStyles.flex1, animatedStyles]}>
+		<View style={{ flex: 1 }}>
+			<Animated.View style={[{ flex: 1 }, animatedStyles]}>
 				{isCubeLoading && (
 					<View style={styles.loadingOverlay}>
 						<ActivityIndicator size="large" />

@@ -3,31 +3,10 @@ import { StyleSheet, TouchableOpacity, Text, Dimensions } from 'react-native'
 import commonStyles from '../commonStyles'
 import { Image } from 'react-native-elements'
 import { imageMapping } from '../assets/img/'
-import Animated, {
-	useSharedValue,
-	useAnimatedStyle,
-	withSpring,
-} from 'react-native-reanimated'
-import { useFocusEffect } from '@react-navigation/native'
-
+import Animated from 'react-native-reanimated'
+import useMenuItemAnimation from '../Hooks/useMenuItemAnimation'
 const MenuItem = ({ onPress = () => {}, text, image, timeout = 1 }) => {
-	const translateX = useSharedValue(-Dimensions.get('window').width)
-
-	const animatedStyle = useAnimatedStyle(() => {
-		return {
-			transform: [{ translateX: translateX.value }],
-		}
-	})
-
-	useFocusEffect(() => {
-		setTimeout(() => {
-			translateX.value = withSpring(0, { duration: 2500 })
-		}, timeout)
-
-		return () => {
-			translateX.value = -Dimensions.get('window').width
-		}
-	})
+	const animatedStyle = useMenuItemAnimation(timeout)
 
 	return (
 		<Animated.View style={[commonStyles.container, animatedStyle]}>

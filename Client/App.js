@@ -30,10 +30,10 @@ import CubeSolverSolution from './Screens/CubeSolverSolution'
 
 import { RotateTheCubeContextProvider } from './Contexts/RotateTheCubeContext'
 
-
-
 export default function App() {
-	const statusBarStyle = 'dark-content'
+	useEffect(() => {
+		StatusBar.setBarStyle('dark-content')
+	}, [])
 	useEffect(() => {
 		async function onFetchUpdateAsync() {
 			try {
@@ -195,12 +195,6 @@ export default function App() {
 					</RotateTheCubeContextProvider>
 				</SettingsContextProvider>
 			</FavoritesContextProvider>
-			{Platform.OS === 'android' && (
-				// <StatusBar barStyle={statusBarStyle} />
-				<StatusBar />
-			)}
-			{/* {Platform.OS === 'ios' && <StatusBar barStyle={statusBarStyle} />} */}
-			{Platform.OS === 'ios' && <StatusBar />}
 		</NavigationContainer>
 	)
 }
