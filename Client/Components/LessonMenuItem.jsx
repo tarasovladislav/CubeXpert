@@ -1,10 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native'
 import React from 'react'
-import commonStyles from '../commonStyles'
-import { Image } from 'react-native-elements'
-import { imageMapping } from '../assets/img/'
 import Animated from 'react-native-reanimated'
+import { Image } from 'react-native-elements'
+
+import { imageMapping } from '../assets/img/'
 import useMenuItemAnimation from '../Hooks/useMenuItemAnimation'
+
+import commonStyles from '../commonStyles'
+
 const LessonMenuItem = ({ lesson, navigation, timeout = 1 }) => {
 	const animatedStyle = useMenuItemAnimation(timeout)
 

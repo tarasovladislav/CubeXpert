@@ -1,12 +1,16 @@
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import React from 'react'
-import TouchableButton from './TouchableButton'
-import commonStyles from '../commonStyles'
 
-const CrossDificulty = ({ difficulty, setDifficulty }) => {
+import TouchableButtonTooltip from './TouchableButtonTooltip'
+
+import commonStyles from '../commonStyles'
+import { useSettingsContext } from '../Contexts/SettingsContext'
+const CrossDificulty = () => {
+	const { difficulty, setDifficulty } = useSettingsContext()
+
 	const difficultyButton = (text, diff) => {
 		return (
-			<TouchableButton
+			<TouchableButtonTooltip
 				text={text}
 				activeColor={
 					diff === difficulty

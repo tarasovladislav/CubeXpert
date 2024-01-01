@@ -1,34 +1,33 @@
-import AlgoPage from './Screens/AlgoPage'
-import CategoryPage from './Screens/CategoryPage'
-import CategoryChoisePage from './Screens/CategoryChoisePage'
+import React, { useEffect } from 'react'
+import { StatusBar, Platform, Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
-import Home from './Screens/Home'
-import Landing from './Screens/Landing'
-const Stack = createNativeStackNavigator()
 import * as Updates from 'expo-updates'
-
-import { SettingsContextProvider } from './Contexts/SettingsContext'
-import { FavoritesContextProvider } from './Contexts/FavoritesContext'
-import Favorites from './Screens/Favorites'
-import BeginnersLessonChoice from './Screens/BeginnersLessonChoice'
-import LessonPage from './Screens/LessonPage'
-import commonStyles from './commonStyles'
-import RotateTheCube from './Screens/RotateTheCube'
-import { StatusBar, Platform } from 'react-native'
-
-import React, { useEffect } from 'react'
-import Constants from 'expo-constants'
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
-import { Alert } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import apiService from './apiService'
-import CrossTrainer from './Screens/CrossTrainer'
-import CubeSolver from './Screens/CubeSolver'
-import CubeSolverSolution from './Screens/CubeSolverSolution'
+import Constants from 'expo-constants'
 
+import Home from './Screens/Home'
+import Landing from './Screens/Landing'
+import AlgoPage from './Screens/AlgoPage'
+import commonStyles from './commonStyles'
+import Favorites from './Screens/Favorites'
+import CubeSolver from './Screens/CubeSolver'
+import LessonPage from './Screens/LessonPage'
+import CategoryPage from './Screens/CategoryPage'
+import CrossTrainer from './Screens/CrossTrainer'
+import RotateTheCube from './Screens/RotateTheCube'
+import CategoryChoisePage from './Screens/CategoryChoisePage'
+import CubeSolverSolution from './Screens/CubeSolverSolution'
+import BeginnersLessonChoice from './Screens/BeginnersLessonChoice'
+
+import apiService from './apiService'
+import { SettingsContextProvider } from './Contexts/SettingsContext'
+import { FavoritesContextProvider } from './Contexts/FavoritesContext'
 import { RotateTheCubeContextProvider } from './Contexts/RotateTheCubeContext'
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
 	useEffect(() => {

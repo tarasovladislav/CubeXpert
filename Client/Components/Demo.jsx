@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
-import { WebView } from 'react-native-webview'
-import { useSettingsContext } from '../Contexts/SettingsContext'
-import commonStyles from '../commonStyles'
-import { BASE_URL } from '../env'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import Animated, {
 	useSharedValue,
 	useAnimatedStyle,
@@ -12,6 +8,11 @@ import Animated, {
 	withSequence,
 	Easing,
 } from 'react-native-reanimated'
+import { WebView } from 'react-native-webview'
+
+import commonStyles from '../commonStyles'
+import { BASE_URL } from '../env'
+import { useSettingsContext } from '../Contexts/SettingsContext'
 
 const Demo = ({ demo = '', cubeSize = 3 }) => {
 	const { settings, webViewKey } = useSettingsContext()

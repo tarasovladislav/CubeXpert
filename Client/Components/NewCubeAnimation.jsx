@@ -8,15 +8,6 @@ import {
 	ActivityIndicator,
 	Alert,
 } from 'react-native'
-import { WebView } from 'react-native-webview'
-import { useSettingsContext } from '../Contexts/SettingsContext'
-import IconAwesome from 'react-native-vector-icons/FontAwesome5'
-import IconAntDesign from 'react-native-vector-icons/AntDesign'
-import * as icons from 'react-native-vector-icons'
-import { useFavoritesContext } from '../Contexts/FavoritesContext'
-import commonStyles from '../commonStyles'
-import TouchableButtonTooltip from './TouchableButtonTooltip'
-import { BASE_URL } from '../env'
 import Animated, {
 	useSharedValue,
 	useAnimatedStyle,
@@ -25,6 +16,16 @@ import Animated, {
 	withSequence,
 	Easing,
 } from 'react-native-reanimated'
+import { WebView } from 'react-native-webview'
+
+import * as icons from 'react-native-vector-icons'
+
+import TouchableButtonTooltip from './TouchableButtonTooltip'
+
+import commonStyles from '../commonStyles'
+import { BASE_URL } from '../env'
+import { useFavoritesContext } from '../Contexts/FavoritesContext'
+import { useSettingsContext } from '../Contexts/SettingsContext'
 import { useRotateTheCubeContext } from '../Contexts/RotateTheCubeContext'
 const CubeAnimation = ({
 	category,
@@ -56,7 +57,9 @@ const CubeAnimation = ({
 	const { settings, webViewKey } = useSettingsContext()
 
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
-	const [isFavorite, setIsFavorite] = useState(currentAlg && isInFavorites(currentAlg._id))
+	const [isFavorite, setIsFavorite] = useState(
+		currentAlg && isInFavorites(currentAlg._id)
+	)
 	const [currentStep, setCurrentStep] = useState(0)
 	const [triggerUseEffect, setTriggerUseEffect] = useState(false)
 	const [allowControl, setAllowControl] = useState(true)
@@ -165,7 +168,7 @@ const CubeAnimation = ({
 			cubeAnimationWebView.current.injectJavaScript(jsCode)
 	}
 
-	function manipulateString(inputString) {
+	function getSetupMoves(inputString) {
 		let outputArray = []
 		let inputArray = inputString.split(' ')
 
@@ -250,20 +253,20 @@ const CubeAnimation = ({
 			facelets = customFacelets
 			break
 		case 'Solution':
-			setupmoves = manipulateString(alg) + "y'"
+			setupmoves = getSetupMoves(alg) + "y'"
 			break
 		case 'F2L':
 			facelets = 'qqqqqqqqq111111111q22q22q22q33q33q33qqq444444q55q55q55'
-			setupmoves = manipulateString(alg)
+			setupmoves = getSetupMoves(alg)
 			break
 		case 'OLL':
 			facelets = '000000000qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
-			setupmoves = manipulateString(alg)
+			setupmoves = getSetupMoves(alg)
 
 			break
 		case 'PLL':
 			facelets = '000000000qqqqqqqqq2qq2qq2qq3qq3qq3qq444qqqqqq5qq5qq5qq'
-			setupmoves = manipulateString(alg)
+			setupmoves = getSetupMoves(alg)
 
 			break
 		case 'Patterns':
@@ -272,7 +275,7 @@ const CubeAnimation = ({
 			break
 		case 'CrossTraining':
 			facelets = 'qqqq0qqqqq1q111q1qqqqq22qqqqqqq33qqqqqqq4qq4qqqqq55qqq'
-			setupmoves = manipulateString(alg)
+			setupmoves = getSetupMoves(alg)
 
 			break
 		case 'Beginners':
@@ -317,15 +320,7 @@ const CubeAnimation = ({
 		}
 	}, [isCubeLoading])
 
-	const saveCube = () => {
-		console.log(rotateTheCube)
-		executeJavaScript(
-			`window.ReactNativeWebView.postMessage(JSON.stringify(acjs_cube[""]));true;`
-		)
-	}
-
 	const restoreCube = () => {
-		console.log(rotateTheCube.lastCubeFacelets)
 		if (rotateTheCube.lastCubeFacelets !== '') {
 			changeCubeSize(rotateTheCube.savedCubeSize)
 			executeJavaScript(
@@ -336,7 +331,10 @@ const CubeAnimation = ({
 	}
 
 	useEffect(() => {
-		cubeSaver && saveCube()
+		cubeSaver &&
+			executeJavaScript(
+				`window.ReactNativeWebView.postMessage(JSON.stringify(acjs_cube[""]));true;`
+			)
 	}, [cubeSaver])
 
 	useEffect(() => {
@@ -394,7 +392,7 @@ const CubeAnimation = ({
 								restoreCubeTrigger !== undefined &&
 								cubeSize === rotateTheCube.savedCubeSize &&
 								!restoreCubeTrigger &&
-								category == 'RotateTheCube' &&
+								category === 'RotateTheCube' &&
 								restoreCube()
 						}
 					}}
@@ -437,6 +435,7 @@ const CubeAnimation = ({
 				category !== 'CrossTraining' &&
 				category !== 'CubePreview' && (
 					<View style={styles.otherContainer}>
+						{/* Algorithm */}
 						<View style={{ alignItems: 'center' }}>
 							<Text style={styles.algoText}>
 								{currentStep > 0 &&
@@ -454,7 +453,7 @@ const CubeAnimation = ({
 								{currentStep} / {len}
 							</Text>
 						</View>
-
+						{/* Control-Buttons */}
 						<View style={styles.buttonContainer}>
 							<TouchableButtonTooltip
 								disabled={
@@ -465,7 +464,7 @@ const CubeAnimation = ({
 								}
 								onPress={() => handleButtonClick(1)}
 								text={
-									<IconAwesome
+									<icons.FontAwesome5
 										size={24}
 										color={commonStyles.iconColor}
 										name="arrow-left"
@@ -482,7 +481,7 @@ const CubeAnimation = ({
 								}
 								onPress={() => handleButtonClick(5)}
 								text={
-									<IconAwesome
+									<icons.FontAwesome5
 										size={24}
 										color={commonStyles.iconColor}
 										name="arrow-right"
@@ -497,7 +496,7 @@ const CubeAnimation = ({
 									}
 									onPress={() => handleButtonClick(4)}
 									text={
-										<IconAwesome
+										<icons.FontAwesome5
 											size={24}
 											color={commonStyles.iconColor}
 											name="play"
@@ -510,7 +509,7 @@ const CubeAnimation = ({
 								<TouchableButtonTooltip
 									onPress={() => handleButtonClick(3)}
 									text={
-										<IconAwesome
+										<icons.FontAwesome5
 											size={24}
 											color={commonStyles.iconColor}
 											name="pause"
@@ -526,7 +525,7 @@ const CubeAnimation = ({
 								}
 								onPress={() => handleButtonClick(0)}
 								text={
-									<IconAwesome
+									<icons.FontAwesome5
 										size={24}
 										color={commonStyles.iconColor}
 										name="redo"
@@ -568,7 +567,7 @@ const CubeAnimation = ({
 									setIsFavorite(!isFavorite)
 								}}
 							>
-								<IconAntDesign
+								<icons.AntDesign
 									size={30}
 									color="orange"
 									name={isFavorite ? 'star' : 'staro'}

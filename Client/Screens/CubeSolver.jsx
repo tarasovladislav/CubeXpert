@@ -1,21 +1,21 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import {
 	View,
 	TouchableOpacity,
 	StyleSheet,
-	ScrollView,
 	SafeAreaView,
 	Dimensions,
 	Text,
 	Alert,
 	ActivityIndicator,
 } from 'react-native'
-import { useSettingsContext } from '../Contexts/SettingsContext'
-import TouchableButtonTooltip from '../Components/TouchableButtonTooltip'
-import apiService from '../apiService'
-import NewCubeAnimation from '../Components/NewCubeAnimation'
-import Loading from '../Components/Loading'
 import { Overlay } from 'react-native-elements'
+
+import TouchableButtonTooltip from '../Components/TouchableButtonTooltip'
+import NewCubeAnimation from '../Components/NewCubeAnimation'
+
+import apiService from '../apiService'
+import { useSettingsContext } from '../Contexts/SettingsContext'
 
 const CubeConfigurator = ({ navigation }) => {
 	//"U...R...F...D...L...B..."
@@ -401,7 +401,7 @@ const CubeConfigurator = ({ navigation }) => {
 
 	const handleSolve = () => {
 		const cubeStateString = cubeStateTranslator(cubeState)
-console.log(cubeStateString)
+		console.log(cubeStateString)
 		setIsSolutionLoading(true)
 		apiService.cubeSolver(cubeStateString).then((data) => {
 			setIsSolutionLoading(false)

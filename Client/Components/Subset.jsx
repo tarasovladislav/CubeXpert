@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { View, StyleSheet, FlatList, Text, RefreshControl } from 'react-native'
-import apiService from '../apiService'
-import SubsetElement from './SubsetElement'
-import commonStyles from '../commonStyles'
+import { View, StyleSheet, FlatList, Text } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import SubsetElement from './SubsetElement'
+
+import commonStyles from '../commonStyles'
+import apiService from '../apiService'
 
 const Subset = ({
 	navigation,

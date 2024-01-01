@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import React from 'react'
-import TouchableButton from './TouchableButton'
+
+import TouchableButtonTooltip from './TouchableButtonTooltip'
+
 import commonStyles from '../commonStyles'
 import { useRotateTheCubeContext } from '../Contexts/RotateTheCubeContext'
 
@@ -9,7 +11,7 @@ export default function CubeSizePicker({}) {
 
 	const cubeSizeButton = (text, size) => {
 		return (
-			<TouchableButton
+			<TouchableButtonTooltip
 				text={text}
 				activeColor={
 					rotateTheCube.cubeSize === size

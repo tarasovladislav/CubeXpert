@@ -7,9 +7,12 @@ import {
 	StyleSheet,
 	SafeAreaView,
 } from 'react-native'
-import { useFavoritesContext } from '../Contexts/FavoritesContext'
+
 import SubsetElement from '../Components/SubsetElement'
+
 import commonStyles from '../commonStyles'
+import { useFavoritesContext } from '../Contexts/FavoritesContext'
+
 const Favorites = ({ navigation }) => {
 	const { favoritesList } = useFavoritesContext()
 	const [groupedFavorites, setGroupedFavorites] = useState([])

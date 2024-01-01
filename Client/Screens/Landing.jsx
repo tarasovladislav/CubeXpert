@@ -6,14 +6,6 @@ import {
 	Dimensions,
 	TouchableOpacity,
 } from 'react-native'
-import { useFocusEffect } from '@react-navigation/native'
-import Loading from '../Components/Loading'
-import commonStyles from '../commonStyles'
-import Demo from '../Components/Demo'
-
-import { LinearGradient } from 'expo-linear-gradient'
-
-//animated
 import Animated, {
 	useSharedValue,
 	useAnimatedStyle,
@@ -22,6 +14,13 @@ import Animated, {
 	withSequence,
 	Easing,
 } from 'react-native-reanimated'
+import { useFocusEffect } from '@react-navigation/native'
+import { LinearGradient } from 'expo-linear-gradient'
+
+import Loading from '../Components/Loading'
+import Demo from '../Components/Demo'
+
+import commonStyles from '../commonStyles'
 
 const Home = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(true)

@@ -1,23 +1,24 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, TouchableOpacity, Text } from 'react-native'
-import commonStyles from '../commonStyles'
 import { Tooltip } from '@rneui/themed'
+
+import commonStyles from '../commonStyles'
+
 const TouchableButtonTooltip = ({
 	onPress = () => {},
 	text,
 	disabled = false,
-	textColor = commonStyles.titleColor,
+	textColor = commonStyles.buttonColor,
 	activeColor = commonStyles.buttonActiveColor,
 	disabledColor = commonStyles.buttonDisabledColor,
-	popover = "",
-	// popoverStyle = {},
+	popover = '',
 }) => {
 	const styles = getDynamicStyles(activeColor, disabledColor, textColor)
-    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-      
-    const toggleTooltip = () => {
-      setIsTooltipVisible(!isTooltipVisible);
-    };
+	const [isTooltipVisible, setIsTooltipVisible] = useState(false)
+
+	const toggleTooltip = () => {
+		setIsTooltipVisible(!isTooltipVisible)
+	}
 	return (
 		<>
 			<TouchableOpacity
@@ -28,22 +29,21 @@ const TouchableButtonTooltip = ({
 						: { ...styles.controlBtn, ...styles.controlBtnDisabled }
 				}
 				onPress={onPress}
-                onLongPress={toggleTooltip}
+				onLongPress={toggleTooltip}
 			>
 				<Text style={styles.buttonText}>{text}</Text>
 			</TouchableOpacity>
-			{popover && <Tooltip
-				// containerStyle={popoverStyle}
-				visible={isTooltipVisible}
-				onClose={() => {
-					setIsTooltipVisible(false)
-				}}
-				popover={<Text>{popover}</Text>}
-                withPointer={false}
-                backgroundColor={commonStyles.buttonDisabledColor}
-
-			>
-			</Tooltip>}
+			{popover && (
+				<Tooltip
+					visible={isTooltipVisible}
+					onClose={() => {
+						setIsTooltipVisible(false)
+					}}
+					popover={<Text>{popover}</Text>}
+					withPointer={false}
+					backgroundColor={commonStyles.buttonDisabledColor}
+				></Tooltip>
+			)}
 		</>
 	)
 }
@@ -67,7 +67,7 @@ const getDynamicStyles = (activeColor, disabledColor, textColor) =>
 		},
 		buttonText: {
 			padding: 10,
-			color: "white",
+			color: textColor,
 			alignSelf: 'center',
 		},
 	})

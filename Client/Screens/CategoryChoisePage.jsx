@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
+
 import MenuItem from '../Components/MenuItem'
 
 const CategoryChoisePage = ({ navigation, type }) => {

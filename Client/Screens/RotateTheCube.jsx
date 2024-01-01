@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native'
 import { Overlay } from 'react-native-elements'
+import IconAwesome from 'react-native-vector-icons/FontAwesome5'
+
+import CubeSizePicker from '../Components/CubeSizePicker'
 import ProfileSettings from '../Components/ProfileSettings'
 import NewCubeAnimation from '../Components/NewCubeAnimation'
-import TouchableButton from '../Components/TouchableButton'
-import IconAwesome from 'react-native-vector-icons/FontAwesome5'
-import CubeSizePicker from '../Components/CubeSizePicker'
+import TouchableButtonTooltip from '../Components/TouchableButtonTooltip'
+
 import { useRotateTheCubeContext } from '../Contexts/RotateTheCubeContext'
+
 const RotateTheCube = () => {
 	const {
 		rotateTheCube,
@@ -46,11 +49,11 @@ const RotateTheCube = () => {
 				}}
 			/>
 			<View style={[styles.buttonContainer]}>
-				<TouchableButton
+				<TouchableButtonTooltip
 					onPress={() => setCubeSaver(true)}
 					text="Save The Cube"
 				/>
-				<TouchableButton
+				<TouchableButtonTooltip
 					onPress={() => {
 						setRestoreCubeTrigger(true)
 					}}
@@ -58,11 +61,11 @@ const RotateTheCube = () => {
 				/>
 			</View>
 			<View style={[styles.buttonContainer]}>
-				<TouchableButton
+				<TouchableButtonTooltip
 					onPress={toggleCubeSize}
 					text="Change Cube Size"
 				/>
-				<TouchableButton
+				<TouchableButtonTooltip
 					onPress={() => {
 						setNewCubeScramble(true)
 						setAnimationKey(animationKey + 1)

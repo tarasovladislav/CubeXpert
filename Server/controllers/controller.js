@@ -1,11 +1,11 @@
 const model = require("../models/index");
 const solver = require("rubiks-cube-solver");
 const Cube = require("cubejs");
+
 Cube.initSolver();
 
 async function cubeSolver(req, res) {
   try {
-    console.log(req.params.facelets)
     let facelets = req.params.facelets;
     let faceletsCopy = req.params.facelets;
     let faceletsArray = [];
@@ -16,21 +16,21 @@ async function cubeSolver(req, res) {
           .split("")
           .reverse()
           .join("")
-          .replace(/U/g, "temp") // Temporarily replace U with 'temp'
+          .replace(/U/g, "temp")
           .replace(/D/g, "U")
           .replace(/temp/g, "D")
-          .replace(/L/g, "temp") // Temporarily replace L with 'temp'
+          .replace(/L/g, "temp")
           .replace(/R/g, "L")
           .replace(/temp/g, "R")
       );
     }
     let testFacelets =
-      faceletsArray[2] + // corect
-      faceletsArray[4] + // corect
-      faceletsArray[3] + // corect
-      faceletsArray[0] + // corect
-      faceletsArray[1] + // corect
-      faceletsArray[5]; // corect
+      faceletsArray[2] +
+      faceletsArray[4] +
+      faceletsArray[3] +
+      faceletsArray[0] +
+      faceletsArray[1] +
+      faceletsArray[5];
 
     await solver(testFacelets); // Wait for solver() to complete
 

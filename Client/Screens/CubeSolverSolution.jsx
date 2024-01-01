@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native'
+import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native'
 import { Overlay } from 'react-native-elements'
-import ProfileSettings from '../Components/ProfileSettings'
+
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
 
+import ProfileSettings from '../Components/ProfileSettings'
 import NewCubeAnimation from '../Components/NewCubeAnimation'
-import TouchableButton from '../Components/TouchableButton'
 import Loading from '../Components/Loading'
+
 const RotateTheCube = ({route}) => {
 	const { solution } = route.params
 

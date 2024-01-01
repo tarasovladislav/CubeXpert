@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { SafeAreaView, ScrollView, View } from 'react-native'
+import { SafeAreaView, ScrollView } from 'react-native'
+
 import MenuItem from '../Components/MenuItem'
 
 const Home = ({ navigation }) => {

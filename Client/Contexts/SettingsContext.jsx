@@ -41,6 +41,8 @@ const SettingsContextProvider = ({ children }) => {
 			})
 	}, [settings])
 
+	const [difficulty, setDifficulty] = useState(1)
+
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -49,6 +51,8 @@ const SettingsContextProvider = ({ children }) => {
 				webViewKey,
 				setWebViewKey,
 				defaultSettings,
+				difficulty,
+				setDifficulty,
 			}}
 		>
 			{children}

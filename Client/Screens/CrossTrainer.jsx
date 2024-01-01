@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import {
 	SafeAreaView,
 	StyleSheet,
@@ -7,32 +7,38 @@ import {
 	Text,
 } from 'react-native'
 import { Overlay } from 'react-native-elements'
-import ProfileSettings from '../Components/ProfileSettings'
-import TouchableButton from '../Components/TouchableButton'
-
 import getRandomSolve from 'rubiks-cross-trainer'
-import NewCubeAnimation from '../Components/NewCubeAnimation'
+
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
+
+import ProfileSettings from '../Components/ProfileSettings'
+import TouchableButtonTooltip from '../Components/TouchableButtonTooltip'
+import NewCubeAnimation from '../Components/NewCubeAnimation'
 import CrossDificulty from '../Components/CrossDificulty'
 
+import { useSettingsContext } from '../Contexts/SettingsContext'
+
 const CrossTrainer = () => {
+	const { difficulty } = useSettingsContext()
+
 	const [animationKey, setAnimationKey] = useState(0)
-	const [difficulty, setDifficulty] = useState(1)
+
 	const scramble = useMemo(
 		() => getRandomSolve(difficulty),
 		[animationKey, difficulty]
 	)
 
-	const [visible, setVisible] = useState(false)
-	const toggleOverlay = () => setVisible(!visible)
+	const [settingsVisible, setSettingsVisible] = useState(false)
+	const toggleSettings = () => setSettingsVisible(!settingsVisible)
+    
 	const [difficultyVisible, setDifficultyVisible] = useState(false)
 	const toggleDifficulty = () => setDifficultyVisible(!difficultyVisible)
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<Overlay
-				isVisible={visible}
-				onBackdropPress={toggleOverlay}
+				isVisible={settingsVisible}
+				onBackdropPress={toggleSettings}
 				animationType="fade"
 			>
 				<ProfileSettings />
@@ -43,10 +49,7 @@ const CrossTrainer = () => {
 				onBackdropPress={toggleDifficulty}
 				animationType="fade"
 			>
-				<CrossDificulty
-					setDifficulty={setDifficulty}
-					difficulty={difficulty}
-				/>
+				<CrossDificulty />
 			</Overlay>
 			<NewCubeAnimation
 				cubeSize={3}
@@ -55,9 +58,7 @@ const CrossTrainer = () => {
 				alg={scramble}
 				edit={1}
 				snap={1}
-				onSuccessfulSolve={() => {
-					setAnimationKey(animationKey + 1)
-				}}
+				onSuccessfulSolve={() => setAnimationKey(animationKey + 1)}
 			/>
 			<View style={styles.otherContainer}>
 				<View style={{ alignItems: 'center' }}>
@@ -65,14 +66,12 @@ const CrossTrainer = () => {
 				</View>
 			</View>
 			<View style={[styles.buttonContainer]}>
-				<TouchableButton
+				<TouchableButtonTooltip
 					onPress={toggleDifficulty}
 					text="Change Difficulty"
 				/>
-				<TouchableButton
-					onPress={() => {
-						setAnimationKey(animationKey + 1)
-					}}
+				<TouchableButtonTooltip
+					onPress={() => setAnimationKey(animationKey + 1)}
 					text="Another Scramble"
 				/>
 			</View>
@@ -80,7 +79,7 @@ const CrossTrainer = () => {
 			<View style={styles.buttonContainer}></View>
 
 			<TouchableOpacity
-				onPress={toggleOverlay}
+				onPress={toggleSettings}
 				style={{
 					flex: 0,
 					position: 'absolute',
