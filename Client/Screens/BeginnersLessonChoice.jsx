@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { ScrollView, SafeAreaView, RefreshControl } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import Loading from '../Components/Loading'
+import LessonMenuItem from '../Components/LessonMenuItem'
 
 import apiService from '../apiService'
-import Loading from '../Components/Loading'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import LessonMenuItem from '../Components/LessonMenuItem'
 
 const BeginnersLessonChoice = ({ navigation }) => {
 	const [lessonsList, setLessonsList] = useState([])

@@ -9,10 +9,10 @@ import ColorPicker, {
 	HueSlider,
 } from 'reanimated-color-picker'
 
-import TouchableButton from './TouchableButton'
+import TouchableButtonTooltip from './TouchableButtonTooltip'
 
-import { useSettingsContext } from '../Contexts/SettingsContext'
 import commonStyles from '../commonStyles'
+import { useSettingsContext } from '../Contexts/SettingsContext'
 
 const ProfileSettings = () => {
 	const { settings, setSettings, setWebViewKey, defaultSettings } =
@@ -64,7 +64,7 @@ const ProfileSettings = () => {
 
 	const settingsButton = (text, side) => {
 		return (
-			<TouchableButton
+			<TouchableButtonTooltip
 				text={text}
 				onPress={() => openColorPicker(side)}
 				activeColor={settings[side]}
@@ -93,7 +93,7 @@ const ProfileSettings = () => {
 				{settingsButton('Cube', 'cube')}
 			</View>
 			<View style={styles.buttonContainer}>
-				<TouchableButton
+				<TouchableButtonTooltip
 					text="RESET COLORS"
 					onPress={() => {
 						setSettings({
@@ -130,13 +130,13 @@ const ProfileSettings = () => {
 						</ColorPicker>
 					</View>
 					<View style={{ flexDirection: 'row' }}>
-						<TouchableButton
+						<TouchableButtonTooltip
 							text="Reset"
 							onPress={() => setShowLayout(false)}
 							activeColor={settings[selectedSide]}
 							textColor={textColors[selectedSide]}
 						/>
-						<TouchableButton
+						<TouchableButtonTooltip
 							text="Ok"
 							onPress={() => {
 								selectedSide &&

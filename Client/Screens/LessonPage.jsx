@@ -12,13 +12,16 @@ import {
 	SafeAreaView,
 	RefreshControl,
 } from 'react-native'
-import SubsetElement from '../Components/SubsetElement'
-import apiService from '../apiService'
-import { imageMapping } from '../assets/img'
-import IconEntypo from 'react-native-vector-icons/Entypo'
-import Loading from '../Components/Loading'
-import commonStyles from '../commonStyles'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import IconEntypo from 'react-native-vector-icons/Entypo'
+
+import SubsetElement from '../Components/SubsetElement'
+import Loading from '../Components/Loading'
+
+import { imageMapping } from '../assets/img'
+import commonStyles from '../commonStyles'
+import apiService from '../apiService'
 
 const LessonPage = ({ navigation, route }) => {
 	const { data } = route.params

@@ -7,11 +7,6 @@ import {
 	ActivityIndicator,
 	View,
 } from 'react-native'
-import { Image } from 'react-native-elements'
-import { imageMapping } from '../assets/img'
-import IconAntDesign from 'react-native-vector-icons/AntDesign'
-import { useFavoritesContext } from '../Contexts/FavoritesContext'
-import commonStyles from '../commonStyles'
 import Animated, {
 	Easing,
 	withSpring,
@@ -20,6 +15,13 @@ import Animated, {
 	withTiming,
 	withSequence,
 } from 'react-native-reanimated'
+import { Image } from 'react-native-elements'
+
+import IconAntDesign from 'react-native-vector-icons/AntDesign'
+
+import commonStyles from '../commonStyles'
+import { imageMapping } from '../assets/img'
+import { useFavoritesContext } from '../Contexts/FavoritesContext'
 const SubsetElement = ({ navigation, algo }) => {
 	const styles = getDynamicStyles(algo.category)
 

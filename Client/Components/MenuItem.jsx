@@ -1,10 +1,12 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Text, Dimensions } from 'react-native'
-import commonStyles from '../commonStyles'
-import { Image } from 'react-native-elements'
-import { imageMapping } from '../assets/img/'
 import Animated from 'react-native-reanimated'
+import { Image } from 'react-native-elements'
+
+import { imageMapping } from '../assets/img/'
 import useMenuItemAnimation from '../Hooks/useMenuItemAnimation'
+import commonStyles from '../commonStyles'
+
 const MenuItem = ({ onPress = () => {}, text, image, timeout = 1 }) => {
 	const animatedStyle = useMenuItemAnimation(timeout)
 

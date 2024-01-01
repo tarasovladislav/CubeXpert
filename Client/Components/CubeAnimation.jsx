@@ -7,16 +7,6 @@ import {
 	TouchableOpacity,
 	ActivityIndicator,
 } from 'react-native'
-import { WebView } from 'react-native-webview'
-import { useSettingsContext } from '../Contexts/SettingsContext'
-import IconAwesome from 'react-native-vector-icons/FontAwesome5'
-import IconAntDesign from 'react-native-vector-icons/AntDesign'
-import { useFavoritesContext } from '../Contexts/FavoritesContext'
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import TouchableButtonTooltip from './TouchableButtonTooltip'
-import commonStyles from '../commonStyles'
-import { BASE_URL } from '../env'
-import * as icons from 'react-native-vector-icons'
 import Animated, {
 	useSharedValue,
 	useAnimatedStyle,
@@ -25,6 +15,16 @@ import Animated, {
 	withSequence,
 	Easing,
 } from 'react-native-reanimated'
+import { WebView } from 'react-native-webview'
+
+import * as icons from 'react-native-vector-icons'
+
+import TouchableButtonTooltip from './TouchableButtonTooltip'
+
+import commonStyles from '../commonStyles'
+import { BASE_URL } from '../env'
+import { useSettingsContext } from '../Contexts/SettingsContext'
+import { useFavoritesContext } from '../Contexts/FavoritesContext'
 const CubeAnimation = ({
 	category,
 	alg,
@@ -249,7 +249,7 @@ const CubeAnimation = ({
 						}
 						onPress={() => handleButtonClick('#prev-1')}
 						text={
-							<IconAwesome
+							<icons.FontAwesome5
 								size={24}
 								color={commonStyles.iconColor}
 								name="arrow-left"
@@ -266,7 +266,7 @@ const CubeAnimation = ({
 						}
 						onPress={() => handleButtonClick('#next-1')}
 						text={
-							<IconAwesome
+							<icons.FontAwesome5
 								size={24}
 								color={commonStyles.iconColor}
 								name="arrow-right"
@@ -279,7 +279,7 @@ const CubeAnimation = ({
 							disabled={currentStep === len || isCubeLoading}
 							onPress={() => handleButtonClick('#play-1')}
 							text={
-								<IconAwesome
+								<icons.FontAwesome5
 									size={24}
 									color={commonStyles.iconColor}
 									name="play"
@@ -292,7 +292,7 @@ const CubeAnimation = ({
 						<TouchableButtonTooltip
 							onPress={() => handleButtonClick('#pause-1')}
 							text={
-								<IconAwesome
+								<icons.FontAwesome5
 									size={24}
 									color={commonStyles.iconColor}
 									name="pause"
@@ -310,7 +310,7 @@ const CubeAnimation = ({
 						}
 						onPress={() => handleButtonClick('#reset-1')}
 						text={
-							<IconAwesome
+							<icons.FontAwesome5
 								size={24}
 								color={commonStyles.iconColor}
 								name="redo"
@@ -326,7 +326,7 @@ const CubeAnimation = ({
 							)
 						}
 						text={
-							<IconMaterialIcons
+							<icons.MaterialIcons
 								size={24}
 								color={commonStyles.iconColor}
 								type="material"
@@ -366,7 +366,7 @@ const CubeAnimation = ({
 						setIsFavorite(!isFavorite)
 					}}
 				>
-					<IconAntDesign
+					<icons.AntDesign
 						size={30}
 						color="orange"
 						name={isFavorite ? 'star' : 'staro'}

@@ -7,14 +7,18 @@ import {
 	TouchableOpacity,
 } from 'react-native'
 import { Overlay } from 'react-native-elements'
-import apiService from '../apiService'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import IconAwesome from 'react-native-vector-icons/FontAwesome5'
+
 import ProfileSettings from '../Components/ProfileSettings'
 import CubeAnimation from '../Components/CubeAnimation'
 import NewCubeAnimation from '../Components/NewCubeAnimation'
-import TouchableButton from '../Components/TouchableButton'
+import TouchableButtonTooltip from '../Components/TouchableButtonTooltip'
 import Loading from '../Components/Loading'
-import IconAwesome from 'react-native-vector-icons/FontAwesome5'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import apiService from '../apiService'
+
 const AlgoPage = ({ route }) => {
 	const { _id } = route.params
 
@@ -125,12 +129,12 @@ const AlgoPage = ({ route }) => {
 								position: 'relative',
 							}}
 						>
-							<TouchableButton
+							<TouchableButtonTooltip
 								disabled={whichAlg === 0}
 								onPress={() => setWhichAlg(whichAlg - 1)}
 								text="Previous"
 							/>
-							<TouchableButton
+							<TouchableButtonTooltip
 								disabled={
 									whichAlg === currentAlg.algo.length - 1
 								}

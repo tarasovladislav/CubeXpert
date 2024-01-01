@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
-
-import apiService from '../apiService'
 import { ScrollView, SafeAreaView, RefreshControl } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import Subset from '../Components/Subset'
 import Loading from '../Components/Loading'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import apiService from '../apiService'
 
 const CategoryPage = ({ route, navigation }) => {
 	const { category } = route.params
