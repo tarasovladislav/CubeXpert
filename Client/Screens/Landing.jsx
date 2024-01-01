@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
 	View,
 	Text,
 	StyleSheet,
 	Dimensions,
-	SafeAreaView,
 	TouchableOpacity,
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import Loading from '../Components/Loading'
-import apiService from '../apiService'
 import commonStyles from '../commonStyles'
 import Demo from '../Components/Demo'
 
@@ -21,82 +19,57 @@ import Animated, {
 	useAnimatedStyle,
 	withSpring,
 	withTiming,
-    withSequence,
-    Easing
+	withSequence,
+	Easing,
 } from 'react-native-reanimated'
-import * as Updates from 'expo-updates';
 
 const Home = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(true)
-	const [isDemoCubeVisible, setIsDemoCubeVisible] = useState(false) // Set it to true initially
-	
+	const [isDemoCubeVisible, setIsDemoCubeVisible] = useState(false)
 
-	// adding animation to get started button
-    const scale = useSharedValue(0)
+	const scale = useSharedValue(0)
 
 	const buttonOpacity = useSharedValue(0)
 	const animatedStyles = useAnimatedStyle(() => {
 		return {
-			// opacity: opacity.value,
-            transform: [{ scale: scale.value }],
+			transform: [{ scale: scale.value }],
 			opacity: buttonOpacity.value,
 		}
 	}, [])
-
-//check this asap 
-// useEffect(() => {
-//     async function onFetchUpdateAsync() {
-//     try {
-//       const update = await Updates.checkForUpdateAsync();
-
-//       if (update.isAvailable) {
-//         await Updates.fetchUpdateAsync();
-//         await Updates.reloadAsync();
-//       }
-//     } catch (error) {
-//       // You can also add an alert() to see the error message in case of an error when fetching updates.
-//       alert(`Error fetching latest Expo update: ${error}`);
-//     }
-//   }
-// onFetchUpdateAsync()
-// }, [])
 
 	useFocusEffect(() => {
 		setIsLoading(false)
 		setIsDemoCubeVisible(true) // Hide and unmount the Demo cube WebView
 		buttonOpacity.value = withTiming(1, { duration: 2000 })
-        scale.value = withSequence(
-            withTiming(1.2, { duration: 800, easing: Easing.ease }),
-            withSpring(1, { damping: 2, stiffness: 80 })
-        )
+		scale.value = withSequence(
+			withTiming(1.2, { duration: 800, easing: Easing.ease }),
+			withSpring(1, { damping: 2, stiffness: 80 })
+		)
 		return () => {
 			setIsDemoCubeVisible(false)
 			buttonOpacity.value = withTiming(0)
-            scale.value = withTiming(0)
+			scale.value = withTiming(0)
 		}
 	})
 	if (isLoading) {
 		return <Loading />
 	}
 	return (
-		<View style={{flex:1}}>
+		<View style={{ flex: 1 }}>
 			<LinearGradient
 				colors={['#1C3738', '#283d3f', '#555d5e']} // Customize these colors
 				start={{ x: 3, y: 0 }} // Adjust these values for the diagonal direction
 				end={{ x: 0, y: 1 }}
 				style={{ flex: 1 }}
 			>
-				<SafeAreaView style={[commonStyles.flex1, { marginTop: 50 }]}>
+				<View style={[{ flex: 1, marginTop: 50 }]}>
 					<Animated.View style={[{ flex: 1 }, animatedStyles]}>
 						<Text style={styles.logoText}>CubeXpert</Text>
 					</Animated.View>
 					<View style={{ flex: 2 }}>
 						{isDemoCubeVisible && (
-							// <Demo demo="MMM" />
 							<Demo demo="zzUuzzd'D'UE'D'D'E'UzzUuzzd'D'UE'D'D'E'U" />
 						)}
-
-						{/* {isDemoCubeVisible && <Demo demo="DDMM" />} */}
 					</View>
 					<Animated.View style={[{ flex: 1 }, animatedStyles]}>
 						<View style={styles.buttonContainer}>
@@ -114,7 +87,7 @@ const Home = ({ navigation }) => {
 							</View>
 						</View>
 					</Animated.View>
-				</SafeAreaView>
+				</View>
 			</LinearGradient>
 		</View>
 	)
@@ -166,9 +139,9 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		marginTop: 50,
 		fontWeight: '700',
-		textShadowColor: commonStyles.shadowColor, // Shadow color
-		textShadowOffset: { width: 2, height: 2 }, // Shadow offset
-		textShadowRadius: 1, // Shadow radius
+		textShadowColor: commonStyles.shadowColor,
+		textShadowOffset: { width: 2, height: 2 },
+		textShadowRadius: 1,
 		color: commonStyles.logoColor,
 	},
 })

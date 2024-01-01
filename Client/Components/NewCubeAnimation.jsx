@@ -38,8 +38,8 @@ const CubeAnimation = ({
 	edit = 0,
 	snap = 0,
 	onSuccessfulSolve,
-    customFacelets,
-    animationRef
+	customFacelets,
+	animationRef,
 }) => {
 	const {
 		changeLastCubeFacelets,
@@ -56,7 +56,7 @@ const CubeAnimation = ({
 	const { settings, webViewKey } = useSettingsContext()
 
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
-	const [isFavorite, setIsFavorite] = useState(isInFavorites(currentAlg._id))
+	const [isFavorite, setIsFavorite] = useState(currentAlg && isInFavorites(currentAlg._id))
 	const [currentStep, setCurrentStep] = useState(0)
 	const [triggerUseEffect, setTriggerUseEffect] = useState(false)
 	const [allowControl, setAllowControl] = useState(true)
@@ -64,8 +64,8 @@ const CubeAnimation = ({
 	//For sending JS to webview
 	const cubeAnimationWebView = useRef(null)
 
-	const algArray = alg.split(' ')
-	const len = algArray.length
+	const algArray = alg && alg.split(' ')
+	const len = algArray && algArray.length
 
 	let {
 		U,
@@ -107,7 +107,7 @@ const CubeAnimation = ({
 	// When user changes algorithm, we reset the cube state
 	useEffect(() => {
 		setCurrentStep(0)
-		setIsPlaying(false)
+		setIsPlaying && setIsPlaying(false)
 	}, [alg])
 
 	// Starting an Settimeout to highlight the current step of the cube whenever user press Play button
@@ -244,14 +244,13 @@ const CubeAnimation = ({
 
 	// For different categories we want some elements to be ignored, since they are not necessary
 	switch (category) {
-        
 		case 'CubePreview':
 			setupmoves = "y'"
-            // facelets = 'qqqqqqqqq111111111q22q22q22q33q33q33qqq444444q55q55q55'
-            facelets = customFacelets
+			// facelets = 'qqqqqqqqq111111111q22q22q22q33q33q33qqq444444q55q55q55'
+			facelets = customFacelets
 			break
 		case 'Solution':
-            setupmoves = manipulateString(alg)+"y'"
+			setupmoves = manipulateString(alg) + "y'"
 			break
 		case 'F2L':
 			facelets = 'qqqqqqqqq111111111q22q22q22q33q33q33qqq444444q55q55q55'
@@ -345,8 +344,8 @@ const CubeAnimation = ({
 	}, [restoreCubeTrigger])
 
 	return (
-		<View style={[commonStyles.flex1]}>
-			<Animated.View style={[commonStyles.flex1, animatedStyles]}>
+		<View style={{ flex: 1 }}>
+			<Animated.View style={[{ flex: 1 }, animatedStyles]}>
 				{isCubeLoading && (
 					<View style={styles.loadingOverlay}>
 						<ActivityIndicator size="large" />
@@ -394,7 +393,8 @@ const CubeAnimation = ({
 							rotateTheCube.lastCubeFacelets !== '' &&
 								restoreCubeTrigger !== undefined &&
 								cubeSize === rotateTheCube.savedCubeSize &&
-								!restoreCubeTrigger && category !== 'Solution' &&
+								!restoreCubeTrigger &&
+								category == 'RotateTheCube' &&
 								restoreCube()
 						}
 					}}
@@ -433,141 +433,151 @@ const CubeAnimation = ({
 				/>
 			</Animated.View>
 
-			{scramble === 0 && category !== 'CrossTraining' && category !== 'CubePreview' && (
-				<View style={styles.otherContainer}>
-					<View style={{ alignItems: 'center' }}>
-						<Text style={styles.algoText}>
-							{currentStep > 0 &&
-								algArray.slice(0, currentStep - 1).join(' ')}
-							<Text style={{ fontWeight: '700' }}>
-								{currentStep > 1 ? ' ' : ''}
-								{algArray[currentStep - 1]}
-								{currentStep > 0 ? ' ' : ''}
+			{scramble === 0 &&
+				category !== 'CrossTraining' &&
+				category !== 'CubePreview' && (
+					<View style={styles.otherContainer}>
+						<View style={{ alignItems: 'center' }}>
+							<Text style={styles.algoText}>
+								{currentStep > 0 &&
+									algArray
+										.slice(0, currentStep - 1)
+										.join(' ')}
+								<Text style={{ fontWeight: '700' }}>
+									{currentStep > 1 ? ' ' : ''}
+									{algArray[currentStep - 1]}
+									{currentStep > 0 ? ' ' : ''}
+								</Text>
+								{algArray.slice(currentStep).join(' ')}
 							</Text>
-							{algArray.slice(currentStep).join(' ')}
-						</Text>
-						<Text style={styles.algoText}>
-							{currentStep} / {len}
-						</Text>
-					</View>
+							<Text style={styles.algoText}>
+								{currentStep} / {len}
+							</Text>
+						</View>
 
-					<View style={styles.buttonContainer}>
-						<TouchableButtonTooltip
-							disabled={
-								currentStep === 0 ||
-								isPlaying ||
-								!allowControl ||
-								isCubeLoading
-							}
-							onPress={() => handleButtonClick(1)}
-							text={
-								<IconAwesome
-									size={24}
-									color={commonStyles.iconColor}
-									name="arrow-left"
-								/>
-							}
-							popover="Previous Move"
-						/>
-						<TouchableButtonTooltip
-							disabled={
-								currentStep === len ||
-								isPlaying ||
-								!allowControl ||
-								isCubeLoading
-							}
-							onPress={() => handleButtonClick(5)}
-							text={
-								<IconAwesome
-									size={24}
-									color={commonStyles.iconColor}
-									name="arrow-right"
-								/>
-							}
-							popover="Next Move"
-						/>
-						{!isPlaying && (
+						<View style={styles.buttonContainer}>
 							<TouchableButtonTooltip
-								disabled={currentStep === len || isCubeLoading}
-								onPress={() => handleButtonClick(4)}
+								disabled={
+									currentStep === 0 ||
+									isPlaying ||
+									!allowControl ||
+									isCubeLoading
+								}
+								onPress={() => handleButtonClick(1)}
 								text={
 									<IconAwesome
 										size={24}
 										color={commonStyles.iconColor}
-										name="play"
+										name="arrow-left"
 									/>
 								}
-								popover="Play"
+								popover="Previous Move"
 							/>
-						)}
-						{isPlaying && (
 							<TouchableButtonTooltip
-								onPress={() => handleButtonClick(3)}
+								disabled={
+									currentStep === len ||
+									isPlaying ||
+									!allowControl ||
+									isCubeLoading
+								}
+								onPress={() => handleButtonClick(5)}
 								text={
 									<IconAwesome
 										size={24}
 										color={commonStyles.iconColor}
-										name="pause"
+										name="arrow-right"
 									/>
 								}
-								popover="Pause Rotation"
+								popover="Next Move"
 							/>
-						)}
-
-						<TouchableButtonTooltip
-							disabled={
-								isPlaying || !allowControl || isCubeLoading
-							}
-							onPress={() => handleButtonClick(0)}
-							text={
-								<IconAwesome
-									size={24}
-									color={commonStyles.iconColor}
-									name="redo"
+							{!isPlaying && (
+								<TouchableButtonTooltip
+									disabled={
+										currentStep === len || isCubeLoading
+									}
+									onPress={() => handleButtonClick(4)}
+									text={
+										<IconAwesome
+											size={24}
+											color={commonStyles.iconColor}
+											name="play"
+										/>
+									}
+									popover="Play"
 								/>
-							}
-							popover="Reset Cube"
-						/>
-						{(category === 'F2L' || category === 'PLL') && (
+							)}
+							{isPlaying && (
+								<TouchableButtonTooltip
+									onPress={() => handleButtonClick(3)}
+									text={
+										<IconAwesome
+											size={24}
+											color={commonStyles.iconColor}
+											name="pause"
+										/>
+									}
+									popover="Pause Rotation"
+								/>
+							)}
+
 							<TouchableButtonTooltip
 								disabled={
 									isPlaying || !allowControl || isCubeLoading
 								}
-								onPress={() => handleRecolor()}
+								onPress={() => handleButtonClick(0)}
 								text={
-									<icons.Feather
+									<IconAwesome
 										size={24}
 										color={commonStyles.iconColor}
-										name="repeat"
+										name="redo"
 									/>
 								}
-								popover="Swap Colors"
+								popover="Reset Cube"
 							/>
+							{(category === 'F2L' || category === 'PLL') && (
+								<TouchableButtonTooltip
+									disabled={
+										isPlaying ||
+										!allowControl ||
+										isCubeLoading
+									}
+									onPress={() => handleRecolor()}
+									text={
+										<icons.Feather
+											size={24}
+											color={commonStyles.iconColor}
+											name="repeat"
+										/>
+									}
+									popover="Swap Colors"
+								/>
+							)}
+						</View>
+
+						{category !== 'Solution' && (
+							<TouchableOpacity
+								style={{
+									flex: 0,
+									position: 'absolute',
+									bottom: 55,
+									right: 10,
+									zIndex: 2,
+								}}
+								onPress={() => {
+									toggleFavorites(currentAlg)
+									setIsFavorite(!isFavorite)
+								}}
+							>
+								<IconAntDesign
+									size={30}
+									color="orange"
+									name={isFavorite ? 'star' : 'staro'}
+									style={{ padding: 5 }}
+								/>
+							</TouchableOpacity>
 						)}
 					</View>
-
-					{category !== "Solution" && <TouchableOpacity
-						style={{
-							flex: 0,
-							position: 'absolute',
-							bottom: 55,
-							right: 10,
-							zIndex: 2,
-						}}
-						onPress={() => {
-							toggleFavorites(currentAlg)
-							setIsFavorite(!isFavorite)
-						}}
-					>
-						<IconAntDesign
-							size={30}
-							color="orange"
-							name={isFavorite ? 'star' : 'staro'}
-							style={{ padding: 5 }}
-						/>
-					</TouchableOpacity>}
-				</View>
-			)}
+				)}
 		</View>
 	)
 }

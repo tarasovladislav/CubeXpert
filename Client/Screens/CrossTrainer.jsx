@@ -12,7 +12,6 @@ import TouchableButton from '../Components/TouchableButton'
 
 import getRandomSolve from 'rubiks-cross-trainer'
 import NewCubeAnimation from '../Components/NewCubeAnimation'
-import CubeSizePicker from '../Components/CubeSizePicker'
 import IconAwesome from 'react-native-vector-icons/FontAwesome5'
 import CrossDificulty from '../Components/CrossDificulty'
 
@@ -26,11 +25,6 @@ const CrossTrainer = () => {
 
 	const [visible, setVisible] = useState(false)
 	const toggleOverlay = () => setVisible(!visible)
-	const [isPlaying, setIsPlaying] = useState(false)
-	const [currentAlg, setCurrentAlg] = useState({
-		algo: ['U'],
-		category: 'CrossTraining',
-	})
 	const [difficultyVisible, setDifficultyVisible] = useState(false)
 	const toggleDifficulty = () => setDifficultyVisible(!difficultyVisible)
 
@@ -57,12 +51,8 @@ const CrossTrainer = () => {
 			<NewCubeAnimation
 				cubeSize={3}
 				key={animationKey}
-				isPlaying={isPlaying}
-				setIsPlaying={setIsPlaying}
-				category={currentAlg.category}
+				category={'CrossTraining'}
 				alg={scramble}
-				currentAlg={currentAlg}
-				scramble={0}
 				edit={1}
 				snap={1}
 				onSuccessfulSolve={() => {
@@ -91,7 +81,6 @@ const CrossTrainer = () => {
 
 			<TouchableOpacity
 				onPress={toggleOverlay}
-				disabled={isPlaying}
 				style={{
 					flex: 0,
 					position: 'absolute',

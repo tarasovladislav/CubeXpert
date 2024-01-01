@@ -62,64 +62,35 @@ const ProfileSettings = () => {
 		setSettings({ ...settings, ['speed']: selectedSpeed })
 	}, [selectedSpeed])
 
+	const settingsButton = (text, side) => {
+		return (
+			<TouchableButton
+				text={text}
+				onPress={() => openColorPicker(side)}
+				activeColor={settings[side]}
+				textColor={textColors[side]}
+			/>
+		)
+	}
+
 	return (
-		<View style={{backgroundColor:commonStyles.mainColor}}>
+		<View style={{ backgroundColor: commonStyles.mainColor }}>
 			<Text style={styles.title}>Change Colors</Text>
 			<View style={styles.buttonContainer}>
-				<TouchableButton
-					text="Up side"
-					onPress={() => openColorPicker('U')}
-					activeColor={settings['U']}
-					textColor={textColors['U']}
-				/>
-				<TouchableButton
-					text="Down side"
-					onPress={() => openColorPicker('D')}
-					activeColor={settings['D']}
-					textColor={textColors['D']}
-				/>
+				{settingsButton('Up side', 'U')}
+				{settingsButton('Down side', 'D')}
 			</View>
 			<View style={styles.buttonContainer}>
-				<TouchableButton
-					text="Left side"
-					onPress={() => openColorPicker('L')}
-					activeColor={settings['L']}
-					textColor={textColors['L']}
-				/>
-				<TouchableButton
-					text="Right side"
-					onPress={() => openColorPicker('R')}
-					activeColor={settings['R']}
-					textColor={textColors['R']}
-				/>
+				{settingsButton('Left side', 'L')}
+				{settingsButton('Right side', 'R')}
 			</View>
 			<View style={styles.buttonContainer}>
-				<TouchableButton
-					text="Front side"
-					onPress={() => openColorPicker('F')}
-					activeColor={settings['F']}
-					textColor={textColors['F']}
-				/>
-				<TouchableButton
-					text="Back side"
-					onPress={() => openColorPicker('B')}
-					activeColor={settings['B']}
-					textColor={textColors['B']}
-				/>
+				{settingsButton('Front side', 'F')}
+				{settingsButton('Back side', 'B')}
 			</View>
 			<View style={styles.buttonContainer}>
-				<TouchableButton
-					text="Ignored"
-					onPress={() => openColorPicker('ignored')}
-					activeColor={settings['ignored']}
-					textColor={textColors['ignored']}
-				/>
-				<TouchableButton
-					text="Cube"
-					onPress={() => openColorPicker('cube')}
-					activeColor={settings['cube']}
-					textColor={textColors['cube']}
-				/>
+				{settingsButton('Ignored', 'ignored')}
+				{settingsButton('Cube', 'cube')}
 			</View>
 			<View style={styles.buttonContainer}>
 				<TouchableButton
