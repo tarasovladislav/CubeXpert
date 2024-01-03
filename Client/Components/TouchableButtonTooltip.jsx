@@ -51,8 +51,6 @@ const getDynamicStyles = (activeColor, disabledColor, textColor) =>
 	StyleSheet.create({
 		controlBtn: {
 			flex: 1,
-			backgroundColor: activeColor,
-			borderRadius: 50,
 			margin: 5,
 			justifyContent: 'center',
 			borderRadius: 50,
