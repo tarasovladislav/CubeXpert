@@ -16,8 +16,6 @@ const RotateTheCube = ({route}) => {
 	const toggleOverlay = () => setVisible(!visible)
 
 
-	const [isPlaying, setIsPlaying] = useState(false)
-
 
 	const [currentAlg, setCurrentAlg] = useState()
 
@@ -52,8 +50,6 @@ const RotateTheCube = ({route}) => {
 					<NewCubeAnimation
 						cubeSize={3}
 						key={animationKey}
-						isPlaying={isPlaying}
-						setIsPlaying={setIsPlaying}
 						category={'Solution'}
 						alg={solution}
 						currentAlg={currentAlg}

@@ -30,8 +30,6 @@ import { useRotateTheCubeContext } from '../Contexts/RotateTheCubeContext'
 const CubeAnimation = ({
 	category,
 	alg,
-	isPlaying,
-	setIsPlaying,
 	currentAlg,
 	scramble = 0,
 	cubeSize = 3,
@@ -56,6 +54,7 @@ const CubeAnimation = ({
 	const { toggleFavorites, isInFavorites } = useFavoritesContext()
 	const { settings, webViewKey } = useSettingsContext()
 
+    const [isPlaying, setIsPlaying] = useState(false)
 	const [isCubeLoading, setIsCubeLoading] = useState(true)
 	const [isFavorite, setIsFavorite] = useState(
 		currentAlg && isInFavorites(currentAlg._id)
@@ -103,15 +102,11 @@ const CubeAnimation = ({
 	}
 
 	// When user changes his settings, the webview resets the cube since its the new request, we have to restore current algorithm step (Start from the beginning)
-	useEffect(() => {
-		setCurrentStep(0)
-	}, [settings])
-
 	// When user changes algorithm, we reset the cube state
 	useEffect(() => {
 		setCurrentStep(0)
 		setIsPlaying && setIsPlaying(false)
-	}, [alg])
+	}, [alg, settings])
 
 	// Starting an Settimeout to highlight the current step of the cube whenever user press Play button
 

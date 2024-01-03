@@ -22,8 +22,6 @@ import apiService from '../apiService'
 const AlgoPage = ({ route }) => {
 	const { _id } = route.params
 
-	const [isPlaying, setIsPlaying] = useState(false)
-
 	const [visible, setVisible] = useState(false)
 	const toggleOverlay = () => setVisible(!visible)
 
@@ -87,16 +85,12 @@ const AlgoPage = ({ route }) => {
 
 					{currentAlg.category === 'Beginners' ? (
 						<CubeAnimation
-							isPlaying={isPlaying}
-							setIsPlaying={setIsPlaying}
 							category={currentAlg.category}
 							alg={currentAlg.algo[whichAlg]}
 							currentAlg={currentAlg}
 						/>
 					) : (
 						<NewCubeAnimation
-							isPlaying={isPlaying}
-							setIsPlaying={setIsPlaying}
 							category={currentAlg.category}
 							alg={currentAlg.algo[whichAlg]}
 							currentAlg={currentAlg}
@@ -105,7 +99,6 @@ const AlgoPage = ({ route }) => {
 
 					<TouchableOpacity
 						onPress={toggleOverlay}
-						disabled={isPlaying}
 						style={{
 							flex: 0,
 							position: 'absolute',

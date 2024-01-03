@@ -447,8 +447,6 @@ const CubeConfigurator = ({ navigation }) => {
 		)
 	}
 
-	const [isPlaying, setIsPlaying] = useState(false)
-
 	const [currentAlg, setCurrentAlg] = useState({ algo: ['U'] })
 
 	const [animationKey, setAnimationKey] = useState(0)
@@ -468,8 +466,6 @@ const CubeConfigurator = ({ navigation }) => {
 				<NewCubeAnimation
 					cubeSize={3}
 					key={animationKey}
-					isPlaying={isPlaying}
-					setIsPlaying={setIsPlaying}
 					category={'CubePreview'}
 					alg={'U'}
 					currentAlg={currentAlg}
