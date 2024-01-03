@@ -1,52 +1,66 @@
 {
-  "name": "cubexpert",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
-  },
-  "dependencies": {
-    "@expo/ngrok": "^4.1.3",
-    "@expo/webpack-config": "^19.0.0",
-    "@react-native-async-storage/async-storage": "^1.19.5",
-    "@react-native-firebase/app": "^18.7.3",
-    "@react-native-picker/picker": "^2.6.1",
-    "@react-navigation/bottom-tabs": "^6.5.11",
-    "@react-navigation/native": "^6.1.9",
-    "@react-navigation/native-stack": "^6.9.17",
-    "@rneui/base": "^4.0.0-rc.7",
-    "@rneui/themed": "^4.0.0-rc.8",
-    "expo": "~49.0.15",
-    "expo-cli": "^6.3.10",
-    "expo-constants": "^14.4.2",
-    "expo-dev-client": "~2.4.12",
-    "expo-device": "^5.6.0",
-    "expo-linear-gradient": "~12.3.0",
-    "expo-notifications": "^0.23.0",
-    "expo-status-bar": "~1.6.0",
-    "expo-svg-uri": "^1.3.1",
-    "expo-updates": "~0.18.18",
-    "link": "^2.1.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "^0.72.7",
-    "react-native-elements": "^3.4.3",
-    "react-native-gesture-handler": "~2.12.0",
-    "react-native-reanimated": "~3.3.0",
-    "react-native-safe-area-context": "4.6.3",
-    "react-native-screens": "~3.22.0",
-    "react-native-vector-icons": "^10.0.1",
-    "react-native-web": "^0.19.9",
-    "react-native-webview": "^13.6.2",
-    "reanimated-color-picker": "^2.4.1",
-    "rubiks-cross-trainer": "^1.0.6"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "prettier": "3.1.0"
-  },
-  "private": true
+    "name": "cubexpert",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+        "start": "expo start",
+        "android": "expo start --android",
+        "ios": "expo start --ios",
+        "web": "expo start --web"
+    },
+    "jest": {
+        "preset": "jest-expo",
+        "transform": {
+            "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
+        },
+        "transformIgnorePatterns": [
+            "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|@rneui)"
+          ],
+          "setupFiles": ["<rootDir>/Tests/jestSetup.js"]
+
+    },
+    "dependencies": {
+        "@expo/ngrok": "^4.1.3",
+        "@expo/webpack-config": "^19.0.0",
+        "@react-native-async-storage/async-storage": "^1.19.5",
+        "@react-native-firebase/app": "^18.7.3",
+        "@react-native-picker/picker": "^2.6.1",
+        "@react-navigation/bottom-tabs": "^6.5.11",
+        "@react-navigation/native": "^6.1.9",
+        "@react-navigation/native-stack": "^6.9.17",
+        "@rneui/base": "^4.0.0-rc.7",
+        "@rneui/themed": "^4.0.0-rc.8",
+        "expo": "~49.0.15",
+        "expo-cli": "^6.3.10",
+        "expo-constants": "^14.4.2",
+        "expo-dev-client": "~2.4.12",
+        "expo-device": "^5.6.0",
+        "expo-linear-gradient": "~12.3.0",
+        "expo-notifications": "^0.23.0",
+        "expo-status-bar": "~1.6.0",
+        "expo-svg-uri": "^1.3.1",
+        "expo-updates": "~0.18.18",
+        "link": "^2.1.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-native": "^0.72.7",
+        "react-native-elements": "^3.4.3",
+        "react-native-gesture-handler": "~2.12.0",
+        "react-native-reanimated": "~3.3.0",
+        "react-native-safe-area-context": "4.6.3",
+        "react-native-screens": "~3.22.0",
+        "react-native-vector-icons": "^10.0.1",
+        "react-native-web": "^0.19.9",
+        "react-native-webview": "^13.6.2",
+        "reanimated-color-picker": "^2.4.1",
+        "rubiks-cross-trainer": "^1.0.6"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.20.0",
+        "@testing-library/react-native": "^12.4.3",
+        "jest": "^29.7.0",
+        "prettier": "3.1.0",
+        "react-test-renderer": "^18.2.0"
+    },
+    "private": true
 }
