@@ -16,7 +16,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tarasovladislav.CubeXpert"
+      "bundleIdentifier": "com.tarasovladislav.CubeXpert",
+      "buildNumber": "1"
     },
     "android": {
         "googleServicesFile": "./google-services.json",
