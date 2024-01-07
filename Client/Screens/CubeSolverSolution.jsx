@@ -59,7 +59,6 @@ const RotateTheCube = ({route}) => {
 					/>
 					<TouchableOpacity
 						onPress={toggleOverlay}
-						disabled={isPlaying}
 						style={{
 							flex: 0,
 							position: 'absolute',

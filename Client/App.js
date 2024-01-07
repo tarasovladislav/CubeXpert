@@ -51,17 +51,17 @@ export default function App() {
 
 		const checkExpoPushToken = async () => {
 			try {
-				// const expoPushToken =
-				// 	await AsyncStorage.getItem('expoPushToken')
-				// if (!expoPushToken) {
-				const token = await registerForPushNotificationsAsync()
-				if (token) {
-					console.log('token', token)
-					await apiService.registerForPushNotifications(token)
-					token &&
-						(await AsyncStorage.setItem('expoPushToken', token))
+				const expoPushToken =
+					await AsyncStorage.getItem('expoPushToken')
+				if (!expoPushToken) {
+					const token = await registerForPushNotificationsAsync()
+					if (token) {
+						console.log('token', token)
+						await apiService.registerForPushNotifications(token)
+						token &&
+							(await AsyncStorage.setItem('expoPushToken', token))
+					}
 				}
-				// }
 			} catch (error) {
 				console.error('Error checking Expo Push Token:', error)
 			}

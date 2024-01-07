@@ -1,22 +1,28 @@
 {
-  "cli": {
-    "version": ">= 5.9.0"
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "channel": "development"
+    "cli": {
+        "version": ">= 5.9.0"
     },
-    "preview": {
-      "distribution": "internal",
-      "channel": "preview"
+    "build": {
+        "development": {
+            "developmentClient": true,
+            "distribution": "internal",
+            "channel": "development"
+        },
+        "preview": {
+            "distribution": "internal",
+            "channel": "preview"
+        },
+        "production": {
+            "channel": "production"
+        }
     },
-    "production": {
-      "channel": "production"
+    "submit": {
+        "production": {
+            "ios": {
+                "appleId": "tarasovladislav@gmail.com",
+                "ascAppId": "6475606189",
+                "appleTeamId": "YUBDTZ5726"
+            }
+        }
     }
-  },
-  "submit": {
-    "production": {}
-  }
 }
